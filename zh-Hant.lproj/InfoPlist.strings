@@ -1,0 +1,10 @@
+﻿/* 
+   InfoPlist.strings
+   TWWeather
+
+   Created by zonble on 2009/1/17.
+   Copyright 2009 zonble.twbbs.org. All rights reserved.
+ */
+
+CFBundleName = "台灣天氣";
+CFBundleDisplayName = "台灣天氣";
