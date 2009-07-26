@@ -109,13 +109,13 @@ class WeatherForecast(object):
 				isHandlingDescription = False
 		self.items = items
 		return items
-	def items(self):
-		return self.items
 
 WeatherOverViewURL = "http://www.cwb.gov.tw/mobile/real.wml"
 
 class WeatherOverview(object):
 	def __init__(self):
+		self.html = ""
+		self.plain = ""
 		pass
 	def fetch(self):
 		url = urllib.urlopen(WeatherOverViewURL)
@@ -128,12 +128,8 @@ class WeatherOverview(object):
 				plain = re.sub("</p>", "\n", plain)
 				self.html = html
 				self.plain = plain
+				return
 			count += 1
-		pass
-	def html(self):
-		return self.html
-	def plain(self):
-		return self.plain
 
 def main():
 	pass

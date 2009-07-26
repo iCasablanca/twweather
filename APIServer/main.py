@@ -54,6 +54,23 @@ class ForecastController(webapp.RequestHandler):
 		self.response.headers['Content-Type'] = 'text/plist; charset=utf-8'
 		self.response.out.write(output)
 
+overview = weather.WeatherOverview()
+
+class OverviewController(webapp.RequestHandler):
+	def get(self):
+		overview.fetch()
+		outputtype = self.request.get("output")
+		if outputtype == "plain":
+			text = overview.plain
+			self.response.headers['Content-Type'] = 'text/plain; charset=utf-8'
+			self.response.out.write(text)
+			return
+
+		html = overview.html
+		self.response.headers['Content-Type'] = 'text/html; charset=utf-8'
+		self.response.out.write(html)
+		
+
 
 class MainHandler(webapp.RequestHandler):
 	def get(self):
@@ -64,6 +81,7 @@ def main():
 	application = webapp.WSGIApplication(
 		[
 			('/', MainHandler),
+			('/overview', OverviewController),
 			('/forecast', ForecastController)
 			],
  			debug=True)
