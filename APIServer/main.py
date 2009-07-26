@@ -1,26 +1,15 @@
 #!/usr/bin/env python
-#
-# Copyright 2007 Google Inc.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#		 http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
+# encoding: utf-8
 
+import os
 import wsgiref.handlers
 import weather
 import plistlib
 import json
 
 from google.appengine.ext import webapp
+from google.appengine.api import memcache
+from google.appengine.ext.webapp import template
 
 forecast = weather.WeatherForecast()
 
@@ -32,13 +21,20 @@ class ForecastController(webapp.RequestHandler):
 			locations = forecast.locations()
 			for location in locations:
 				self.response.out.write("<li>")
-				self.response.out.write("<a href=?location=" + str(location['id']) + ">")
-				self.response.out.write(location['location'])
-				self.response.out.write("</a></li>")
+				self.response.out.write(location['location'] + " ")
+				self.response.out.write(" <a href='?location=" + str(location['id']) + "'>Plist</a> ")
+				self.response.out.write("|")
+				self.response.out.write(" <a href='?location=" + str(location['id']) + "&output=json'>JSON</a> ")
+				self.response.out.write("</li>")
 			return
-		items = forecast.fetchWithID(location)
+			
+		key = "forecast_" + str(location)
+		items = memcache.get(key)
+		if items == None:
+			items = forecast.fetchWithID(location)
 		if len(items) == 0:
 			return
+		memcache.add(key, items, 30)
 		locationName = forecast.locationNameWithID(location)
 
 		outputtype = self.request.get("output")
@@ -61,20 +57,30 @@ class OverviewController(webapp.RequestHandler):
 		overview.fetch()
 		outputtype = self.request.get("output")
 		if outputtype == "plain":
-			text = overview.plain
+			text = memcache.get("overview_plain")
+			if text == None:
+				text = overview.plain
+			memcache.add("overview_plain", text, 30)
+			
 			self.response.headers['Content-Type'] = 'text/plain; charset=utf-8'
 			self.response.out.write(text)
 			return
-
-		html = overview.html
+		html = memcache.get("overview_html")
+		if html == None:
+			html = overview.html
+		memcache.add("overview_html", html, 30)
 		self.response.headers['Content-Type'] = 'text/html; charset=utf-8'
 		self.response.out.write(html)
-		
-
 
 class MainHandler(webapp.RequestHandler):
 	def get(self):
-		self.response.out.write('Hello world!')
+
+		template_values = {
+			# 'url': url,
+			# 'url_linktext': url_linktext,
+		}
+		path = os.path.join(os.path.dirname(__file__), 'html', 'main.html')
+		self.response.out.write(template.render(path, template_values))
 
 
 def main():
