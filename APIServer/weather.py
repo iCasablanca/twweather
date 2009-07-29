@@ -11,6 +11,7 @@ import os
 import urllib
 import re
 import unittest
+from datetime import *
 
 WeatherOverViewURL = "http://www.cwb.gov.tw/mobile/real.wml"
 WeatherForecastURL = "http://www.cwb.gov.tw/mobile/forecast/city_%(#)02d.wml"
@@ -176,7 +177,13 @@ class WeatherWeek(object):
 			if line.startswith("<p>發布時間"):
 				isHandlingPublishTime = True
 			elif isHandlingPublishTime is True:
-				publishTime = line
+				xyear = int(line[0:4])
+				xmonth = int(line[5:7])
+				xday = int(line[8:10])
+				xhour = int(line[11:13])
+				xmin = int(line[14:16])
+				xdatetime = datetime(xyear, xmonth, xday, xhour, xmin)
+				publishTime = xdatetime.__str__()
 				isHandlingPublishTime = False
 			elif line.startswith("溫度(℃)"):
 				isHandlingItems = True
@@ -190,7 +197,12 @@ class WeatherWeek(object):
 				if line.startswith("<p>"):
 					line = line[3:-7]
 					parts = line.split("　")
-					time = parts[0].decode("utf-8")
+					timeString = parts[0].decode("utf-8")
+					timeParts = timeString.split("/")
+					month = int(timeParts[0])
+					day = int(timeParts[1])
+					year = int(date.today().year)
+					time = date(year, month, day).__str__()
 					description = parts[1].decode("utf-8")
 					isHandlingTemprature = True
 		self.items = items
