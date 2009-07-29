@@ -103,24 +103,38 @@ class WeatherForecast(object):
 		temperature = ""
 		description = ""
 		time = ""
+		beginTime = ""
+		endTime = ""
 		
 		isHandlingTime = False
 		isHandlingDescription = False
 		
 		for line in lines:
 			if line.startswith("今") or line.startswith("明"):
-				title = line.decode("utf-8")
+				title = line[:-7].decode("utf-8")
 				isHandlingTime = True
 			elif line.startswith("降雨機率："):
 				line = line[15:-7]
 				rain = line
-				item = {"title":title, "time":time, "description":description, "temperature":temperature, "rain":rain}
+				item = {"title":title, "time":time, "beginTime":beginTime, "endTime":endTime, "description":description, "temperature":temperature, "rain":rain}
 				items.append(item)
 			elif line.startswith("溫度(℃)："):
 				line = line[14: -7]
 				temperature = line
 			elif isHandlingTime is True:
-				time = line[0:-7]
+				time = line
+				today = date.today()
+				month = int(today.month)
+				year = int(today.year)
+				if month == 12 and int(line[0:2]) == 1:
+					year = year + 1
+				begin = datetime(year, int(line[0:2]), int(line[3:5]), int(line[6:8]), int(line[9:11]))
+				beginTime = begin.__str__()
+				end = datetime(year, int(line[12:14]), int(line[15:17]), int(line[18:20]), int(line[21:23]))
+				endTime = end.__str__()
+				time = beginTime + "/" + endTime
+				# print beginTime
+				
 				isHandlingTime = False
 				isHandlingDescription = True
 			elif isHandlingDescription is True:
@@ -177,12 +191,7 @@ class WeatherWeek(object):
 			if line.startswith("<p>發布時間"):
 				isHandlingPublishTime = True
 			elif isHandlingPublishTime is True:
-				xyear = int(line[0:4])
-				xmonth = int(line[5:7])
-				xday = int(line[8:10])
-				xhour = int(line[11:13])
-				xmin = int(line[14:16])
-				xdatetime = datetime(xyear, xmonth, xday, xhour, xmin)
+				xdatetime = datetime(int(line[0:4]), int(line[5:7]), int(line[8:10]), int(line[11:13]), int(line[14:16]))
 				publishTime = xdatetime.__str__()
 				isHandlingPublishTime = False
 			elif line.startswith("溫度(℃)"):
@@ -202,6 +211,8 @@ class WeatherWeek(object):
 					month = int(timeParts[0])
 					day = int(timeParts[1])
 					year = int(date.today().year)
+					if date.today().month == 12 and month == 1:
+						year = year + 1
 					time = date(year, month, day).__str__()
 					description = parts[1].decode("utf-8")
 					isHandlingTemprature = True
@@ -216,7 +227,6 @@ class TestWeatherWeek(unittest.TestCase):
 		for item in WeatherWeekLocations:
 			locationName = item['id']
 			items = self.week.fetchWithLocationName(locationName)
-			# print items
 			self.assertTrue(items)
 			self.assertTrue(items["publishTime"])
 			self.assertTrue(items["items"])
