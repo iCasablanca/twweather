@@ -138,21 +138,23 @@ class TestWeatherForecast(unittest.TestCase):
 			self.assertEqual(int(len(items)), 3)
 
 WeatherWeekLocations = [
-	{"location": u"台北市", "id": u"Taipei"},
-	{"location": u"北部",  "id": u"North"},
-	{"location": u"中部",  "id": u"Center"},
-	{"location": u"南部",  "id": u"South"},
-	{"location": u"東北部", "id": u"North-East"},
-	{"location": u"東部",  "id": u"East"},
-	{"location": u"東南部", "id": u"South-East"},
-	{"location": u"澎湖",  "id": u"Penghu"},
-	{"location": u"金門",  "id": u"Kinmen"},
-	{"location": u"馬祖",  "id": u"Matsu"},
+	{"location": u"台北市", "id": "Taipei"},
+	{"location": u"北部",  "id": "North"},
+	{"location": u"中部",  "id": "Center"},
+	{"location": u"南部",  "id": "South"},
+	{"location": u"東北部", "id": "North-East"},
+	{"location": u"東部",  "id": "East"},
+	{"location": u"東南部", "id": "South-East"},
+	{"location": u"澎湖",  "id": "Penghu"},
+	{"location": u"金門",  "id": "Kinmen"},
+	{"location": u"馬祖",  "id": "Matsu"},
 	]
 
 class WeatherWeek(object):
 	def __init__(self):
 		pass
+	def locations(self):
+		return WeatherWeekLocations
 	def fetchWithLocationName(self, name):
 		URLString = WeatherWeekURL % {"location": name}
 		url = urllib.urlopen(URLString)
