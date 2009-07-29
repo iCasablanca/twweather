@@ -113,13 +113,14 @@ class ForecastController(webapp.RequestHandler):
 class WeekController(webapp.RequestHandler):
 	def __init__(self):
 		self.week = weather.WeatherWeek()
+		self.key_prefix = "week_"
 	def get(self):
 		location = self.request.get("location")
 		outputtype = self.request.get("output")
 		locations = self.week.locations()
 		
 		if location == "all":
-			key = "week_all"
+			key = self.key_prefix + "all"
 			allItems = memcache.get(key)
 			if allItems is None:
 				allItems = []
@@ -156,7 +157,7 @@ class WeekController(webapp.RequestHandler):
 				break
 		if hasLocation is False:
 			return
-		key = "week_" + str(location)
+		key = self.key_prefix + str(location)
 		result = memcache.get(key)
 		if result is None:
 			result = self.week.fetchWithLocationName(location)
@@ -175,6 +176,10 @@ class WeekController(webapp.RequestHandler):
 			self.response.headers['Content-Type'] = 'text/plist; charset=utf-8'
 			self.response.out.write(output)
 
+class WeekTravelController(WeekController):
+	def __init__(self):
+		self.week = weather.WeatherWeekTravel()
+		self.key_prefix = "weekTravel_"
 
 class MainHandler(webapp.RequestHandler):
 	def get(self):
@@ -193,7 +198,8 @@ def main():
 			('/', MainHandler),
 			('/overview', OverviewController),
 			('/forecast', ForecastController),
-			('/week', WeekController)
+			('/week', WeekController),
+			('/week_travel', WeekTravelController)
 			],
  			debug=True)
 	wsgiref.handlers.CGIHandler().run(application)

@@ -16,6 +16,7 @@ from datetime import *
 WeatherOverViewURL = "http://www.cwb.gov.tw/mobile/real.wml"
 WeatherForecastURL = "http://www.cwb.gov.tw/mobile/forecast/city_%(#)02d.wml"
 WeatherWeekURL = "http://www.cwb.gov.tw/mobile/week/%(location)s.wml"
+WeatherTravelURL = "http://www.cwb.gov.tw/mobile/week_travel/%(location)s.wml"
 
 class WeatherOverview(object):
 	def __init__(self):
@@ -133,7 +134,6 @@ class WeatherForecast(object):
 				end = datetime(year, int(line[12:14]), int(line[15:17]), int(line[18:20]), int(line[21:23]))
 				endTime = end.__str__()
 				time = beginTime + "/" + endTime
-				# print beginTime
 				
 				isHandlingTime = False
 				isHandlingDescription = True
@@ -170,8 +170,7 @@ class WeatherWeek(object):
 		pass
 	def locations(self):
 		return WeatherWeekLocations
-	def fetchWithLocationName(self, name):
-		URLString = WeatherWeekURL % {"location": name}
+	def handleLines(self, URLString):
 		url = urllib.urlopen(URLString)
 		lines = url.readlines()
 		publishTime = ""
@@ -186,21 +185,22 @@ class WeatherWeek(object):
 		time = ""
 		
 		for line in lines:
-			if isHandlingItems is True and len(line) is 1:
+			if isHandlingItems is True and len(line) is 1 and len(items) > 0:
 				break
-			if line.startswith("<p>發布時間"):
+			# if line.startswith("<p>發布時間"):
+			if line.find("發布時間") > -1:
 				isHandlingPublishTime = True
 			elif isHandlingPublishTime is True:
 				xdatetime = datetime(int(line[0:4]), int(line[5:7]), int(line[8:10]), int(line[11:13]), int(line[14:16]))
 				publishTime = xdatetime.__str__()
 				isHandlingPublishTime = False
-			elif line.startswith("溫度(℃)"):
+			elif line.startswith("溫度"):
 				isHandlingItems = True
 				isHandlingTime = True
 			elif isHandlingTemprature is True:
 				temperature = line[:-5].decode("utf-8")
 				isHandlingTemprature = False
-				item = {"time": time, "description": description, "temperature": temperature}
+				item = {"date": time, "description": description, "temperature": temperature}
 				items.append(item)
 			elif isHandlingTime is True:
 				if line.startswith("<p>"):
@@ -219,18 +219,52 @@ class WeatherWeek(object):
 		self.items = items
 		result = {"publishTime": publishTime, "items": items}
 		return result
+	def fetchWithLocationName(self, name):
+		URLString = WeatherWeekURL % {"location": name}
+		return self.handleLines(URLString)
+
 
 class TestWeatherWeek(unittest.TestCase):
 	def setUp(self):
 		self.week = WeatherWeek()
 	def testForetest(self):
-		for item in WeatherWeekLocations:
+		for item in self.week.locations():
 			locationName = item['id']
 			items = self.week.fetchWithLocationName(locationName)
 			self.assertTrue(items)
 			self.assertTrue(items["publishTime"])
 			self.assertTrue(items["items"])
 			self.assertEqual(len(items["items"]), 7)
+
+WeatherWeekTravelLocations = [
+	{"location": u"陽明山", "id": "Yang-ming-shan"},
+	{"location": u"拉拉山", "id": "Lalashan"},
+	{"location": u"梨山", "id": "Lishan"},
+	{"location": u"合歡山", "id": "Hohuan-shan"},
+	{"location": u"日月潭", "id": "Sun-Moon-Lake"},
+	{"location": u"溪頭", "id": "Hsitou"},
+	{"location": u"阿里山", "id": "Alishan"},
+	{"location": u"玉山", "id": "Yushan"},
+	{"location": u"墾丁", "id": "Kenting"},
+	{"location": u"龍洞", "id": "Lung-tung"},
+	{"location": u"太魯閣", "id": "Taroko"},
+	{"location": u"三仙台", "id": "San-shiantai"},
+	{"location": u"綠島", "id": "Lu-Tao"},
+	{"location": u"蘭嶼", "id": "Lanyu"}
+	]
+
+class WeatherWeekTravel(WeatherWeek):
+	def __init__(self):
+		pass
+	def locations(self):
+		return WeatherWeekTravelLocations
+	def fetchWithLocationName(self, name):
+		URLString = WeatherTravelURL % {"location": name}
+		return self.handleLines(URLString)
+
+class TestWeatherWeekTravel(TestWeatherWeek):
+	def setUp(self):
+		self.week = WeatherWeekTravel()
 
 def main():
 	unittest.main()
