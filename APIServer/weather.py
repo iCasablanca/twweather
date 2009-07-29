@@ -14,6 +14,7 @@ import unittest
 
 WeatherOverViewURL = "http://www.cwb.gov.tw/mobile/real.wml"
 WeatherForecastURL = "http://www.cwb.gov.tw/mobile/forecast/city_%(#)02d.wml"
+WeatherWeekURL = "http://www.cwb.gov.tw/mobile/week/%(location)s.wml"
 
 class WeatherOverview(object):
 	def __init__(self):
@@ -117,11 +118,11 @@ class WeatherForecast(object):
 			elif line.startswith("溫度(℃)："):
 				line = line[14: -7]
 				temperature = line
-			elif isHandlingTime == True:
+			elif isHandlingTime is True:
 				time = line[0:-7]
 				isHandlingTime = False
 				isHandlingDescription = True
-			elif isHandlingDescription == True:
+			elif isHandlingDescription is True:
 				description = line[0:-7]
 				description = description.decode("utf-8")
 				isHandlingDescription = False
@@ -135,6 +136,77 @@ class TestWeatherForecast(unittest.TestCase):
 		for i in range(1, 23):
 			items = self.forecest.fetchWithID(i)
 			self.assertEqual(int(len(items)), 3)
+
+WeatherWeekLocations = [
+	{"location": u"台北市", "id": u"Taipei"},
+	{"location": u"北部",  "id": u"North"},
+	{"location": u"中部",  "id": u"Center"},
+	{"location": u"南部",  "id": u"South"},
+	{"location": u"東北部", "id": u"North-East"},
+	{"location": u"東部",  "id": u"East"},
+	{"location": u"東南部", "id": u"South-East"},
+	{"location": u"澎湖",  "id": u"Penghu"},
+	{"location": u"金門",  "id": u"Kinmen"},
+	{"location": u"馬祖",  "id": u"Matsu"},
+	]
+
+class WeatherWeek(object):
+	def __init__(self):
+		pass
+	def fetchWithLocationName(self, name):
+		URLString = WeatherWeekURL % {"location": name}
+		url = urllib.urlopen(URLString)
+		lines = url.readlines()
+		publishTime = ""
+		items = []
+		
+		isHandlingPublishTime = False
+		isHandlingTime = False
+		isHandlingTemprature = False
+		isHandlingItems = False
+		temperature = ""
+		description = ""
+		time = ""
+		
+		for line in lines:
+			if isHandlingItems is True and len(line) is 1:
+				break
+			if line.startswith("<p>發布時間"):
+				isHandlingPublishTime = True
+			elif isHandlingPublishTime is True:
+				publishTime = line
+				isHandlingPublishTime = False
+			elif line.startswith("溫度(℃)"):
+				isHandlingItems = True
+				isHandlingTime = True
+			elif isHandlingTemprature is True:
+				temperature = line[:-5].decode("utf-8")
+				isHandlingTemprature = False
+				item = {"time": time, "description": description, "temperature": temperature}
+				items.append(item)
+			elif isHandlingTime is True:
+				if line.startswith("<p>"):
+					line = line[3:-7]
+					parts = line.split("　")
+					time = parts[0].decode("utf-8")
+					description = parts[1].decode("utf-8")
+					isHandlingTemprature = True
+		self.items = items
+		result = {"publishTime": publishTime, "items": items}
+		return result
+
+class TestWeatherWeek(unittest.TestCase):
+	def setUp(self):
+		self.week = WeatherWeek()
+	def testForetest(self):
+		for item in WeatherWeekLocations:
+			locationName = item['id']
+			items = self.week.fetchWithLocationName(locationName)
+			# print items
+			self.assertTrue(items)
+			self.assertTrue(items["publishTime"])
+			self.assertTrue(items["items"])
+			self.assertEqual(len(items["items"]), 7)
 
 def main():
 	unittest.main()
