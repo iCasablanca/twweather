@@ -114,7 +114,7 @@ class WeatherForecast(object):
 				title = line[:-7].decode("utf-8")
 				isHandlingTime = True
 			elif line.startswith("降雨機率："):
-				line = line[15:-7]
+				line = line[15:-3]
 				rain = line
 				item = {"title":title, "time":time, "beginTime":beginTime, "endTime":endTime, "description":description, "temperature":temperature, "rain":rain}
 				items.append(item)
