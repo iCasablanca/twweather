@@ -10,6 +10,37 @@ import sys
 import os
 import urllib
 import re
+import unittest
+
+WeatherOverViewURL = "http://www.cwb.gov.tw/mobile/real.wml"
+
+class WeatherOverview(object):
+	def __init__(self):
+		self.html = ""
+		self.plain = ""
+		pass
+	def fetch(self):
+		url = urllib.urlopen(WeatherOverViewURL)
+		lines = url.readlines()
+		count = 0
+		for line in lines:
+			if count == 11:
+				html = re.sub("　　", "</p>\n<p>", line) + "</p>"
+				plain = re.sub("<p>", "", html)
+				plain = re.sub("</p>", "\n", plain)
+				self.html = html
+				self.plain = plain
+				return
+			count += 1
+
+class TestWeatherOverview(unittest.TestCase):
+	def setUp(self):
+		self.overview = WeatherOverview()
+	def testOverview(self):
+		self.overview.fetch()
+		print str(len(self.overview.html))
+		self.assertNotEqual(len(self.overview.html), 0)
+		self.assertNotEqual(len(self.overview.plain), 0)
 
 WeatherForecastLocations = [
 	{"location": u"台北市", "id": 1},
@@ -64,7 +95,6 @@ class WeatherForecast(object):
 			id = "0" + id
 		urlString = "http://www.cwb.gov.tw/mobile/forecast/city_" + id + ".wml"
 		url = urllib.urlopen(urlString)
-		# print url.read()
 
 		lines = url.readlines()
 		items = []
@@ -110,28 +140,16 @@ class WeatherForecast(object):
 		self.items = items
 		return items
 
-WeatherOverViewURL = "http://www.cwb.gov.tw/mobile/real.wml"
-
-class WeatherOverview(object):
-	def __init__(self):
-		self.html = ""
-		self.plain = ""
-		pass
-	def fetch(self):
-		url = urllib.urlopen(WeatherOverViewURL)
-		lines = url.readlines()
-		count = 0
-		for line in lines:
-			if count == 11:
-				html = re.sub("　　", "</p>\n<p>", line) + "</p>"
-				plain = re.sub("<p>", "", html)
-				plain = re.sub("</p>", "\n", plain)
-				self.html = html
-				self.plain = plain
-				return
-			count += 1
+class TestWeatherForecast(unittest.TestCase):
+	def setUp(self):
+		self.forecest = WeatherForecast()
+	def testForetest(self):
+		for i in range(1, 23):
+			items = self.forecest.fetchWithID(i)
+			self.assertEqual(int(len(items)), 3)
 
 def main():
+	unittest.main()
 	pass
 
 
