@@ -13,6 +13,7 @@ import re
 import unittest
 
 WeatherOverViewURL = "http://www.cwb.gov.tw/mobile/real.wml"
+WeatherForecastURL = "http://www.cwb.gov.tw/mobile/forecast/city_%(#)02d.wml"
 
 class WeatherOverview(object):
 	def __init__(self):
@@ -38,7 +39,6 @@ class TestWeatherOverview(unittest.TestCase):
 		self.overview = WeatherOverview()
 	def testOverview(self):
 		self.overview.fetch()
-		print str(len(self.overview.html))
 		self.assertNotEqual(len(self.overview.html), 0)
 		self.assertNotEqual(len(self.overview.plain), 0)
 
@@ -90,11 +90,8 @@ class WeatherForecast(object):
 		except:
 			return []
 
-		id = str(id)
-		if len(id) < 2:
-			id = "0" + id
-		urlString = "http://www.cwb.gov.tw/mobile/forecast/city_" + id + ".wml"
-		url = urllib.urlopen(urlString)
+		URLString = WeatherForecastURL % {"#": int(id)}
+		url = urllib.urlopen(URLString)
 
 		lines = url.readlines()
 		items = []
@@ -109,17 +106,8 @@ class WeatherForecast(object):
 		isHandlingDescription = False
 		
 		for line in lines:
-			if line.startswith("今日白天"):
-				title = u"今日白天"
-				isHandlingTime = True
-			elif line.startswith("今晚至明晨"):
-				title = u"今晚至明晨"
-				isHandlingTime = True
-			elif line.startswith("明日白天"):
-				title = u"明日白天"
-				isHandlingTime = True
-			elif line.startswith("明晚後天"):
-				title = u"明晚後天"
+			if line.startswith("今") or line.startswith("明"):
+				title = line.decode("utf-8")
 				isHandlingTime = True
 			elif line.startswith("降雨機率："):
 				line = line[15:-7]
