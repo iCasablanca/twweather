@@ -7,18 +7,19 @@
 //
 
 #import "RootViewController.h"
-
+#import "TWAPIBox.h"
 
 @implementation RootViewController
 
-/*
-- (void)viewDidLoad {
+
+- (void)viewDidLoad 
+{
     [super viewDidLoad];
+	[[TWAPIBox sharedBox] fetchOverviewWithFormat:TWOverviewHTMLFormat delegate:self userInfo:nil];
 
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
-*/
 
 /*
 - (void)viewWillAppear:(BOOL)animated {
