@@ -154,7 +154,7 @@
 		* 15 金門海面
 		* 16 馬祖海面
 
-三天潮汐資料
+### 三天潮汐資料
 
 位置：/tide
 
@@ -190,6 +190,18 @@
 		* 25 馬祖
 		* 26 金門
 
+## 氣象雲圖
+
+位置 /image
+
+* 參數：
+	* id 代號
+		* rain 雨量累積圖
+		* radar 雷達示波圖
+		* color_taiwan 台灣彩色天氣雲圖
+		* color_asia 亞洲彩色天氣雲圖
+		* hilight_taiwan 台灣色彩強化天氣雲圖
+		* hilight_asia 亞洲色彩強化天氣雲圖 
 
 [1]: http://en.wikipedia.org/wiki/Property_list
 [2]: http://www.json.org/ "JSON"
