@@ -1,0 +1,3 @@
+[submodule "ClientAPIBOX/ObjectiveC/External/LFWebAPIKit"]
+	path = ClientAPIBOX/ObjectiveC/External/LFWebAPIKit
+	url = git://github.com/lukhnos/LFWebAPIKit.git
