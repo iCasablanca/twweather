@@ -11,6 +11,7 @@ import os
 import urllib
 import re
 import unittest
+import urllib
 from datetime import *
 
 WeatherOverViewURL = "http://www.cwb.gov.tw/mobile/real.wml"
@@ -578,6 +579,15 @@ class TestWeatherTide(unittest.TestCase):
 				self.assertTrue(item['lunarTime'])
 				self.assertTrue(item['high'])
 				self.assertTrue(item['low'])
+
+WeatherImageURL = [
+	{"id": "rain", "URL":"http://www.cwb.gov.tw/V6/observe/rainfall/Data/hk.jpg"},
+	{"id": "radar", "URL":"http://www.cwb.gov.tw/V6/observe/radar/Data/MOS2_1024/MOS2.jpg"},
+	{"id": "color_taiwan", "URL":"http://www.cwb.gov.tw/V6/observe/satellite/Data/s3p/s3p.jpg"},
+	{"id": "color_asia", "URL":"http://www.cwb.gov.tw/V6/observe/satellite/Data/s1p/s1p.jpg"},
+	{"id": "hilight_taiwan", "URL":"http://www.cwb.gov.tw//V6/observe/satellite/Data/s3q/s3q.jpg"},
+	{"id": "hilight_asia", "URL":"http://www.cwb.gov.tw/V6/observe/satellite/Data/s1q/s1q.jpg"},
+]
 
 def main():
 	unittest.main()

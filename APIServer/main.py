@@ -6,6 +6,7 @@ import wsgiref.handlers
 import weather
 import plistlib
 import json
+import urllib
 
 from google.appengine.ext import webapp
 from google.appengine.api import memcache
@@ -89,7 +90,7 @@ class ForecastController(webapp.RequestHandler):
 			else:
 				pl = dict(locations=items)
 				output = plistlib.writePlistToString(pl)
-				self.response.headers['Content-Type'] = 'text/plist; charset=utf-8'
+				self.response.headers['Content-Type'] = 'text/xml; charset=utf-8'
 				self.response.out.write(output)
 			return
 			
@@ -138,6 +139,40 @@ class TideController(ForecastController):
 		self.model = weather.WeatherTide()
 		self.key_prefix = "tide_"
 
+class ImageHandler(webapp.RequestHandler):
+	def __init__(self):
+		self.imageURL = weather.WeatherImageURL
+		self.key_prefix = "image_"
+	def get(self):
+		imageID = self.request.get("id")
+		URL = None
+		for item in self.imageURL:
+			if str(imageID) == str(item['id']):
+				URL = item["URL"]
+				break
+		if URL is None:
+			self.error(404)
+			return
+
+		redirect = self.request.get("refirect")
+		if redirect:
+			self.redirect(URL)
+			pass
+
+		key = self.key_prefix + str(imageID)
+		imageData = memcache.get(key)
+		if imageData is None:
+			url = urllib.urlopen(URL)
+			imageData = url.read()
+			if imageData is None:
+				self.error(404)
+				return
+		else:
+			memcache.add(key, imageData, 30)
+
+		self.response.headers["Content-Type"] = "image/jpg"
+		self.response.out.write(imageData)
+		
 
 class MainHandler(webapp.RequestHandler):
 	def get(self):
@@ -161,6 +196,7 @@ def main():
 			('/3sea', ThreeDaySeaController),
 			('/nearsea', NearSeaController),
 			('/tide', TideController),
+			('/image', ImageHandler),
 			],
  			debug=True)
 	wsgiref.handlers.CGIHandler().run(application)
