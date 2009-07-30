@@ -59,10 +59,10 @@ class ForecastController(webapp.RequestHandler):
 			memcache.add(key, allItems, 30)
 		if outputtype == "json":
 			self.response.headers['Content-Type'] = 'text/plain; charset=utf-8'
-			jsonText = json.write({"all":allItems})
+			jsonText = json.write({"result":allItems})
 			self.response.out.write(jsonText)
 		else:
-			pl = dict(all=allItems)
+			pl = dict(result=allItems)
 			output = plistlib.writePlistToString(pl)
 			self.response.headers['Content-Type'] = 'text/plist; charset=utf-8'
 			self.response.out.write(output)
@@ -85,10 +85,10 @@ class ForecastController(webapp.RequestHandler):
 				items.append(item)
 			if outputtype == "json":
 				self.response.headers['Content-Type'] = 'text/plain; charset=utf-8'
-				jsonText = json.write({"locations":items})
+				jsonText = json.write({"result":items})
 				self.response.out.write(jsonText)
 			else:
-				pl = dict(locations=items)
+				pl = dict(result=items)
 				output = plistlib.writePlistToString(pl)
 				self.response.headers['Content-Type'] = 'text/xml; charset=utf-8'
 				self.response.out.write(output)
@@ -105,10 +105,10 @@ class ForecastController(webapp.RequestHandler):
 
 		if outputtype == "json":
 			self.response.headers['Content-Type'] = 'text/plain; charset=utf-8'
-			jsonText = json.write({"forecast":result})
+			jsonText = json.write({"result":result})
 			self.response.out.write(jsonText)
 		else:
-			pl = dict(forecast=result)
+			pl = dict(result=result)
 			output = plistlib.writePlistToString(pl)
 			self.response.headers['Content-Type'] = 'text/plist; charset=utf-8'
 			self.response.out.write(output)
