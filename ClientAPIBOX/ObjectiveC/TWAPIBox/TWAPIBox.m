@@ -48,6 +48,9 @@ static TWAPIBox *apibox;
 	else if (code == TWAPITimeOutError) {
 		[dictionary setObject:NSLocalizedString(@"Connection Time Out", @"") forKey:NSLocalizedDescriptionKey];
 	}
+	else if (code == TWAPIDataError) {
+		[dictionary setObject:NSLocalizedString(@"Data Error", @"") forKey:NSLocalizedDescriptionKey];
+	}
 	return dictionary;
 }
 
@@ -56,6 +59,9 @@ static TWAPIBox *apibox;
 //	NSLog(@"%s", __PRETTY_FUNCTION__);
 	NSData *data = [request receivedData];
 	NSString *string = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+	if (!string) {
+		string = @"";
+	}
 	NSDictionary *sessionInfo = [request sessionInfo];
 	id delegate = [sessionInfo objectForKey:@"delegate"];
 	if (delegate && [delegate respondsToSelector:@selector(APIBox:didFetchOverview:userInfo:)]) {
@@ -93,13 +99,51 @@ static TWAPIBox *apibox;
 	NSPropertyListFormat format;
 	NSString *error;
 	id plist = [NSPropertyListSerialization propertyListFromData:data mutabilityOption:NSPropertyListImmutable format:&format errorDescription:&error];
-	NSLog(@"plist:%@", [plist description]);
+//	NSLog(@"plist:%@", [plist description]);
 	id result = [plist objectForKey:@"result"];
 	if (result) {
 		if ([identifier isEqualToString:@"forecast"] && delegate && [delegate respondsToSelector:@selector(APIBox:didFetchForecast:identifier:userInfo:)]) {
 			[delegate APIBox:self didFetchForecast:result identifier:inIdentifier userInfo:userInfo];
 		}
+		else if ([identifier isEqualToString:@"week"] && delegate && [delegate respondsToSelector:@selector(APIBox:didFetchWeek:identifier:userInfo:)]) {
+			[delegate APIBox:self didFetchWeek:result identifier:inIdentifier userInfo:userInfo];
+		}
+		else if ([identifier isEqualToString:@"week_travel"] && delegate && [delegate respondsToSelector:@selector(APIBox:didFetchWeekTravel:identifier:userInfo:)]) {
+			[delegate APIBox:self didFetchWeekTravel:result identifier:inIdentifier userInfo:userInfo];
+		}
+		else if ([identifier isEqualToString:@"3sea"] && delegate && [delegate respondsToSelector:@selector(APIBox:didFetchThreeDaySea:identifier:userInfo:)]) {
+			[delegate APIBox:self didFetchThreeDaySea:result identifier:inIdentifier userInfo:userInfo];
+		}
+		else if ([identifier isEqualToString:@"nearsea"] && delegate && [delegate respondsToSelector:@selector(APIBox:didFetchNearSea:identifier:userInfo:)]) {
+			[delegate APIBox:self didFetchNearSea:result identifier:inIdentifier userInfo:userInfo];
+		}
+		else if ([identifier isEqualToString:@"tide"] && delegate && [delegate respondsToSelector:@selector(APIBox:didFetchTide:identifier:userInfo:)]) {
+			[delegate APIBox:self didFetchTide:result identifier:inIdentifier userInfo:userInfo];
+		}
 	}
+	else {
+		NSInteger code = TWAPIDataError;
+		NSError *theError = [NSError errorWithDomain:TWAPIErrorDomain code:code userInfo:[self _errorDictionaryWithCode:code]];
+		if ([identifier isEqualToString:@"forecast"] && delegate && [delegate respondsToSelector:@selector(APIBox:didFailedFetchForecastWithError:identifier:userInfo:)]) {
+			[delegate APIBox:self didFailedFetchForecastWithError:theError identifier:inIdentifier userInfo:userInfo];
+		}
+		else if ([identifier isEqualToString:@"week"] && delegate && [delegate respondsToSelector:@selector(APIBox:didFailedFetchWeekWithError:identifier:userInfo:)]) {
+			[delegate APIBox:self didFailedFetchWeekWithError:theError identifier:inIdentifier userInfo:userInfo];
+		}
+		else if ([identifier isEqualToString:@"week_travel"] && delegate && [delegate respondsToSelector:@selector(APIBox:didFailedFetchWeekTravelWithError:identifier:userInfo:)]) {
+			[delegate APIBox:self didFailedFetchWeekTravelWithError:theError identifier:inIdentifier userInfo:userInfo];
+		}
+		else if ([identifier isEqualToString:@"3sea"] && delegate && [delegate respondsToSelector:@selector(APIBox:didFailedFetchThreeDaySeaWithError:identifier:userInfo:)]) {
+			[delegate APIBox:self didFailedFetchThreeDaySeaWithError:theError identifier:inIdentifier userInfo:userInfo];
+		}
+		else if ([identifier isEqualToString:@"nearsea"] && delegate && [delegate respondsToSelector:@selector(APIBox:didFailedFetchNearSeaWithError:identifier:userInfo:)]) {
+			[delegate APIBox:self didFailedFetchNearSeaWithError:theError identifier:inIdentifier userInfo:userInfo];
+		}
+		else if ([identifier isEqualToString:@"tide"] && delegate && [delegate respondsToSelector:@selector(APIBox:didFailedFetchTideWithError:identifier:userInfo:)]) {
+			[delegate APIBox:self didFailedFetchTideWithError:theError identifier:inIdentifier userInfo:userInfo];
+		}
+	}
+		
 }
 - (void)didFailedFetchForecast:(LFHTTPRequest *)request error:(NSString *)error
 {
@@ -110,7 +154,7 @@ static TWAPIBox *apibox;
 	NSString *inIdentifier = [info objectForKey:@"identifier"];
 	id userInfo = [info objectForKey:@"userInfo"];	
 	
-	NSInteger code = 0;
+	NSInteger code = TWAPIUnkownError;
 	if (error == LFHTTPRequestConnectionError) {
 		code = TWAPIConnectionError;
 	}
@@ -120,6 +164,21 @@ static TWAPIBox *apibox;
 	NSError *theError = [NSError errorWithDomain:TWAPIErrorDomain code:code userInfo:[self _errorDictionaryWithCode:code]];
 	if ([identifier isEqualToString:@"forecast"] && delegate && [delegate respondsToSelector:@selector(APIBox:didFailedFetchForecastWithError:identifier:userInfo:)]) {
 		[delegate APIBox:self didFailedFetchForecastWithError:theError identifier:inIdentifier userInfo:userInfo];
+	}
+	else if ([identifier isEqualToString:@"week"] && delegate && [delegate respondsToSelector:@selector(APIBox:didFailedFetchWeekWithError:identifier:userInfo:)]) {
+		[delegate APIBox:self didFailedFetchWeekWithError:theError identifier:inIdentifier userInfo:userInfo];
+	}
+	else if ([identifier isEqualToString:@"week_travel"] && delegate && [delegate respondsToSelector:@selector(APIBox:didFailedFetchWeekTravelWithError:identifier:userInfo:)]) {
+		[delegate APIBox:self didFailedFetchWeekTravelWithError:theError identifier:inIdentifier userInfo:userInfo];
+	}
+	else if ([identifier isEqualToString:@"3sea"] && delegate && [delegate respondsToSelector:@selector(APIBox:didFailedFetchThreeDaySeaWithError:identifier:userInfo:)]) {
+		[delegate APIBox:self didFailedFetchThreeDaySeaWithError:theError identifier:inIdentifier userInfo:userInfo];
+	}
+	else if ([identifier isEqualToString:@"nearsea"] && delegate && [delegate respondsToSelector:@selector(APIBox:didFailedFetchNearSeaWithError:identifier:userInfo:)]) {
+		[delegate APIBox:self didFailedFetchNearSeaWithError:theError identifier:inIdentifier userInfo:userInfo];
+	}
+	else if ([identifier isEqualToString:@"tide"] && delegate && [delegate respondsToSelector:@selector(APIBox:didFailedFetchTideWithError:identifier:userInfo:)]) {
+		[delegate APIBox:self didFailedFetchTideWithError:theError identifier:inIdentifier userInfo:userInfo];
 	}
 }
 

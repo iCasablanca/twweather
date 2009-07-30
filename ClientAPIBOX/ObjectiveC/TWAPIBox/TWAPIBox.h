@@ -16,7 +16,8 @@ extern NSString *TWAPIErrorDomain;
 typedef enum {
 	TWAPIUnkownError = 0,
 	TWAPIConnectionError = 1,
-	TWAPITimeOutError = 2
+	TWAPITimeOutError = 2,
+	TWAPIDataError = 3,
 } TWAPIError;
 
 @class TWAPIBox;
