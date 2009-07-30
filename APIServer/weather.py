@@ -17,7 +17,8 @@ WeatherOverViewURL = "http://www.cwb.gov.tw/mobile/real.wml"
 WeatherForecastURL = "http://www.cwb.gov.tw/mobile/forecast/city_%(#)02d.wml"
 WeatherWeekURL = "http://www.cwb.gov.tw/mobile/week/%(location)s.wml"
 WeatherTravelURL = "http://www.cwb.gov.tw/mobile/week_travel/%(location)s.wml"
-Weather3DaySeaURL = "http://www.cwb.gov.tw/mobile/3sea/3sea%(#)2d.wml"
+Weather3DaySeaURL = "http://www.cwb.gov.tw/mobile/3sea/3sea%(#)d.wml"
+WeatherNearSeaURL = "http://www.cwb.gov.tw/mobile/nearsea/nearsea%(#)d.wml"
 
 class WeatherOverview(object):
 	def __init__(self):
@@ -25,7 +26,10 @@ class WeatherOverview(object):
 		self.plain = ""
 		pass
 	def fetch(self):
-		url = urllib.urlopen(WeatherOverViewURL)
+		try:
+			url = urllib.urlopen(WeatherOverViewURL)
+		except:
+			return
 		lines = url.readlines()
 		count = 0
 		for line in lines:
@@ -45,6 +49,16 @@ class TestWeatherOverview(unittest.TestCase):
 		self.overview.fetch()
 		self.assertNotEqual(len(self.overview.html), 0)
 		self.assertNotEqual(len(self.overview.plain), 0)
+
+class Forecast(object):
+	def locations(self):
+		return []
+	def locationNameWithID(self, id):
+		for location in self.locations():
+			locationID = location['id']
+			if str(id) == str(locationID):
+				return location['location']
+		return None
 
 WeatherForecastLocations = [
 	{"location": u"台北市", "id": 1},
@@ -71,24 +85,19 @@ WeatherForecastLocations = [
 	{"location": u"馬祖", "id": 22}
 	]
 
-class WeatherForecast(object):
-	def __init__(self):
-		pass
+class WeatherForecast(Forecast):
 	def locations(self):
 		return WeatherForecastLocations
-	def locationNameWithID(self, id):
-		for location in self.locations():
-			locationID = location['id']
-			if int(id) == int(locationID):
-				return location['location']
-		return None
 	def fetchWithID(self, id):
 		locationName = self.locationNameWithID(id)
 		if locationName is None:
 			return None
 
 		URLString = WeatherForecastURL % {"#": int(id)}
-		url = urllib.urlopen(URLString)
+		try:
+			url = urllib.urlopen(URLString)
+		except:
+			return None
 
 		lines = url.readlines()
 		items = []
@@ -158,19 +167,14 @@ WeatherWeekLocations = [
 	{"location": u"馬祖",  "id": "Matsu"},
 	]
 
-class WeatherWeek(object):
-	def __init__(self):
-		pass
+class WeatherWeek(Forecast):
 	def locations(self):
 		return WeatherWeekLocations
-	def locationNameWithID(self, id):
-		for location in self.locations():
-			locationID = location['id']
-			if str(id) == str(locationID):
-				return location['location']
-		return None
 	def handleLines(self, URLString, locationName, name):
-		url = urllib.urlopen(URLString)
+		try:
+			url = urllib.urlopen(URLString)
+		except:
+			return None
 		lines = url.readlines()
 		publishTime = ""
 		items = []
@@ -256,8 +260,8 @@ WeatherWeekTravelLocations = [
 	]
 
 class WeatherWeekTravel(WeatherWeek):
-	def __init__(self):
-		pass
+	# def __init__(self):
+	# 	pass
 	def locations(self):
 		return WeatherWeekTravelLocations
 	def fetchWithID(self, name):
@@ -289,24 +293,19 @@ Weather3DaySeaLocations = [
 	{"location": u"南沙島海面",  "id": 15}
 	]
 
-class Weather3DaySea(object):
-	def __init__(self):
-		pass
+class Weather3DaySea(Forecast):
 	def locations(self):
 		return Weather3DaySeaLocations
-	def locationNameWithID(self, id):
-		for location in self.locations():
-			locationID = location['id']
-			if int(id) == int(locationID):
-				return location['location']
-		return None
 	def fetchWithID(self, id):
 		locationName = self.locationNameWithID(id)
 		if locationName is None:
 			return None
 
 		URLString = Weather3DaySeaURL % {"#": int(id)}
-		url = urllib.urlopen(URLString)
+		try:
+			url = urllib.urlopen(URLString)
+		except:
+			return None
 		lines = url.readlines()
 		didHandlingPublishTime = False
 		items = []
@@ -367,7 +366,118 @@ class TestWeather3DaySea(unittest.TestCase):
 			self.assertTrue(result["items"])
 			self.assertEqual(len(result["items"]), 3)
 
+WeatherNearSeaLocations = [
+	{"location": u"釣魚台海面", "id":1},
+	{"location": u"彭佳嶼基隆海面", "id":2},
+	{"location": u"宜蘭蘇澳沿海", "id":3},
+	{"location": u"新竹鹿港沿海", "id":4},
+	{"location": u"澎湖海面", "id":5},
+	{"location": u"鹿港東石沿海", "id":6},
+	{"location": u"東石安平沿海", "id":7},
+	{"location": u"安平高雄沿海", "id":8},
+	{"location": u"高雄枋寮沿海", "id":9},
+	{"location": u"枋寮恆春沿海", "id":10},
+	{"location": u"鵝鑾鼻沿海", "id":11},
+	{"location": u"成功大武沿海", "id":12},
+	{"location": u"綠島蘭嶼海面", "id":13},
+	{"location": u"花蓮沿海", "id":14},
+	{"location": u"金門海面", "id":15},
+	{"location": u"馬祖海面", "id":16}
+	]
+
+class WeatherNearSea(Forecast):
+	def locations(self):
+		return WeatherNearSeaLocations
+	def handleDate(self, line):
+		today = date.today()
+		month = int(today.month)
+		year = int(today.year)
+		if month == 12 and int(line[0:2]) == 1:
+			year = year + 1
+		theDate = datetime(year, int(line[0:2]), int(line[3:5]), int(line[6:8]), int(line[9:11]))
+		return theDate.__str__()
+	def fetchWithID(self, id):
+		locationName = self.locationNameWithID(id)
+		if locationName is None:
+			return None
+
+		URLString = WeatherNearSeaURL % {"#": int(id)}
+		try:
+			url = urllib.urlopen(URLString)
+		except:
+			return None
+		
+		lines = url.readlines()
+		publishTime = ""
+		validTime = ""
+		validBeginTime = ""
+		validEndTime = ""
+		didHandledTime = False
+		handlingData = False
+		description = ""
+		wind = ""
+		windLevel = ""
+		wave = ""
+		waveLevel = ""
+		lineCount = 0
+		for line in lines:
+			if line.find("發布時間:") > -1:
+				line = line[20:-7]
+				publishTime = self.handleDate(line)
+			elif line.find("有效時間:") > -1:
+				line = line[20:-1]
+				parts = line.split("~")
+				if len(parts) > 1:
+					validBeginTime = self.handleDate(parts[0])
+					validEndTime = self.handleDate(parts[1])
+					validTime = validBeginTime + "/" + validEndTime
+				didHandledTime = True
+			elif didHandledTime is True and line.startswith("<p>"):
+				handlingData = True
+				lineCount = 1
+			elif handlingData is True:
+				if line.find("</p>") > -1:
+					result = {"locationName": locationName, "id": id, "description": description,
+						"publishTime": publishTime, "validBeginTime": validBeginTime, 
+						"validEndTime": validEndTime, "validTime": validTime,
+						"wind": wind, "windLevel": windLevel, "wave": wave,
+						"waveLevel": waveLevel
+						}
+					return result
+				line = line.replace("<br />", "")[0:-1].decode("utf-8")
+				if lineCount is 1:
+					description = line
+				elif lineCount is 2:
+					wind = line
+				elif lineCount is 3:
+					windLevel = line
+				elif lineCount is 4:
+					wave = line
+				elif lineCount is 5:
+					waveLevel = line
+				lineCount = lineCount + 1
+		return None
+
+class TestWeatherNearSea(unittest.TestCase):
+	def setUp(self):
+		self.model = WeatherNearSea()
+	def testForetest(self):
+		for i in range(1, 16):
+			result = self.model.fetchWithID(i)
+			self.assertTrue(result)
+			self.assertTrue(result["locationName"])
+			self.assertTrue(result["id"])
+			self.assertTrue(result["publishTime"])
+			self.assertTrue(result["validBeginTime"])
+			self.assertTrue(result["validEndTime"])
+			self.assertTrue(result["validTime"])
+			self.assertTrue(result["wind"])
+			self.assertTrue(result["windLevel"])
+			self.assertTrue(result["wave"])
+			self.assertTrue(result["waveLevel"])
+
 def main():
+	# print WeatherNearSea().fetchWithID(1)
 	unittest.main()
 	pass
 

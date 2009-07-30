@@ -128,6 +128,11 @@ class ThreeDaySeaController(ForecastController):
 		self.model = weather.Weather3DaySea()
 		self.key_prefix = "3sea_"
 
+class NearSeaController(ForecastController):
+	def __init__(self):
+		self.model = weather.WeatherNearSea()
+		self.key_prefix = "nearsea_"
+
 class MainHandler(webapp.RequestHandler):
 	def get(self):
 
@@ -148,6 +153,7 @@ def main():
 			('/week', WeekController),
 			('/week_travel', WeekTravelController),
 			('/3sea', ThreeDaySeaController),
+			('/nearsea', NearSeaController),
 			],
  			debug=True)
 	wsgiref.handlers.CGIHandler().run(application)
