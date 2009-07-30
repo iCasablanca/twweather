@@ -27,7 +27,7 @@
 
 * 參數：
 	* output 輸出格式
-		* plis Plist 格式（預設）
+		* plist Plist 格式（預設）
 		* json JSON 格式
 	* location 地區
 		* all 全部地區的天氣預報
@@ -61,7 +61,7 @@
 
 * 參數：
 	* output 輸出格式
-		* plis Plist 格式（預設）
+		* plist Plist 格式（預設）
 		* json JSON 格式
 	* location 地區
 		* all 全部地區的天氣預報
@@ -83,7 +83,7 @@
 
 * 參數：
 	* output 輸出格式
-		* plis Plist 格式（預設）
+		* plist Plist 格式（預設）
 		* json JSON 格式
 	* location 地區
 		* all 全部地區的天氣預報
@@ -109,7 +109,7 @@
 
 * 參數：
 	* output 輸出格式
-		* plis Plist 格式（預設）
+		* plist Plist 格式（預設）
 		* json JSON 格式
 	* location 地區
 		* 1 黃海南部海面
@@ -134,7 +134,7 @@
 
 * 參數：
 	* output 輸出格式
-		* plis Plist 格式（預設）
+		* plist Plist 格式（預設）
 		* json JSON 格式
 	* location 地區
 		* 1 釣魚台海面
@@ -160,7 +160,7 @@
 
 * 參數：
 	* output 輸出格式
-		* plis Plist 格式（預設）
+		* plist Plist 格式（預設）
 		* json JSON 格式
 	* location 地區
 		* 1 基隆
