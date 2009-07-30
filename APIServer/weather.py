@@ -163,7 +163,13 @@ class WeatherWeek(object):
 		pass
 	def locations(self):
 		return WeatherWeekLocations
-	def handleLines(self, URLString):
+	def locationNameWithID(self, id):
+		for location in self.locations():
+			locationID = location['id']
+			if str(id) == str(locationID):
+				return location['location']
+		return None
+	def handleLines(self, URLString, locationName, name):
 		url = urllib.urlopen(URLString)
 		lines = url.readlines()
 		publishTime = ""
@@ -210,11 +216,14 @@ class WeatherWeek(object):
 					description = parts[1].decode("utf-8")
 					isHandlingTemprature = True
 		self.items = items
-		result = {"publishTime": publishTime, "items": items}
+		result = {"locationName":locationName, "id":name, "publishTime": publishTime, "items": items}
 		return result
 	def fetchWithID(self, name):
+		locationName = self.locationNameWithID(name)
+		if locationName is None:
+			return None
 		URLString = WeatherWeekURL % {"location": name}
-		return self.handleLines(URLString)
+		return self.handleLines(URLString, locationName, name)
 
 
 class TestWeatherWeek(unittest.TestCase):
@@ -252,8 +261,11 @@ class WeatherWeekTravel(WeatherWeek):
 	def locations(self):
 		return WeatherWeekTravelLocations
 	def fetchWithID(self, name):
+		locationName = self.locationNameWithID(name)
+		if locationName is None:
+			return None
 		URLString = WeatherTravelURL % {"location": name}
-		return self.handleLines(URLString)
+		return self.handleLines(URLString, locationName, name)
 
 class TestWeatherWeekTravel(TestWeatherWeek):
 	def setUp(self):
@@ -282,12 +294,16 @@ class Weather3DaySea(object):
 		pass
 	def locations(self):
 		return Weather3DaySeaLocations
+	def locationNameWithID(self, id):
+		for location in self.locations():
+			locationID = location['id']
+			if int(id) == int(locationID):
+				return location['location']
+		return None
 	def fetchWithID(self, id):
-		try:
-			if int(id) > len(Weather3DaySeaLocations):
-				return []
-		except:
-			return []
+		locationName = self.locationNameWithID(id)
+		if locationName is None:
+			return None
 
 		URLString = Weather3DaySeaURL % {"#": int(id)}
 		url = urllib.urlopen(URLString)
@@ -337,7 +353,7 @@ class Weather3DaySea(object):
 					year = year + 1
 				publishTime = datetime(year, month, int(line[3:5]), int (line[6:8]), int(line[9:11])).__str__()
 				didHandlingPublishTime = True
-		result = {"publishTime": publishTime, "items": items}
+		result = {"locationName":locationName, "id":id, "publishTime": publishTime, "items": items}
 		return result
 
 class TestWeather3DaySea(unittest.TestCase):
@@ -353,7 +369,6 @@ class TestWeather3DaySea(unittest.TestCase):
 
 def main():
 	unittest.main()
-	# Weather3DaySea().fetchWithID(2)
 	pass
 
 

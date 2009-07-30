@@ -14,7 +14,8 @@
 
 ### 關心天氣
 
-* 位置：/overview
+位置：/overview
+
 * 參數：
 	* output 輸出格式
 		* html：HTML 格式（預設）
@@ -22,7 +23,8 @@
 		
 ### 48 小時天氣預報
 
-* 位置：/forecast
+位置：/forecast
+
 * 參數：
 	* output 輸出格式
 		* plis Plist 格式（預設）
@@ -55,7 +57,8 @@
 		
 ### 一週天氣預報
 
-* 位置：/week
+位置：/week
+
 * 參數：
 	* output 輸出格式
 		* plis Plist 格式（預設）
@@ -76,7 +79,8 @@
 
 ### 一週旅遊天氣
 
-* 位置：/week_travel
+位置：/week_travel
+
 * 參數：
 	* output 輸出格式
 		* plis Plist 格式（預設）
