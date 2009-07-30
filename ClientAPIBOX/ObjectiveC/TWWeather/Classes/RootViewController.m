@@ -15,7 +15,8 @@
 - (void)viewDidLoad 
 {
     [super viewDidLoad];
-	[[TWAPIBox sharedBox] fetchOverviewWithFormat:TWOverviewHTMLFormat delegate:self userInfo:nil];
+//	[[TWAPIBox sharedBox] fetchOverviewWithFormat:TWOverviewHTMLFormat delegate:self userInfo:nil];
+	[[TWAPIBox sharedBox] fetchTideWithLocationIdentifier:@"1" delegate:self userInfo:nil];
 
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;

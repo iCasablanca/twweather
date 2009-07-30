@@ -11,6 +11,14 @@ typedef enum {
 	TWOverviewPlainFormat = 1
 } TWOverviewFormat;
 
+extern NSString *TWAPIErrorDomain;
+
+typedef enum {
+	TWAPIUnkownError = 0,
+	TWAPIConnectionError = 1,
+	TWAPITimeOutError = 2
+} TWAPIError;
+
 @class TWAPIBox;
 
 @interface NSObject(TWAPIBoxDelegate)
