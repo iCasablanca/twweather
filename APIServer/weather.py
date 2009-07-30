@@ -17,6 +17,7 @@ WeatherOverViewURL = "http://www.cwb.gov.tw/mobile/real.wml"
 WeatherForecastURL = "http://www.cwb.gov.tw/mobile/forecast/city_%(#)02d.wml"
 WeatherWeekURL = "http://www.cwb.gov.tw/mobile/week/%(location)s.wml"
 WeatherTravelURL = "http://www.cwb.gov.tw/mobile/week_travel/%(location)s.wml"
+Weather3DaySeaURL = "http://www.cwb.gov.tw/mobile/3sea/3sea%(#)2d.wml"
 
 class WeatherOverview(object):
 	def __init__(self):
@@ -266,8 +267,101 @@ class TestWeatherWeekTravel(TestWeatherWeek):
 	def setUp(self):
 		self.week = WeatherWeekTravel()
 
+Weather3DaySeaLocations = [
+	{"location": u"黃海南部海面", "id": 1},
+	{"location": u"花鳥山海面", "id": 2},
+	{"location": u"東海北部海面",  "id": 3},
+	{"location": u"浙江海面", "id": 4},
+	{"location": u"東海南部海面", "id": 5},
+	{"location": u"台灣北部海面",  "id": 6},
+	{"location": u"台灣海峽北部", "id": 7},
+	{"location": u"台灣海峽南部",  "id": 8},
+	{"location": u"台灣東北部海面",  "id": 9},
+	{"location": u"台灣東南部海面",  "id": 10},
+	{"location": u"巴士海峽", "id": 11},
+	{"location": u"廣東海面", "id": 12},
+	{"location": u"東沙島海面",  "id": 13},
+	{"location": u"中西沙島海面",  "id": 14},
+	{"location": u"南沙島海面",  "id": 15}
+	]
+
+class Weather3DaySea(object):
+	def __init__(self):
+		pass
+	def locations(self):
+		return Weather3DaySeaLocations
+	def fetchWithID(self, id):
+		try:
+			if int(id) > len(Weather3DaySeaLocations):
+				return []
+		except:
+			return []
+
+		URLString = Weather3DaySeaURL % {"#": int(id)}
+		url = urllib.urlopen(URLString)
+		lines = url.readlines()
+		didHandlingPublishTime = False
+		items = []
+		count = 0
+		publishTime = ""
+		time = ""
+		description = ""
+		wind = ""
+		windLevel = ""
+		wave = ""
+
+		for line in lines:
+			if didHandlingPublishTime:
+				if line.startswith("<p>"):
+					count = 0
+				if count is 1:
+					line = line[0:-7]
+					parts = line.split("/")
+					if len(parts) >  1:
+						month = int(parts[0])
+						day = int(parts[1])
+						year = int(date.today().year)
+						if date.today().month == 12 and month == 1:
+							year = year + 1
+						time = date(year, month, day).__str__()
+				elif count is 2:
+					description = line[0:-7].decode("utf-8")
+				elif count is 3:
+					wind = line[0:-7].decode("utf-8")
+				elif count is 4:
+					windLevel = line[0:-7].decode("utf-8")
+				elif count is 5:
+					wave = line[0:-7].decode("utf-8")
+					item = {"time": time, "description": description, "wind": wind, "windLevel": windLevel, "wave": wave}
+					items.append(item)
+					if len(items) >= 3:
+						break
+				count = count + 1
+			if line.find("發布時間") > -1:
+				line = line[20:-7]
+				month = int(line[0:2])
+				year = int(date.today().year)
+				if date.today().month == 12 and month == 1:
+					year = year + 1
+				publishTime = datetime(year, month, int(line[3:5]), int (line[6:8]), int(line[9:11])).__str__()
+				didHandlingPublishTime = True
+		result = {"publishTime": publishTime, "items": items}
+		return result
+
+class TestWeather3DaySea(unittest.TestCase):
+	def setUp(self):
+		self.sea = Weather3DaySea()
+	def testForetest(self):
+		for i in range(1, 15):
+			result = self.sea.fetchWithID(i)
+			self.assertTrue(result)
+			self.assertTrue(result["publishTime"])
+			self.assertTrue(result["items"])
+			self.assertEqual(len(result["items"]), 3)
+
 def main():
 	unittest.main()
+	# Weather3DaySea().fetchWithID(2)
 	pass
 
 
