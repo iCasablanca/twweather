@@ -19,6 +19,7 @@ WeatherWeekURL = "http://www.cwb.gov.tw/mobile/week/%(location)s.wml"
 WeatherTravelURL = "http://www.cwb.gov.tw/mobile/week_travel/%(location)s.wml"
 Weather3DaySeaURL = "http://www.cwb.gov.tw/mobile/3sea/3sea%(#)d.wml"
 WeatherNearSeaURL = "http://www.cwb.gov.tw/mobile/nearsea/nearsea%(#)d.wml"
+WeatherTideURL = "http://www.cwb.gov.tw/mobile/tide/area%(#)d.wml"
 
 class WeatherOverview(object):
 	def __init__(self):
@@ -476,8 +477,109 @@ class TestWeatherNearSea(unittest.TestCase):
 			self.assertTrue(result["wave"])
 			self.assertTrue(result["waveLevel"])
 
+WeatherTideLocations = [
+	{"location": u"基隆", "id":1},
+	{"location": u"福隆", "id":2},
+	{"location": u"鼻頭角", "id":3},
+	{"location": u"石門", "id":4},
+	{"location": u"淡水", "id":5},
+	{"location": u"大園", "id":6},
+	{"location": u"新竹", "id":7},
+	{"location": u"苗栗", "id":8},
+	{"location": u"梧棲", "id":9},
+	{"location": u"王功", "id":10},
+	{"location": u"台西", "id":11},
+	{"location": u"東石", "id":12},
+	{"location": u"將軍", "id":13},
+	{"location": u"安平", "id":14},
+	{"location": u"高雄", "id":15},
+	{"location": u"東港", "id":16},
+	{"location": u"南灣", "id":17},
+	{"location": u"澎湖", "id":18},
+	{"location": u"蘇澳", "id":19},
+	{"location": u"頭城", "id":20},
+	{"location": u"花蓮", "id":21},
+	{"location": u"台東", "id":22},
+	{"location": u"成功", "id":23},
+	{"location": u"蘭嶼", "id":24},
+	{"location": u"馬祖", "id":25},
+	{"location": u"金門", "id":26},
+	]
+
+class WeatherTide(Forecast):
+	def locations(self):
+		return WeatherTideLocations
+	def handelWave(self, line, theDate):
+		line = line[7:-10]
+		parts = line.split(" ")
+		if len(parts) > 1:
+			shortDate = parts[0]
+			height = parts[1]
+			hour = int(shortDate[0:2])
+			minute = int(shortDate[3:5])
+			longTime = datetime(theDate.year, theDate.month, theDate.day, hour, minute).__str__()
+			return {"longTime": longTime, "shortDate": shortDate, "height": height}
+		
+	def fetchWithID(self, id):
+		locationName = self.locationNameWithID(id)
+		if locationName is None:
+			return None
+
+		URLString = WeatherTideURL % {"#": int(id)}
+		try:
+			url = urllib.urlopen(URLString)
+		except:
+			return None
+		# print url.read()
+		# return
+
+		lines = url.readlines()
+		items = []
+		theDate = None
+		time = ""
+		lunarTime = ""
+		isHandlingItem = False
+		low = []
+		high = []
+		for line in lines:
+			if isHandlingItem is False and line.startswith("<p>") and line.find("<br />") > -1:
+				isHandlingItem = True
+			if isHandlingItem is True:
+				if line.startswith("<p>") and line.find("<br />") > -1:
+					line = line[3:-7]
+					year = int(line[0:4])
+					month = int(line[5:7])
+					day = int(line[8:10])
+					theDate = date(year, month, day)
+					time = theDate.__str__()
+				elif line.find("農曆") > -1:
+					lunarTime = line[0:-7].decode("utf-8")
+				elif line.find("乾潮") > -1:
+					low = self.handelWave(line, theDate)
+				elif line.find("滿潮") > -1:
+					high = self.handelWave(line, theDate)
+				elif line.find("--------") > -1:
+					item = {"time": time, "lunarTime": lunarTime, "low": low, "high": high}
+					items.append(item)
+					if len(items) >= 3:
+						result = {"locationName": locationName, "id": id, "items": items}
+						return result
+
+class TestWeatherTide(unittest.TestCase):
+	def setUp(self):
+		self.model = WeatherTide()
+	def testForetest(self):
+		for i in range(1, 26):
+			result = self.model.fetchWithID(i)
+			self.assertTrue(result)
+			self.assertEqual(int(len(result['items'])), 3)
+			for item in result['items']:
+				self.assertTrue(item['time'])
+				self.assertTrue(item['lunarTime'])
+				self.assertTrue(item['high'])
+				self.assertTrue(item['low'])
+
 def main():
-	# print WeatherNearSea().fetchWithID(1)
 	unittest.main()
 	pass
 

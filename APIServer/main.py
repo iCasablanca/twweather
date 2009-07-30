@@ -133,6 +133,12 @@ class NearSeaController(ForecastController):
 		self.model = weather.WeatherNearSea()
 		self.key_prefix = "nearsea_"
 
+class TideController(ForecastController):
+	def __init__(self):
+		self.model = weather.WeatherTide()
+		self.key_prefix = "tide_"
+
+
 class MainHandler(webapp.RequestHandler):
 	def get(self):
 
@@ -154,6 +160,7 @@ def main():
 			('/week_travel', WeekTravelController),
 			('/3sea', ThreeDaySeaController),
 			('/nearsea', NearSeaController),
+			('/tide', TideController),
 			],
  			debug=True)
 	wsgiref.handlers.CGIHandler().run(application)
