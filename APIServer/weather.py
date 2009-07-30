@@ -77,22 +77,15 @@ class WeatherForecast(object):
 	def locations(self):
 		return WeatherForecastLocations
 	def locationNameWithID(self, id):
-		try:
-			if int(id) > len(WeatherForecastLocations):
-				return ""
-		except:
-			return ""
-		for location in WeatherForecastLocations:
+		for location in self.locations():
 			locationID = location['id']
 			if int(id) == int(locationID):
 				return location['location']
-		return ""
+		return None
 	def fetchWithID(self, id):
-		try:
-			if int(id) > len(WeatherForecastLocations):
-				return []
-		except:
-			return []
+		locationName = self.locationNameWithID(id)
+		if locationName is None:
+			return None
 
 		URLString = WeatherForecastURL % {"#": int(id)}
 		url = urllib.urlopen(URLString)
@@ -142,8 +135,7 @@ class WeatherForecast(object):
 				description = line[0:-7]
 				description = description.decode("utf-8")
 				isHandlingDescription = False
-		self.items = items
-		return items
+		return {"locationName":locationName, "items":items, "id": id}
 
 class TestWeatherForecast(unittest.TestCase):
 	def setUp(self):
@@ -220,7 +212,7 @@ class WeatherWeek(object):
 		self.items = items
 		result = {"publishTime": publishTime, "items": items}
 		return result
-	def fetchWithLocationName(self, name):
+	def fetchWithID(self, name):
 		URLString = WeatherWeekURL % {"location": name}
 		return self.handleLines(URLString)
 
@@ -231,7 +223,7 @@ class TestWeatherWeek(unittest.TestCase):
 	def testForetest(self):
 		for item in self.week.locations():
 			locationName = item['id']
-			items = self.week.fetchWithLocationName(locationName)
+			items = self.week.fetchWithID(locationName)
 			self.assertTrue(items)
 			self.assertTrue(items["publishTime"])
 			self.assertTrue(items["items"])
@@ -259,7 +251,7 @@ class WeatherWeekTravel(WeatherWeek):
 		pass
 	def locations(self):
 		return WeatherWeekTravelLocations
-	def fetchWithLocationName(self, name):
+	def fetchWithID(self, name):
 		URLString = WeatherTravelURL % {"location": name}
 		return self.handleLines(URLString)
 
