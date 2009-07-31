@@ -1,22 +1,20 @@
 //
-//  TWWeekTableVIewController.m
+//  TWThreeDaySeaTableViewController.m
 //  TWWeather
 //
 //  Created by zonble on 2009/08/01.
 //
 
-#import "TWWeekTableViewController.h"
-#import "TWWeekResultTableViewController.h"
+#import "TWThreeDaySeaTableViewController.h"
+#import "TWThreeDaySeaResultTableViewController.h"
 
-@implementation TWWeekTableViewController
-
-#pragma mark UIViewContoller Methods
+@implementation TWThreeDaySeaTableViewController
 
 - (void)viewDidLoad 
 {
 	[super viewDidLoad];
-	self.array = [[TWAPIBox sharedBox] weekLocations];
-	self.title = @"一週天氣預報";
+	self.array = [[TWAPIBox sharedBox] threeDaySeaLocations];
+	self.title = @"三天漁業天氣預報";
 }
 
 #pragma mark UITableViewDataSource and UITableViewDelegate
@@ -25,17 +23,17 @@
 {
 	NSMutableDictionary *dictionray = [[self array] objectAtIndex:indexPath.row];
 	NSString *identifier = [dictionray objectForKey:@"identifier"];
-	[[TWAPIBox sharedBox] fetchWeekWithLocationIdentifier:identifier delegate:self userInfo:dictionray];
+	[[TWAPIBox sharedBox] fetchThreeDaySeaWithLocationIdentifier:identifier delegate:self userInfo:dictionray];
 	self.tableView.userInteractionEnabled = NO;
 	[dictionray setObject:[NSNumber numberWithBool:YES] forKey:@"isLoading"];
 	[self.tableView reloadData];
 }
 
-- (void)APIBox:(TWAPIBox *)APIBox didFetchWeek:(id)result identifier:(NSString *)identifier userInfo:(id)userInfo
+- (void)APIBox:(TWAPIBox *)APIBox didFetchThreeDaySea:(id)result identifier:(NSString *)identifier userInfo:(id)userInfo
 {
 	[self resetLoading];
 	if ([result isKindOfClass:[NSDictionary class]]) {
-		TWWeekResultTableViewController *controller = [[TWWeekResultTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+		TWThreeDaySeaResultTableViewController *controller = [[TWThreeDaySeaResultTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
 		controller.title = [result objectForKey:@"locationName"];
 		controller.forecastArray = [result objectForKey:@"items"];
 		NSString *dateString = [result objectForKey:@"publishTime"];
@@ -46,7 +44,7 @@
 	}
 	self.tableView.userInteractionEnabled = YES;
 }
-- (void)APIBox:(TWAPIBox *)APIBox didFailedFetchWeekWithError:(NSError *)error identifier:(NSString *)identifier userInfo:(id)userInfo
+- (void)APIBox:(TWAPIBox *)APIBox didFailedFetchThreeDaySeaWithError:(NSError *)error identifier:(NSString *)identifier userInfo:(id)userInfo
 {
 	[self resetLoading];
 	self.tableView.userInteractionEnabled = YES;
@@ -54,3 +52,4 @@
 
 
 @end
+

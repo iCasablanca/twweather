@@ -28,6 +28,9 @@
 		D4E5046710235E92002B39D7 /* TWWeekResultTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E5046610235E92002B39D7 /* TWWeekResultTableViewController.m */; };
 		D4E504AE10236201002B39D7 /* TWWeekResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E504AD10236201002B39D7 /* TWWeekResultCell.m */; };
 		D4E5052710236A1A002B39D7 /* TWWeekTravelTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E5052610236A1A002B39D7 /* TWWeekTravelTableViewController.m */; };
+		D4E5057010236C6B002B39D7 /* TWThreeDaySeaTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E5056F10236C6B002B39D7 /* TWThreeDaySeaTableViewController.m */; };
+		D4E505A210236EF0002B39D7 /* TWThreeDaySeaResultTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E505A110236EF0002B39D7 /* TWThreeDaySeaResultTableViewController.m */; };
+		D4E505E2102370EF002B39D7 /* TWThreeDaySeaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E505E1102370EF002B39D7 /* TWThreeDaySeaCell.m */; };
 		D4E9C6E510223D6200B955C7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E9C6E410223D6200B955C7 /* SystemConfiguration.framework */; };
 		D4E9C70110223DBB00B955C7 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E9C70010223DBB00B955C7 /* CFNetwork.framework */; };
 /* End PBXBuildFile section */
@@ -74,6 +77,12 @@
 		D4E504AD10236201002B39D7 /* TWWeekResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWWeekResultCell.m; sourceTree = "<group>"; };
 		D4E5052510236A1A002B39D7 /* TWWeekTravelTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWWeekTravelTableViewController.h; sourceTree = "<group>"; };
 		D4E5052610236A1A002B39D7 /* TWWeekTravelTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWWeekTravelTableViewController.m; sourceTree = "<group>"; };
+		D4E5056E10236C6B002B39D7 /* TWThreeDaySeaTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWThreeDaySeaTableViewController.h; sourceTree = "<group>"; };
+		D4E5056F10236C6B002B39D7 /* TWThreeDaySeaTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWThreeDaySeaTableViewController.m; sourceTree = "<group>"; };
+		D4E505A010236EF0002B39D7 /* TWThreeDaySeaResultTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWThreeDaySeaResultTableViewController.h; sourceTree = "<group>"; };
+		D4E505A110236EF0002B39D7 /* TWThreeDaySeaResultTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWThreeDaySeaResultTableViewController.m; sourceTree = "<group>"; };
+		D4E505E0102370EF002B39D7 /* TWThreeDaySeaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWThreeDaySeaCell.h; sourceTree = "<group>"; };
+		D4E505E1102370EF002B39D7 /* TWThreeDaySeaCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWThreeDaySeaCell.m; sourceTree = "<group>"; };
 		D4E9C6E410223D6200B955C7 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		D4E9C70010223DBB00B955C7 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -119,6 +128,12 @@
 				D4E504AD10236201002B39D7 /* TWWeekResultCell.m */,
 				D4E5052510236A1A002B39D7 /* TWWeekTravelTableViewController.h */,
 				D4E5052610236A1A002B39D7 /* TWWeekTravelTableViewController.m */,
+				D4E5056E10236C6B002B39D7 /* TWThreeDaySeaTableViewController.h */,
+				D4E5056F10236C6B002B39D7 /* TWThreeDaySeaTableViewController.m */,
+				D4E505A010236EF0002B39D7 /* TWThreeDaySeaResultTableViewController.h */,
+				D4E505A110236EF0002B39D7 /* TWThreeDaySeaResultTableViewController.m */,
+				D4E505E0102370EF002B39D7 /* TWThreeDaySeaCell.h */,
+				D4E505E1102370EF002B39D7 /* TWThreeDaySeaCell.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -285,6 +300,9 @@
 				D4E5046710235E92002B39D7 /* TWWeekResultTableViewController.m in Sources */,
 				D4E504AE10236201002B39D7 /* TWWeekResultCell.m in Sources */,
 				D4E5052710236A1A002B39D7 /* TWWeekTravelTableViewController.m in Sources */,
+				D4E5057010236C6B002B39D7 /* TWThreeDaySeaTableViewController.m in Sources */,
+				D4E505A210236EF0002B39D7 /* TWThreeDaySeaResultTableViewController.m in Sources */,
+				D4E505E2102370EF002B39D7 /* TWThreeDaySeaCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

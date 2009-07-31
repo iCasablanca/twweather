@@ -251,7 +251,7 @@ static TWAPIBox *apibox;
 - (void)fetchTideWithLocationIdentifier:(NSString *)identifier delegate:(id)delegate userInfo:(id)userInfo
 {
 	NSString *path = [NSString stringWithFormat:@"tide?location=%@", identifier];
-	NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:identifier, @"identifier", userInfo, @"userInfo"];
+	NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:identifier, @"identifier", userInfo, @"userInfo", nil];
 	[self sendRequestWithPath:path identifier:@"tide" action:@selector(didFetchForecast:) failedAction:@selector(didFailedFetchForecast:error:) delegate:delegate userInfo:info];	
 }
 - (void)fetchImageWithLocationIdentifier:(NSString *)identifier delegate:(id)delegate userInfo:(id)userInfo
@@ -261,6 +261,9 @@ static TWAPIBox *apibox;
 
 - (NSDate *)dateFromString:(NSString *)string
 {
+	if (!string) {
+		return nil;
+	}	
 	if (!_formatter) {
 		_formatter = [[NSDateFormatter alloc] init];
 	}
@@ -270,6 +273,9 @@ static TWAPIBox *apibox;
 }
 - (NSDate *)dateFromShortString:(NSString *)string
 {
+	if (!string) {
+		return nil;
+	}
 	if (!_formatter) {
 		_formatter = [[NSDateFormatter alloc] init];
 	}
@@ -279,6 +285,9 @@ static TWAPIBox *apibox;
 }
 - (NSString *)shortDateTimeStringFromDate:(NSDate *)date
 {
+	if (!date) {
+		return nil;
+	}	
 	if (!_formatter) {
 		_formatter = [[NSDateFormatter alloc] init];
 	}
@@ -288,6 +297,9 @@ static TWAPIBox *apibox;
 }
 - (NSString *)shortDateStringFromDate:(NSDate *)date
 {
+	if (!date) {
+		return nil;
+	}	
 	if (!_formatter) {
 		_formatter = [[NSDateFormatter alloc] init];
 	}

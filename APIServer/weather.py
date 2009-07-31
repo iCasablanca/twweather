@@ -342,7 +342,7 @@ class Weather3DaySea(Forecast):
 					windLevel = line[0:-7].decode("utf-8")
 				elif count is 5:
 					wave = line[0:-7].decode("utf-8")
-					item = {"time": time, "description": description, "wind": wind, "windLevel": windLevel, "wave": wave}
+					item = {"date": time, "description": description, "wind": wind, "windLevel": windLevel, "wave": wave}
 					items.append(item)
 					if len(items) >= 3:
 						break

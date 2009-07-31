@@ -9,6 +9,7 @@
 #import "TWForecastTableViewController.h"
 #import "TWWeekTableViewController.h"
 #import "TWWeekTravelTableViewController.h"
+#import "TWThreeDaySeaTableViewController.h"
 
 @implementation RootViewController
 
@@ -74,7 +75,7 @@
 		return 0;
 	}
 	else if (section == 1) {
-		return 3;
+		return 4;
 	}
     return 0;
 }
@@ -99,6 +100,9 @@
 			case 2:
 				cell.textLabel.text = @"一週旅遊天氣預報";
 				break;				
+			case 3:
+				cell.textLabel.text = @"三天漁業天氣預報";
+				break;				
 			default:
 				break;
 		}
@@ -118,6 +122,10 @@
 		else if (indexPath.row == 2) {
 			controller = [[TWWeekTravelTableViewController alloc] initWithStyle:UITableViewStylePlain];
 		}
+		else if (indexPath.row == 3) {
+			controller = [[TWThreeDaySeaTableViewController alloc] initWithStyle:UITableViewStylePlain];
+		}		
+		
 		if (controller) {
 			[self.navigationController pushViewController:controller animated:YES];
 			[controller release];
