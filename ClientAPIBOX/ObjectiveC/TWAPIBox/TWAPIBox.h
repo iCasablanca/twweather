@@ -48,12 +48,18 @@ typedef enum {
 - (void)APIBox:(TWAPIBox *)APIBox didFetchImageData:(NSData *)data identifier:(NSString *)identifier userInfo:(id)userInfo;
 - (void)APIBox:(TWAPIBox *)APIBox didFailedFetchImageWithError:(NSError *)error identifier:(NSString *)identifier userInfo:(id)userInfo;
 
-
 @end
 
 @interface TWAPIBox : NSObject 
 {
 	LFHTTPRequest *_request;
+	NSMutableArray *_forecastLocations;
+	NSMutableArray *_weekLocations;
+	NSMutableArray *_weekTravelLocations;
+	NSMutableArray *_threeDaySeaLocations;
+	NSMutableArray *_nearSeaLocations;
+	NSMutableArray *_tideLocations;
+	NSMutableArray *_imageIdentifiers;
 }
 
 + (TWAPIBox *)sharedBox;

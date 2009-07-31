@@ -4,6 +4,7 @@
 //
 
 #import "TWAPIBox.h"
+#import "TWAPIBox+Info.h"
 
 NSString *TWAPIErrorDomain = @"TWAPIErrorDomain";
 
@@ -35,6 +36,7 @@ static TWAPIBox *apibox;
     if (self) {
 		_request = [[LFHTTPRequest alloc] init];
 		[_request setDelegate:self];
+		[self initInfoArrays];
     }
     return self;
 }
