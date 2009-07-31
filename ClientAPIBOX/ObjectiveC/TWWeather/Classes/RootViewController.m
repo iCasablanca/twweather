@@ -7,7 +7,7 @@
 
 #import "RootViewController.h"
 #import "TWForecastTableViewController.h"
-//#import "TWAPIBox.h"
+#import "TWWeekTableViewController.h"
 
 @implementation RootViewController
 
@@ -73,7 +73,7 @@
 		return 0;
 	}
 	else if (section == 1) {
-		return 1;
+		return 2;
 	}
     return 0;
 }
@@ -88,16 +88,33 @@
     
 	if (indexPath.section == 1) {
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-		cell.textLabel.text = @"48 小時天氣預報";
+		switch (indexPath.row) {
+			case 0:
+				cell.textLabel.text = @"48 小時天氣預報";
+				break;
+			case 1:
+				cell.textLabel.text = @"一週天氣預報";
+				break;				
+			default:
+				break;
+		}
 	}
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
 	if (indexPath.section == 1) {
-		TWForecastTableViewController *controller = [[TWForecastTableViewController alloc] initWithStyle:UITableViewStylePlain];
-		[self.navigationController pushViewController:controller animated:YES];
-		[controller release];
+		UITableViewController *controller = nil;
+		if (indexPath.row == 0) {
+			controller = [[TWForecastTableViewController alloc] initWithStyle:UITableViewStylePlain];
+		}
+		else if (indexPath.row == 1) {
+			controller = [[TWWeekTableViewController alloc] initWithStyle:UITableViewStylePlain];
+		}
+		if (controller) {
+			[self.navigationController pushViewController:controller animated:YES];
+			[controller release];
+		}
 	}
 }
 

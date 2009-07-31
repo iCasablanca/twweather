@@ -24,6 +24,9 @@
 		D4E502F910234698002B39D7 /* TWForecastResultTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E502F810234698002B39D7 /* TWForecastResultTableViewController.m */; };
 		D4E5033310234C2D002B39D7 /* TWForecastResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E5033210234C2D002B39D7 /* TWForecastResultCell.m */; };
 		D4E503DE102357FC002B39D7 /* TWLoadingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E503DD102357FC002B39D7 /* TWLoadingCell.m */; };
+		D4E5042A10235B65002B39D7 /* TWWeekTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E5042910235B65002B39D7 /* TWWeekTableViewController.m */; };
+		D4E5046710235E92002B39D7 /* TWWeekResultTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E5046610235E92002B39D7 /* TWWeekResultTableViewController.m */; };
+		D4E504AE10236201002B39D7 /* TWWeekResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E504AD10236201002B39D7 /* TWWeekResultCell.m */; };
 		D4E9C6E510223D6200B955C7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E9C6E410223D6200B955C7 /* SystemConfiguration.framework */; };
 		D4E9C70110223DBB00B955C7 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E9C70010223DBB00B955C7 /* CFNetwork.framework */; };
 /* End PBXBuildFile section */
@@ -62,6 +65,12 @@
 		D4E5033210234C2D002B39D7 /* TWForecastResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWForecastResultCell.m; sourceTree = "<group>"; };
 		D4E503DC102357FC002B39D7 /* TWLoadingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWLoadingCell.h; sourceTree = "<group>"; };
 		D4E503DD102357FC002B39D7 /* TWLoadingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWLoadingCell.m; sourceTree = "<group>"; };
+		D4E5042810235B65002B39D7 /* TWWeekTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWWeekTableViewController.h; sourceTree = "<group>"; };
+		D4E5042910235B65002B39D7 /* TWWeekTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWWeekTableViewController.m; sourceTree = "<group>"; };
+		D4E5046510235E92002B39D7 /* TWWeekResultTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWWeekResultTableViewController.h; sourceTree = "<group>"; };
+		D4E5046610235E92002B39D7 /* TWWeekResultTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWWeekResultTableViewController.m; sourceTree = "<group>"; };
+		D4E504AC10236201002B39D7 /* TWWeekResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWWeekResultCell.h; sourceTree = "<group>"; };
+		D4E504AD10236201002B39D7 /* TWWeekResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWWeekResultCell.m; sourceTree = "<group>"; };
 		D4E9C6E410223D6200B955C7 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		D4E9C70010223DBB00B955C7 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -99,6 +108,12 @@
 				D4E502F810234698002B39D7 /* TWForecastResultTableViewController.m */,
 				D4E5033110234C2D002B39D7 /* TWForecastResultCell.h */,
 				D4E5033210234C2D002B39D7 /* TWForecastResultCell.m */,
+				D4E5042810235B65002B39D7 /* TWWeekTableViewController.h */,
+				D4E5042910235B65002B39D7 /* TWWeekTableViewController.m */,
+				D4E5046510235E92002B39D7 /* TWWeekResultTableViewController.h */,
+				D4E5046610235E92002B39D7 /* TWWeekResultTableViewController.m */,
+				D4E504AC10236201002B39D7 /* TWWeekResultCell.h */,
+				D4E504AD10236201002B39D7 /* TWWeekResultCell.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -261,6 +276,9 @@
 				D4E502F910234698002B39D7 /* TWForecastResultTableViewController.m in Sources */,
 				D4E5033310234C2D002B39D7 /* TWForecastResultCell.m in Sources */,
 				D4E503DE102357FC002B39D7 /* TWLoadingCell.m in Sources */,
+				D4E5042A10235B65002B39D7 /* TWWeekTableViewController.m in Sources */,
+				D4E5046710235E92002B39D7 /* TWWeekResultTableViewController.m in Sources */,
+				D4E504AE10236201002B39D7 /* TWWeekResultCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

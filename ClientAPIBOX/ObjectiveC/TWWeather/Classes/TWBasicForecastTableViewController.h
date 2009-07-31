@@ -6,7 +6,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "TWAPIBox.h"
+#import "TWAPIBox+Info.h"
 
 @interface TWBasicForecastTableViewController : UITableViewController 
 {

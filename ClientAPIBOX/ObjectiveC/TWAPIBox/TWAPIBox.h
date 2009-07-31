@@ -74,6 +74,7 @@ typedef enum {
 - (void)fetchImageWithLocationIdentifier:(NSString *)identifier delegate:(id)delegate userInfo:(id)userInfo;
 
 - (NSDate *)dateFromString:(NSString *)string;
-- (NSString *)shortStringFromDate:(NSDate *)date;
-
+- (NSDate *)dateFromShortString:(NSString *)string;
+- (NSString *)shortDateTimeStringFromDate:(NSDate *)date;
+- (NSString *)shortDateStringFromDate:(NSDate *)date;
 @end

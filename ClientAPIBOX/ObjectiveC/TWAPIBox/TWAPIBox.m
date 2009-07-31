@@ -268,13 +268,31 @@ static TWAPIBox *apibox;
 	NSDate *date = [_formatter dateFromString:string];
 	return date;	
 }
-- (NSString *)shortStringFromDate:(NSDate *)date
+- (NSDate *)dateFromShortString:(NSString *)string
+{
+	if (!_formatter) {
+		_formatter = [[NSDateFormatter alloc] init];
+	}
+	[_formatter setDateFormat:@"yyyy-MM-dd"];
+	NSDate *date = [_formatter dateFromString:string];
+	return date;	
+}
+- (NSString *)shortDateTimeStringFromDate:(NSDate *)date
 {
 	if (!_formatter) {
 		_formatter = [[NSDateFormatter alloc] init];
 	}
 	[_formatter setDateStyle:kCFDateFormatterShortStyle];
 	[_formatter setTimeStyle:kCFDateFormatterShortStyle];
+	return [_formatter stringFromDate:date];	
+}
+- (NSString *)shortDateStringFromDate:(NSDate *)date
+{
+	if (!_formatter) {
+		_formatter = [[NSDateFormatter alloc] init];
+	}
+	[_formatter setDateStyle:kCFDateFormatterShortStyle];
+	[_formatter setTimeStyle:kCFDateFormatterNoStyle];
 	return [_formatter stringFromDate:date];	
 }
 

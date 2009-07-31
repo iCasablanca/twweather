@@ -53,10 +53,10 @@
 	cell.temperature = [dictionary objectForKey:@"temperature"];
 	NSString *beginTimeString = [dictionary objectForKey:@"beginTime"];
 	NSDate *beginDate = [[TWAPIBox sharedBox] dateFromString:beginTimeString];
-	cell.beginTime = [[TWAPIBox sharedBox] shortStringFromDate:beginDate];
+	cell.beginTime = [[TWAPIBox sharedBox] shortDateTimeStringFromDate:beginDate];
 	NSString *endTimeString = [dictionary objectForKey:@"endTime"];
 	NSDate *endDate = [[TWAPIBox sharedBox] dateFromString:endTimeString];
-	cell.endTime = [[TWAPIBox sharedBox] shortStringFromDate:endDate];
+	cell.endTime = [[TWAPIBox sharedBox] shortDateTimeStringFromDate:endDate];
 	[cell setNeedsDisplay];
     return cell;
 }
