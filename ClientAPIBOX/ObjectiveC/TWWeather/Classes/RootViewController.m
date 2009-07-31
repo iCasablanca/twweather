@@ -11,6 +11,7 @@
 #import "TWWeekTravelTableViewController.h"
 #import "TWThreeDaySeaTableViewController.h"
 #import "TWNearSeaTableViewController.h"
+#import "TWTideTableViewController.h"
 
 @implementation RootViewController
 
@@ -76,7 +77,7 @@
 		return 0;
 	}
 	else if (section == 1) {
-		return 5;
+		return 6;
 	}
     return 0;
 }
@@ -107,6 +108,9 @@
 			case 4:
 				cell.textLabel.text = @"台灣近海";
 				break;				
+			case 5:
+				cell.textLabel.text = @"三天潮汐";
+				break;				
 			default:
 				break;
 		}
@@ -128,10 +132,13 @@
 		}
 		else if (indexPath.row == 3) {
 			controller = [[TWThreeDaySeaTableViewController alloc] initWithStyle:UITableViewStylePlain];
-		}		
+		}
 		else if (indexPath.row == 4) {
 			controller = [[TWNearSeaTableViewController alloc] initWithStyle:UITableViewStylePlain];
-		}		
+		}
+		else if (indexPath.row == 5) {
+			controller = [[TWTideTableViewController alloc] initWithStyle:UITableViewStylePlain];
+		}
 		if (controller) {
 			[self.navigationController pushViewController:controller animated:YES];
 			[controller release];

@@ -54,13 +54,24 @@
 	
     [super dealloc];
 }
+- (void)_init
+{
+	CGRect cellFrame = CGRectMake(10, 10, 280, 300);
+	_ourContentView = [[TWNearSeaCellContentView alloc] initWithFrame:cellFrame];
+	_ourContentView.delegate = self;
+	[self.contentView addSubview:_ourContentView];
+}
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+		[self _init];
+    }
+    return self;
+}
 - (id)initWithFrame:(CGRect)frame reuseIdentifier:(NSString *)reuseIdentifier
 {
     if (self = [super initWithFrame:frame reuseIdentifier:reuseIdentifier]) {
-		CGRect cellFrame = CGRectMake(10, 10, 280, 300);
-		_ourContentView = [[TWNearSeaCellContentView alloc] initWithFrame:cellFrame];
-		_ourContentView.delegate = self;
-		[self.contentView addSubview:_ourContentView];
+		[self _init];
     }
     return self;
 }

@@ -117,15 +117,15 @@ class WeatherForecast(Forecast):
 		
 		for line in lines:
 			if line.startswith("今") or line.startswith("明"):
-				title = line[:-7].decode("utf-8")
+				title = line.replace("<br />", "")[:-1].decode("utf-8")
 				isHandlingTime = True
 			elif line.startswith("降雨機率："):
-				line = line[15:-3]
+				line = line.replace("降雨機率：", "").replace("<br />", "").replace("%", "").replace(" ", "")[0:-1]
 				rain = line
 				item = {"title":title, "time":time, "beginTime":beginTime, "endTime":endTime, "description":description, "temperature":temperature, "rain":rain}
 				items.append(item)
 			elif line.startswith("溫度(℃)："):
-				line = line[14: -6]
+				line = line.replace("溫度(℃)：", "").replace("<br />", "")[0:-1]
 				temperature = line
 			elif isHandlingTime is True:
 				time = line
@@ -144,7 +144,7 @@ class WeatherForecast(Forecast):
 				isHandlingDescription = True
 			elif isHandlingDescription is True:
 				if line.startswith("<br />") is False and len(line) > 2:
-					description = line[0:-1]
+					description = line.replace("<br />", "")[0:-1]
 					description = description.decode("utf-8")
 					isHandlingDescription = False
 		return {"locationName":locationName, "items":items, "id": id}
@@ -515,12 +515,12 @@ class WeatherTide(Forecast):
 		line = line[7:-10]
 		parts = line.split(" ")
 		if len(parts) > 1:
-			shortDate = parts[0]
+			shortTime = parts[0]
 			height = parts[1]
-			hour = int(shortDate[0:2])
-			minute = int(shortDate[3:5])
+			hour = int(shortTime[0:2])
+			minute = int(shortTime[3:5])
 			longTime = datetime(theDate.year, theDate.month, theDate.day, hour, minute).__str__()
-			return {"longTime": longTime, "shortDate": shortDate, "height": height}
+			return {"longTime": longTime, "shortTime": shortTime, "height": height}
 		
 	def fetchWithID(self, id):
 		locationName = self.locationNameWithID(id)
@@ -558,7 +558,7 @@ class WeatherTide(Forecast):
 				elif line.find("滿潮") > -1:
 					high = self.handelWave(line, theDate)
 				elif line.find("--------") > -1:
-					item = {"time": time, "lunarTime": lunarTime, "low": low, "high": high}
+					item = {"date": time, "lunarDate": lunarTime, "low": low, "high": high}
 					items.append(item)
 					if len(items) >= 3:
 						result = {"locationName": locationName, "id": id, "items": items}
@@ -573,8 +573,8 @@ class TestWeatherTide(unittest.TestCase):
 			self.assertTrue(result)
 			self.assertEqual(int(len(result['items'])), 3)
 			for item in result['items']:
-				self.assertTrue(item['time'])
-				self.assertTrue(item['lunarTime'])
+				self.assertTrue(item['date'])
+				self.assertTrue(item['lunarDate'])
 				self.assertTrue(item['high'])
 				self.assertTrue(item['low'])
 

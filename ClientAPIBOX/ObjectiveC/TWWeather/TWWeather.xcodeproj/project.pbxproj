@@ -34,6 +34,9 @@
 		D4E5063610237768002B39D7 /* TWNearSeaTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E5063510237768002B39D7 /* TWNearSeaTableViewController.m */; };
 		D4E5068010237944002B39D7 /* TWNearSeaResultTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E5067F10237944002B39D7 /* TWNearSeaResultTableViewController.m */; };
 		D4E506A510237A99002B39D7 /* TWNearSeaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E506A410237A99002B39D7 /* TWNearSeaCell.m */; };
+		D4E507351023838B002B39D7 /* TWTideTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E507341023838B002B39D7 /* TWTideTableViewController.m */; };
+		D4E5075510238538002B39D7 /* TWTideResultTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E5075410238538002B39D7 /* TWTideResultTableViewController.m */; };
+		D4E5078D10238957002B39D7 /* TWTideCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E5078C10238957002B39D7 /* TWTideCell.m */; };
 		D4E9C6E510223D6200B955C7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E9C6E410223D6200B955C7 /* SystemConfiguration.framework */; };
 		D4E9C70110223DBB00B955C7 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E9C70010223DBB00B955C7 /* CFNetwork.framework */; };
 /* End PBXBuildFile section */
@@ -92,6 +95,12 @@
 		D4E5067F10237944002B39D7 /* TWNearSeaResultTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWNearSeaResultTableViewController.m; sourceTree = "<group>"; };
 		D4E506A310237A99002B39D7 /* TWNearSeaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWNearSeaCell.h; sourceTree = "<group>"; };
 		D4E506A410237A99002B39D7 /* TWNearSeaCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWNearSeaCell.m; sourceTree = "<group>"; };
+		D4E507331023838B002B39D7 /* TWTideTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWTideTableViewController.h; sourceTree = "<group>"; };
+		D4E507341023838B002B39D7 /* TWTideTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWTideTableViewController.m; sourceTree = "<group>"; };
+		D4E5075310238538002B39D7 /* TWTideResultTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWTideResultTableViewController.h; sourceTree = "<group>"; };
+		D4E5075410238538002B39D7 /* TWTideResultTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWTideResultTableViewController.m; sourceTree = "<group>"; };
+		D4E5078B10238957002B39D7 /* TWTideCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWTideCell.h; sourceTree = "<group>"; };
+		D4E5078C10238957002B39D7 /* TWTideCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWTideCell.m; sourceTree = "<group>"; };
 		D4E9C6E410223D6200B955C7 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		D4E9C70010223DBB00B955C7 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -149,6 +158,12 @@
 				D4E5067F10237944002B39D7 /* TWNearSeaResultTableViewController.m */,
 				D4E506A310237A99002B39D7 /* TWNearSeaCell.h */,
 				D4E506A410237A99002B39D7 /* TWNearSeaCell.m */,
+				D4E507331023838B002B39D7 /* TWTideTableViewController.h */,
+				D4E507341023838B002B39D7 /* TWTideTableViewController.m */,
+				D4E5075310238538002B39D7 /* TWTideResultTableViewController.h */,
+				D4E5075410238538002B39D7 /* TWTideResultTableViewController.m */,
+				D4E5078B10238957002B39D7 /* TWTideCell.h */,
+				D4E5078C10238957002B39D7 /* TWTideCell.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -321,6 +336,9 @@
 				D4E5063610237768002B39D7 /* TWNearSeaTableViewController.m in Sources */,
 				D4E5068010237944002B39D7 /* TWNearSeaResultTableViewController.m in Sources */,
 				D4E506A510237A99002B39D7 /* TWNearSeaCell.m in Sources */,
+				D4E507351023838B002B39D7 /* TWTideTableViewController.m in Sources */,
+				D4E5075510238538002B39D7 /* TWTideResultTableViewController.m in Sources */,
+				D4E5078D10238957002B39D7 /* TWTideCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

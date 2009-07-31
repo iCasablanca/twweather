@@ -1,20 +1,19 @@
 //
-//  TWThreeDaySeaResultTableViewController.m
+//  TWTideResultTableViewController.m
 //  TWWeather
 //
 //  Created by zonble on 2009/08/01.
 //
 
-#import "TWThreeDaySeaResultTableViewController.h"
-#import "TWThreeDaySeaCell.h"
+#import "TWTideResultTableViewController.h"
+#import "TWTideCell.h"
 #import "TWAPIBox.h"
 
-@implementation TWThreeDaySeaResultTableViewController
+@implementation TWTideResultTableViewController
 
 - (void)dealloc 
 {
 	[forecastArray release];
-	[publishTime release];
     [super dealloc];
 }
 
@@ -39,18 +38,22 @@
 {    
     static NSString *CellIdentifier = @"Cell";
     
-    TWThreeDaySeaCell *cell = (TWThreeDaySeaCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    TWTideCell *cell = (TWTideCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[TWThreeDaySeaCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[[TWTideCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
 	NSDictionary *dictionary = [forecastArray objectAtIndex:indexPath.row];
+	
 	NSString *dateString = [dictionary objectForKey:@"date"];
 	NSDate *date = [[TWAPIBox sharedBox] dateFromShortString:dateString];
-	cell.date = [[TWAPIBox sharedBox] shortDateStringFromDate:date];	
-	cell.description = [dictionary objectForKey:@"description"];
-	cell.wind = [dictionary objectForKey:@"wind"];
-	cell.windLevel = [dictionary objectForKey:@"windLevel"];
-	cell.wave = [dictionary objectForKey:@"wave"];
+	cell.dateString = [[TWAPIBox sharedBox] shortDateStringFromDate:date];
+	cell.lunarDateString = [dictionary objectForKey:@"lunarDate"];
+	NSDictionary *low = [dictionary objectForKey:@"low"];
+	NSDictionary *high = [dictionary objectForKey:@"high"];
+	cell.lowHeight = [low objectForKey:@"height"];
+	cell.lowShortTime = [low objectForKey:@"shortTime"];
+	cell.highHeight = [high objectForKey:@"height"];
+	cell.highshortTime = [high objectForKey:@"shortTime"];
 	cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	[cell setNeedsDisplay];
     return cell;
@@ -59,14 +62,9 @@
 {
 	return 120.0;
 }
-- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
-{
-	NSString *time = [NSString stringWithFormat:@"發布時間：%@", publishTime];
-	return time;
-}
+
 
 @synthesize forecastArray;
-@synthesize publishTime;
 
 @end
 
