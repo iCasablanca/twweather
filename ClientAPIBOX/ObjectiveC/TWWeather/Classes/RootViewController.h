@@ -7,6 +7,7 @@
 
 @interface RootViewController : UITableViewController 
 {
+	BOOL isLoadingOverview;
 }
 
 @end

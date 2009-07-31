@@ -18,7 +18,7 @@
 }
 - (void)viewDidUnload
 {
-	[super viewDidLoad];
+//	[super viewDidLoad];
 	self.view = nil;
 	[textLabel release];
 }
