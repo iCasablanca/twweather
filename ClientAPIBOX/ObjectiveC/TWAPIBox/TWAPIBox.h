@@ -60,6 +60,7 @@ typedef enum {
 	NSMutableArray *_nearSeaLocations;
 	NSMutableArray *_tideLocations;
 	NSMutableArray *_imageIdentifiers;
+	NSDateFormatter *_formatter;
 }
 
 + (TWAPIBox *)sharedBox;
@@ -71,5 +72,8 @@ typedef enum {
 - (void)fetchNearSeaWithLocationIdentifier:(NSString *)identifier delegate:(id)delegate userInfo:(id)userInfo;
 - (void)fetchTideWithLocationIdentifier:(NSString *)identifier delegate:(id)delegate userInfo:(id)userInfo;
 - (void)fetchImageWithLocationIdentifier:(NSString *)identifier delegate:(id)delegate userInfo:(id)userInfo;
+
+- (NSDate *)dateFromString:(NSString *)string;
+- (NSString *)shortStringFromDate:(NSDate *)date;
 
 @end

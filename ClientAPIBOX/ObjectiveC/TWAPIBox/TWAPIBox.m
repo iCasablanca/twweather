@@ -28,6 +28,7 @@ static TWAPIBox *apibox;
 	_request.delegate = nil;
 	[_request release];
 	[self releaseInfoArrays];
+	[_formatter release];
 	[super dealloc];
 }
 
@@ -214,31 +215,37 @@ static TWAPIBox *apibox;
 - (void)fetchForecastWithLocationIdentifier:(NSString *)identifier delegate:(id)delegate userInfo:(id)userInfo
 {
 	NSString *path = [NSString stringWithFormat:@"forecast?location=%@", identifier];
-	NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:identifier, @"identifier", userInfo, @"userInfo"];
+	if (!identifier) {
+		return;
+	}
+	if (!userInfo) {
+		userInfo = [NSNull null];
+	}
+	NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:identifier, @"identifier", userInfo, @"userInfo", nil];
 	[self sendRequestWithPath:path identifier:@"forecast" action:@selector(didFetchForecast:) failedAction:@selector(didFailedFetchForecast:error:) delegate:delegate userInfo:info];
 }
 - (void)fetchWeekWithLocationIdentifier:(NSString *)identifier delegate:(id)delegate userInfo:(id)userInfo
 {
 	NSString *path = [NSString stringWithFormat:@"week?location=%@", identifier];
-	NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:identifier, @"identifier", userInfo, @"userInfo"];
+	NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:identifier, @"identifier", userInfo, @"userInfo", nil];
 	[self sendRequestWithPath:path identifier:@"week" action:@selector(didFetchForecast:) failedAction:@selector(didFailedFetchForecast:error:) delegate:delegate userInfo:info];	
 }
 - (void)fetchWeekTravelWithLocationIdentifier:(NSString *)identifier delegate:(id)delegate userInfo:(id)userInfo
 {
 	NSString *path = [NSString stringWithFormat:@"week_travel?location=%@", identifier];
-	NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:identifier, @"identifier", userInfo, @"userInfo"];
+	NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:identifier, @"identifier", userInfo, @"userInfo", nil];
 	[self sendRequestWithPath:path identifier:@"week_travel" action:@selector(didFetchForecast:) failedAction:@selector(didFailedFetchForecast:error:) delegate:delegate userInfo:info];		
 }
 - (void)fetchThreeDaySeaWithLocationIdentifier:(NSString *)identifier delegate:(id)delegate userInfo:(id)userInfo
 {
 	NSString *path = [NSString stringWithFormat:@"3sea?location=%@", identifier];
-	NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:identifier, @"identifier", userInfo, @"userInfo"];
+	NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:identifier, @"identifier", userInfo, @"userInfo", nil];
 	[self sendRequestWithPath:path identifier:@"3sea" action:@selector(didFetchForecast:) failedAction:@selector(didFailedFetchForecast:error:) delegate:delegate userInfo:info];	
 }
 - (void)fetchNearSeaWithLocationIdentifier:(NSString *)identifier delegate:(id)delegate userInfo:(id)userInfo
 {
 	NSString *path = [NSString stringWithFormat:@"nearsea?location=%@", identifier];
-	NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:identifier, @"identifier", userInfo, @"userInfo"];
+	NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:identifier, @"identifier", userInfo, @"userInfo", nil];
 	[self sendRequestWithPath:path identifier:@"nearsea" action:@selector(didFetchForecast:) failedAction:@selector(didFailedFetchForecast:error:) delegate:delegate userInfo:info];		
 }
 - (void)fetchTideWithLocationIdentifier:(NSString *)identifier delegate:(id)delegate userInfo:(id)userInfo
@@ -250,6 +257,28 @@ static TWAPIBox *apibox;
 - (void)fetchImageWithLocationIdentifier:(NSString *)identifier delegate:(id)delegate userInfo:(id)userInfo
 {
 }
+
+
+- (NSDate *)dateFromString:(NSString *)string
+{
+	if (!_formatter) {
+		_formatter = [[NSDateFormatter alloc] init];
+	}
+	[_formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+	NSDate *date = [_formatter dateFromString:string];
+	return date;	
+}
+- (NSString *)shortStringFromDate:(NSDate *)date
+{
+	if (!_formatter) {
+		_formatter = [[NSDateFormatter alloc] init];
+	}
+	[_formatter setDateStyle:kCFDateFormatterShortStyle];
+	[_formatter setTimeStyle:kCFDateFormatterShortStyle];
+	return [_formatter stringFromDate:date];	
+}
+
+#pragma mark -
 
 - (void)httpRequestDidComplete:(LFHTTPRequest *)request
 {

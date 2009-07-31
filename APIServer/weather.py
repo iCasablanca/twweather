@@ -125,7 +125,7 @@ class WeatherForecast(Forecast):
 				item = {"title":title, "time":time, "beginTime":beginTime, "endTime":endTime, "description":description, "temperature":temperature, "rain":rain}
 				items.append(item)
 			elif line.startswith("溫度(℃)："):
-				line = line[14: -7]
+				line = line[14: -6]
 				temperature = line
 			elif isHandlingTime is True:
 				time = line
@@ -143,9 +143,10 @@ class WeatherForecast(Forecast):
 				isHandlingTime = False
 				isHandlingDescription = True
 			elif isHandlingDescription is True:
-				description = line[0:-7]
-				description = description.decode("utf-8")
-				isHandlingDescription = False
+				if line.startswith("<br />") is False and len(line) > 2:
+					description = line[0:-1]
+					description = description.decode("utf-8")
+					isHandlingDescription = False
 		return {"locationName":locationName, "items":items, "id": id}
 
 class TestWeatherForecast(unittest.TestCase):
@@ -531,9 +532,6 @@ class WeatherTide(Forecast):
 			url = urllib.urlopen(URLString)
 		except:
 			return None
-		# print url.read()
-		# return
-
 		lines = url.readlines()
 		items = []
 		theDate = None

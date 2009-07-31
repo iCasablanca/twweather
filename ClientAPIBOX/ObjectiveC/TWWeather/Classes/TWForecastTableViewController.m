@@ -1,0 +1,74 @@
+//
+//  TWForecastTableViewController.m
+//  TWWeather
+//
+//  Created by zonble on 2009/07/31.
+//
+
+#import "TWForecastTableViewController.h"
+#import "TWAPIBox.h"
+#import "TWAPIBox+Info.h"
+#import "TWForecastResultTableViewController.h"
+
+@implementation TWForecastTableViewController
+
+#pragma mark UIViewContoller Methods
+
+- (void)viewDidLoad 
+{
+	[super viewDidLoad];
+	self.array = [[TWAPIBox sharedBox] forecastLocations];
+	self.title = @"48 小時天氣預報";
+}
+- (void)viewWillAppear:(BOOL)animated 
+{
+	[super viewWillAppear:animated];
+}
+- (void)viewDidAppear:(BOOL)animated 
+{
+	[super viewDidAppear:animated];
+}
+- (void)viewWillDisappear:(BOOL)animated 
+{
+	[super viewWillDisappear:animated];
+}
+- (void)viewDidDisappear:(BOOL)animated 
+{
+	[super viewDidDisappear:animated];
+}
+
+#pragma mark UITableViewDataSource and UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
+{
+	NSMutableDictionary *dictionray = [[self array] objectAtIndex:indexPath.row];
+	NSString *identifier = [dictionray objectForKey:@"identifier"];
+	[[TWAPIBox sharedBox] fetchForecastWithLocationIdentifier:identifier delegate:self userInfo:dictionray];
+	self.tableView.userInteractionEnabled = NO;
+	[dictionray setObject:[NSNumber numberWithBool:YES] forKey:@"isLoading"];
+	[self.tableView reloadData];
+}
+
+- (void)APIBox:(TWAPIBox *)APIBox didFetchForecast:(id)result identifier:(NSString *)identifier userInfo:(id)userInfo
+{
+	[self resetLoading];
+	NSLog(@"result:%@", [result description]);
+	if ([result isKindOfClass:[NSDictionary class]]) {
+		NSDictionary *dictionary = (NSDictionary *)result;
+		TWForecastResultTableViewController *controller = [[TWForecastResultTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+		controller.title = [dictionary objectForKey:@"locationName"];
+		controller.forecastArray = [dictionary objectForKey:@"items"];
+		[self.navigationController pushViewController:controller animated:YES];
+		[controller release];
+	}
+	self.tableView.userInteractionEnabled = YES;
+}
+- (void)APIBox:(TWAPIBox *)APIBox didFailedFetchForecastWithError:(NSError *)error identifier:(NSString *)identifier userInfo:(id)userInfo
+{
+	[self resetLoading];
+	self.tableView.userInteractionEnabled = YES;
+}
+
+
+@end
+

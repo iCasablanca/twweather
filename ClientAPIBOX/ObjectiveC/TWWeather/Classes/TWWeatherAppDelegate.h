@@ -2,11 +2,11 @@
 //  TWWeatherAppDelegate.h
 //  TWWeather
 //
-//  Created by zonble on 2009/07/31.
-//  Copyright Lithoglyph Inc. 2009. All rights reserved.
+//  Created by zonble on 2009/07/31.s
 //
 
-@interface TWWeatherAppDelegate : NSObject <UIApplicationDelegate> {
+@interface TWWeatherAppDelegate : NSObject <UIApplicationDelegate> 
+{
     
     UIWindow *window;
     UINavigationController *navigationController;
