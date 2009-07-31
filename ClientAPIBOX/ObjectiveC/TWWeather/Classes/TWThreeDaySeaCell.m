@@ -42,6 +42,13 @@
 {
 	[_ourContentView removeFromSuperview];
 	[_ourContentView release];
+	
+	[date release];
+	[description release];
+	[wind release];
+	[windLevel release];
+	[wave release];
+	
     [super dealloc];
 }
 - (void)_init
