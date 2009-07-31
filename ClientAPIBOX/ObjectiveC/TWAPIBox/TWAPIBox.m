@@ -27,6 +27,7 @@ static TWAPIBox *apibox;
 	[_request cancelWithoutDelegateMessage];
 	_request.delegate = nil;
 	[_request release];
+	[self releaseInfoArrays];
 	[super dealloc];
 }
 
