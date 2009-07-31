@@ -195,7 +195,7 @@
 }
 - (NSArray *)weekTravelLocations
 {
-	return _weekLocations;
+	return _weekTravelLocations;
 }
 - (NSArray *)threeDaySeaLocations
 {
