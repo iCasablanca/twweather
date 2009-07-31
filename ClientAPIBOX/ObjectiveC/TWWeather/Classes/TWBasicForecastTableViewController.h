@@ -15,6 +15,7 @@
 }
 
 - (void)resetLoading;
+- (void)pushErrorViewWithError:(NSError *)error;
 
 @property (assign, nonatomic) NSArray *array;
 

@@ -7,6 +7,7 @@
 
 #import "TWBasicForecastTableViewController.h"
 #import "TWLoadingCell.h"
+#import "TWErrorViewController.h"
 
 @implementation TWBasicForecastTableViewController
 
@@ -97,6 +98,13 @@
 		[d setObject:[NSNumber numberWithBool:NO] forKey:@"isLoading"];
 	}
 	[self.tableView reloadData];
+}
+- (void)pushErrorViewWithError:(NSError *)error
+{
+	TWErrorViewController *controller = [[TWErrorViewController alloc] init];
+	controller.error = error;
+	[self.navigationController pushViewController:controller animated:YES];
+	[controller release];
 }
 
 #pragma mark UITableViewDataSource and UITableViewDelegate

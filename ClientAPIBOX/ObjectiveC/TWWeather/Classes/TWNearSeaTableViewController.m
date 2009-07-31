@@ -63,6 +63,7 @@
 {
 	[self resetLoading];
 	self.tableView.userInteractionEnabled = YES;
+	[self pushErrorViewWithError:error];
 }
 
 
