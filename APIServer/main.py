@@ -154,7 +154,7 @@ class ImageHandler(webapp.RequestHandler):
 			self.error(404)
 			return
 
-		redirect = self.request.get("refirect")
+		redirect = self.request.get("redirect")
 		if redirect:
 			self.redirect(URL)
 			pass

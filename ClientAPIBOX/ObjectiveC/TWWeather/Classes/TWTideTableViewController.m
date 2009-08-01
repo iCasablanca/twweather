@@ -33,7 +33,6 @@
 - (void)APIBox:(TWAPIBox *)APIBox didFetchTide:(id)result identifier:(NSString *)identifier userInfo:(id)userInfo
 {
 	[self resetLoading];
-	NSLog(@"result:%@", [result description]);
 	if ([result isKindOfClass:[NSDictionary class]]) {
 		TWTideResultTableViewController *controller = [[TWTideResultTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
 		controller.title = [result objectForKey:@"locationName"];

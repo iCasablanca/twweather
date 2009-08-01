@@ -10,4 +10,6 @@
 	BOOL isLoadingOverview;
 }
 
+- (void)didFetchForecastOfCurrentLocation:(NSNotification *)notification;
+
 @end

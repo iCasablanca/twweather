@@ -7,6 +7,11 @@
 
 #import "TWWeatherAppDelegate.h"
 #import "RootViewController.h"
+#import "TWAPIBox.h"
+#import "TWAPIBox+Info.h"
+
+NSString *TWCurrentForecastDidFetchNotification = @"TWCurrentForecastDidFetchNotification";
+NSString *forecastOfCurrentLocationPreference = @"forecastOfCurrentLocationPreference";
 
 @implementation TWWeatherAppDelegate
 
@@ -17,6 +22,7 @@
 
 - (void)dealloc 
 {
+	[forecastOfCurrentLocation release];
 	[navigationController release];
 	[window release];
 	[super dealloc];
@@ -28,7 +34,10 @@
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application 
 {    
-    // Override point for customization after app launch    
+	forecastOfCurrentLocation = nil;
+	forecastOfCurrentLocation = [[NSUserDefaults standardUserDefaults] objectForKey:forecastOfCurrentLocationPreference];
+	[self fetchForecastOFCurrentLocation];
+	
 	RootViewController *rootController = [[RootViewController alloc] initWithStyle:UITableViewStyleGrouped];
 	UINavigationController *aNavigationController = [[UINavigationController alloc] initWithRootViewController:rootController];
 	[rootController release];
@@ -76,9 +85,32 @@
 	return string;
 }
 
+- (void)fetchForecastOFCurrentLocation
+{
+	NSDictionary *dictionary = [[[TWAPIBox sharedBox] forecastLocations] objectAtIndex:0];
+	NSString *identifier = [dictionary objectForKey:@"identifier"];	
+	[[TWAPIBox sharedBox] fetchForecastWithLocationIdentifier:identifier delegate:self userInfo:nil];
+}
+
+
+#pragma mark -
+
+- (void)APIBox:(TWAPIBox *)APIBox didFetchForecast:(id)result identifier:(NSString *)identifier userInfo:(id)userInfo
+{
+	if ([result isKindOfClass:[NSDictionary class]]) {
+		self.forecastOfCurrentLocation = result;
+		[[NSUserDefaults standardUserDefaults] setObject:result forKey:forecastOfCurrentLocationPreference];
+		[[NSNotificationCenter defaultCenter] postNotificationName:TWCurrentForecastDidFetchNotification object:forecastOfCurrentLocation userInfo:nil];
+	}
+}
+- (void)APIBox:(TWAPIBox *)APIBox didFailedFetchForecastWithError:(NSError *)error identifier:(NSString *)identifier userInfo:(id)userInfo
+{
+}
+
 
 @synthesize window;
 @synthesize navigationController;
+@synthesize forecastOfCurrentLocation;
 
 @end
 

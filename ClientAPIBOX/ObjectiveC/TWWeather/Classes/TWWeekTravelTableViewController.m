@@ -51,7 +51,6 @@
 - (void)APIBox:(TWAPIBox *)APIBox didFetchWeekTravel:(id)result identifier:(NSString *)identifier userInfo:(id)userInfo
 {
 	[self resetLoading];
-	NSLog(@"result:%@", [result description]);
 	if ([result isKindOfClass:[NSDictionary class]]) {
 		TWWeekResultTableViewController *controller = [[TWWeekResultTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
 		controller.title = [result objectForKey:@"locationName"];

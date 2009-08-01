@@ -17,11 +17,14 @@
 #import "TWNearSeaTableViewController.h"
 #import "TWTideTableViewController.h"
 #import "TWImageTableViewController.h"
+#import "TWWeatherAppDelegate.h"
+#import "TWForecastResultCell.h"
 
 @implementation RootViewController
 
-- (void) dealloc
+- (void)dealloc
 {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[super dealloc];
 }
 - (void)viewDidUnload
@@ -35,23 +38,24 @@
 {
     [super viewDidLoad];
 	self.title = @"台灣天氣";
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFetchForecastOfCurrentLocation:) name:TWCurrentForecastDidFetchNotification object:nil];
 }
-- (void)viewWillAppear:(BOOL)animated 
-{
-    [super viewWillAppear:animated];
-}
-- (void)viewDidAppear:(BOOL)animated 
-{
-    [super viewDidAppear:animated];
-}
-- (void)viewWillDisappear:(BOOL)animated 
-{
-	[super viewWillDisappear:animated];
-}
-- (void)viewDidDisappear:(BOOL)animated 
-{
-	[super viewDidDisappear:animated];
-}
+//- (void)viewWillAppear:(BOOL)animated 
+//{
+//    [super viewWillAppear:animated];
+//}
+//- (void)viewDidAppear:(BOOL)animated 
+//{
+//    [super viewDidAppear:animated];
+//}
+//- (void)viewWillDisappear:(BOOL)animated 
+//{
+//	[super viewWillDisappear:animated];
+//}
+//- (void)viewDidDisappear:(BOOL)animated 
+//{
+//	[super viewDidDisappear:animated];
+//}
 
 /*
  // Override to allow orientations other than the default portrait orientation.
@@ -79,6 +83,9 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section 
 {
 	if (section == 0) {
+		if ([TWWeatherAppDelegate sharedDelegate].forecastOfCurrentLocation) {
+			return 1;
+		}
 		return 0;
 	}
 	else if (section == 1) {
@@ -88,14 +95,38 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
 {
+    static NSString *ForecastIdentifier = @"ForecastCell";
     static NSString *CellIdentifier = @"Cell";
     
-    TWLoadingCell *cell = (TWLoadingCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[TWLoadingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-    }
-    
-	if (indexPath.section == 1) {
+    if (indexPath.section == 0) {
+		TWForecastResultCell *cell = (TWForecastResultCell *)[tableView dequeueReusableCellWithIdentifier:ForecastIdentifier];
+		if (cell == nil) {
+			cell = [[[TWForecastResultCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ForecastIdentifier] autorelease];
+		}
+		cell.selectionStyle = UITableViewCellSelectionStyleNone;
+		NSDictionary *dictionary = [[[TWWeatherAppDelegate sharedDelegate].forecastOfCurrentLocation objectForKey:@"items"] objectAtIndex:0];
+		cell.title = [dictionary objectForKey:@"title"];
+		cell.description = [dictionary objectForKey:@"description"];
+		cell.rain = [dictionary objectForKey:@"rain"];
+		cell.temperature = [dictionary objectForKey:@"temperature"];
+		NSString *beginTimeString = [dictionary objectForKey:@"beginTime"];
+		NSDate *beginDate = [[TWAPIBox sharedBox] dateFromString:beginTimeString];
+		cell.beginTime = [[TWAPIBox sharedBox] shortDateTimeStringFromDate:beginDate];
+		NSString *endTimeString = [dictionary objectForKey:@"endTime"];
+		NSDate *endDate = [[TWAPIBox sharedBox] dateFromString:endTimeString];
+		cell.endTime = [[TWAPIBox sharedBox] shortDateTimeStringFromDate:endDate];
+		
+		NSString *imageString = [[TWWeatherAppDelegate sharedDelegate] imageNameWithTimeTitle:cell.title description:cell.description ];
+		cell.weatherImage = [UIImage imageNamed:imageString];
+		
+		[cell setNeedsDisplay];		
+		return cell;
+	}
+	else if (indexPath.section == 1) {
+		TWLoadingCell *cell = (TWLoadingCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+		if (cell == nil) {
+			cell = [[[TWLoadingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+		}		
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		if (indexPath.row != 0) {
 			[cell stopAnimating];
@@ -134,12 +165,16 @@
 			default:
 				break;
 		}
+		return cell;
 	}
-    return cell;
+	return nil;
+
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-	if (indexPath.section == 1) {
+	if (indexPath.section == 0) {
+	}
+	else if (indexPath.section == 1) {
 		UITableViewController *controller = nil;
 		if (indexPath.row == 0) {
 			[[TWAPIBox sharedBox] fetchOverviewWithFormat:TWOverviewPlainFormat delegate:self userInfo:nil];
@@ -174,10 +209,39 @@
 		}
 	}
 }
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	if (indexPath.section == 0) {
+		return 130.0;
+	}
+	else if (indexPath.section == 1) {
+		return 45.0;
+	}
+	return 0.0;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+	return 0.0;
+}
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+	if (section == 0) {
+		NSDictionary *dictionary = [TWWeatherAppDelegate sharedDelegate].forecastOfCurrentLocation;
+		if (dictionary) {
+			NSString *location = [dictionary objectForKey:@"locationName"];
+			if (location) {
+				return [location stringByAppendingString:@"目前天氣"];
+			}			
+		}
+	}
+	else if (section == 1) {
+		return @"功能列表";
+	}
+	return nil;
+}
 
 - (void)APIBox:(TWAPIBox *)APIBox didFetchOverview:(NSString *)string userInfo:(id)userInfo
 {
-	NSLog(@"string:%@", string);
 	isLoadingOverview = NO;
 	[self.tableView reloadData];
 	self.tableView.userInteractionEnabled = YES;
@@ -197,6 +261,10 @@
 	[controller release];
 }
 
+- (void)didFetchForecastOfCurrentLocation:(NSNotification *)notification
+{
+	[self.tableView reloadData];
+}
 
 @end
 
