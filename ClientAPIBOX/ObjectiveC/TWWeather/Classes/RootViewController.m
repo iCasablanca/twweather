@@ -11,6 +11,7 @@
 #import "TWErrorViewController.h"
 #import "TWOverviewViewController.h"
 #import "TWForecastTableViewController.h"
+#import "TWForecastResultTableViewController.h"
 #import "TWWeekTableViewController.h"
 #import "TWWeekTravelTableViewController.h"
 #import "TWThreeDaySeaTableViewController.h"
@@ -97,7 +98,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView 
 {
-    return 2;
+    return 3;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section 
 {
@@ -110,19 +111,23 @@
 	else if (section == 1) {
 		return 8;
 	}
+	else if (section == 2) {
+		return 1;
+	}	
     return 0;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
 {
     static NSString *ForecastIdentifier = @"ForecastCell";
     static NSString *CellIdentifier = @"Cell";
+	static NSString *NormalIdentifier = @"NormalCell";
     
     if (indexPath.section == 0) {
 		TWForecastResultCell *cell = (TWForecastResultCell *)[tableView dequeueReusableCellWithIdentifier:ForecastIdentifier];
 		if (cell == nil) {
 			cell = [[[TWForecastResultCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ForecastIdentifier] autorelease];
 		}
-		cell.selectionStyle = UITableViewCellSelectionStyleNone;
+		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		NSDictionary *dictionary = [[[TWWeatherAppDelegate sharedDelegate].forecastOfCurrentLocation objectForKey:@"items"] objectAtIndex:0];
 		cell.title = [dictionary objectForKey:@"title"];
 		cell.description = [dictionary objectForKey:@"description"];
@@ -145,7 +150,7 @@
 		TWLoadingCell *cell = (TWLoadingCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 		if (cell == nil) {
 			cell = [[[TWLoadingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-		}		
+		}
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		if (indexPath.row != 0) {
 			[cell stopAnimating];
@@ -186,12 +191,34 @@
 		}
 		return cell;
 	}
+	else if (indexPath.section == 2) {
+		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NormalIdentifier];
+		if (cell == nil) {
+			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NormalIdentifier] autorelease];
+		}
+		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+		switch (indexPath.row) {
+			case 0:
+				cell.textLabel.text = NSLocalizedString(@"About", @"");
+				break;
+			default:
+				break;
+		}
+		return cell;
+	}
+		
 	return nil;
 
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
 	if (indexPath.section == 0) {
+		NSDictionary *dictionary = [TWWeatherAppDelegate sharedDelegate].forecastOfCurrentLocation;
+		TWForecastResultTableViewController *controller = [[TWForecastResultTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+		controller.title = [dictionary objectForKey:@"locationName"];
+		controller.forecastArray = [dictionary objectForKey:@"items"];
+		[self.navigationController pushViewController:controller animated:YES];
+		[controller release];		
 	}
 	else if (indexPath.section == 1) {
 		UITableViewController *controller = nil;
@@ -233,10 +260,7 @@
 	if (indexPath.section == 0) {
 		return 130.0;
 	}
-	else if (indexPath.section == 1) {
-		return 45.0;
-	}
-	return 0.0;
+	return 45.0;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {

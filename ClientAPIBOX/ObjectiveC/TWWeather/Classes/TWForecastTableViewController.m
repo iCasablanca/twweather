@@ -35,7 +35,6 @@
 - (void)APIBox:(TWAPIBox *)APIBox didFetchForecast:(id)result identifier:(NSString *)identifier userInfo:(id)userInfo
 {
 	[self resetLoading];
-//	NSLog(@"result:%@", [result description]);
 	if ([result isKindOfClass:[NSDictionary class]]) {
 		NSDictionary *dictionary = (NSDictionary *)result;
 		TWForecastResultTableViewController *controller = [[TWForecastResultTableViewController alloc] initWithStyle:UITableViewStyleGrouped];

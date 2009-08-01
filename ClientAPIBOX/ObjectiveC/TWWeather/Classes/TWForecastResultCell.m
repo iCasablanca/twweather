@@ -77,7 +77,13 @@
 }
 - (void)draw:(CGRect)bounds
 {
-	[[UIColor blackColor] set];
+	if (self.highlighted || self.selected) {
+		[[UIColor whiteColor] set];
+	}
+	else {
+		[[UIColor blackColor] set];
+	}
+	
 	[title drawInRect:CGRectMake(70, 5, 210, 20) withFont:[UIFont systemFontOfSize:14.0]];
 	NSString *timeString = [NSString stringWithFormat:@"%@ - %@", beginTime, endTime];
 	[timeString drawInRect:CGRectMake(70, 25, 210, 20) withFont:[UIFont systemFontOfSize:10.0]];
