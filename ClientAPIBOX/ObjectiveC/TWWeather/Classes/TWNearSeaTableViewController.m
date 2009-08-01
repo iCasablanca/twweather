@@ -22,11 +22,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
 	NSMutableDictionary *dictionary = [[self array] objectAtIndex:indexPath.row];
-	NSString *identifier = [dictionary objectForKey:@"identifier"];
-	[[TWAPIBox sharedBox] fetchNearSeaWithLocationIdentifier:identifier delegate:self userInfo:dictionary];
 	self.tableView.userInteractionEnabled = NO;
 	[dictionary setObject:[NSNumber numberWithBool:YES] forKey:@"isLoading"];
 	[self.tableView reloadData];
+
+	NSString *identifier = [dictionary objectForKey:@"identifier"];
+	[[TWAPIBox sharedBox] fetchNearSeaWithLocationIdentifier:identifier delegate:self userInfo:dictionary];
 }
 
 - (void)APIBox:(TWAPIBox *)APIBox didFetchNearSea:(id)result identifier:(NSString *)identifier userInfo:(id)userInfo

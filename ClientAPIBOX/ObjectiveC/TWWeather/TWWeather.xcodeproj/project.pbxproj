@@ -14,6 +14,7 @@
 		2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */; };
 		28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD735F0D9D9599002E5188 /* MainWindow.xib */; };
 		28C286E10D94DF7D0034E888 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C286E00D94DF7D0034E888 /* RootViewController.m */; };
+		D42C7A091023CF59009C3C4E /* TWImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D42C7A081023CF59009C3C4E /* TWImageViewController.m */; };
 		D4C3A0D5102235DB00E7A430 /* NSData+LFHTTPFormExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3A0CE102235DB00E7A430 /* NSData+LFHTTPFormExtensions.m */; };
 		D4C3A0D6102235DB00E7A430 /* LFHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3A0D0102235DB00E7A430 /* LFHTTPRequest.m */; };
 		D4C3A0D7102235DB00E7A430 /* LFSiteReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3A0D2102235DB00E7A430 /* LFSiteReachability.m */; };
@@ -59,6 +60,8 @@
 		28C286E00D94DF7D0034E888 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* TWWeather-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "TWWeather-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		D42C7A071023CF59009C3C4E /* TWImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWImageViewController.h; sourceTree = "<group>"; };
+		D42C7A081023CF59009C3C4E /* TWImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWImageViewController.m; sourceTree = "<group>"; };
 		D4C3A0CE102235DB00E7A430 /* NSData+LFHTTPFormExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+LFHTTPFormExtensions.m"; path = "../External/LFWebAPIKit/NSData+LFHTTPFormExtensions.m"; sourceTree = SOURCE_ROOT; };
 		D4C3A0CF102235DB00E7A430 /* LFHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFHTTPRequest.h; path = ../External/LFWebAPIKit/LFHTTPRequest.h; sourceTree = SOURCE_ROOT; };
 		D4C3A0D0102235DB00E7A430 /* LFHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFHTTPRequest.m; path = ../External/LFWebAPIKit/LFHTTPRequest.m; sourceTree = SOURCE_ROOT; };
@@ -185,6 +188,8 @@
 				D4E5078C10238957002B39D7 /* TWTideCell.m */,
 				D4E509B11023CB85002B39D7 /* TWImageTableViewController.h */,
 				D4E509B21023CB85002B39D7 /* TWImageTableViewController.m */,
+				D42C7A071023CF59009C3C4E /* TWImageViewController.h */,
+				D42C7A081023CF59009C3C4E /* TWImageViewController.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -377,6 +382,7 @@
 				D4E509431023C17F002B39D7 /* CocoaCryptoHashing.m in Sources */,
 				D4E5094F1023C1FD002B39D7 /* TWAPIBox+Cache.m in Sources */,
 				D4E509B31023CB85002B39D7 /* TWImageTableViewController.m in Sources */,
+				D42C7A091023CF59009C3C4E /* TWImageViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

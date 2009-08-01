@@ -18,9 +18,8 @@
 }
 - (void)viewDidUnload
 {
-//	[super viewDidLoad];
-	self.view = nil;
 	[textLabel release];
+	self.view = nil;
 }
 
 #pragma mark UIViewContoller Methods

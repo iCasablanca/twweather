@@ -10,6 +10,7 @@
 
 @interface TWAPIBox(Cache)
 
+- (BOOL)shouldUseCachedDataForURL:(NSURL *)URL;
 - (NSData *)dataInCacheForURL:(NSURL *)URL;
 - (void)writeDataToCache:(NSData *)data fromURL:(NSURL *)URL;
 

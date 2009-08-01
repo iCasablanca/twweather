@@ -42,6 +42,23 @@
 	return [folderPath stringByAppendingPathComponent:md5Hash];
 }
 
+- (BOOL)shouldUseCachedDataForURL:(NSURL *)URL
+{
+	NSString *string = [URL absoluteString];
+	NSString *path = [self md5HashPathForURLString:string];
+	if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+		NSDate *fileModDate;
+		NSDictionary *fileAttributes = [[NSFileManager defaultManager] fileAttributesAtPath:path traverseLink:YES];
+		if (fileModDate = [fileAttributes objectForKey:NSFileModificationDate]) {
+			if ([fileModDate timeIntervalSinceNow] > -60.0 * 10) {
+				return YES;
+			}
+			return NO;
+		}
+	}
+	return NO;
+}
+
 - (NSData *)dataInCacheForURL:(NSURL *)URL
 {
 	NSString *string = [URL absoluteString];

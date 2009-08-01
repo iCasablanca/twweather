@@ -232,6 +232,14 @@ static TWAPIBox *apibox;
 	NSURL *URL = [NSURL URLWithString:URLString];
 	[sessionInfo setObject:URL forKey:@"URL"];
 	_request.sessionInfo = sessionInfo;
+
+	if ([identifier isEqualToString:@"image"]) {
+		if ([self shouldUseCachedDataForURL:URL]) {
+			NSData *data = [self dataInCacheForURL:URL];
+			[self didFetchImage:_request data:data];
+			return;
+		}
+	}
 	[_request performMethod:LFHTTPRequestGETMethod onURL:URL withData:nil];
 }
 
