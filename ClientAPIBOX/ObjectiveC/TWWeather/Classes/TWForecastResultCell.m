@@ -49,6 +49,7 @@
 	[temperature release];
 	[beginTime release];
 	[endTime release];
+	[weatherImage release];
     [super dealloc];
 }
 - (void)_init
@@ -77,14 +78,17 @@
 - (void)draw:(CGRect)bounds
 {
 	[[UIColor blackColor] set];
-	[title drawInRect:CGRectMake(10, 5, 280, 20) withFont:[UIFont systemFontOfSize:14.0]];
+	[title drawInRect:CGRectMake(70, 5, 210, 20) withFont:[UIFont systemFontOfSize:14.0]];
 	NSString *timeString = [NSString stringWithFormat:@"%@ - %@", beginTime, endTime];
-	[timeString drawInRect:CGRectMake(10, 25, 280, 20) withFont:[UIFont systemFontOfSize:10.0]];
-	[description drawInRect:CGRectMake(10, 42, 280, 30) withFont:[UIFont boldSystemFontOfSize:22.0]];
+	[timeString drawInRect:CGRectMake(70, 25, 210, 20) withFont:[UIFont systemFontOfSize:10.0]];
+	[description drawInRect:CGRectMake(70, 42, 210, 30) withFont:[UIFont boldSystemFontOfSize:22.0]];
 	NSString *temperatureString = [NSString stringWithFormat:@"溫度： %@ ℃", temperature];
-	[temperatureString drawInRect:CGRectMake(10, 74, 280, 20) withFont:[UIFont systemFontOfSize:14.0]];
+	[temperatureString drawInRect:CGRectMake(70, 74, 210, 20) withFont:[UIFont systemFontOfSize:14.0]];
 	NSString *rainString = [NSString stringWithFormat:@"降雨機率： %@ %%", rain];
-	[rainString drawInRect:CGRectMake(10, 94, 280, 20) withFont:[UIFont systemFontOfSize:14.0]];
+	[rainString drawInRect:CGRectMake(70, 94, 210, 20) withFont:[UIFont systemFontOfSize:14.0]];
+	
+	CGSize size = weatherImage.size;
+	[weatherImage drawInRect:CGRectMake(0, 40, size.width * 0.8, size.height * 0.8)];
 }
 
 - (void)setNeedsDisplay
@@ -99,5 +103,6 @@
 @synthesize temperature;
 @synthesize beginTime;
 @synthesize endTime;
+@synthesize weatherImage;
 
 @end

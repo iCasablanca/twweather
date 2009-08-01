@@ -6,6 +6,7 @@
 //
 
 #import "TWThreeDaySeaResultTableViewController.h"
+#import "TWWeatherAppDelegate.h"
 #import "TWThreeDaySeaCell.h"
 #import "TWAPIBox.h"
 
@@ -52,6 +53,10 @@
 	cell.windLevel = [dictionary objectForKey:@"windLevel"];
 	cell.wave = [dictionary objectForKey:@"wave"];
 	cell.selectionStyle = UITableViewCellSelectionStyleNone;
+	
+	NSString *imageString = [[TWWeatherAppDelegate sharedDelegate] imageNameWithTimeTitle:@"" description:cell.description ];
+	cell.weatherImage = [UIImage imageNamed:imageString];
+
 	[cell setNeedsDisplay];
     return cell;
 }

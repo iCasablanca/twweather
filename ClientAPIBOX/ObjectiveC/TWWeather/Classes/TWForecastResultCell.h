@@ -18,6 +18,7 @@
 	NSString *temperature;
 	NSString *beginTime;
 	NSString *endTime;
+	UIImage *weatherImage;
 }
 
 @property (retain, nonatomic) NSString *title;
@@ -26,5 +27,6 @@
 @property (retain, nonatomic) NSString *temperature;
 @property (retain, nonatomic) NSString *beginTime;
 @property (retain, nonatomic) NSString *endTime;
+@property (retain, nonatomic) UIImage *weatherImage;
 
 @end

@@ -12,6 +12,9 @@
     UINavigationController *navigationController;
 }
 
++ (TWWeatherAppDelegate*)sharedDelegate;
+- (NSString *)imageNameWithTimeTitle:(NSString *)timeTitle description:(NSString *)description;
+
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet UINavigationController *navigationController;
 

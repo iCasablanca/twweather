@@ -7,6 +7,7 @@
 
 #import "TWForecastResultTableViewController.h"
 #import "TWForecastResultCell.h"
+#import "TWWeatherAppDelegate.h"
 #import "TWAPIBox.h"
 
 @implementation TWForecastResultTableViewController
@@ -57,6 +58,10 @@
 	NSString *endTimeString = [dictionary objectForKey:@"endTime"];
 	NSDate *endDate = [[TWAPIBox sharedBox] dateFromString:endTimeString];
 	cell.endTime = [[TWAPIBox sharedBox] shortDateTimeStringFromDate:endDate];
+	
+	NSString *imageString = [[TWWeatherAppDelegate sharedDelegate] imageNameWithTimeTitle:cell.title description:cell.description ];
+	cell.weatherImage = [UIImage imageNamed:imageString];
+	
 	[cell setNeedsDisplay];
     return cell;
 }

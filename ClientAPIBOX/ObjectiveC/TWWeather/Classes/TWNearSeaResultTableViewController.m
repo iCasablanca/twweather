@@ -6,6 +6,7 @@
 //
 
 #import "TWNearSeaResultTableViewController.h"
+#import "TWWeatherAppDelegate.h"
 #import "TWNearSeaCell.h"
 
 @implementation TWNearSeaResultTableViewController
@@ -56,6 +57,10 @@
 	cell.wind = self.wind;
 	cell.windLevel = self.windLevel;
 	cell.selectionStyle = UITableViewCellSelectionStyleNone;
+	
+	NSString *imageString = [[TWWeatherAppDelegate sharedDelegate] imageNameWithTimeTitle:@"" description:cell.description ];
+	cell.imageView.image = [UIImage imageNamed:imageString];
+	
 	[cell setNeedsDisplay];
     return cell;
 }

@@ -81,10 +81,10 @@
 	NSString *valid = [NSString stringWithFormat:@"%@ - %@", validBeginTime, validEndTime];
 	[valid drawInRect:CGRectMake(10, 35, 260, 30) withFont:[UIFont systemFontOfSize:14.0]];
 	[description drawInRect:CGRectMake(10, 80, 260, 60) withFont:[UIFont boldSystemFontOfSize:24.0]];
-	[wind drawInRect:CGRectMake(10, 160, 260, 30) withFont:[UIFont systemFontOfSize:18.0]];
-	[windLevel drawInRect:CGRectMake(10, 184, 260, 30) withFont:[UIFont systemFontOfSize:18.0]];
-	[wave drawInRect:CGRectMake(10, 220, 260, 30) withFont:[UIFont systemFontOfSize:18.0]];
-	[waveLevel drawInRect:CGRectMake(10, 244, 260, 30) withFont:[UIFont systemFontOfSize:18.0]];
+	[wind drawInRect:CGRectMake(10, 180, 260, 30) withFont:[UIFont systemFontOfSize:16.0]];
+	[windLevel drawInRect:CGRectMake(10, 204, 260, 30) withFont:[UIFont systemFontOfSize:16.0]];
+	[wave drawInRect:CGRectMake(10, 240, 260, 30) withFont:[UIFont systemFontOfSize:16.0]];
+	[waveLevel drawInRect:CGRectMake(10, 264, 260, 30) withFont:[UIFont systemFontOfSize:16.0]];
 }
 - (void)setNeedsDisplay
 {
