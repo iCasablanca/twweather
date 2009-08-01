@@ -77,4 +77,5 @@ typedef enum {
 - (NSDate *)dateFromShortString:(NSString *)string;
 - (NSString *)shortDateTimeStringFromDate:(NSDate *)date;
 - (NSString *)shortDateStringFromDate:(NSDate *)date;
+
 @end
