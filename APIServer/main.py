@@ -176,13 +176,8 @@ class ImageHandler(webapp.RequestHandler):
 
 class MainHandler(webapp.RequestHandler):
 	def get(self):
-
-		template_values = {
-			# 'url': url,
-			# 'url_linktext': url_linktext,
-		}
 		path = os.path.join(os.path.dirname(__file__), 'html', 'main.html')
-		self.response.out.write(template.render(path, template_values))
+		self.response.out.write(template.render(path, {}))
 
 
 def main():

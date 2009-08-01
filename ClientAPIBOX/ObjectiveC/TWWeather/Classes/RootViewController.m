@@ -16,6 +16,7 @@
 #import "TWThreeDaySeaTableViewController.h"
 #import "TWNearSeaTableViewController.h"
 #import "TWTideTableViewController.h"
+#import "TWImageTableViewController.h"
 
 @implementation RootViewController
 
@@ -81,7 +82,7 @@
 		return 0;
 	}
 	else if (section == 1) {
-		return 7;
+		return 8;
 	}
     return 0;
 }
@@ -127,6 +128,9 @@
 			case 6:
 				cell.textLabel.text = @"三天潮汐";
 				break;				
+			case 7:
+				cell.textLabel.text = @"天氣觀測雲圖";
+				break;				
 			default:
 				break;
 		}
@@ -160,6 +164,9 @@
 		}
 		else if (indexPath.row == 6) {
 			controller = [[TWTideTableViewController alloc] initWithStyle:UITableViewStylePlain];
+		}
+		else if (indexPath.row == 7) {
+			controller = [[TWImageTableViewController alloc] initWithStyle:UITableViewStylePlain];
 		}
 		if (controller) {
 			[self.navigationController pushViewController:controller animated:YES];

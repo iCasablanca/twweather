@@ -21,18 +21,17 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-	NSMutableDictionary *dictionray = [[self array] objectAtIndex:indexPath.row];
-	NSString *identifier = [dictionray objectForKey:@"identifier"];
-	[[TWAPIBox sharedBox] fetchNearSeaWithLocationIdentifier:identifier delegate:self userInfo:dictionray];
+	NSMutableDictionary *dictionary = [[self array] objectAtIndex:indexPath.row];
+	NSString *identifier = [dictionary objectForKey:@"identifier"];
+	[[TWAPIBox sharedBox] fetchNearSeaWithLocationIdentifier:identifier delegate:self userInfo:dictionary];
 	self.tableView.userInteractionEnabled = NO;
-	[dictionray setObject:[NSNumber numberWithBool:YES] forKey:@"isLoading"];
+	[dictionary setObject:[NSNumber numberWithBool:YES] forKey:@"isLoading"];
 	[self.tableView reloadData];
 }
 
 - (void)APIBox:(TWAPIBox *)APIBox didFetchNearSea:(id)result identifier:(NSString *)identifier userInfo:(id)userInfo
 {
 	[self resetLoading];
-	NSLog(@"result:%@", [result description]);
 	if ([result isKindOfClass:[NSDictionary class]]) {
 		TWNearSeaResultTableViewController *controller = [[TWNearSeaResultTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
 		controller.title = [result objectForKey:@"locationName"];

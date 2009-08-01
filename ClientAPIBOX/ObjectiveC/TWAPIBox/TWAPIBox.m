@@ -44,6 +44,8 @@ static TWAPIBox *apibox;
     return self;
 }
 
+#pragma mark -
+
 - (NSDictionary *)_errorDictionaryWithCode:(int)code
 {
 	NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
@@ -61,8 +63,6 @@ static TWAPIBox *apibox;
 
 - (void)didFetchOverview:(LFHTTPRequest *)request data:(NSData *)data
 {
-//	NSLog(@"%s", __PRETTY_FUNCTION__);
-//	NSData *data = [request receivedData];
 	NSString *string = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
 	if (!string) {
 		string = @"";
@@ -75,7 +75,6 @@ static TWAPIBox *apibox;
 }
 - (void)didFailedFetchOverview:(LFHTTPRequest *)request error:(NSString *)error
 {
-//	NSLog(@"%s", __PRETTY_FUNCTION__);
 	NSInteger code = 0;
 	if (error == LFHTTPRequestConnectionError) {
 		code = TWAPIConnectionError;
@@ -100,11 +99,9 @@ static TWAPIBox *apibox;
 	NSString *inIdentifier = [info objectForKey:@"identifier"];
 	id userInfo = [info objectForKey:@"userInfo"];
 	
-//	NSData *data = [request receivedData];
 	NSPropertyListFormat format;
 	NSString *error;
 	id plist = [NSPropertyListSerialization propertyListFromData:data mutabilityOption:NSPropertyListImmutable format:&format errorDescription:&error];
-//	NSLog(@"plist:%@", [plist description]);
 	id result = [plist objectForKey:@"result"];
 	if (result) {
 		if ([identifier isEqualToString:@"forecast"] && delegate && [delegate respondsToSelector:@selector(APIBox:didFetchForecast:identifier:userInfo:)]) {
@@ -186,6 +183,38 @@ static TWAPIBox *apibox;
 		[delegate APIBox:self didFailedFetchTideWithError:theError identifier:inIdentifier userInfo:userInfo];
 	}
 }
+- (void)didFetchImage:(LFHTTPRequest *)request data:(NSData *)data
+{
+	NSDictionary *sessionInfo = [request sessionInfo];
+	id delegate = [sessionInfo objectForKey:@"delegate"];
+	NSDictionary *info = [sessionInfo objectForKey:@"userInfo"];
+	NSString *inIdentifier = [info objectForKey:@"identifier"];
+	id userInfo = [info objectForKey:@"userInfo"];
+	if (delegate && [delegate respondsToSelector:@selector(APIBox:didFetchImageData:identifier:userInfo:)]) {
+		[delegate APIBox:self didFetchImageData:data identifier:inIdentifier userInfo:userInfo];
+	}
+}
+- (void)didFailedFetchImage:(LFHTTPRequest *)request error:(NSString *)error
+{
+	NSDictionary *sessionInfo = [request sessionInfo];
+	id delegate = [sessionInfo objectForKey:@"delegate"];
+	NSDictionary *info = [sessionInfo objectForKey:@"userInfo"];
+	NSString *inIdentifier = [info objectForKey:@"identifier"];
+	id userInfo = [info objectForKey:@"userInfo"];	
+
+	NSInteger code = TWAPIUnkownError;
+	if (error == LFHTTPRequestConnectionError) {
+		code = TWAPIConnectionError;
+	}
+	else if (error == LFHTTPRequestTimeoutError) {
+		code = TWAPITimeOutError;
+	}
+	NSError *theError = [NSError errorWithDomain:TWAPIErrorDomain code:code userInfo:[self _errorDictionaryWithCode:code]];	
+	
+	if (delegate && [delegate respondsToSelector:@selector(APIBox:didFailedFetchImageWithError:identifier:userInfo:)]) {
+		[delegate APIBox:self didFailedFetchImageWithError:theError identifier:inIdentifier userInfo:userInfo];
+	}
+}
 
 - (void)sendRequestWithPath:(NSString *)path identifier:(NSString *)identifier action:(SEL)action failedAction:(SEL)failedAction delegate:(id)delegate userInfo:(id)userInfo
 {
@@ -205,6 +234,8 @@ static TWAPIBox *apibox;
 	_request.sessionInfo = sessionInfo;
 	[_request performMethod:LFHTTPRequestGETMethod onURL:URL withData:nil];
 }
+
+#pragma mark -
 
 - (void)fetchOverviewWithFormat:(TWOverviewFormat)format delegate:(id)delegate userInfo:(id)userInfo
 {
@@ -258,6 +289,9 @@ static TWAPIBox *apibox;
 }
 - (void)fetchImageWithLocationIdentifier:(NSString *)identifier delegate:(id)delegate userInfo:(id)userInfo
 {
+	NSString *path = [NSString stringWithFormat:@"image?id=%@", identifier];
+	NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:identifier, @"identifier", userInfo, @"userInfo", nil];
+	[self sendRequestWithPath:path identifier:@"image" action:@selector(didFetchImage:data:) failedAction:@selector(didFailedFetchImage:error:) delegate:delegate userInfo:info];		
 }
 
 
