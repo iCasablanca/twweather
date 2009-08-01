@@ -26,10 +26,8 @@
 
 - (void)loadView 
 {
-	UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
+	UIView *view = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)] autorelease];
 	view.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-
-	[view autorelease];
 	self.view = view;
 	self.title = NSLocalizedString(@"Error!", @"");
 	

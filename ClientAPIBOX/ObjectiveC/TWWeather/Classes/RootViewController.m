@@ -18,6 +18,7 @@
 #import "TWNearSeaTableViewController.h"
 #import "TWTideTableViewController.h"
 #import "TWImageTableViewController.h"
+#import "TWAboutViewController.h"
 #import "TWLocationSettingTableViewController.h"
 #import "TWWeatherAppDelegate.h"
 #import "TWForecastResultCell.h"
@@ -253,6 +254,16 @@
 			[self.navigationController pushViewController:controller animated:YES];
 			[controller release];
 		}
+	}
+	else if (indexPath.section == 2) {
+		UITableViewController *controller = nil;
+		if (indexPath.row == 0) {
+			controller = [[TWAboutViewController alloc] init];
+		}
+		if (controller) {
+			[self.navigationController pushViewController:controller animated:YES];
+			[controller release];
+		}		
 	}
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
