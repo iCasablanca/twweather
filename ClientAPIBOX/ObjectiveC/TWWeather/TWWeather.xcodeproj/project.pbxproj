@@ -15,6 +15,7 @@
 		28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD735F0D9D9599002E5188 /* MainWindow.xib */; };
 		28C286E10D94DF7D0034E888 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C286E00D94DF7D0034E888 /* RootViewController.m */; };
 		D42C7A091023CF59009C3C4E /* TWImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D42C7A081023CF59009C3C4E /* TWImageViewController.m */; };
+		D489E3851023DF2500189460 /* TWAPIBox+Cache.m in Sources */ = {isa = PBXBuildFile; fileRef = D489E3831023DF2500189460 /* TWAPIBox+Cache.m */; };
 		D4C3A0D5102235DB00E7A430 /* NSData+LFHTTPFormExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3A0CE102235DB00E7A430 /* NSData+LFHTTPFormExtensions.m */; };
 		D4C3A0D6102235DB00E7A430 /* LFHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3A0D0102235DB00E7A430 /* LFHTTPRequest.m */; };
 		D4C3A0D7102235DB00E7A430 /* LFSiteReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3A0D2102235DB00E7A430 /* LFSiteReachability.m */; };
@@ -41,7 +42,6 @@
 		D4E50843102391DB002B39D7 /* TWErrorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E50842102391DB002B39D7 /* TWErrorViewController.m */; };
 		D4E508D1102399E0002B39D7 /* TWOverviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E508D0102399E0002B39D7 /* TWOverviewViewController.m */; };
 		D4E509431023C17F002B39D7 /* CocoaCryptoHashing.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E509411023C17F002B39D7 /* CocoaCryptoHashing.m */; };
-		D4E5094F1023C1FD002B39D7 /* TWAPIBox+Cache.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E5094E1023C1FD002B39D7 /* TWAPIBox+Cache.m */; };
 		D4E509B31023CB85002B39D7 /* TWImageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E509B21023CB85002B39D7 /* TWImageTableViewController.m */; };
 		D4E9C6E510223D6200B955C7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E9C6E410223D6200B955C7 /* SystemConfiguration.framework */; };
 		D4E9C70110223DBB00B955C7 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E9C70010223DBB00B955C7 /* CFNetwork.framework */; };
@@ -62,6 +62,8 @@
 		8D1107310486CEB800E47090 /* TWWeather-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "TWWeather-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		D42C7A071023CF59009C3C4E /* TWImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWImageViewController.h; sourceTree = "<group>"; };
 		D42C7A081023CF59009C3C4E /* TWImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWImageViewController.m; sourceTree = "<group>"; };
+		D489E3831023DF2500189460 /* TWAPIBox+Cache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TWAPIBox+Cache.m"; path = "../TWAPIBox/TWAPIBox+Cache.m"; sourceTree = SOURCE_ROOT; };
+		D489E3841023DF2500189460 /* TWAPIBox+Cache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TWAPIBox+Cache.h"; path = "../TWAPIBox/TWAPIBox+Cache.h"; sourceTree = SOURCE_ROOT; };
 		D4C3A0CE102235DB00E7A430 /* NSData+LFHTTPFormExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+LFHTTPFormExtensions.m"; path = "../External/LFWebAPIKit/NSData+LFHTTPFormExtensions.m"; sourceTree = SOURCE_ROOT; };
 		D4C3A0CF102235DB00E7A430 /* LFHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFHTTPRequest.h; path = ../External/LFWebAPIKit/LFHTTPRequest.h; sourceTree = SOURCE_ROOT; };
 		D4C3A0D0102235DB00E7A430 /* LFHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFHTTPRequest.m; path = ../External/LFWebAPIKit/LFHTTPRequest.m; sourceTree = SOURCE_ROOT; };
@@ -115,8 +117,6 @@
 		D4E508D0102399E0002B39D7 /* TWOverviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWOverviewViewController.m; sourceTree = "<group>"; };
 		D4E509411023C17F002B39D7 /* CocoaCryptoHashing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CocoaCryptoHashing.m; path = ../External/cocoa_crypto_hashing/CocoaCryptoHashing.m; sourceTree = SOURCE_ROOT; };
 		D4E509421023C17F002B39D7 /* CocoaCryptoHashing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CocoaCryptoHashing.h; path = ../External/cocoa_crypto_hashing/CocoaCryptoHashing.h; sourceTree = SOURCE_ROOT; };
-		D4E5094D1023C1FD002B39D7 /* TWAPIBox+Cache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TWAPIBox+Cache.h"; sourceTree = "<group>"; };
-		D4E5094E1023C1FD002B39D7 /* TWAPIBox+Cache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TWAPIBox+Cache.m"; sourceTree = "<group>"; };
 		D4E509B11023CB85002B39D7 /* TWImageTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWImageTableViewController.h; sourceTree = "<group>"; };
 		D4E509B21023CB85002B39D7 /* TWImageTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWImageTableViewController.m; sourceTree = "<group>"; };
 		D4E9C6E410223D6200B955C7 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -276,8 +276,8 @@
 				D4C3A0DC1022361E00E7A430 /* TWAPIBox.m */,
 				D4E5025610233338002B39D7 /* TWAPIBox+Info.h */,
 				D4E5025710233338002B39D7 /* TWAPIBox+Info.m */,
-				D4E5094D1023C1FD002B39D7 /* TWAPIBox+Cache.h */,
-				D4E5094E1023C1FD002B39D7 /* TWAPIBox+Cache.m */,
+				D489E3841023DF2500189460 /* TWAPIBox+Cache.h */,
+				D489E3831023DF2500189460 /* TWAPIBox+Cache.m */,
 			);
 			name = TWAPIBOX;
 			sourceTree = "<group>";
@@ -380,9 +380,9 @@
 				D4E50843102391DB002B39D7 /* TWErrorViewController.m in Sources */,
 				D4E508D1102399E0002B39D7 /* TWOverviewViewController.m in Sources */,
 				D4E509431023C17F002B39D7 /* CocoaCryptoHashing.m in Sources */,
-				D4E5094F1023C1FD002B39D7 /* TWAPIBox+Cache.m in Sources */,
 				D4E509B31023CB85002B39D7 /* TWImageTableViewController.m in Sources */,
 				D42C7A091023CF59009C3C4E /* TWImageViewController.m in Sources */,
+				D489E3851023DF2500189460 /* TWAPIBox+Cache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
