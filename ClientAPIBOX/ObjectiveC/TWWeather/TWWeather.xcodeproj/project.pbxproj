@@ -35,6 +35,7 @@
 		D489E3BB1023E00100189460 /* NightSunny.png in Resources */ = {isa = PBXBuildFile; fileRef = D489E3A81023E00100189460 /* NightSunny.png */; };
 		D489E3BC1023E00100189460 /* NightSunnyCloudy.png in Resources */ = {isa = PBXBuildFile; fileRef = D489E3A91023E00100189460 /* NightSunnyCloudy.png */; };
 		D489E3BD1023E00100189460 /* zonble.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D489E3AA1023E00100189460 /* zonble.jpg */; };
+		D489E4FA1023F2A200189460 /* TWLocationSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D489E4F91023F2A200189460 /* TWLocationSettingTableViewController.m */; };
 		D4C3A0D5102235DB00E7A430 /* NSData+LFHTTPFormExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3A0CE102235DB00E7A430 /* NSData+LFHTTPFormExtensions.m */; };
 		D4C3A0D6102235DB00E7A430 /* LFHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3A0D0102235DB00E7A430 /* LFHTTPRequest.m */; };
 		D4C3A0D7102235DB00E7A430 /* LFSiteReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3A0D2102235DB00E7A430 /* LFSiteReachability.m */; };
@@ -102,6 +103,8 @@
 		D489E3A81023E00100189460 /* NightSunny.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = NightSunny.png; path = Images/NightSunny.png; sourceTree = "<group>"; };
 		D489E3A91023E00100189460 /* NightSunnyCloudy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = NightSunnyCloudy.png; path = Images/NightSunnyCloudy.png; sourceTree = "<group>"; };
 		D489E3AA1023E00100189460 /* zonble.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = zonble.jpg; path = Images/zonble.jpg; sourceTree = "<group>"; };
+		D489E4F81023F2A200189460 /* TWLocationSettingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWLocationSettingTableViewController.h; sourceTree = "<group>"; };
+		D489E4F91023F2A200189460 /* TWLocationSettingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWLocationSettingTableViewController.m; sourceTree = "<group>"; };
 		D4C3A0CE102235DB00E7A430 /* NSData+LFHTTPFormExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+LFHTTPFormExtensions.m"; path = "../External/LFWebAPIKit/NSData+LFHTTPFormExtensions.m"; sourceTree = SOURCE_ROOT; };
 		D4C3A0CF102235DB00E7A430 /* LFHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFHTTPRequest.h; path = ../External/LFWebAPIKit/LFHTTPRequest.h; sourceTree = SOURCE_ROOT; };
 		D4C3A0D0102235DB00E7A430 /* LFHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFHTTPRequest.m; path = ../External/LFWebAPIKit/LFHTTPRequest.m; sourceTree = SOURCE_ROOT; };
@@ -228,6 +231,8 @@
 				D4E509B21023CB85002B39D7 /* TWImageTableViewController.m */,
 				D42C7A071023CF59009C3C4E /* TWImageViewController.h */,
 				D42C7A081023CF59009C3C4E /* TWImageViewController.m */,
+				D489E4F81023F2A200189460 /* TWLocationSettingTableViewController.h */,
+				D489E4F91023F2A200189460 /* TWLocationSettingTableViewController.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -467,6 +472,7 @@
 				D4E509B31023CB85002B39D7 /* TWImageTableViewController.m in Sources */,
 				D42C7A091023CF59009C3C4E /* TWImageViewController.m in Sources */,
 				D489E3851023DF2500189460 /* TWAPIBox+Cache.m in Sources */,
+				D489E4FA1023F2A200189460 /* TWLocationSettingTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

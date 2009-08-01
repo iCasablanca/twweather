@@ -7,6 +7,7 @@
 
 extern NSString *TWCurrentForecastDidFetchNotification;
 extern NSString *forecastOfCurrentLocationPreference;
+extern NSString *currentLocationPreference;
 
 @interface TWWeatherAppDelegate : NSObject <UIApplicationDelegate> 
 {

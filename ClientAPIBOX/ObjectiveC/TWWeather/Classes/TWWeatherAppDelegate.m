@@ -12,6 +12,7 @@
 
 NSString *TWCurrentForecastDidFetchNotification = @"TWCurrentForecastDidFetchNotification";
 NSString *forecastOfCurrentLocationPreference = @"forecastOfCurrentLocationPreference";
+NSString *currentLocationPreference = @"currentLocationPreference";
 
 @implementation TWWeatherAppDelegate
 
@@ -87,7 +88,15 @@ NSString *forecastOfCurrentLocationPreference = @"forecastOfCurrentLocationPrefe
 
 - (void)fetchForecastOFCurrentLocation
 {
-	NSDictionary *dictionary = [[[TWAPIBox sharedBox] forecastLocations] objectAtIndex:0];
+	if (![[NSUserDefaults standardUserDefaults] objectForKey:currentLocationPreference]) {
+		[[NSUserDefaults standardUserDefaults] setInteger:0 forKey:currentLocationPreference];
+	}	
+	NSUInteger i = [[NSUserDefaults standardUserDefaults] integerForKey:currentLocationPreference];
+	if (i >= [[[TWAPIBox sharedBox] forecastLocations] count]) {
+		i = 0;
+		[[NSUserDefaults standardUserDefaults] setInteger:0 forKey:currentLocationPreference];
+	}
+	NSDictionary *dictionary = [[[TWAPIBox sharedBox] forecastLocations] objectAtIndex:i];
 	NSString *identifier = [dictionary objectForKey:@"identifier"];	
 	[[TWAPIBox sharedBox] fetchForecastWithLocationIdentifier:identifier delegate:self userInfo:nil];
 }

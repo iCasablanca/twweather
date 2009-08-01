@@ -17,6 +17,7 @@
 #import "TWNearSeaTableViewController.h"
 #import "TWTideTableViewController.h"
 #import "TWImageTableViewController.h"
+#import "TWLocationSettingTableViewController.h"
 #import "TWWeatherAppDelegate.h"
 #import "TWForecastResultCell.h"
 
@@ -39,6 +40,10 @@
     [super viewDidLoad];
 	self.title = @"台灣天氣";
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFetchForecastOfCurrentLocation:) name:TWCurrentForecastDidFetchNotification object:nil];
+	
+	UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"區域設定" style:UIBarButtonItemStyleBordered target:self action:@selector(changeCurrentLocationAction:)];
+	self.navigationItem.rightBarButtonItem = item;
+	[item release];
 }
 //- (void)viewWillAppear:(BOOL)animated 
 //{
@@ -73,6 +78,20 @@
 	// Release any cached data, images, etc that aren't in use.
 }
 
+#pragma mark -
+
+- (IBAction)changeCurrentLocationAction:(id)sender
+{
+	if (isLoadingOverview) {
+		return;
+	}
+	
+	TWLocationSettingTableViewController *controller = [[TWLocationSettingTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
+	[controller release];
+	[self presentModalViewController:navController animated:YES];
+	[navController release];
+}
 
 #pragma mark Table view methods
 
