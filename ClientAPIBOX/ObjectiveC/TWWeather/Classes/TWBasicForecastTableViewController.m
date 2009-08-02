@@ -13,17 +13,28 @@
 
 - (void)dealloc 
 {
+	[self viewDidUnload];
 	[_array release];
+	[_filteredArray release];
+	[_searchController release];
     [super dealloc];
 }
 - (void)viewDidUnload
 {
+	[_searchBar release];
 	[super viewDidLoad];
 }
 
 - (void)_init
 {
 	_array = [[NSMutableArray alloc] init];
+	_filteredArray = [[NSMutableArray alloc] init];
+	_searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 100, 40)];
+	_searchBar.delegate = self;
+	_searchController = [[UISearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
+	_searchController.delegate = self;
+	_searchController.searchResultsDataSource = self;
+	_searchController.searchResultsDelegate = self;	
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -53,25 +64,31 @@
 - (void)viewDidLoad 
 {
 	[super viewDidLoad];
+	self.tableView.tableHeaderView = _searchBar;
 	self.navigationItem.backBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:nil action:NULL] autorelease];
+	_firstTimeVisiable = YES;
 }
 - (void)viewWillAppear:(BOOL)animated 
 {
 	[super viewWillAppear:animated];
-//	[self resetLoading];
+	if (_firstTimeVisiable) {
+		[self.tableView scrollRectToVisible:CGRectMake(0, 40, 320, 420) animated:NO];
+		_firstTimeVisiable = NO;
+	}
+	self.searchDisplayController.active = NO;
 }
-- (void)viewDidAppear:(BOOL)animated 
-{
-	[super viewDidAppear:animated];
-}
-- (void)viewWillDisappear:(BOOL)animated 
-{
-	[super viewWillDisappear:animated];
-}
-- (void)viewDidDisappear:(BOOL)animated 
-{
-	[super viewDidDisappear:animated];
-}
+//- (void)viewDidAppear:(BOOL)animated 
+//{
+//	[super viewDidAppear:animated];
+//}
+//- (void)viewWillDisappear:(BOOL)animated 
+//{
+//	[super viewWillDisappear:animated];
+//}
+//- (void)viewDidDisappear:(BOOL)animated 
+//{
+//	[super viewDidDisappear:animated];
+//}
 
 - (void)didReceiveMemoryWarning 
 {
@@ -87,6 +104,13 @@
 		[dictionary setObject:[NSNumber numberWithBool:NO] forKey:@"isLoading"];
 		[_array addObject:dictionary];
 	}
+}
+- (NSArray *)arrayForTableView:(UITableView *)tableView
+{
+	if (tableView == _searchController.searchResultsTableView) {
+		return _filteredArray;
+	}
+	return _array;
 }
 - (NSArray *)array
 {
@@ -116,7 +140,8 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [_array count];
+	NSArray *array = [self arrayForTableView:tableView];
+    return [array count];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
 {    
@@ -126,7 +151,8 @@
     if (cell == nil) {
         cell = [[[TWLoadingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
-	NSDictionary *dictionary = [_array objectAtIndex:indexPath.row];
+	NSArray *array = [self arrayForTableView:tableView];
+	NSDictionary *dictionary = [array objectAtIndex:indexPath.row];
 	NSString *name = [dictionary objectForKey:@"name"];
     cell.textLabel.text = name;
 	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -143,7 +169,18 @@
 {
 }
 
-
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+	[_filteredArray removeAllObjects];
+	searchText = [searchText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+	for (NSDictionary *d in _array) {
+		NSString *name = [d valueForKey:@"name"];
+		NSRange range = [name rangeOfString:searchText];
+		if (range.location != NSNotFound) {
+			[_filteredArray addObject:d];
+		}
+	}
+}
 
 @dynamic array;
 

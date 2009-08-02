@@ -21,7 +21,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-	NSMutableDictionary *dictionary = [[self array] objectAtIndex:indexPath.row];
+	NSMutableDictionary *dictionary = [[self arrayForTableView:tableView] objectAtIndex:indexPath.row];
 	self.tableView.userInteractionEnabled = NO;
 	[dictionary setObject:[NSNumber numberWithBool:YES] forKey:@"isLoading"];
 	[self.tableView reloadData];

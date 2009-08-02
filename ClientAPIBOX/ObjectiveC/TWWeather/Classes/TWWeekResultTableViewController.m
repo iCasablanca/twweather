@@ -20,37 +20,6 @@
 
 #pragma mark UIViewContoller Methods
 
-/*
-- (void)viewDidLoad 
-{
-	[super viewDidLoad];
-}
-- (void)viewWillAppear:(BOOL)animated 
-{
-	[super viewWillAppear:animated];
-}
-- (void)viewDidAppear:(BOOL)animated 
-{
-	[super viewDidAppear:animated];
-}
-- (void)viewWillDisappear:(BOOL)animated 
-{
-	[super viewWillDisappear:animated];
-}
-- (void)viewDidDisappear:(BOOL)animated 
-{
-	[super viewDidDisappear:animated];
-}
-*/
-
-/*
-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation 
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
-
 - (void)didReceiveMemoryWarning 
 {
     [super didReceiveMemoryWarning]; 

@@ -49,12 +49,6 @@
 
 #pragma mark UIViewContoller Methods
 
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView 
-{
-}
-*/
 - (void)viewDidLoad 
 {
     [super viewDidLoad];
@@ -90,15 +84,6 @@
 	// Releases the view if it doesn't have a superview
     // Release anything that's not essential, such as cached data
 }
-
-/*
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation 
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
-
 
 //- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation 
 //{

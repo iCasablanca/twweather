@@ -23,15 +23,6 @@
 	self.externalLibraryLabel = nil;
 	self.view = nil;
 }
-/*
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
-        // Custom initialization
-    }
-    return self;
-}
-*/
 
 #pragma mark UIViewContoller Methods
 
@@ -71,43 +62,12 @@
 	[self.view addSubview:self.externalLibraryLabel];
 }
 
-/*
-- (void)viewDidLoad 
-{
-    [super viewDidLoad];
-}
-- (void)viewWillAppear:(BOOL)animated 
-{
-    [super viewWillAppear:animated];
-}
-- (void)viewDidAppear:(BOOL)animated 
-{
-    [super viewDidAppear:animated];
-}
-- (void)viewWillDisappear:(BOOL)animated 
-{
-	[super viewWillDisappear:animated];
-}
-- (void)viewDidDisappear:(BOOL)animated 
-{
-	[super viewDidDisappear:animated];
-}
-*/
-
 - (void)didReceiveMemoryWarning 
 {
     [super didReceiveMemoryWarning]; 
 	// Releases the view if it doesn't have a superview
     // Release anything that's not essential, such as cached data
 }
-
-/*
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation 
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
 
 - (void)sendEmailAction:(id)sender
 {
@@ -126,7 +86,12 @@
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
 {
 	UIViewController *parentController = controller.parentViewController;
-	[parentController dismissModalViewControllerAnimated:(MFMailComposeViewController*)controller];
+	[parentController dismissModalViewControllerAnimated:(MFMailComposeViewController *)controller];
+	if (result == MFMailComposeResultSent) {
+		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Your mail is sent!", @"") message:NSLocalizedString(@"Thanks for your feedback.", @"") delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:nil];
+		[alertView show];
+		[alertView release];
+	}
 }
 
 @synthesize titleLabel;

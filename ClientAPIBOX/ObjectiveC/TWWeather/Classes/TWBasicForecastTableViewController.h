@@ -9,11 +9,16 @@
 #import "TWAPIBox.h"
 #import "TWAPIBox+Info.h"
 
-@interface TWBasicForecastTableViewController : UITableViewController 
+@interface TWBasicForecastTableViewController : UITableViewController <UISearchDisplayDelegate, UISearchBarDelegate>
 {
 	NSMutableArray *_array;
+	NSMutableArray *_filteredArray;
+	UISearchBar *_searchBar;
+	UISearchDisplayController *_searchController;
+	BOOL _firstTimeVisiable;
 }
 
+- (NSArray *)arrayForTableView:(UITableView *)tableView;
 - (void)resetLoading;
 - (void)pushErrorViewWithError:(NSError *)error;
 
