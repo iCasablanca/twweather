@@ -42,6 +42,7 @@ WeatherTravelURL = "http://www.cwb.gov.tw/mobile/week_travel/%(location)s.wml"
 Weather3DaySeaURL = "http://www.cwb.gov.tw/mobile/3sea/3sea%(#)d.wml"
 WeatherNearSeaURL = "http://www.cwb.gov.tw/mobile/nearsea/nearsea%(#)d.wml"
 WeatherTideURL = "http://www.cwb.gov.tw/mobile/tide/area%(#)d.wml"
+WeatherOBSURL = "http://www.cwb.gov.tw/mobile/obs/%(location)s.wml"
 
 class WeatherOverview(object):
 	def __init__(self):
@@ -145,7 +146,7 @@ class WeatherForecast(Forecast):
 				rain = line
 				item = {"title":title, "time":time, "beginTime":beginTime, "endTime":endTime, "description":description, "temperature":temperature, "rain":rain}
 				items.append(item)
-			elif line.startswith("溫度(℃)："):
+			elif line.startswith("溫度"):
 				line = line.replace("溫度(℃)：", "").replace("<br />", "")[0:-1]
 				temperature = line
 			elif isHandlingTime is True:
@@ -175,8 +176,18 @@ class TestWeatherForecast(unittest.TestCase):
 		self.forecest = WeatherForecast()
 	def testForetest(self):
 		for i in range(1, 23):
-			items = self.forecest.fetchWithID(i)
+			result = self.forecest.fetchWithID(i)
+			items = result['items']
 			self.assertEqual(int(len(items)), 3)
+			for item in items:
+				self.assertTrue(item['title'])
+				self.assertEqual(item['title'].find("<"), -1)
+				self.assertTrue(item['time'])
+				self.assertTrue(item['beginTime'])
+				self.assertTrue(item['endTime'])
+				self.assertTrue(item['description'])
+				self.assertTrue(item['temperature'])
+				self.assertTrue(item['rain'])
 
 WeatherWeekLocations = [
 	{"location": u"台北市", "id": "Taipei"},
@@ -591,7 +602,6 @@ class TestWeatherTide(unittest.TestCase):
 	def testForetest(self):
 		for i in range(1, 26):
 			result = self.model.fetchWithID(i)
-			self.assertTrue(result)
 			self.assertEqual(int(len(result['items'])), 3)
 			for item in result['items']:
 				self.assertTrue(item['date'])
@@ -607,6 +617,161 @@ WeatherImageURL = [
 	{"id": "hilight_taiwan", "URL":"http://www.cwb.gov.tw//V6/observe/satellite/Data/s3q/s3q.jpg"},
 	{"id": "hilight_asia", "URL":"http://www.cwb.gov.tw/V6/observe/satellite/Data/s1q/s1q.jpg"},
 ]
+
+WeatherOBSLocation = [
+	{"location": u"基隆", "id": "46694", "area":u"北部", "areaID":"north"},
+	{"location": u"台北", "id": "46692", "area":u"北部", "areaID":"north"},
+	{"location": u"板橋", "id": "46688", "area":u"北部", "areaID":"north"},
+	{"location": u"陽明山","id": "46693", "area":u"北部", "areaID":"north"},
+	{"location": u"淡水", "id": "46690", "area":u"北部", "areaID":"north"},
+	{"location": u"新店", "id": "A0A9M", "area":u"北部", "areaID":"north"},
+	{"location": u"桃園", "id": "46697", "area":u"北部", "areaID":"north"},
+	{"location": u"新屋", "id": "C0C45", "area":u"北部", "areaID":"north"},
+	{"location": u"新竹", "id": "46757", "area":u"北部", "areaID":"north"},
+	{"location": u"雪霸", "id": "C0D55", "area":u"北部", "areaID":"north"},
+	{"location": u"三義", "id": "C0E53", "area":u"北部", "areaID":"north"},
+	{"location": u"竹南", "id": "C0E42", "area":u"北部", "areaID":"north"},
+
+	{"location": u"台中", "id": "46749", "area":u"中部", "areaID":"center"},
+	{"location": u"梧棲", "id": "46777", "area":u"中部", "areaID":"center"},
+	{"location": u"梨山", "id": "C0F86", "area":u"中部", "areaID":"center"},
+	{"location": u"員林", "id": "C0G65", "area":u"中部", "areaID":"center"},
+	{"location": u"鹿港", "id": "C0G64", "area":u"中部", "areaID":"center"},
+	{"location": u"日月潭","id": "46765", "area":u"中部", "areaID":"center"},
+	{"location": u"廬山", "id": "C0I01", "area":u"中部", "areaID":"center"},
+	{"location": u"合歡山","id": "C0H9C", "area":u"中部", "areaID":"center"},
+	{"location": u"虎尾", "id": "C0K33", "area":u"中部", "areaID":"center"},
+	{"location": u"草嶺", "id": "C0K24", "area":u"中部", "areaID":"center"},
+	{"location": u"嘉義", "id": "46748", "area":u"中部", "areaID":"center"},
+	{"location": u"阿里山","id": "46753", "area":u"中部", "areaID":"center"},
+	{"location": u"玉山", "id": "46755", "area":u"中部", "areaID":"center"},
+
+	{"location": u"台南", "id": "46741", "area":u"南部", "areaID":"south"},
+	{"location": u"高雄", "id": "46744", "area":u"南部", "areaID":"south"},
+	{"location": u"甲仙", "id": "C0V25", "area":u"南部", "areaID":"south"},
+	{"location": u"三地門","id": "C0R15", "area":u"南部", "areaID":"south"},
+	{"location": u"恆春", "id": "46759", "area":u"南部", "areaID":"south"},
+
+	{"location": u"宜蘭", "id": "46708", "area":u"東部", "areaID":"east"},
+	{"location": u"蘇澳", "id": "46706", "area":u"東部", "areaID":"east"},
+	{"location": u"太平山","id": "C0U71", "area":u"東部", "areaID":"east"},
+	{"location": u"花蓮", "id": "46699", "area":u"東部", "areaID":"east"},
+	{"location": u"玉里", "id": "C0Z06", "area":u"東部", "areaID":"east"},
+	{"location": u"成功", "id": "46761", "area":u"東部", "areaID":"east"},
+	{"location": u"台東", "id": "46766", "area":u"東部", "areaID":"east"},
+	{"location": u"大武", "id": "46754", "area":u"東部", "areaID":"east"},
+
+	{"location": u"宜蘭", "id": "46708", "area":u"東部", "areaID":"east"},
+	{"location": u"蘇澳", "id": "46706", "area":u"東部", "areaID":"east"},
+	{"location": u"太平山","id": "C0U71", "area":u"東部", "areaID":"east"},
+	{"location": u"花蓮", "id": "46699", "area":u"東部", "areaID":"east"},
+	{"location": u"玉里", "id": "C0Z06", "area":u"東部", "areaID":"east"},
+	{"location": u"成功", "id": "46761", "area":u"東部", "areaID":"east"},
+	{"location": u"台東", "id": "46766", "area":u"東部", "areaID":"east"},
+	{"location": u"大武", "id": "46754", "area":u"東部", "areaID":"east"},
+
+	{"location": u"澎湖",  "id": "46735", "area":u"外島", "areaID":"island"},
+	{"location": u"金門",  "id": "46711", "area":u"外島", "areaID":"island"},
+	{"location": u"馬祖",  "id": "46799", "area":u"外島", "areaID":"island"},
+	{"location": u"綠島",  "id": "C0S73", "area":u"外島", "areaID":"island"},
+	{"location": u"蘭嶼",  "id": "46762", "area":u"外島", "areaID":"island"},
+	{"location": u"彭佳嶼", "id": "46695", "area":u"外島", "areaID":"island"},
+	{"location": u"東吉島", "id": "46730", "area":u"外島", "areaID":"island"},
+	{"location": u"琉球嶼", "id": "C0R27", "area":u"外島", "areaID":"island"},
+]
+
+class WeatherOBS(Forecast):
+	def locations(self):
+		return WeatherOBSLocation
+	def fetchWithID(self, id):
+		locationName = self.locationNameWithID(id)
+		if locationName is None:
+			return None
+
+		URLString = WeatherOBSURL % {"location": id}
+		try:
+			url = urllib.urlopen(URLString)
+		except:
+			return None
+
+		isHandlingTime = False
+		isHandlingDescription = False
+		isHandlingTemperature = False
+		isHandlingRain = False
+		isHandlingWindDirection = False
+		isHandlingWindLevel = False
+		isHandlingWindStrongestLevel = False
+		
+		lines = url.readlines()
+		time = ""
+		description = ""
+		temperature = ""
+		rain = ""
+		windDirection = ""
+		windLevel = ""
+		windStrongestLevel = ""
+		
+		for line in lines:
+			if isHandlingTime is True:
+				if line.startswith("<") is not True:
+					year = int(line[0:4])
+					month = int(line[5:7])
+					day = int(line[8:10])
+					theDate = date(year, month, day)
+					time = theDate.__str__()
+					isHandlingTime = False
+			elif line.find("地面觀測") > -1:
+				isHandlingTime = True
+			elif line.find("天氣現象") > -1:
+				isHandlingDescription = True
+			elif isHandlingDescription is True:
+				description = line.replace("<br />", "")[0:-1].decode("utf-8")
+				isHandlingDescription = False
+			elif line.find("溫度") > -1:
+				isHandlingTemperature = True
+			elif isHandlingTemperature is True:
+				temperature = line.replace("<br />", "")[0:-1]
+				isHandlingTemperature = False
+			elif line.find("累積雨量") > -1:
+				isHandlingRain = True
+			elif isHandlingRain is True:
+				rain = line.replace("<br />", "")[0:-1]
+				isHandlingRain = False
+			elif line.find("風向") > -1:
+				isHandlingWindDirection = True
+			elif isHandlingWindDirection is True:
+				windDirection = line.replace("<br />", "")[0:-1].decode("utf-8")
+				isHandlingWindDirection = False
+			elif line.find("風力") > -1:
+				isHandlingWindLevel = True
+			elif isHandlingWindLevel is True:
+				windLevel = line.replace("<br />", "")[0:-1]
+				isHandlingWindLevel = False
+			elif line.find("陣風") > -1:
+				isHandlingWindStrongestLevel = True
+			elif isHandlingWindStrongestLevel is True:
+				windStrongestLevel = line.replace("<br />", "")[0:-1]
+				isHandlingWindStrongestLevel = False
+				result = {"locationName": locationName, "id": id, "time": time, "description": description, "temperature": temperature, "rain": rain, "windDirection": windDirection, "windLevel": windLevel, "windStrongestLevel": windStrongestLevel}
+				return result
+		pass
+
+class TestWeatherOBS(unittest.TestCase):
+	def setUp(self):
+		self.model = WeatherOBS()
+	def testForetest(self):
+		for item in self.model.locations():
+			result = self.model.fetchWithID(item['id'])
+			self.assertTrue(result)
+			self.assertTrue(result["locationName"])
+			self.assertTrue(result["id"])
+			self.assertTrue(result["time"])
+			self.assertTrue(result["description"])
+			self.assertTrue(result["temperature"])
+			self.assertTrue(result["rain"])
+			self.assertTrue(result["windDirection"])
+			self.assertTrue(result["windLevel"])
+			self.assertTrue(result["windStrongestLevel"])
 
 def main():
 	unittest.main()
