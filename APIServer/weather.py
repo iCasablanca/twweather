@@ -717,8 +717,9 @@ class WeatherOBS(Forecast):
 					year = int(line[0:4])
 					month = int(line[5:7])
 					day = int(line[8:10])
-					theDate = date(year, month, day)
-					time = theDate.__str__()
+					hour = int(line[12:14])
+					minute = int(line[15:17])
+					time = datetime(year, month, day, hour, minute).__str__()
 					isHandlingTime = False
 			elif line.find("地面觀測") > -1:
 				isHandlingTime = True

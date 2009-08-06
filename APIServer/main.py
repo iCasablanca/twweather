@@ -199,6 +199,12 @@ class ImageHandler(webapp.RequestHandler):
 		self.response.headers["Content-Type"] = "image/jpg"
 		self.response.out.write(imageData)
 		
+class OBSController(ForecastController):
+	def __init__(self):
+		self.model = weather.WeatherOBS()
+		self.key_prefix = "obs_"
+
+
 
 class MainHandler(webapp.RequestHandler):
 	def get(self):
@@ -218,6 +224,7 @@ def main():
 			('/nearsea', NearSeaController),
 			('/tide', TideController),
 			('/image', ImageHandler),
+			('/obs', OBSController),
 			],
  			debug=True)
 	wsgiref.handlers.CGIHandler().run(application)
