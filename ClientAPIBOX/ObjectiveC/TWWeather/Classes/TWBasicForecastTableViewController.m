@@ -77,18 +77,6 @@
 	}
 	self.searchDisplayController.active = NO;
 }
-//- (void)viewDidAppear:(BOOL)animated 
-//{
-//	[super viewDidAppear:animated];
-//}
-//- (void)viewWillDisappear:(BOOL)animated 
-//{
-//	[super viewWillDisappear:animated];
-//}
-//- (void)viewDidDisappear:(BOOL)animated 
-//{
-//	[super viewDidDisappear:animated];
-//}
 
 - (void)didReceiveMemoryWarning 
 {
@@ -123,6 +111,9 @@
 		[d setObject:[NSNumber numberWithBool:NO] forKey:@"isLoading"];
 	}
 	[self.tableView reloadData];
+	[_searchController.searchResultsTableView reloadData];
+	self.tableView.userInteractionEnabled = YES;
+	_searchController.searchResultsTableView.userInteractionEnabled = YES;
 }
 - (void)pushErrorViewWithError:(NSError *)error
 {

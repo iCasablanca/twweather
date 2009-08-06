@@ -519,6 +519,7 @@
 				GCC_PREFIX_HEADER = TWWeather_Prefix.pch;
 				INFOPLIST_FILE = "TWWeather-Info.plist";
 				PRODUCT_NAME = TWWeather;
+				SDKROOT = iphoneos3.0;
 			};
 			name = Debug;
 		};

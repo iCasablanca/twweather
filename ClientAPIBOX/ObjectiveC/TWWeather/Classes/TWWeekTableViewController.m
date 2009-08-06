@@ -24,9 +24,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
 	NSMutableDictionary *dictionary = [[self arrayForTableView:tableView] objectAtIndex:indexPath.row];
-	self.tableView.userInteractionEnabled = NO;
+	tableView.userInteractionEnabled = NO;
 	[dictionary setObject:[NSNumber numberWithBool:YES] forKey:@"isLoading"];
-	[self.tableView reloadData];
+	[tableView reloadData];
 
 	NSString *identifier = [dictionary objectForKey:@"identifier"];
 	[[TWAPIBox sharedBox] fetchWeekWithLocationIdentifier:identifier delegate:self userInfo:dictionary];
@@ -45,12 +45,10 @@
 		[self.navigationController pushViewController:controller animated:YES];
 		[controller release];
 	}
-	self.tableView.userInteractionEnabled = YES;
 }
 - (void)APIBox:(TWAPIBox *)APIBox didFailedFetchWeekWithError:(NSError *)error identifier:(NSString *)identifier userInfo:(id)userInfo
 {
 	[self resetLoading];
-	self.tableView.userInteractionEnabled = YES;
 	[self pushErrorViewWithError:error];
 }
 

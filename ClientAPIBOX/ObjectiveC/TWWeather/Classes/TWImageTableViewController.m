@@ -22,9 +22,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
 	NSMutableDictionary *dictionary = [[self arrayForTableView:tableView] objectAtIndex:indexPath.row];
-	self.tableView.userInteractionEnabled = NO;
+	tableView.userInteractionEnabled = NO;
 	[dictionary setObject:[NSNumber numberWithBool:YES] forKey:@"isLoading"];
-	[self.tableView reloadData];
+	[tableView reloadData];
 
 	NSString *identifier = [dictionary objectForKey:@"identifier"];
 	[[TWAPIBox sharedBox] fetchImageWithLocationIdentifier:identifier delegate:self userInfo:dictionary];
@@ -33,7 +33,6 @@
 - (void)APIBox:(TWAPIBox *)APIBox didFetchImageData:(NSData *)data identifier:(NSString *)identifier userInfo:(id)userInfo
 {
 	[self resetLoading];
-	self.tableView.userInteractionEnabled = YES;
 	
 	NSDictionary *dictionary = (NSDictionary *)userInfo;
 	NSString *name = [dictionary objectForKey:@"name"];
@@ -49,7 +48,6 @@
 - (void)APIBox:(TWAPIBox *)APIBox didFailedFetchImageWithError:(NSError *)error identifier:(NSString *)identifier userInfo:(id)userInfo
 {
 	[self resetLoading];
-	self.tableView.userInteractionEnabled = YES;
 	[self pushErrorViewWithError:error];	
 }
 
