@@ -83,6 +83,37 @@ static TWAPIBox *apibox;
 	return dictionary;
 }
 
+- (void)didFetchWarning:(LFHTTPRequest *)request data:(NSData *)data
+{
+	NSPropertyListFormat format;
+	NSString *error;
+	id plist = [NSPropertyListSerialization propertyListFromData:data mutabilityOption:NSPropertyListImmutable format:&format errorDescription:&error];
+	id result = [plist objectForKey:@"result"];
+
+	NSDictionary *sessionInfo = [request sessionInfo];
+	id delegate = [sessionInfo objectForKey:@"delegate"];
+	if (delegate && [delegate respondsToSelector:@selector(APIBox:didFetchOverview:userInfo:)]) {
+		[delegate APIBox:self didFetchWarnings:result userInfo:[sessionInfo objectForKey:@"userInfo"]];
+	}
+}
+- (void)didFailedFetchWarning:(LFHTTPRequest *)request error:(NSString *)error
+{
+	NSInteger code = 0;
+	if (error == LFHTTPRequestConnectionError) {
+		code = TWAPIConnectionError;
+	}
+	else if (error == LFHTTPRequestTimeoutError) {
+		code = TWAPITimeOutError;
+	}
+	NSError *theError = [NSError errorWithDomain:TWAPIErrorDomain code:code userInfo:[self _errorDictionaryWithCode:code]];
+	NSDictionary *sessionInfo = [request sessionInfo];
+	id delegate = [sessionInfo objectForKey:@"delegate"];
+	
+	if (delegate && [delegate respondsToSelector:@selector(APIBox:didFailedFetchWarningsWithError:)]) {
+		[delegate APIBox:self didFailedFetchWarningsWithError:theError];
+	}	
+}
+
 - (void)didFetchOverview:(LFHTTPRequest *)request data:(NSData *)data
 {
 	NSString *string = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
@@ -268,6 +299,12 @@ static TWAPIBox *apibox;
 
 #pragma mark -
 
+- (void)fetchWarningsWithDelegate:(id)delegate userInfo:(id)userInfo
+{	
+	NSString *path = @"warning";
+	[self sendRequestWithPath:path identifier:@"warning" action:@selector(didFetchWarning:data:) failedAction:@selector(didFailedFetchWarning:error:) delegate:delegate userInfo:userInfo];
+	
+}
 - (void)fetchOverviewWithFormat:(TWOverviewFormat)format delegate:(id)delegate userInfo:(id)userInfo
 {
 	NSString *path = @"overview";

@@ -74,7 +74,11 @@ class WeatherWarning(object):
 			text = ""
 			for line in lines:
 				if line.find("<") == -1:
+					line = line.replace("  ", "")
+					line = line.replace("　", "")
+					line = line.replace(" ", "")
 					text = text + line
+			print text
 			item['text'] = text.decode('utf-8')
 		return warnings
 
@@ -815,7 +819,8 @@ class TestWeatherOBS(unittest.TestCase):
 			self.assertTrue(result["windStrongestLevel"])
 
 def main():
-	unittest.main()
+	WeatherWarning().fetch()
+	# unittest.main()
 	pass
 
 

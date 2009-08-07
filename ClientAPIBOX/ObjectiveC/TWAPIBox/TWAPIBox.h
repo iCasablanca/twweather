@@ -46,6 +46,9 @@ typedef enum {
 
 @interface NSObject(TWAPIBoxDelegate)
 
+- (void)APIBox:(TWAPIBox *)APIBox didFetchWarnings:(id)result userInfo:(id)userInfo;
+- (void)APIBox:(TWAPIBox *)APIBox didFailedFetchWarningsWithError:(NSError *)error;
+
 - (void)APIBox:(TWAPIBox *)APIBox didFetchOverview:(NSString *)string userInfo:(id)userInfo;
 - (void)APIBox:(TWAPIBox *)APIBox didFailedFetchOverviewWithError:(NSError *)error;
 
@@ -86,6 +89,7 @@ typedef enum {
 }
 
 + (TWAPIBox *)sharedBox;
+- (void)fetchWarningsWithDelegate:(id)delegate userInfo:(id)userInfo;
 - (void)fetchOverviewWithFormat:(TWOverviewFormat)format delegate:(id)delegate userInfo:(id)userInfo;
 - (void)fetchForecastWithLocationIdentifier:(NSString *)identifier delegate:(id)delegate userInfo:(id)userInfo;
 - (void)fetchWeekWithLocationIdentifier:(NSString *)identifier delegate:(id)delegate userInfo:(id)userInfo;

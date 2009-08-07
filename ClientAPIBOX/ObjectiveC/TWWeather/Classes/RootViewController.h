@@ -7,11 +7,8 @@
 
 @interface RootViewController : UITableViewController 
 {
+	NSMutableArray *warningArray;
 	BOOL isLoadingOverview;
 }
-
-- (IBAction)changeCurrentLocationAction:(id)sender;
-
-- (void)didFetchForecastOfCurrentLocation:(NSNotification *)notification;
 
 @end

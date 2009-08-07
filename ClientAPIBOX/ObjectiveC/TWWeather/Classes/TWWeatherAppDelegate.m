@@ -23,7 +23,7 @@ NSString *currentLocationPreference = @"currentLocationPreference";
 
 - (void)dealloc 
 {
-	[forecastOfCurrentLocation release];
+//	[forecastOfCurrentLocation release];
 	[navigationController release];
 	[window release];
 	[super dealloc];
@@ -35,9 +35,9 @@ NSString *currentLocationPreference = @"currentLocationPreference";
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application 
 {    
-	forecastOfCurrentLocation = nil;
-	forecastOfCurrentLocation = [[NSUserDefaults standardUserDefaults] objectForKey:forecastOfCurrentLocationPreference];
-	[self fetchForecastOFCurrentLocation];
+//	forecastOfCurrentLocation = nil;
+//	forecastOfCurrentLocation = [[NSUserDefaults standardUserDefaults] objectForKey:forecastOfCurrentLocationPreference];
+//	[self fetchForecastOFCurrentLocation];
 	
 	RootViewController *rootController = [[RootViewController alloc] initWithStyle:UITableViewStyleGrouped];
 	UINavigationController *aNavigationController = [[UINavigationController alloc] initWithRootViewController:rootController];
@@ -86,40 +86,40 @@ NSString *currentLocationPreference = @"currentLocationPreference";
 	return string;
 }
 
-- (void)fetchForecastOFCurrentLocation
-{
-	if (![[NSUserDefaults standardUserDefaults] objectForKey:currentLocationPreference]) {
-		[[NSUserDefaults standardUserDefaults] setInteger:0 forKey:currentLocationPreference];
-	}	
-	NSUInteger i = [[NSUserDefaults standardUserDefaults] integerForKey:currentLocationPreference];
-	if (i >= [[[TWAPIBox sharedBox] forecastLocations] count]) {
-		i = 0;
-		[[NSUserDefaults standardUserDefaults] setInteger:0 forKey:currentLocationPreference];
-	}
-	NSDictionary *dictionary = [[[TWAPIBox sharedBox] forecastLocations] objectAtIndex:i];
-	NSString *identifier = [dictionary objectForKey:@"identifier"];	
-	[[TWAPIBox sharedBox] fetchForecastWithLocationIdentifier:identifier delegate:self userInfo:nil];
-}
-
-
-#pragma mark -
-
-- (void)APIBox:(TWAPIBox *)APIBox didFetchForecast:(id)result identifier:(NSString *)identifier userInfo:(id)userInfo
-{
-	if ([result isKindOfClass:[NSDictionary class]]) {
-		self.forecastOfCurrentLocation = result;
-		[[NSUserDefaults standardUserDefaults] setObject:result forKey:forecastOfCurrentLocationPreference];
-		[[NSNotificationCenter defaultCenter] postNotificationName:TWCurrentForecastDidFetchNotification object:forecastOfCurrentLocation userInfo:nil];
-	}
-}
-- (void)APIBox:(TWAPIBox *)APIBox didFailedFetchForecastWithError:(NSError *)error identifier:(NSString *)identifier userInfo:(id)userInfo
-{
-}
+//- (void)fetchForecastOFCurrentLocation
+//{
+//	if (![[NSUserDefaults standardUserDefaults] objectForKey:currentLocationPreference]) {
+//		[[NSUserDefaults standardUserDefaults] setInteger:0 forKey:currentLocationPreference];
+//	}	
+//	NSUInteger i = [[NSUserDefaults standardUserDefaults] integerForKey:currentLocationPreference];
+//	if (i >= [[[TWAPIBox sharedBox] forecastLocations] count]) {
+//		i = 0;
+//		[[NSUserDefaults standardUserDefaults] setInteger:0 forKey:currentLocationPreference];
+//	}
+//	NSDictionary *dictionary = [[[TWAPIBox sharedBox] forecastLocations] objectAtIndex:i];
+//	NSString *identifier = [dictionary objectForKey:@"identifier"];	
+//	[[TWAPIBox sharedBox] fetchForecastWithLocationIdentifier:identifier delegate:self userInfo:nil];
+//}
+//
+//
+//#pragma mark -
+//
+//- (void)APIBox:(TWAPIBox *)APIBox didFetchForecast:(id)result identifier:(NSString *)identifier userInfo:(id)userInfo
+//{
+//	if ([result isKindOfClass:[NSDictionary class]]) {
+//		self.forecastOfCurrentLocation = result;
+//		[[NSUserDefaults standardUserDefaults] setObject:result forKey:forecastOfCurrentLocationPreference];
+//		[[NSNotificationCenter defaultCenter] postNotificationName:TWCurrentForecastDidFetchNotification object:forecastOfCurrentLocation userInfo:nil];
+//	}
+//}
+//- (void)APIBox:(TWAPIBox *)APIBox didFailedFetchForecastWithError:(NSError *)error identifier:(NSString *)identifier userInfo:(id)userInfo
+//{
+//}
 
 
 @synthesize window;
 @synthesize navigationController;
-@synthesize forecastOfCurrentLocation;
+//@synthesize forecastOfCurrentLocation;
 
 @end
 

@@ -13,16 +13,16 @@ extern NSString *currentLocationPreference;
 {
     UIWindow *window;
     UINavigationController *navigationController;
-	NSDictionary *forecastOfCurrentLocation;
+//	NSDictionary *forecastOfCurrentLocation;
 }
 
 + (TWWeatherAppDelegate*)sharedDelegate;
 - (NSString *)imageNameWithTimeTitle:(NSString *)timeTitle description:(NSString *)description;
-- (void)fetchForecastOFCurrentLocation;
+//- (void)fetchForecastOFCurrentLocation;
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet UINavigationController *navigationController;
-@property (nonatomic, retain) IBOutlet NSDictionary *forecastOfCurrentLocation;
+//@property (nonatomic, retain) IBOutlet NSDictionary *forecastOfCurrentLocation;
 
 @end
 
