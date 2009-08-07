@@ -83,7 +83,7 @@
 
 #pragma mark -
 
-- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
 {
 	UIViewController *parentController = controller.parentViewController;
 	[parentController dismissModalViewControllerAnimated:(MFMailComposeViewController *)controller];

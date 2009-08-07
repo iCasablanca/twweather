@@ -14,6 +14,7 @@
 
 - (void)dealloc 
 {
+	[_filterArray release];
     [super dealloc];
 }
 
@@ -22,9 +23,13 @@
 - (void)viewDidLoad 
 {
     [super viewDidLoad];
-	self.title = @"變更預設區域";
+	self.title = @"My Favorites";
 	
-	UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelAction:)];
+	if (!_filterArray) {
+		_filterArray = [[NSMutableArray alloc] init];
+	}
+	
+	UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(donelAction:)];
 	self.navigationItem.rightBarButtonItem = cancelItem;
 	[cancelItem release];
 }
@@ -35,8 +40,18 @@
 	// Releases the view if it doesn't have a superview
     // Release anything that's not essential, such as cached data
 }
-- (IBAction)cancelAction:(id)sender
+- (void)setFilter:(NSArray *)filter
 {
+	if (!_filterArray) {
+		_filterArray = [[NSMutableArray alloc] init];
+	}	
+	[_filterArray setArray:filter];
+}
+- (IBAction)donelAction:(id)sender
+{
+	if (delegate && [delegate respondsToSelector:@selector(settingController:didUpdateFilter:)]) {
+		[delegate settingController:self didUpdateFilter:_filterArray];		
+	}
 	if ([self.navigationController parentViewController]) {
 		[[self.navigationController parentViewController] dismissModalViewControllerAnimated:YES];
 	}
@@ -63,8 +78,8 @@
     NSDictionary *dictionary = [[[TWAPIBox sharedBox] forecastLocations] objectAtIndex:indexPath.row];
 	NSString *name = [dictionary objectForKey:@"name"];
 	cell.textLabel.text = name;
-	NSUInteger i = [[NSUserDefaults standardUserDefaults] integerForKey:currentLocationPreference];
-	if (i == indexPath.row) {
+	NSNumber *number = [NSNumber numberWithInt:indexPath.row];
+	if ([_filterArray containsObject:number]) {
 		cell.accessoryType = UITableViewCellAccessoryCheckmark;
 	}
 	else {
@@ -74,14 +89,21 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-	NSUInteger i = [[NSUserDefaults standardUserDefaults] integerForKey:currentLocationPreference];
-	if (i != indexPath.row) {
-		[[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:currentLocationPreference];
-//		[[TWWeatherAppDelegate sharedDelegate] fetchForecastOFCurrentLocation];
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+	NSNumber *number = [NSNumber numberWithInt:indexPath.row];
+	if ([_filterArray containsObject:number]) {
+		if ([_filterArray count] == 1 && [_filterArray objectAtIndex:0] == number) {
+			return;
+		}
+		[_filterArray removeObject:number];
 	}
-	
-	[self cancelAction:self];
+	else {
+		[_filterArray addObject:number];
+	}
+	[self.tableView reloadData];
 }
+
+@synthesize delegate;
 
 @end
 

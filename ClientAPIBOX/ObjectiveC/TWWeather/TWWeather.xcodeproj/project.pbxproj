@@ -41,6 +41,7 @@
 		D489E5A61024EB3F00189460 /* TWAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D489E5A51024EB3F00189460 /* TWAboutViewController.m */; };
 		D489E5DC1024EF6000189460 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D489E5DB1024EF6000189460 /* MessageUI.framework */; };
 		D4C02AAE102BD47000FD1D3B /* TWAPIBox+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C02AAD102BD47000FD1D3B /* TWAPIBox+Private.m */; };
+		D4C02C3D102C03F700FD1D3B /* TWFavoriteTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C02C3C102C03F700FD1D3B /* TWFavoriteTableViewController.m */; };
 		D4C3A0D5102235DB00E7A430 /* NSData+LFHTTPFormExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3A0CE102235DB00E7A430 /* NSData+LFHTTPFormExtensions.m */; };
 		D4C3A0D6102235DB00E7A430 /* LFHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3A0D0102235DB00E7A430 /* LFHTTPRequest.m */; };
 		D4C3A0D7102235DB00E7A430 /* LFSiteReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3A0D2102235DB00E7A430 /* LFSiteReachability.m */; };
@@ -117,6 +118,8 @@
 		D489E5DB1024EF6000189460 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		D4C02AAC102BD47000FD1D3B /* TWAPIBox+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TWAPIBox+Private.h"; path = "../TWAPIBox/TWAPIBox+Private.h"; sourceTree = SOURCE_ROOT; };
 		D4C02AAD102BD47000FD1D3B /* TWAPIBox+Private.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TWAPIBox+Private.m"; path = "../TWAPIBox/TWAPIBox+Private.m"; sourceTree = SOURCE_ROOT; };
+		D4C02C3B102C03F700FD1D3B /* TWFavoriteTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWFavoriteTableViewController.h; sourceTree = "<group>"; };
+		D4C02C3C102C03F700FD1D3B /* TWFavoriteTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWFavoriteTableViewController.m; sourceTree = "<group>"; };
 		D4C3A0CE102235DB00E7A430 /* NSData+LFHTTPFormExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+LFHTTPFormExtensions.m"; path = "../External/LFWebAPIKit/NSData+LFHTTPFormExtensions.m"; sourceTree = SOURCE_ROOT; };
 		D4C3A0CF102235DB00E7A430 /* LFHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFHTTPRequest.h; path = ../External/LFWebAPIKit/LFHTTPRequest.h; sourceTree = SOURCE_ROOT; };
 		D4C3A0D0102235DB00E7A430 /* LFHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFHTTPRequest.m; path = ../External/LFWebAPIKit/LFHTTPRequest.m; sourceTree = SOURCE_ROOT; };
@@ -196,58 +199,14 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				D4C02C38102C03E000FD1D3B /* Favorite */,
+				D4C02C35102C03C300FD1D3B /* More */,
 				D4E503DC102357FC002B39D7 /* TWLoadingCell.h */,
 				D4E503DD102357FC002B39D7 /* TWLoadingCell.m */,
 				1D3623240D0F684500981E51 /* TWWeatherAppDelegate.h */,
 				1D3623250D0F684500981E51 /* TWWeatherAppDelegate.m */,
-				28C286DF0D94DF7D0034E888 /* RootViewController.h */,
-				28C286E00D94DF7D0034E888 /* RootViewController.m */,
 				D4E50841102391DB002B39D7 /* TWErrorViewController.h */,
 				D4E50842102391DB002B39D7 /* TWErrorViewController.m */,
-				D4E508CF102399E0002B39D7 /* TWOverviewViewController.h */,
-				D4E508D0102399E0002B39D7 /* TWOverviewViewController.m */,
-				D4E5029810234126002B39D7 /* TWBasicForecastTableViewController.h */,
-				D4E5029910234126002B39D7 /* TWBasicForecastTableViewController.m */,
-				D4E502A6102343C6002B39D7 /* TWForecastTableViewController.h */,
-				D4E502A7102343C6002B39D7 /* TWForecastTableViewController.m */,
-				D4E502F710234698002B39D7 /* TWForecastResultTableViewController.h */,
-				D4E502F810234698002B39D7 /* TWForecastResultTableViewController.m */,
-				D4E5033110234C2D002B39D7 /* TWForecastResultCell.h */,
-				D4E5033210234C2D002B39D7 /* TWForecastResultCell.m */,
-				D4E5042810235B65002B39D7 /* TWWeekTableViewController.h */,
-				D4E5042910235B65002B39D7 /* TWWeekTableViewController.m */,
-				D4E5046510235E92002B39D7 /* TWWeekResultTableViewController.h */,
-				D4E5046610235E92002B39D7 /* TWWeekResultTableViewController.m */,
-				D4E504AC10236201002B39D7 /* TWWeekResultCell.h */,
-				D4E504AD10236201002B39D7 /* TWWeekResultCell.m */,
-				D4E5052510236A1A002B39D7 /* TWWeekTravelTableViewController.h */,
-				D4E5052610236A1A002B39D7 /* TWWeekTravelTableViewController.m */,
-				D4E5056E10236C6B002B39D7 /* TWThreeDaySeaTableViewController.h */,
-				D4E5056F10236C6B002B39D7 /* TWThreeDaySeaTableViewController.m */,
-				D4E505A010236EF0002B39D7 /* TWThreeDaySeaResultTableViewController.h */,
-				D4E505A110236EF0002B39D7 /* TWThreeDaySeaResultTableViewController.m */,
-				D4E505E0102370EF002B39D7 /* TWThreeDaySeaCell.h */,
-				D4E505E1102370EF002B39D7 /* TWThreeDaySeaCell.m */,
-				D4E5063410237768002B39D7 /* TWNearSeaTableViewController.h */,
-				D4E5063510237768002B39D7 /* TWNearSeaTableViewController.m */,
-				D4E5067E10237944002B39D7 /* TWNearSeaResultTableViewController.h */,
-				D4E5067F10237944002B39D7 /* TWNearSeaResultTableViewController.m */,
-				D4E506A310237A99002B39D7 /* TWNearSeaCell.h */,
-				D4E506A410237A99002B39D7 /* TWNearSeaCell.m */,
-				D4E507331023838B002B39D7 /* TWTideTableViewController.h */,
-				D4E507341023838B002B39D7 /* TWTideTableViewController.m */,
-				D4E5075310238538002B39D7 /* TWTideResultTableViewController.h */,
-				D4E5075410238538002B39D7 /* TWTideResultTableViewController.m */,
-				D4E5078B10238957002B39D7 /* TWTideCell.h */,
-				D4E5078C10238957002B39D7 /* TWTideCell.m */,
-				D4E509B11023CB85002B39D7 /* TWImageTableViewController.h */,
-				D4E509B21023CB85002B39D7 /* TWImageTableViewController.m */,
-				D42C7A071023CF59009C3C4E /* TWImageViewController.h */,
-				D42C7A081023CF59009C3C4E /* TWImageViewController.m */,
-				D489E4F81023F2A200189460 /* TWLocationSettingTableViewController.h */,
-				D489E4F91023F2A200189460 /* TWLocationSettingTableViewController.m */,
-				D489E5A41024EB3F00189460 /* TWAboutViewController.h */,
-				D489E5A51024EB3F00189460 /* TWAboutViewController.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -332,6 +291,68 @@
 				D489E3AA1023E00100189460 /* zonble.jpg */,
 			);
 			name = Images;
+			sourceTree = "<group>";
+		};
+		D4C02C35102C03C300FD1D3B /* More */ = {
+			isa = PBXGroup;
+			children = (
+				28C286DF0D94DF7D0034E888 /* RootViewController.h */,
+				28C286E00D94DF7D0034E888 /* RootViewController.m */,
+				D4E508CF102399E0002B39D7 /* TWOverviewViewController.h */,
+				D4E508D0102399E0002B39D7 /* TWOverviewViewController.m */,
+				D4E5029810234126002B39D7 /* TWBasicForecastTableViewController.h */,
+				D4E5029910234126002B39D7 /* TWBasicForecastTableViewController.m */,
+				D4E502A6102343C6002B39D7 /* TWForecastTableViewController.h */,
+				D4E502A7102343C6002B39D7 /* TWForecastTableViewController.m */,
+				D4E502F710234698002B39D7 /* TWForecastResultTableViewController.h */,
+				D4E502F810234698002B39D7 /* TWForecastResultTableViewController.m */,
+				D4E5033110234C2D002B39D7 /* TWForecastResultCell.h */,
+				D4E5033210234C2D002B39D7 /* TWForecastResultCell.m */,
+				D4E5042810235B65002B39D7 /* TWWeekTableViewController.h */,
+				D4E5042910235B65002B39D7 /* TWWeekTableViewController.m */,
+				D4E5046510235E92002B39D7 /* TWWeekResultTableViewController.h */,
+				D4E5046610235E92002B39D7 /* TWWeekResultTableViewController.m */,
+				D4E504AC10236201002B39D7 /* TWWeekResultCell.h */,
+				D4E504AD10236201002B39D7 /* TWWeekResultCell.m */,
+				D4E5052510236A1A002B39D7 /* TWWeekTravelTableViewController.h */,
+				D4E5052610236A1A002B39D7 /* TWWeekTravelTableViewController.m */,
+				D4E5056E10236C6B002B39D7 /* TWThreeDaySeaTableViewController.h */,
+				D4E5056F10236C6B002B39D7 /* TWThreeDaySeaTableViewController.m */,
+				D4E505A010236EF0002B39D7 /* TWThreeDaySeaResultTableViewController.h */,
+				D4E505A110236EF0002B39D7 /* TWThreeDaySeaResultTableViewController.m */,
+				D4E505E0102370EF002B39D7 /* TWThreeDaySeaCell.h */,
+				D4E505E1102370EF002B39D7 /* TWThreeDaySeaCell.m */,
+				D4E5063410237768002B39D7 /* TWNearSeaTableViewController.h */,
+				D4E5063510237768002B39D7 /* TWNearSeaTableViewController.m */,
+				D4E5067E10237944002B39D7 /* TWNearSeaResultTableViewController.h */,
+				D4E5067F10237944002B39D7 /* TWNearSeaResultTableViewController.m */,
+				D4E506A310237A99002B39D7 /* TWNearSeaCell.h */,
+				D4E506A410237A99002B39D7 /* TWNearSeaCell.m */,
+				D4E507331023838B002B39D7 /* TWTideTableViewController.h */,
+				D4E507341023838B002B39D7 /* TWTideTableViewController.m */,
+				D4E5075310238538002B39D7 /* TWTideResultTableViewController.h */,
+				D4E5075410238538002B39D7 /* TWTideResultTableViewController.m */,
+				D4E5078B10238957002B39D7 /* TWTideCell.h */,
+				D4E5078C10238957002B39D7 /* TWTideCell.m */,
+				D4E509B11023CB85002B39D7 /* TWImageTableViewController.h */,
+				D4E509B21023CB85002B39D7 /* TWImageTableViewController.m */,
+				D42C7A071023CF59009C3C4E /* TWImageViewController.h */,
+				D42C7A081023CF59009C3C4E /* TWImageViewController.m */,
+				D489E5A41024EB3F00189460 /* TWAboutViewController.h */,
+				D489E5A51024EB3F00189460 /* TWAboutViewController.m */,
+			);
+			name = More;
+			sourceTree = "<group>";
+		};
+		D4C02C38102C03E000FD1D3B /* Favorite */ = {
+			isa = PBXGroup;
+			children = (
+				D4C02C3B102C03F700FD1D3B /* TWFavoriteTableViewController.h */,
+				D4C02C3C102C03F700FD1D3B /* TWFavoriteTableViewController.m */,
+				D489E4F81023F2A200189460 /* TWLocationSettingTableViewController.h */,
+				D489E4F91023F2A200189460 /* TWLocationSettingTableViewController.m */,
+			);
+			name = Favorite;
 			sourceTree = "<group>";
 		};
 		D4C3A0CA102235B800E7A430 /* External Libraries */ = {
@@ -497,6 +518,7 @@
 				D489E4FA1023F2A200189460 /* TWLocationSettingTableViewController.m in Sources */,
 				D489E5A61024EB3F00189460 /* TWAboutViewController.m in Sources */,
 				D4C02AAE102BD47000FD1D3B /* TWAPIBox+Private.m in Sources */,
+				D4C02C3D102C03F700FD1D3B /* TWFavoriteTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

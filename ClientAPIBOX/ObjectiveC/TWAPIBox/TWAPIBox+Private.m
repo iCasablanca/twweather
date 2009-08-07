@@ -51,16 +51,19 @@
 {
 	NSPropertyListFormat format;
 	NSString *error;
-	NSString *s = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-	[s release];
 	id plist = [NSPropertyListSerialization propertyListFromData:data mutabilityOption:NSPropertyListImmutable format:&format errorDescription:&error];
 	id result = [plist objectForKey:@"result"];
 	
 	NSDictionary *sessionInfo = [request sessionInfo];
+	NSString *identifier = [sessionInfo objectForKey:@"identifier"];
 	id delegate = [sessionInfo objectForKey:@"delegate"];
-	if (delegate && [delegate respondsToSelector:@selector(APIBox:didFetchOverview:userInfo:)]) {
+	if ([identifier isEqualToString:@"warning"] && delegate && [delegate respondsToSelector:@selector(APIBox:didFetchWarnings:userInfo:)]) {
 		[delegate APIBox:self didFetchWarnings:result userInfo:[sessionInfo objectForKey:@"userInfo"]];
 	}
+	else if ([identifier isEqualToString:@"forecastAll"] && delegate && [delegate respondsToSelector:@selector(APIBox:didFetchAllForecasts:userInfo:)]) {
+		[delegate APIBox:self didFetchAllForecasts:result userInfo:[sessionInfo objectForKey:@"userInfo"]];
+	}
+	
 }
 - (void)didFailedFetchWarning:(LFHTTPRequest *)request error:(NSString *)error
 {
@@ -74,10 +77,14 @@
 	NSError *theError = [NSError errorWithDomain:TWAPIErrorDomain code:code userInfo:[self _errorDictionaryWithCode:code]];
 	NSDictionary *sessionInfo = [request sessionInfo];
 	id delegate = [sessionInfo objectForKey:@"delegate"];
-	
-	if (delegate && [delegate respondsToSelector:@selector(APIBox:didFailedFetchWarningsWithError:)]) {
+	NSString *identifier = [sessionInfo objectForKey:@"identifier"];	
+	if ([identifier isEqualToString:@"warning"] && delegate && [delegate respondsToSelector:@selector(APIBox:didFailedFetchWarningsWithError:)]) {
 		[delegate APIBox:self didFailedFetchWarningsWithError:theError];
 	}	
+	else if ([identifier isEqualToString:@"forecastAll"] && delegate && [delegate respondsToSelector:@selector(APIBox:didFailedFetchAllForecastsWithError:)]) {
+		[delegate APIBox:self didFailedFetchAllForecastsWithError:theError];
+	}	
+	
 }
 
 - (void)didFetchOverview:(LFHTTPRequest *)request data:(NSData *)data

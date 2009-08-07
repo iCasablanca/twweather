@@ -8,11 +8,22 @@
 #import <UIKit/UIKit.h>
 
 
+@class TWLocationSettingTableViewController;
+
+@protocol TWLocationSettingTableViewControllerDelegate <NSObject>
+@required
+- (void)settingController:(TWLocationSettingTableViewController *)controller didUpdateFilter:(NSArray *)filterArray;
+@end
+
 @interface TWLocationSettingTableViewController : UITableViewController 
 {
-
+	id<TWLocationSettingTableViewControllerDelegate> delegate;
+	NSMutableArray *_filterArray;
 }
 
-- (IBAction)cancelAction:(id)sender;
+- (void)setFilter:(NSArray *)filter;
+- (IBAction)donelAction:(id)sender;
+
+@property (assign, nonatomic) id<TWLocationSettingTableViewControllerDelegate> delegate;
 
 @end

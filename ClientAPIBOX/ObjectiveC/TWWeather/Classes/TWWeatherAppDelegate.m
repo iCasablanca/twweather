@@ -7,12 +7,13 @@
 
 #import "TWWeatherAppDelegate.h"
 #import "RootViewController.h"
+#import "TWFavoriteTableViewController.h"
 #import "TWAPIBox.h"
 #import "TWAPIBox+Info.h"
 
-NSString *TWCurrentForecastDidFetchNotification = @"TWCurrentForecastDidFetchNotification";
-NSString *forecastOfCurrentLocationPreference = @"forecastOfCurrentLocationPreference";
-NSString *currentLocationPreference = @"currentLocationPreference";
+//NSString *TWCurrentForecastDidFetchNotification = @"TWCurrentForecastDidFetchNotification";
+//NSString *forecastOfCurrentLocationPreference = @"forecastOfCurrentLocationPreference";
+//NSString *currentLocationPreference = @"currentLocationPreference";
 
 @implementation TWWeatherAppDelegate
 
@@ -40,8 +41,14 @@ NSString *currentLocationPreference = @"currentLocationPreference";
 	[controller release];
 	
 	NSMutableArray *controllerArray = [NSMutableArray array];
+	
+	TWFavoriteTableViewController *favControlelr = [[TWFavoriteTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+	favControlelr.tabBarItem = [[[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemFavorites tag:0] autorelease];	
+	[controllerArray addObject:favControlelr];
+	[favControlelr release];
+	
 	RootViewController *rootController = [[RootViewController alloc] initWithStyle:UITableViewStyleGrouped];
-	rootController.tabBarItem = [[[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemMore tag:0] autorelease];	
+	rootController.tabBarItem = [[[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemMore tag:1] autorelease];	
 	[controllerArray addObject:rootController];
 	[rootController release];
 

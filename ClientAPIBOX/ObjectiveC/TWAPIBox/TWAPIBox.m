@@ -63,6 +63,7 @@ static TWAPIBox *apibox;
     if (self) {
 		_request = [[LFHTTPRequest alloc] init];
 		[_request setDelegate:self];
+		[_request setTimeoutInterval:20.0];
 		_queue = [[NSMutableArray alloc] init];
 		[self initInfoArrays];
     }
@@ -98,7 +99,7 @@ static TWAPIBox *apibox;
 	if ([_queue count]) {
 		id sessionInfo = [_queue objectAtIndex:0];
 		NSURL *URL = [sessionInfo objectForKey:@"URL"];
-		_request.sessionInfo = sessionInfo;
+		[_request setSessionInfo:sessionInfo];
 		[_request performMethod:LFHTTPRequestGETMethod onURL:URL withData:nil];
 		[_queue removeObject:sessionInfo];		
 	}
@@ -154,15 +155,18 @@ static TWAPIBox *apibox;
 	}
 	[self sendRequestWithPath:path identifier:@"overview" action:@selector(didFetchOverview:data:) failedAction:@selector(didFailedFetchOverview:error:) delegate:delegate userInfo:userInfo];
 }
+- (void)fetchAllForecastsWithDelegate:(id)delegate userInfo:(id)userInfo
+{
+	NSString *path = [NSString stringWithFormat:@"forecast?location=all"];
+//	NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:userInfo, @"userInfo", nil];
+	[self sendRequestWithPath:path identifier:@"forecastAll" action:@selector(didFetchWarning:data:) failedAction:@selector(didFailedFetchWarning:error:) delegate:delegate userInfo:userInfo];	
+}
 - (void)fetchForecastWithLocationIdentifier:(NSString *)identifier delegate:(id)delegate userInfo:(id)userInfo
 {
-	NSString *path = [NSString stringWithFormat:@"forecast?location=%@", identifier];
 	if (!identifier) {
 		return;
 	}
-	if (!userInfo) {
-		userInfo = [NSNull null];
-	}
+	NSString *path = [NSString stringWithFormat:@"forecast?location=%@", identifier];
 	NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:identifier, @"identifier", userInfo, @"userInfo", nil];
 	[self sendRequestWithPath:path identifier:@"forecast" action:@selector(didFetchForecast:data:) failedAction:@selector(didFailedFetchForecast:error:) delegate:delegate userInfo:info];
 }
