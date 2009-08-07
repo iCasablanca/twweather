@@ -40,12 +40,34 @@ from google.appengine.ext.webapp import template
 
 siteURL = "http://twweatherapi.appspot.com/"
 
+class WarningController(webapp.RequestHandler):
+	def __init__(self):
+		self.model = weather.WeatherWarning()
+	def get(self):
+		outputtype = self.request.get("output")
+		warnings = memcache.get("warnings")
+		if warnings is None:
+			warnings = self.model.fetch()
+			memcache.add("warnings", warnings, 30)
+		if warnings is None:
+			return
+		if outputtype == "json":
+			self.response.headers['Content-Type'] = 'text/plain; charset=utf-8'
+			jsonText = json.write({"result":warnings})
+			self.response.out.write(jsonText)
+		else:
+			pl = dict(result=warnings)
+			output = plistlib.writePlistToString(pl)
+			self.response.headers['Content-Type'] = 'text/plist; charset=utf-8'
+			self.response.out.write(output)
+		
+
 class OverviewController(webapp.RequestHandler):
 	def __init__(self):
 		self.overview = weather.WeatherOverview()
 	def get(self):
 		outputtype = self.request.get("output")
-		if outputtype == "plain":
+		if outputtype is "plain":
 			text = memcache.get("overview_plain")
 			if text is None:
 				self.overview.fetch()
@@ -165,6 +187,11 @@ class TideController(ForecastController):
 		self.model = weather.WeatherTide()
 		self.key_prefix = "tide_"
 
+class OBSController(ForecastController):
+	def __init__(self):
+		self.model = weather.WeatherOBS()
+		self.key_prefix = "obs_"
+
 class ImageHandler(webapp.RequestHandler):
 	def __init__(self):
 		self.imageURL = weather.WeatherImageURL
@@ -198,19 +225,11 @@ class ImageHandler(webapp.RequestHandler):
 
 		self.response.headers["Content-Type"] = "image/jpg"
 		self.response.out.write(imageData)
-		
-class OBSController(ForecastController):
-	def __init__(self):
-		self.model = weather.WeatherOBS()
-		self.key_prefix = "obs_"
-
-
 
 class MainHandler(webapp.RequestHandler):
 	def get(self):
 		path = os.path.join(os.path.dirname(__file__), 'html', 'main.html')
 		self.response.out.write(template.render(path, {}))
-
 
 def main():
 	application = webapp.WSGIApplication(
@@ -225,6 +244,7 @@ def main():
 			('/tide', TideController),
 			('/image', ImageHandler),
 			('/obs', OBSController),
+			('/warning', WarningController),
 			],
  			debug=True)
 	wsgiref.handlers.CGIHandler().run(application)

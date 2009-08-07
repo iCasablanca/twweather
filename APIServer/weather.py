@@ -35,6 +35,8 @@ import unittest
 import urllib
 from datetime import *
 
+WeatherRootURL = "http://www.cwb.gov.tw/mobile/"
+WeatherWarningURL = "http://www.cwb.gov.tw/mobile/warning/%(id)s.wml"
 WeatherOverViewURL = "http://www.cwb.gov.tw/mobile/real.wml"
 WeatherForecastURL = "http://www.cwb.gov.tw/mobile/forecast/city_%(#)02d.wml"
 WeatherWeekURL = "http://www.cwb.gov.tw/mobile/week/%(location)s.wml"
@@ -43,6 +45,45 @@ Weather3DaySeaURL = "http://www.cwb.gov.tw/mobile/3sea/3sea%(#)d.wml"
 WeatherNearSeaURL = "http://www.cwb.gov.tw/mobile/nearsea/nearsea%(#)d.wml"
 WeatherTideURL = "http://www.cwb.gov.tw/mobile/tide/area%(#)d.wml"
 WeatherOBSURL = "http://www.cwb.gov.tw/mobile/obs/%(location)s.wml"
+
+class WeatherWarning(object):
+	def __init__(self):
+		pass
+	def fetch(self):
+		try:
+			url = urllib.urlopen(WeatherRootURL)
+		except:
+			return
+		warnings = []
+		lines = url.readlines()
+		for line in lines:
+			m = re.search('<a href="warning/(.*).wml">(.*)</a>', line)
+			if m is not None:
+				id = m.group(1)
+				name = m.group(2)
+				item = {"id": id, "name": name.decode('utf-8')}
+				warnings.append(item)
+		for item in warnings:
+			URLString = WeatherWarningURL % {"id": id}
+			try:
+				url = urllib.urlopen(URLString)
+			except:
+				continue
+				pass
+			lines = url.readlines()
+			text = ""
+			for line in lines:
+				if line.find("<") == -1:
+					text = text + line
+			item['text'] = text.decode('utf-8')
+		return warnings
+
+class TestWeatherWarning(unittest.TestCase):
+	def setUp(self):
+		self.warnings = WeatherWarning()
+	def testOverview(self):
+		result = self.warnings.fetch()
+		self.assertTrue(result)
 
 class WeatherOverview(object):
 	def __init__(self):
@@ -225,7 +266,6 @@ class WeatherWeek(Forecast):
 		for line in lines:
 			if isHandlingItems is True and len(line) is 1 and len(items) > 0:
 				break
-			# if line.startswith("<p>發布時間"):
 			if line.find("發布時間") > -1:
 				isHandlingPublishTime = True
 			elif isHandlingPublishTime is True:
