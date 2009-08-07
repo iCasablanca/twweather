@@ -74,7 +74,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView 
 {
-    return 3;
+    return 4;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section 
 {
@@ -85,6 +85,9 @@
 		return 8;
 	}
 	else if (section == 2) {
+		return 2;
+	}		
+	else if (section == 3) {
 		return 1;
 	}	
     return 0;
@@ -154,6 +157,23 @@
 		if (cell == nil) {
 			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NormalIdentifier] autorelease];
 		}
+		switch (indexPath.row) {
+			case 0:
+				cell.textLabel.text = @"氣象查詢：886-2-23491234";
+				break;
+			case 1:
+				cell.textLabel.text = @"地震查詢：886-2-23491168";
+				break;
+			default:
+				break;
+		}
+		return cell;
+	}	
+	else if (indexPath.section == 3) {
+		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NormalIdentifier];
+		if (cell == nil) {
+			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NormalIdentifier] autorelease];
+		}
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		switch (indexPath.row) {
 			case 0:
@@ -213,6 +233,20 @@
 		}
 	}
 	else if (indexPath.section == 2) {
+		NSString *URLString = nil;
+		if (indexPath.row == 1) {
+			URLString = @"tel://88622349123";
+		}
+		else if (indexPath.row == 2) {
+			URLString = @"tel://886223491168";
+		}
+		if (URLString) {
+			NSURL *URL = [NSURL URLWithString:URLString];
+			[[UIApplication sharedApplication] openURL:URL];
+		}
+		
+	}
+	else if (indexPath.section == 3) {
 		UITableViewController *controller = nil;
 		if (indexPath.row == 0) {
 			controller = [[TWAboutViewController alloc] init];
