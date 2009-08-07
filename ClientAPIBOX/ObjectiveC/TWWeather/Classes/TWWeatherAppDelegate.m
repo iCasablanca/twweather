@@ -6,7 +6,7 @@
 //
 
 #import "TWWeatherAppDelegate.h"
-#import "RootViewController.h"
+#import "TWRootViewController.h"
 #import "TWFavoriteTableViewController.h"
 #import "TWAPIBox.h"
 #import "TWAPIBox+Info.h"
@@ -47,7 +47,7 @@
 	[controllerArray addObject:favControlelr];
 	[favControlelr release];
 	
-	RootViewController *rootController = [[RootViewController alloc] initWithStyle:UITableViewStyleGrouped];
+	TWRootViewController *rootController = [[TWRootViewController alloc] initWithStyle:UITableViewStyleGrouped];
 	rootController.tabBarItem = [[[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemMore tag:1] autorelease];	
 	[controllerArray addObject:rootController];
 	[rootController release];

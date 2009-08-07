@@ -1,11 +1,11 @@
 //
-//  RootViewController.m
+//  TWRootViewController.m
 //  TWWeather
 //
 //  Created by zonble on 2009/07/31.
 //
 
-#import "RootViewController.h"
+#import "TWRootViewController.h"
 #import "TWLoadingCell.h"
 #import "TWAPIBox.h"
 #import "TWErrorViewController.h"
@@ -23,7 +23,7 @@
 #import "TWWeatherAppDelegate.h"
 #import "TWForecastResultCell.h"
 
-@implementation RootViewController
+@implementation TWRootViewController
 
 - (void)dealloc
 {

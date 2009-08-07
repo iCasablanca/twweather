@@ -13,7 +13,7 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */; };
 		28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD735F0D9D9599002E5188 /* MainWindow.xib */; };
-		28C286E10D94DF7D0034E888 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C286E00D94DF7D0034E888 /* RootViewController.m */; };
+		28C286E10D94DF7D0034E888 /* TWRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C286E00D94DF7D0034E888 /* TWRootViewController.m */; };
 		D42C7A091023CF59009C3C4E /* TWImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D42C7A081023CF59009C3C4E /* TWImageViewController.m */; };
 		D489E3851023DF2500189460 /* TWAPIBox+Cache.m in Sources */ = {isa = PBXBuildFile; fileRef = D489E3831023DF2500189460 /* TWAPIBox+Cache.m */; };
 		D489E3AB1023E00100189460 /* ball.png in Resources */ = {isa = PBXBuildFile; fileRef = D489E3981023E00100189460 /* ball.png */; };
@@ -82,8 +82,8 @@
 		2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28A0AAE50D9B0CCF005BE974 /* TWWeather_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWWeather_Prefix.pch; sourceTree = "<group>"; };
 		28AD735F0D9D9599002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
-		28C286DF0D94DF7D0034E888 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
-		28C286E00D94DF7D0034E888 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		28C286DF0D94DF7D0034E888 /* TWRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWRootViewController.h; sourceTree = "<group>"; };
+		28C286E00D94DF7D0034E888 /* TWRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWRootViewController.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* TWWeather-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "TWWeather-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		D42C7A071023CF59009C3C4E /* TWImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWImageViewController.h; sourceTree = "<group>"; };
@@ -296,8 +296,8 @@
 		D4C02C35102C03C300FD1D3B /* More */ = {
 			isa = PBXGroup;
 			children = (
-				28C286DF0D94DF7D0034E888 /* RootViewController.h */,
-				28C286E00D94DF7D0034E888 /* RootViewController.m */,
+				28C286DF0D94DF7D0034E888 /* TWRootViewController.h */,
+				28C286E00D94DF7D0034E888 /* TWRootViewController.m */,
 				D4E508CF102399E0002B39D7 /* TWOverviewViewController.h */,
 				D4E508D0102399E0002B39D7 /* TWOverviewViewController.m */,
 				D4E5029810234126002B39D7 /* TWBasicForecastTableViewController.h */,
@@ -485,7 +485,7 @@
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* TWWeatherAppDelegate.m in Sources */,
-				28C286E10D94DF7D0034E888 /* RootViewController.m in Sources */,
+				28C286E10D94DF7D0034E888 /* TWRootViewController.m in Sources */,
 				D4C3A0D5102235DB00E7A430 /* NSData+LFHTTPFormExtensions.m in Sources */,
 				D4C3A0D6102235DB00E7A430 /* LFHTTPRequest.m in Sources */,
 				D4C3A0D7102235DB00E7A430 /* LFSiteReachability.m in Sources */,
