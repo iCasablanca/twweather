@@ -6,6 +6,7 @@
 //
 
 #import "TWBasicForecastTableViewController.h"
+#import "TWAPIBox.h"
 #import "TWLoadingCell.h"
 #import "TWErrorViewController.h"
 
@@ -23,6 +24,11 @@
 {
 	[_searchBar release];
 	[super viewDidLoad];
+}
+- (void)viewWillDisappear:(BOOL)animated
+{
+	[super viewWillDisappear:animated];
+	[[TWAPIBox sharedBox] cancelAllRequestWithDelegate:self];
 }
 
 - (void)_init

@@ -12,17 +12,18 @@ extern NSString *currentLocationPreference;
 @interface TWWeatherAppDelegate : NSObject <UIApplicationDelegate> 
 {
     UIWindow *window;
-    UINavigationController *navigationController;
-//	NSDictionary *forecastOfCurrentLocation;
+	UINavigationController *navigationController;
+    UITabBarController *tabBarController;
 }
 
 + (TWWeatherAppDelegate*)sharedDelegate;
+
+- (void)pushViewController:(UIViewController *)controller animated:(BOOL)animated;
 - (NSString *)imageNameWithTimeTitle:(NSString *)timeTitle description:(NSString *)description;
-//- (void)fetchForecastOFCurrentLocation;
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
+@property (nonatomic, retain) IBOutlet UITabBarController *tabBarController;
 @property (nonatomic, retain) IBOutlet UINavigationController *navigationController;
-//@property (nonatomic, retain) IBOutlet NSDictionary *forecastOfCurrentLocation;
 
 @end
 

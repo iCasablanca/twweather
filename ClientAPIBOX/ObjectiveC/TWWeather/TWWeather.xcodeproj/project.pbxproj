@@ -40,6 +40,7 @@
 		D489E59E1024EA4600189460 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D489E59D1024EA4600189460 /* InfoPlist.strings */; };
 		D489E5A61024EB3F00189460 /* TWAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D489E5A51024EB3F00189460 /* TWAboutViewController.m */; };
 		D489E5DC1024EF6000189460 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D489E5DB1024EF6000189460 /* MessageUI.framework */; };
+		D4C02AAE102BD47000FD1D3B /* TWAPIBox+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C02AAD102BD47000FD1D3B /* TWAPIBox+Private.m */; };
 		D4C3A0D5102235DB00E7A430 /* NSData+LFHTTPFormExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3A0CE102235DB00E7A430 /* NSData+LFHTTPFormExtensions.m */; };
 		D4C3A0D6102235DB00E7A430 /* LFHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3A0D0102235DB00E7A430 /* LFHTTPRequest.m */; };
 		D4C3A0D7102235DB00E7A430 /* LFSiteReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3A0D2102235DB00E7A430 /* LFSiteReachability.m */; };
@@ -114,6 +115,8 @@
 		D489E5A41024EB3F00189460 /* TWAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWAboutViewController.h; sourceTree = "<group>"; };
 		D489E5A51024EB3F00189460 /* TWAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWAboutViewController.m; sourceTree = "<group>"; };
 		D489E5DB1024EF6000189460 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		D4C02AAC102BD47000FD1D3B /* TWAPIBox+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TWAPIBox+Private.h"; path = "../TWAPIBox/TWAPIBox+Private.h"; sourceTree = SOURCE_ROOT; };
+		D4C02AAD102BD47000FD1D3B /* TWAPIBox+Private.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TWAPIBox+Private.m"; path = "../TWAPIBox/TWAPIBox+Private.m"; sourceTree = SOURCE_ROOT; };
 		D4C3A0CE102235DB00E7A430 /* NSData+LFHTTPFormExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+LFHTTPFormExtensions.m"; path = "../External/LFWebAPIKit/NSData+LFHTTPFormExtensions.m"; sourceTree = SOURCE_ROOT; };
 		D4C3A0CF102235DB00E7A430 /* LFHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFHTTPRequest.h; path = ../External/LFWebAPIKit/LFHTTPRequest.h; sourceTree = SOURCE_ROOT; };
 		D4C3A0D0102235DB00E7A430 /* LFHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFHTTPRequest.m; path = ../External/LFWebAPIKit/LFHTTPRequest.m; sourceTree = SOURCE_ROOT; };
@@ -363,6 +366,8 @@
 				D4E5025710233338002B39D7 /* TWAPIBox+Info.m */,
 				D489E3841023DF2500189460 /* TWAPIBox+Cache.h */,
 				D489E3831023DF2500189460 /* TWAPIBox+Cache.m */,
+				D4C02AAC102BD47000FD1D3B /* TWAPIBox+Private.h */,
+				D4C02AAD102BD47000FD1D3B /* TWAPIBox+Private.m */,
 			);
 			name = TWAPIBOX;
 			sourceTree = "<group>";
@@ -491,6 +496,7 @@
 				D489E3851023DF2500189460 /* TWAPIBox+Cache.m in Sources */,
 				D489E4FA1023F2A200189460 /* TWLocationSettingTableViewController.m in Sources */,
 				D489E5A61024EB3F00189460 /* TWAboutViewController.m in Sources */,
+				D4C02AAE102BD47000FD1D3B /* TWAPIBox+Private.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

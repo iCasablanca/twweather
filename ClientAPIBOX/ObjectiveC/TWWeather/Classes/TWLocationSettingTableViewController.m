@@ -77,7 +77,7 @@
 	NSUInteger i = [[NSUserDefaults standardUserDefaults] integerForKey:currentLocationPreference];
 	if (i != indexPath.row) {
 		[[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:currentLocationPreference];
-		[[TWWeatherAppDelegate sharedDelegate] fetchForecastOFCurrentLocation];
+//		[[TWWeatherAppDelegate sharedDelegate] fetchForecastOFCurrentLocation];
 	}
 	
 	[self cancelAction:self];

@@ -27,7 +27,7 @@
 
 #import "TWAPIBox+Info.h"
 
-@interface TWAPIBox(Private)
+@interface TWAPIBox(Private_Info)
 - (void)initForecastLocations;
 - (void)initWeekLocations;
 - (void)initWeekTravelLocations;
@@ -37,7 +37,7 @@
 - (void)initImageIdentifiers;
 @end
 
-@implementation TWAPIBox(Private)
+@implementation TWAPIBox(Private_Info)
 
 - (void)addToArray:(NSMutableArray *)array name:(char *)name identifier:(NSString *)identifier
 {

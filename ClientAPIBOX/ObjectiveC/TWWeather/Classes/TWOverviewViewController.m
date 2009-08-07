@@ -34,7 +34,9 @@
 	theTexView.font = [UIFont systemFontOfSize:18.0];
 	self.textView = theTexView;
 	self.view = theTexView;
-	self.title = @"關心天氣";
+	if (![self.title length]) {
+		self.title = @"關心天氣";
+	}
 }
 - (void)viewDidLoad
 {

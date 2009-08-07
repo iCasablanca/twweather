@@ -23,8 +23,7 @@ NSString *currentLocationPreference = @"currentLocationPreference";
 
 - (void)dealloc 
 {
-//	[forecastOfCurrentLocation release];
-	[navigationController release];
+	[tabBarController release];
 	[window release];
 	[super dealloc];
 }
@@ -34,23 +33,36 @@ NSString *currentLocationPreference = @"currentLocationPreference";
 #pragma mark Application lifecycle
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application 
-{    
-//	forecastOfCurrentLocation = nil;
-//	forecastOfCurrentLocation = [[NSUserDefaults standardUserDefaults] objectForKey:forecastOfCurrentLocationPreference];
-//	[self fetchForecastOFCurrentLocation];
+{   	
+	UITabBarController *controller = [[UITabBarController alloc] init];
+	controller.title = @"台灣天氣";
+	self.tabBarController = controller;	
+	[controller release];
 	
+	NSMutableArray *controllerArray = [NSMutableArray array];
 	RootViewController *rootController = [[RootViewController alloc] initWithStyle:UITableViewStyleGrouped];
-	UINavigationController *aNavigationController = [[UINavigationController alloc] initWithRootViewController:rootController];
+	rootController.tabBarItem = [[[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemMore tag:0] autorelease];	
+	[controllerArray addObject:rootController];
 	[rootController release];
-	self.navigationController = aNavigationController;
-	[aNavigationController release];	
-	[window addSubview:[navigationController view]];
+
+	self.tabBarController.viewControllers = controllerArray;
+	
+	UINavigationController *ourNavigationController = [[UINavigationController alloc] initWithRootViewController:self.tabBarController];
+	self.navigationController = ourNavigationController;
+	[ourNavigationController release];
+	
+	[window addSubview:[self.navigationController view]];
     [window makeKeyAndVisible];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application 
 {
 	// Save data if appropriate
+}
+
+- (void)pushViewController:(UIViewController *)controller animated:(BOOL)animated
+{
+	[self.navigationController pushViewController:controller animated:YES];
 }
 
 - (NSString *)imageNameWithTimeTitle:(NSString *)timeTitle description:(NSString *)description
@@ -86,40 +98,9 @@ NSString *currentLocationPreference = @"currentLocationPreference";
 	return string;
 }
 
-//- (void)fetchForecastOFCurrentLocation
-//{
-//	if (![[NSUserDefaults standardUserDefaults] objectForKey:currentLocationPreference]) {
-//		[[NSUserDefaults standardUserDefaults] setInteger:0 forKey:currentLocationPreference];
-//	}	
-//	NSUInteger i = [[NSUserDefaults standardUserDefaults] integerForKey:currentLocationPreference];
-//	if (i >= [[[TWAPIBox sharedBox] forecastLocations] count]) {
-//		i = 0;
-//		[[NSUserDefaults standardUserDefaults] setInteger:0 forKey:currentLocationPreference];
-//	}
-//	NSDictionary *dictionary = [[[TWAPIBox sharedBox] forecastLocations] objectAtIndex:i];
-//	NSString *identifier = [dictionary objectForKey:@"identifier"];	
-//	[[TWAPIBox sharedBox] fetchForecastWithLocationIdentifier:identifier delegate:self userInfo:nil];
-//}
-//
-//
-//#pragma mark -
-//
-//- (void)APIBox:(TWAPIBox *)APIBox didFetchForecast:(id)result identifier:(NSString *)identifier userInfo:(id)userInfo
-//{
-//	if ([result isKindOfClass:[NSDictionary class]]) {
-//		self.forecastOfCurrentLocation = result;
-//		[[NSUserDefaults standardUserDefaults] setObject:result forKey:forecastOfCurrentLocationPreference];
-//		[[NSNotificationCenter defaultCenter] postNotificationName:TWCurrentForecastDidFetchNotification object:forecastOfCurrentLocation userInfo:nil];
-//	}
-//}
-//- (void)APIBox:(TWAPIBox *)APIBox didFailedFetchForecastWithError:(NSError *)error identifier:(NSString *)identifier userInfo:(id)userInfo
-//{
-//}
-
-
 @synthesize window;
+@synthesize tabBarController;
 @synthesize navigationController;
-//@synthesize forecastOfCurrentLocation;
 
 @end
 

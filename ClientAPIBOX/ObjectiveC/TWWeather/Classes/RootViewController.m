@@ -175,7 +175,7 @@
 		TWOverviewViewController *controller = [[TWOverviewViewController alloc] init];
 		[controller setText:[dictionary objectForKey:@"text"]];
 		controller.title = [dictionary objectForKey:@"name"];
-		[self.navigationController pushViewController:controller animated:YES];
+		[[TWWeatherAppDelegate sharedDelegate] pushViewController:controller animated:YES];
 		[controller release];		
 	}
 	else if (indexPath.section == 1) {
@@ -208,7 +208,7 @@
 			controller = [[TWImageTableViewController alloc] initWithStyle:UITableViewStylePlain];
 		}
 		if (controller) {
-			[self.navigationController pushViewController:controller animated:YES];
+			[[TWWeatherAppDelegate sharedDelegate] pushViewController:controller animated:YES];
 			[controller release];
 		}
 	}
@@ -218,16 +218,13 @@
 			controller = [[TWAboutViewController alloc] init];
 		}
 		if (controller) {
-			[self.navigationController pushViewController:controller animated:YES];
+			[[TWWeatherAppDelegate sharedDelegate] pushViewController:controller animated:YES];
 			[controller release];
 		}		
 	}
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//	if (indexPath.section == 0) {
-//		return 130.0;
-//	}
 	return 45.0;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -237,13 +234,6 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
 	if (section == 0) {
-//		NSDictionary *dictionary = [TWWeatherAppDelegate sharedDelegate].forecastOfCurrentLocation;
-//		if (dictionary) {
-//			NSString *location = [dictionary objectForKey:@"locationName"];
-//			if (location) {
-//				return [location stringByAppendingString:@"目前天氣"];
-//			}			
-//		}
 	}
 	else if (section == 1) {
 		return @"功能列表";
@@ -253,6 +243,7 @@
 
 - (void)APIBox:(TWAPIBox *)APIBox didFetchWarnings:(id)result userInfo:(id)userInfo
 {
+//	NSLog(@"result:%@", [result description]);
 	if ([result isKindOfClass:[NSArray class]]) {
 		[warningArray setArray:result];
 	}
@@ -270,7 +261,7 @@
 	self.tableView.userInteractionEnabled = YES;
 	TWOverviewViewController *controller = [[TWOverviewViewController alloc] init];
 	[controller setText:string];
-	[self.navigationController pushViewController:controller animated:YES];
+	[[TWWeatherAppDelegate sharedDelegate] pushViewController:controller animated:YES];
 	[controller release];
 }
 - (void)APIBox:(TWAPIBox *)APIBox didFailedFetchOverviewWithError:(NSError *)error
@@ -280,14 +271,9 @@
 	self.tableView.userInteractionEnabled = YES;
 	TWErrorViewController *controller = [[TWErrorViewController alloc] init];
 	controller.error = error;
-	[self.navigationController pushViewController:controller animated:YES];
+	[[TWWeatherAppDelegate sharedDelegate] pushViewController:controller animated:YES];
 	[controller release];
 }
-
-//- (void)didFetchForecastOfCurrentLocation:(NSNotification *)notification
-//{
-//	[self.tableView reloadData];
-//}
 
 @end
 

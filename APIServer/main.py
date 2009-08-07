@@ -67,7 +67,7 @@ class OverviewController(webapp.RequestHandler):
 		self.overview = weather.WeatherOverview()
 	def get(self):
 		outputtype = self.request.get("output")
-		if outputtype is "plain":
+		if outputtype == "plain":
 			text = memcache.get("overview_plain")
 			if text is None:
 				self.overview.fetch()
@@ -122,7 +122,7 @@ class ForecastController(webapp.RequestHandler):
 			self.getAll()
 			return
 		
-		if len(location) is 0:
+		if len(location) == 0:
 			locations = self.model.locations()
 			items = []
 			for location in locations:

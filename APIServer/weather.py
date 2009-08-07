@@ -78,7 +78,6 @@ class WeatherWarning(object):
 					line = line.replace("　", "")
 					line = line.replace(" ", "")
 					text = text + line
-			print text
 			item['text'] = text.decode('utf-8')
 		return warnings
 

@@ -78,6 +78,7 @@ typedef enum {
 @interface TWAPIBox : NSObject 
 {
 	LFHTTPRequest *_request;
+	NSMutableArray *_queue;
 	NSMutableArray *_forecastLocations;
 	NSMutableArray *_weekLocations;
 	NSMutableArray *_weekTravelLocations;
@@ -89,6 +90,9 @@ typedef enum {
 }
 
 + (TWAPIBox *)sharedBox;
+- (void)cancelAllRequest;
+- (void)cancelAllRequestWithDelegate:(id)delegate;
+- (void)runQueue;
 - (void)fetchWarningsWithDelegate:(id)delegate userInfo:(id)userInfo;
 - (void)fetchOverviewWithFormat:(TWOverviewFormat)format delegate:(id)delegate userInfo:(id)userInfo;
 - (void)fetchForecastWithLocationIdentifier:(NSString *)identifier delegate:(id)delegate userInfo:(id)userInfo;
