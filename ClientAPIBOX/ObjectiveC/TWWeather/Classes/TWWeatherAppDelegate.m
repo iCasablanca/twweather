@@ -11,10 +11,6 @@
 #import "TWAPIBox.h"
 #import "TWAPIBox+Info.h"
 
-//NSString *TWCurrentForecastDidFetchNotification = @"TWCurrentForecastDidFetchNotification";
-//NSString *forecastOfCurrentLocationPreference = @"forecastOfCurrentLocationPreference";
-//NSString *currentLocationPreference = @"currentLocationPreference";
-
 @implementation TWWeatherAppDelegate
 
 + (TWWeatherAppDelegate*)sharedDelegate

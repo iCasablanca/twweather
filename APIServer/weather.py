@@ -704,15 +704,6 @@ WeatherOBSLocation = [
 	{"location": u"台東", "id": "46766", "area":u"東部", "areaID":"east"},
 	{"location": u"大武", "id": "46754", "area":u"東部", "areaID":"east"},
 
-	{"location": u"宜蘭", "id": "46708", "area":u"東部", "areaID":"east"},
-	{"location": u"蘇澳", "id": "46706", "area":u"東部", "areaID":"east"},
-	{"location": u"太平山","id": "C0U71", "area":u"東部", "areaID":"east"},
-	{"location": u"花蓮", "id": "46699", "area":u"東部", "areaID":"east"},
-	{"location": u"玉里", "id": "C0Z06", "area":u"東部", "areaID":"east"},
-	{"location": u"成功", "id": "46761", "area":u"東部", "areaID":"east"},
-	{"location": u"台東", "id": "46766", "area":u"東部", "areaID":"east"},
-	{"location": u"大武", "id": "46754", "area":u"東部", "areaID":"east"},
-
 	{"location": u"澎湖",  "id": "46735", "area":u"外島", "areaID":"island"},
 	{"location": u"金門",  "id": "46711", "area":u"外島", "areaID":"island"},
 	{"location": u"馬祖",  "id": "46799", "area":u"外島", "areaID":"island"},

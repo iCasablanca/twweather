@@ -5,10 +5,6 @@
 //  Created by zonble on 2009/07/31.s
 //
 
-//extern NSString *TWCurrentForecastDidFetchNotification;
-//extern NSString *forecastOfCurrentLocationPreference;
-//extern NSString *currentLocationPreference;
-
 @interface TWWeatherAppDelegate : NSObject <UIApplicationDelegate> 
 {
     UIWindow *window;

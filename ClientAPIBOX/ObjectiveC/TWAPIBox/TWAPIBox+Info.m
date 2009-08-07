@@ -35,6 +35,7 @@
 - (void)initNearSeaLocations;
 - (void)initTideLocations;
 - (void)initImageIdentifiers;
+- (void)initOBSLocations;
 @end
 
 @implementation TWAPIBox(Private_Info)
@@ -182,6 +183,81 @@
 	[self addToArray:_imageIdentifiers name:"台灣色彩強化天氣雲圖" identifier:@"hilight_taiwan"];
 	[self addToArray:_imageIdentifiers name:"亞洲色彩強化天氣雲圖" identifier:@"hilight_asia"];
 }
+- (void)initOBSLocations
+{
+	_OBSLocations = [[NSMutableArray alloc] init];
+	NSMutableArray *north = [NSMutableArray array];
+	
+	[self addToArray:north name:"基隆" identifier:@"46694"];
+	[self addToArray:north name:"台北" identifier:@"46692"];	
+	[self addToArray:north name:"板橋" identifier:@"46688"];
+	[self addToArray:north name:"陽明山" identifier:@"46693"];
+	[self addToArray:north name:"淡水" identifier:@"46690"];	
+	[self addToArray:north name:"新店" identifier:@"A0A9M"];
+	[self addToArray:north name:"桃園" identifier:@"46697"];
+	[self addToArray:north name:"新屋" identifier:@"C0C45"];	
+	[self addToArray:north name:"新竹" identifier:@"46757"];
+	[self addToArray:north name:"雪霸" identifier:@"C0D55"];
+	[self addToArray:north name:"三義" identifier:@"C0E53"];	
+	[self addToArray:north name:"竹南" identifier:@"C0E42"];
+	
+	NSDictionary *d = [NSDictionary dictionaryWithObjectsAndKeys:north, @"items", @"north", @"AreaID", [NSString stringWithUTF8String:"北部"], @"areaName", nil];
+	[_OBSLocations addObject:d];
+	
+	NSMutableArray *center = [NSMutableArray array];
+	[self addToArray:center name:"台中" identifier:@"46749"];
+	[self addToArray:center name:"梧棲" identifier:@"46777"];	
+	[self addToArray:center name:"梨山" identifier:@"C0F86"];
+	[self addToArray:center name:"員林" identifier:@"C0G65"];
+	[self addToArray:center name:"鹿港" identifier:@"C0G64"];	
+	[self addToArray:center name:"日月潭" identifier:@"46765"];
+	[self addToArray:center name:"廬山" identifier:@"C0I01"];
+	[self addToArray:center name:"合歡山" identifier:@"C0H9C"];	
+	[self addToArray:center name:"虎尾" identifier:@"C0K33"];
+	[self addToArray:center name:"草嶺" identifier:@"C0K24"];
+	[self addToArray:center name:"嘉義" identifier:@"46748"];	
+	[self addToArray:center name:"阿里山" identifier:@"46753"];
+	[self addToArray:center name:"玉山" identifier:@"46755"];
+	
+	d = [NSDictionary dictionaryWithObjectsAndKeys:center, @"items", @"center", @"AreaID", [NSString stringWithUTF8String:"中部"], @"areaName", nil];
+	[_OBSLocations addObject:d];
+	
+	NSMutableArray *south = [NSMutableArray array];	
+	[self addToArray:south name:"台南" identifier:@"46741"];
+	[self addToArray:south name:"高雄" identifier:@"46744"];
+	[self addToArray:south name:"甲仙" identifier:@"C0V25"];	
+	[self addToArray:south name:"三地門" identifier:@"C0R15"];
+	[self addToArray:south name:"恆春" identifier:@"46759"];
+
+	d = [NSDictionary dictionaryWithObjectsAndKeys:south, @"items", @"south", @"AreaID", [NSString stringWithUTF8String:"南部"], @"areaName", nil];
+	[_OBSLocations addObject:d];
+	
+	NSMutableArray *east = [NSMutableArray array];	
+	[self addToArray:east name:"宜蘭" identifier:@"46708"];
+	[self addToArray:east name:"蘇澳" identifier:@"46706"];
+	[self addToArray:east name:"太平山" identifier:@"C0U71"];	
+	[self addToArray:east name:"花蓮" identifier:@"46699"];
+	[self addToArray:east name:"玉里" identifier:@"C0Z06"];
+	[self addToArray:east name:"成功" identifier:@"46761"];	
+	[self addToArray:east name:"台東" identifier:@"46766"];
+	[self addToArray:east name:"大武" identifier:@"46754"];
+
+	d = [NSDictionary dictionaryWithObjectsAndKeys:east, @"items", @"east", @"AreaID", [NSString stringWithUTF8String:"東部"], @"areaName", nil];
+	[_OBSLocations addObject:d];
+
+	NSMutableArray *island = [NSMutableArray array];	
+	[self addToArray:island name:"澎湖" identifier:@"46735"];
+	[self addToArray:island name:"金門" identifier:@"46711"];
+	[self addToArray:island name:"馬祖" identifier:@"46799"];	
+	[self addToArray:island name:"綠島" identifier:@"C0S73"];
+	[self addToArray:island name:"蘭嶼" identifier:@"46762"];
+	[self addToArray:island name:"彭佳嶼" identifier:@"46695"];	
+	[self addToArray:island name:"東吉島" identifier:@"46730"];
+	[self addToArray:island name:"琉球嶼" identifier:@"C0R27"];
+	
+	d = [NSDictionary dictionaryWithObjectsAndKeys:island, @"items", @"island", @"AreaID", [NSString stringWithUTF8String:"外島"], @"areaName", nil];
+	[_OBSLocations addObject:d];
+}
 
 @end
 
@@ -196,6 +272,7 @@
 	[self initNearSeaLocations];
 	[self initTideLocations];
 	[self initImageIdentifiers];
+	[self initOBSLocations];
 }
 - (void)releaseInfoArrays
 {
@@ -206,6 +283,7 @@
 	[_nearSeaLocations release];
 	[_tideLocations release];
 	[_imageIdentifiers release];
+	[_OBSLocations release];
 }
 - (NSArray *)forecastLocations
 {
@@ -234,6 +312,10 @@
 - (NSArray *)imageIdentifiers
 {
 	return _imageIdentifiers;
+}
+- (NSArray *)OBSLocations
+{
+	return _OBSLocations;
 }
 
 @end

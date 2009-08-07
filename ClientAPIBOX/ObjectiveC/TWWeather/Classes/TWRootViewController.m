@@ -9,6 +9,7 @@
 #import "TWLoadingCell.h"
 #import "TWAPIBox.h"
 #import "TWErrorViewController.h"
+#import "TWOBSTableViewController.h"
 #import "TWOverviewViewController.h"
 #import "TWForecastTableViewController.h"
 #import "TWForecastResultTableViewController.h"
@@ -82,7 +83,7 @@
 		return [warningArray count];
 	}
 	else if (section == 1) {
-		return 8;
+		return 9;
 	}
 	else if (section == 2) {
 		return 2;
@@ -118,6 +119,9 @@
 		}		
 		switch (indexPath.row) {
 			case 0:
+				cell.textLabel.text = @"目前天氣";
+				break;				
+			case 1:
 				cell.textLabel.text = @"關心天氣";
 				if (isLoadingOverview) {
 					[cell startAnimating];
@@ -126,25 +130,25 @@
 					[cell stopAnimating];
 				}
 				break;				
-			case 1:
+			case 2:
 				cell.textLabel.text = @"今明預報";
 				break;
-			case 2:
+			case 3:
 				cell.textLabel.text = @"一週天氣";
 				break;				
-			case 3:
+			case 4:
 				cell.textLabel.text = @"一週旅遊";
 				break;				
-			case 4:
+			case 5:
 				cell.textLabel.text = @"三天漁業";
 				break;				
-			case 5:
+			case 6:
 				cell.textLabel.text = @"台灣近海";
 				break;				
-			case 6:
+			case 7:
 				cell.textLabel.text = @"三天潮汐";
 				break;				
-			case 7:
+			case 8:
 				cell.textLabel.text = @"天氣觀測雲圖";
 				break;				
 			default:
@@ -201,30 +205,33 @@
 	else if (indexPath.section == 1) {
 		UITableViewController *controller = nil;
 		if (indexPath.row == 0) {
+			controller = [[TWOBSTableViewController alloc] initWithStyle:UITableViewStylePlain];
+		}		
+		else if (indexPath.row == 1) {
 			[[TWAPIBox sharedBox] fetchOverviewWithFormat:TWOverviewPlainFormat delegate:self userInfo:nil];
 			isLoadingOverview = YES;
 			[self.tableView reloadData];
 			self.tableView.userInteractionEnabled = NO;
 		}
-		else if (indexPath.row == 1) {
+		else if (indexPath.row == 2) {
 			controller = [[TWForecastTableViewController alloc] initWithStyle:UITableViewStylePlain];
 		}
-		else if (indexPath.row == 2) {
+		else if (indexPath.row == 3) {
 			controller = [[TWWeekTableViewController alloc] initWithStyle:UITableViewStylePlain];
 		}
-		else if (indexPath.row == 3) {
+		else if (indexPath.row == 4) {
 			controller = [[TWWeekTravelTableViewController alloc] initWithStyle:UITableViewStylePlain];
 		}
-		else if (indexPath.row == 4) {
+		else if (indexPath.row == 5) {
 			controller = [[TWThreeDaySeaTableViewController alloc] initWithStyle:UITableViewStylePlain];
 		}
-		else if (indexPath.row == 5) {
+		else if (indexPath.row == 6) {
 			controller = [[TWNearSeaTableViewController alloc] initWithStyle:UITableViewStylePlain];
 		}
-		else if (indexPath.row == 6) {
+		else if (indexPath.row == 7) {
 			controller = [[TWTideTableViewController alloc] initWithStyle:UITableViewStylePlain];
 		}
-		else if (indexPath.row == 7) {
+		else if (indexPath.row == 8) {
 			controller = [[TWImageTableViewController alloc] initWithStyle:UITableViewStylePlain];
 		}
 		if (controller) {

@@ -89,6 +89,7 @@ typedef enum {
 	NSMutableArray *_nearSeaLocations;
 	NSMutableArray *_tideLocations;
 	NSMutableArray *_imageIdentifiers;
+	NSMutableArray *_OBSLocations;
 	NSDateFormatter *_formatter;
 }
 

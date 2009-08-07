@@ -90,10 +90,9 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
     if (cell == nil) {
         cell = [[[TWForecastResultCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
-//	cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	NSDictionary *item = [_filteredArray objectAtIndex:indexPath.section];
 	NSDictionary *dictionary = [[item objectForKey:@"items"] objectAtIndex:0];
-	
+	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.title = [dictionary objectForKey:@"title"];
 	cell.description = [dictionary objectForKey:@"description"];
 	cell.rain = [dictionary objectForKey:@"rain"];
@@ -138,6 +137,7 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 
 - (IBAction)changeSetting:(id)sender
 {
+	self.tabBarController.selectedIndex = 0;	
 	TWLocationSettingTableViewController *controller = [[TWLocationSettingTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
 	controller.delegate = self;
 	[controller setFilter:_filterArray];

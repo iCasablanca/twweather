@@ -40,5 +40,6 @@
 - (NSArray *)nearSeaLocations;
 - (NSArray *)tideLocations;
 - (NSArray *)imageIdentifiers;
+- (NSArray *)OBSLocations;
 
 @end
