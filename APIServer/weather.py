@@ -661,7 +661,7 @@ WeatherImageURL = [
 	{"id": "hilight_asia", "URL":"http://www.cwb.gov.tw/V6/observe/satellite/Data/s1q/s1q.jpg"},
 ]
 
-WeatherOBSLocation = [
+WeatherOBSLocations = [
 	{"location": u"基隆", "id": "46694", "area":u"北部", "areaID":"north"},
 	{"location": u"台北", "id": "46692", "area":u"北部", "areaID":"north"},
 	{"location": u"板橋", "id": "46688", "area":u"北部", "areaID":"north"},
@@ -716,7 +716,7 @@ WeatherOBSLocation = [
 
 class WeatherOBS(Forecast):
 	def locations(self):
-		return WeatherOBSLocation
+		return WeatherOBSLocations
 	def fetchWithID(self, id):
 		locationName = self.locationNameWithID(id)
 		if locationName is None:
@@ -760,7 +760,14 @@ class WeatherOBS(Forecast):
 			elif line.find("天氣現象") > -1:
 				isHandlingDescription = True
 			elif isHandlingDescription is True:
-				description = line.replace("<br />", "")[0:-1].decode("utf-8")
+				line = line.replace("<br />", "")[0:-1]
+				if line == "X":
+					description = "X"
+				else:
+					try:
+						description = line.decode("ascii")
+					except:
+						description = line.decode("utf-8")
 				isHandlingDescription = False
 			elif line.find("溫度") > -1:
 				isHandlingTemperature = True
@@ -769,7 +776,10 @@ class WeatherOBS(Forecast):
 				try:
 					temperature = str(float(line))
 				except:
-					temperature = line
+					try:
+						temperature = line.decode("ascii")
+					except:
+						temperature = line.decode("utf-8")
 				isHandlingTemperature = False
 			elif line.find("累積雨量") > -1:
 				isHandlingRain = True
@@ -778,12 +788,16 @@ class WeatherOBS(Forecast):
 				try:
 					rain = str(float(line))
 				except:
-					rain = line
+					rain = line.decode("utf-8")
 				isHandlingRain = False
 			elif line.find("風向") > -1:
 				isHandlingWindDirection = True
 			elif isHandlingWindDirection is True:
-				windDirection = line.replace("<br />", "")[0:-1].decode("utf-8")
+				line = line.replace("<br />", "")[0:-1]
+				try:
+					windDirection = line.decode("ascii")
+				except:
+					windDirection = line.decode("utf-8")
 				isHandlingWindDirection = False
 			elif line.find("風力") > -1:
 				isHandlingWindLevel = True
@@ -793,17 +807,27 @@ class WeatherOBS(Forecast):
 					if int(line)> 0:
 						windLevel = str(int(line))
 				except:
-					windLevel = line.decode("utf-8")
+					try:
+						windLevel = line.decode("ascii")
+					except:
+						windLevel = line.decode("utf-8")
+					# windLevel = line.decode("utf-8")
 				isHandlingWindLevel = False
 			elif line.find("陣風") > -1:
 				isHandlingWindStrongestLevel = True
 			elif isHandlingWindStrongestLevel is True:
 				line = line.replace("<br />", "")[0:-1]
-				try:
-					if int(line)> 0:
-						windStrongestLevel = str(int(line))
-				except:
-					windStrongestLevel = line.decode("utf-8")
+				if line == "X":
+					windStrongestLevel = "X"
+				else:
+					try:
+						if int(line)> 0:
+							windStrongestLevel = str(int(line))
+					except:
+						try:
+							windStrongestLevel = line.decode("ascii")
+						except:
+							windStrongestLevel = line.decode("utf-8")
 				isHandlingWindStrongestLevel = False
 				result = {"locationName": locationName, "id": id, "time": time, "description": description, "temperature": temperature, "rain": rain, "windDirection": windDirection, "windLevel": windLevel, "windStrongestLevel": windStrongestLevel}
 				return result
@@ -828,8 +852,6 @@ class TestWeatherOBS(unittest.TestCase):
 
 def main():
 	unittest.main()
-	pass
-
 
 if __name__ == '__main__':
 	main()

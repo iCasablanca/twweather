@@ -23,6 +23,8 @@ class TestAPI(unittest.TestCase):
 				('/nearsea', NearSeaController),
 				('/tide', TideController),
 				('/image', ImageHandler),
+				('/obs', OBSController),
+				('/warning', WarningController),
 				],
 	 			debug=True)
 		self.app = TestApp(self.application)
@@ -56,11 +58,15 @@ class TestAPI(unittest.TestCase):
 		self.assertTrue(obj)
 		self.assertTrue(obj['result'])
 
+	def testWarning(self):
+		response = self.app.get("/warning")
+		self._checkPlistResponse(response)
+
 	def _handleForecasts(self, path, locations):
 		response = self.app.get("/" + path)
 		self._checkPlistResponse(response)
-		response = self.app.get("/" + path + "?location=all")
-		self._checkPlistResponse(response)
+		# response = self.app.get("/" + path + "?location=all")
+		# self._checkPlistResponse(response)
 		for item in locations:
 			location = str(item['id'])	
 			response = self.app.get("/" + path + "?location=" + location)
@@ -83,6 +89,10 @@ class TestAPI(unittest.TestCase):
 
 	def testTide(self):
 		self._handleForecasts("tide", weather.WeatherTideLocations)
+
+	def testOBS(self):
+		self._handleForecasts("obs", weather.WeatherOBSLocations)
+
 
 	def testImage(self):
 		for item in weather.WeatherImageURL:

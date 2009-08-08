@@ -1,0 +1,4 @@
+cron:
+- description: unittest
+  url: /test
+  schedule: every 30 minutes

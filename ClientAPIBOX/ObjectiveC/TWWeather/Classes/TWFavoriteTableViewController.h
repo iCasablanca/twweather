@@ -18,6 +18,8 @@
 	TWLoadingView *loadingView;
 	UITableView *_tableView;
 	UILabel *errorLabel;
+	
+	BOOL isLoading;
 }
 
 - (void)updateFilteredArray;

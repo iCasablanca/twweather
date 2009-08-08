@@ -48,7 +48,7 @@ class WarningController(webapp.RequestHandler):
 		warnings = memcache.get("warnings")
 		if warnings is None:
 			warnings = self.model.fetch()
-			memcache.add("warnings", warnings, 30)
+			memcache.add("warnings", warnings, 30 * 60)
 		if warnings is None:
 			return
 		if outputtype == "json":
@@ -72,7 +72,7 @@ class OverviewController(webapp.RequestHandler):
 			if text is None:
 				self.overview.fetch()
 				text = self.overview.plain
-			memcache.add("overview_plain", text, 30)
+			memcache.add("overview_plain", text, 30 * 60)
 			self.response.headers['Content-Type'] = 'text/plain; charset=utf-8'
 			self.response.out.write(text)
 		else:
@@ -80,7 +80,7 @@ class OverviewController(webapp.RequestHandler):
 			if html is None:
 				self.overview.fetch()
 				html = self.overview.html
-			memcache.add("overview_html", html, 30)
+			memcache.add("overview_html", html, 30 * 60)
 			self.response.headers['Content-Type'] = 'text/html; charset=utf-8'
 			self.response.out.write(html)
 
@@ -104,7 +104,7 @@ class ForecastController(webapp.RequestHandler):
 					if result is None:
 						return
 				allItems.append(result)
-			memcache.add(key, allItems, 30)
+			memcache.add(key, allItems, 30 * 60)
 		if outputtype == "json":
 			self.response.headers['Content-Type'] = 'text/plain; charset=utf-8'
 			jsonText = json.write({"result":allItems})
@@ -149,7 +149,7 @@ class ForecastController(webapp.RequestHandler):
 			if result is None:
 				return
 		else:
-			memcache.add(key, result, 30)
+			memcache.add(key, result, 30 * 60)
 
 		if outputtype == "json":
 			self.response.headers['Content-Type'] = 'text/plain; charset=utf-8'
@@ -221,7 +221,7 @@ class ImageHandler(webapp.RequestHandler):
 				self.error(404)
 				return
 		else:
-			memcache.add(key, imageData, 30)
+			memcache.add(key, imageData, 30 * 60)
 
 		self.response.headers["Content-Type"] = "image/jpg"
 		self.response.out.write(imageData)

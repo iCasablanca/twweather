@@ -63,7 +63,7 @@ static TWAPIBox *apibox;
     if (self) {
 		_request = [[LFHTTPRequest alloc] init];
 		[_request setDelegate:self];
-		[_request setTimeoutInterval:20.0];
+//		[_request setTimeoutInterval:20.0];
 		_queue = [[NSMutableArray alloc] init];
 		[self initInfoArrays];
     }
@@ -276,6 +276,13 @@ static TWAPIBox *apibox;
 		[self writeDataToCache:data fromURL:URL];
 	}
 	[self performSelector:action withObject:request withObject:data];
+	[self runQueue];
+}
+- (void)httpRequestDidCancel:(LFHTTPRequest *)request
+{
+	NSString *actionString = [[request sessionInfo] objectForKey:@"action"];
+	SEL action = NSSelectorFromString(actionString);
+	[self performSelector:action withObject:request withObject:nil];
 	[self runQueue];
 }
 - (void)httpRequest:(LFHTTPRequest *)request didFailWithError:(NSString *)error;

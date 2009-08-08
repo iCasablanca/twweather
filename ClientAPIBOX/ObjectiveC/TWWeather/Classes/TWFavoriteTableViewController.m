@@ -88,16 +88,25 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 		_filteredArray = [[NSMutableArray alloc] init];
 		[self updateFilteredArray];
 	}
-	
+		
+	[self loadData];
+}
+- (void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
 	UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(changeSetting:)];
 	self.tabBarController.navigationItem.rightBarButtonItem = item;
 	[item release];
-
+	
 	UIBarButtonItem *reloadItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(reload:)];
 	self.tabBarController.navigationItem.leftBarButtonItem = reloadItem;
 	[reloadItem release];	
-	
-	[self loadData];
+}
+- (void)viewWillDisappear:(BOOL)animated
+{
+	[super viewWillDisappear:animated];
+	self.tabBarController.navigationItem.rightBarButtonItem = nil;
+	self.tabBarController.navigationItem.leftBarButtonItem = nil;
 }
 
 - (void)didReceiveMemoryWarning 
@@ -122,6 +131,9 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 }
 - (IBAction)reload:(id)sender
 {
+	if (isLoading) {
+		return;
+	}
 	self.tabBarController.selectedIndex = 0;
 	[self loadData];
 }
@@ -145,12 +157,14 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 {
 	[self.view addSubview:loadingView];
 	[loadingView startAnimating];
+	isLoading = YES;
 	self.tableView.userInteractionEnabled = NO;
 }
 - (void)hideLoadingView
 {
 	[loadingView removeFromSuperview];
 	[loadingView stopAnimating];
+	isLoading = NO;
 	self.tableView.userInteractionEnabled = YES;
 }
 
@@ -254,7 +268,7 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 		[self updateFilteredArray];
 		[self.tableView reloadData];
 	}
-	else {
+	else if (!isLoading) {
 		[[TWAPIBox sharedBox] fetchAllForecastsWithDelegate:self userInfo:nil];
 	}
 }
