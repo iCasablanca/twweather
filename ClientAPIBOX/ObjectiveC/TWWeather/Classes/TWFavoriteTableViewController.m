@@ -19,17 +19,54 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 
 - (void)dealloc 
 {
+	[self viewDidUnload];
 	[_filteredArray release];
 	[_filterArray release];
 	[_favArray release];
     [super dealloc];
 }
 
+- (void)viewDidUnload
+{
+	[loadingView release];	
+	[errorLabel release];
+	self.tableView = nil;
+	self.view = nil;
+	[super viewDidLoad];
+}
+
 #pragma mark UIViewContoller Methods
+
+- (void)loadView 
+{
+	UIView *view = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)] autorelease];
+	view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+	view.backgroundColor = [UIColor colorWithHue:1.0 saturation:0.0 brightness:0.9 alpha:1.0];
+	self.view = view;
+	
+	errorLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, 280, 200)];
+	errorLabel.textAlignment = UITextAlignmentCenter;
+	errorLabel.numberOfLines = 10;
+	errorLabel.font = [UIFont boldSystemFontOfSize:18.0];
+	errorLabel.backgroundColor = [UIColor colorWithHue:1.0 saturation:0.0 brightness:0.9 alpha:1.0];
+	errorLabel.shadowColor = [UIColor whiteColor];
+	errorLabel.shadowOffset = CGSizeMake(0, 2);
+	[self.view addSubview:errorLabel];
+	
+	UITableView *aTableView = [[[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped] autorelease];
+	aTableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+	aTableView.delegate = self;
+	aTableView.dataSource = self;
+	self.tableView = aTableView;
+	[self.view addSubview:self.tableView];
+	
+	loadingView = [[TWLoadingView alloc] initWithFrame:CGRectMake(110, 40, 100, 100)];	
+}
 
 - (void)viewDidLoad 
 {
 	[super viewDidLoad];
+	
 	if (!_favArray) {
 		_favArray = [[NSMutableArray alloc] init];
 		NSArray *savedResult = [[NSUserDefaults standardUserDefaults] objectForKey:lastAllForecastsPreferenceName];
@@ -55,8 +92,12 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 	UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(changeSetting:)];
 	self.tabBarController.navigationItem.rightBarButtonItem = item;
 	[item release];
+
+	UIBarButtonItem *reloadItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(reload:)];
+	self.tabBarController.navigationItem.leftBarButtonItem = reloadItem;
+	[reloadItem release];	
 	
-	[[TWAPIBox sharedBox] fetchAllForecastsWithDelegate:self userInfo:nil];
+	[self loadData];
 }
 
 - (void)didReceiveMemoryWarning 
@@ -64,6 +105,53 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
     [super didReceiveMemoryWarning]; 
 	// Releases the view if it doesn't have a superview
     // Release anything that's not essential, such as cached data
+}
+
+#pragma mark -
+
+- (IBAction)changeSetting:(id)sender
+{
+	self.tabBarController.selectedIndex = 0;	
+	TWLocationSettingTableViewController *controller = [[TWLocationSettingTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+	controller.delegate = self;
+	[controller setFilter:_filterArray];
+	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
+	[controller release];
+	[self.tabBarController presentModalViewController:navController animated:YES];
+	[navController release];
+}
+- (IBAction)reload:(id)sender
+{
+	self.tabBarController.selectedIndex = 0;
+	[self loadData];
+}
+- (void)updateFilteredArray
+{
+	[_filteredArray removeAllObjects];
+	for (NSInteger i = 0; i < [_favArray count]; i++) {
+		NSNumber *number = [NSNumber numberWithInt:i];
+		if ([_filterArray containsObject:number]) {
+			NSDictionary *dictionary = [_favArray objectAtIndex:i];
+			[_filteredArray addObject:dictionary];
+		}
+	}
+}
+- (void)loadData
+{
+	[self showLoadingView];
+	[[TWAPIBox sharedBox] fetchAllForecastsWithDelegate:self userInfo:nil];
+}
+- (void)showLoadingView
+{
+	[self.view addSubview:loadingView];
+	[loadingView startAnimating];
+	self.tableView.userInteractionEnabled = NO;
+}
+- (void)hideLoadingView
+{
+	[loadingView removeFromSuperview];
+	[loadingView stopAnimating];
+	self.tableView.userInteractionEnabled = YES;
 }
 
 #pragma mark UITableViewDataSource and UITableViewDelegate
@@ -135,44 +223,27 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 
 #pragma mark -
 
-- (IBAction)changeSetting:(id)sender
-{
-	self.tabBarController.selectedIndex = 0;	
-	TWLocationSettingTableViewController *controller = [[TWLocationSettingTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
-	controller.delegate = self;
-	[controller setFilter:_filterArray];
-	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
-	[controller release];
-	[self.tabBarController presentModalViewController:navController animated:YES];
-	[navController release];
-}
-
-- (void)updateFilteredArray
-{
-	[_filteredArray removeAllObjects];
-	for (NSInteger i = 0; i < [_favArray count]; i++) {
-		NSNumber *number = [NSNumber numberWithInt:i];
-		if ([_filterArray containsObject:number]) {
-			NSDictionary *dictionary = [_favArray objectAtIndex:i];
-			[_filteredArray addObject:dictionary];
-		}
-	}
-}
-
 - (void)APIBox:(TWAPIBox *)APIBox didFetchAllForecasts:(id)result userInfo:(id)userInfo
 {
-//	NSLog(@"result:%@", [result description]);
-//	NSLog(@"has result");
+	[self hideLoadingView];
 	if ([result isKindOfClass:[NSArray class]]) {
+		self.tableView.hidden = NO;
 		NSArray *arrary = (NSArray *)result;
 		[_favArray setArray:arrary];
 		[self updateFilteredArray];
 		[[NSUserDefaults standardUserDefaults] setObject:_favArray forKey:lastAllForecastsPreferenceName];
 	}
+	else if (![_favArray count]) {
+		self.tableView.hidden = YES;
+		errorLabel.text = NSLocalizedString(@"Failed to load data!", @"");
+	}
 	[self.tableView reloadData];
 }
 - (void)APIBox:(TWAPIBox *)APIBox didFailedFetchAllForecastsWithError:(NSError *)error
 {
+	[self hideLoadingView];
+	self.tableView.hidden = YES;
+	errorLabel.text = [error localizedDescription];
 }
 
 - (void)settingController:(TWLocationSettingTableViewController *)controller didUpdateFilter:(NSArray *)filterArray
@@ -187,6 +258,8 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 		[[TWAPIBox sharedBox] fetchAllForecastsWithDelegate:self userInfo:nil];
 	}
 }
+
+@synthesize tableView = _tableView;
 
 @end
 

@@ -36,13 +36,13 @@
 {
 	NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
 	if (code == TWAPIConnectionError) {
-		[dictionary setObject:NSLocalizedString(@"Connection Error", @"") forKey:NSLocalizedDescriptionKey];
+		[dictionary setObject:NSLocalizedString(@"Connection Error. Unable to connect to the remote server, please try again.", @"") forKey:NSLocalizedDescriptionKey];
 	}
 	else if (code == TWAPITimeOutError) {
-		[dictionary setObject:NSLocalizedString(@"Connection Time Out", @"") forKey:NSLocalizedDescriptionKey];
+		[dictionary setObject:NSLocalizedString(@"Connection Time Out. Unable to connect to the remote server, please try again.", @"") forKey:NSLocalizedDescriptionKey];
 	}
 	else if (code == TWAPIDataError) {
-		[dictionary setObject:NSLocalizedString(@"Data Error", @"") forKey:NSLocalizedDescriptionKey];
+		[dictionary setObject:NSLocalizedString(@"Data Error. Unable to parse the data from the remote server, please contact me to fix the server.", @"") forKey:NSLocalizedDescriptionKey];
 	}
 	return dictionary;
 }

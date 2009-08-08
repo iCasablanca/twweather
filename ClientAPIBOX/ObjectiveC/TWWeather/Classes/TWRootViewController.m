@@ -161,6 +161,7 @@
 		if (cell == nil) {
 			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NormalIdentifier] autorelease];
 		}
+		cell.accessoryType = UITableViewCellAccessoryNone;
 		switch (indexPath.row) {
 			case 0:
 				cell.textLabel.text = @"氣象查詢：886-2-23491234";
@@ -240,11 +241,21 @@
 		}
 	}
 	else if (indexPath.section == 2) {
+		[tableView deselectRowAtIndexPath:indexPath animated:YES];
+		
+		NSString *model = [UIDevice currentDevice].model;
+		if (![model isEqualToString:@"iPhone"]) {
+			NSString *title = [NSString stringWithFormat:NSLocalizedString(@"You can not make a phone call with an %@", @""), model];
+			UIAlertView *alertview = [[UIAlertView alloc] initWithTitle:title message:NSLocalizedString(@"Your device does not supprt to make a phone call, please use a telephone or cellphone to dial the number.", @"") delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:nil];
+			[alertview show];
+			[alertview release];
+		}
+		
 		NSString *URLString = nil;
-		if (indexPath.row == 1) {
+		if (indexPath.row == 0) {
 			URLString = @"tel://88622349123";
 		}
-		else if (indexPath.row == 2) {
+		else if (indexPath.row == 1) {
 			URLString = @"tel://886223491168";
 		}
 		if (URLString) {
@@ -284,7 +295,6 @@
 
 - (void)APIBox:(TWAPIBox *)APIBox didFetchWarnings:(id)result userInfo:(id)userInfo
 {
-//	NSLog(@"result:%@", [result description]);
 	if ([result isKindOfClass:[NSArray class]]) {
 		[warningArray setArray:result];
 	}

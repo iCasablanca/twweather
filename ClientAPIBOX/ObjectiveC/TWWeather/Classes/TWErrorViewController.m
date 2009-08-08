@@ -28,12 +28,19 @@
 {
 	UIView *view = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)] autorelease];
 	view.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+	view.backgroundColor = [UIColor colorWithHue:1.0 saturation:0.0 brightness:0.9 alpha:1.0];
 	self.view = view;
 	self.title = NSLocalizedString(@"Error!", @"");
 	
 	textLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, 280, 200)];
 	textLabel.text = @"";
 	textLabel.textAlignment = UITextAlignmentCenter;
+	textLabel.numberOfLines = 10;
+	textLabel.font = [UIFont boldSystemFontOfSize:18.0];
+	textLabel.backgroundColor = [UIColor colorWithHue:1.0 saturation:0.0 brightness:0.9 alpha:1.0];
+	textLabel.shadowColor = [UIColor whiteColor];
+	textLabel.shadowOffset = CGSizeMake(0, 2);
+	
 	[self.view addSubview:textLabel];
 }
 

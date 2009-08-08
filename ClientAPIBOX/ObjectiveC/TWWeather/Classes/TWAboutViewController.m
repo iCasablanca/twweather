@@ -79,6 +79,11 @@
 		[self presentModalViewController:controller animated:YES];
 		[controller release];
 	}
+	else {
+		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"You cannot send email now",@"") message:@"" delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:nil];
+		[alertView show];
+		[alertView release];
+	}
 }
 
 #pragma mark -
@@ -86,7 +91,7 @@
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
 {
 	UIViewController *parentController = controller.parentViewController;
-	[parentController dismissModalViewControllerAnimated:(MFMailComposeViewController *)controller];
+	[parentController dismissModalViewControllerAnimated:YES];
 	if (result == MFMailComposeResultSent) {
 		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Your mail is sent!", @"") message:NSLocalizedString(@"Thanks for your feedback.", @"") delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:nil];
 		[alertView show];
