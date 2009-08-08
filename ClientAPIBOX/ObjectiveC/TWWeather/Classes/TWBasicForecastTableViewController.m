@@ -17,14 +17,14 @@
 	[self viewDidUnload];
 	[_array release];
 	[_filteredArray release];
-	[_searchController release];
     [super dealloc];
 }
 - (void)viewDidUnload
 {
+	[_searchBar release];
+	[_searchController release];
 	self.tableView = nil;
 	self.view = nil;
-	[_searchBar release];
 	[super viewDidLoad];
 }
 - (void)viewWillDisappear:(BOOL)animated

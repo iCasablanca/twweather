@@ -97,6 +97,7 @@ static TWAPIBox *apibox;
 - (void)runQueue
 {
 	if ([_queue count]) {
+		NSLog(@"runQueue");
 		id sessionInfo = [_queue objectAtIndex:0];
 		NSURL *URL = [sessionInfo objectForKey:@"URL"];
 		[_request setSessionInfo:sessionInfo];
@@ -107,7 +108,7 @@ static TWAPIBox *apibox;
 
 - (void)sendRequestWithPath:(NSString *)path identifier:(NSString *)identifier action:(SEL)action failedAction:(SEL)failedAction delegate:(id)delegate userInfo:(id)userInfo
 {
-	[_request cancelWithoutDelegateMessage];
+//	[_request cancelWithoutDelegateMessage];
 	NSMutableDictionary *sessionInfo = [NSMutableDictionary dictionary];
 	if (delegate)
 		[sessionInfo setObject:delegate forKey:@"delegate"];
