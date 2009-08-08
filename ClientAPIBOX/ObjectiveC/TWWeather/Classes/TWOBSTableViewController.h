@@ -6,9 +6,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TWBasicForecastTableViewController.h"
 #import "TWAPIBox.h"
 
-@interface TWOBSTableViewController : UITableViewController 
+@interface TWOBSTableViewController : TWBasicForecastTableViewController 
 {
 	NSMutableArray *_locations;
 }

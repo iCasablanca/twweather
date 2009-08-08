@@ -16,6 +16,9 @@
 	UISearchBar *_searchBar;
 	UISearchDisplayController *_searchController;
 	BOOL _firstTimeVisiable;
+	
+	UITableViewStyle _style;
+	UITableView *_tableView;
 }
 
 - (NSArray *)arrayForTableView:(UITableView *)tableView;
@@ -23,5 +26,7 @@
 - (void)pushErrorViewWithError:(NSError *)error;
 
 @property (assign, nonatomic) NSArray *array;
+@property (assign, nonatomic) UITableViewStyle style;
+@property (retain, nonatomic) UITableView *tableView;
 
 @end

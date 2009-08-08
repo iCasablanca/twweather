@@ -21,6 +21,22 @@
 
 - (void)_init
 {
+	if (!_array) {
+		_array = [[NSMutableArray alloc] init];
+		NSArray *allLocations = [[TWAPIBox sharedBox] OBSLocations];
+		for (NSDictionary *d in allLocations) {
+			NSArray *items = [d objectForKey:@"items"];
+			for (NSDictionary *item in items) {
+				NSMutableDictionary *newItem = [NSMutableDictionary dictionaryWithDictionary:item];
+				[newItem setObject:[NSNumber numberWithBool:NO] forKey:@"isLoading"];
+				[_array addObject:newItem];
+			}
+		}
+	}
+	if (!_filteredArray) {
+		_filteredArray = [[NSMutableArray alloc] init];
+	}
+	
 	if (!_locations) {
 		_locations = [[NSMutableArray alloc] init];
 		NSArray *allLocations = [[TWAPIBox sharedBox] OBSLocations];
@@ -86,6 +102,9 @@
 			return count;
 		}
 	}
+	else if (tableView == self.searchDisplayController.searchResultsTableView) {
+		return 1;
+	}
     return 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -97,13 +116,19 @@
 		if (count) {
 			return count;
 		}
+	}
+	else if (tableView == self.searchDisplayController.searchResultsTableView) {
+		return [_filteredArray count];
 	}	
     return 0;
 }
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-	NSDictionary *sectionDictionary = [_locations objectAtIndex:section];
-	return [sectionDictionary objectForKey:@"areaName"];
+	if (tableView == self.tableView) {
+		NSDictionary *sectionDictionary = [_locations objectAtIndex:section];
+		return [sectionDictionary objectForKey:@"areaName"];
+	}
+	return nil;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
 {    
@@ -113,42 +138,81 @@
     if (cell == nil) {
         cell = [[[TWLoadingCell alloc] initWithFrame:CGRectZero reuseIdentifier:CellIdentifier] autorelease];
     }
+	NSDictionary *dictionary = nil;
 	if (tableView == self.tableView) {
 		NSDictionary *sectionDictionary = [_locations objectAtIndex:indexPath.section];
 		NSArray *items = [sectionDictionary objectForKey:@"items"];
-		NSDictionary *dictionary = [items objectAtIndex:indexPath.row];
-		cell.textLabel.text = [dictionary objectForKey:@"name"];
-		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-		
-		if ([[dictionary objectForKey:@"isLoading"] boolValue]) {
-			[cell startAnimating];
-		}
-		else {
-			[cell stopAnimating];
-		}
+		dictionary = [items objectAtIndex:indexPath.row];
 	}
+	else if (tableView == self.searchDisplayController.searchResultsTableView) {
+		dictionary = [_filteredArray objectAtIndex:indexPath.row];
+	}
+	if (!dictionary) {
+		return cell;
+	}
+	cell.textLabel.text = [dictionary objectForKey:@"name"];
+	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+	
+	if ([[dictionary objectForKey:@"isLoading"] boolValue]) {
+		[cell startAnimating];
+	}
+	else {
+		[cell stopAnimating];
+	}
+	
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
+	NSMutableDictionary *dictionary  = nil;
 	if (tableView == self.tableView) {
 		NSDictionary *sectionDictionary = [_locations objectAtIndex:indexPath.section];
 		NSArray *items = [sectionDictionary objectForKey:@"items"];
-		NSMutableDictionary *dictionary = [items objectAtIndex:indexPath.row];
-		NSString *identifier = [dictionary objectForKey:@"identifier"];
-		
+		dictionary = [items objectAtIndex:indexPath.row];
+	}
+	else {
+		dictionary = [_filteredArray objectAtIndex:indexPath.row];	
+	}
+	if (dictionary) {	
+		NSString *identifier = [dictionary objectForKey:@"identifier"];		
 		[dictionary setObject:[NSNumber numberWithBool:YES] forKey:@"isLoading"];
 		self.tableView.userInteractionEnabled = NO;
-		[self.tableView reloadData];
-		
-		[[TWAPIBox sharedBox] fetchOBSWithLocationIdentifier:identifier delegate:self userInfo:nil];
+		[self.tableView reloadData];		
+		[[TWAPIBox sharedBox] fetchOBSWithLocationIdentifier:identifier delegate:self userInfo:nil];		
 	}
 }
+//- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
+//{
+//	if (tableView == self.tableView) {
+//		NSMutableArray *array = [NSMutableArray array];
+//		for (NSDictionary *d in _locations) {
+//			NSString *name = [d objectForKey:@"areaName"];
+//			NSString *title = [name substringToIndex:1];
+//			if (!title) {
+//				title = @"";
+//			}
+//			[array addObject:title];
+//		}
+//		return array;
+//	}
+//	
+//	return nil;
+//}
+//- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
+//{
+//	if (tableView == self.tableView) {
+//		return index;
+//	}
+//	return 0;
+//}
 
 #pragma mark -
 
 - (void)resetLoading
 {
+	for (NSMutableDictionary *d in _filteredArray) {
+		[d setObject:[NSNumber numberWithBool:NO] forKey:@"isLoading"];
+	}
 	for (NSDictionary *d in _locations) {
 		NSArray *items = [d valueForKey:@"items"];
 		for (NSMutableDictionary *item in items) {
@@ -156,12 +220,15 @@
 		}		
 	}
 	[self.tableView reloadData];
+	[_searchController.searchResultsTableView reloadData];
+	self.tableView.userInteractionEnabled = YES;
+	_searchController.searchResultsTableView.userInteractionEnabled = YES;	
 }
+
+#pragma mark -
 
 - (void)APIBox:(TWAPIBox *)APIBox didFetchOBS:(id)result identifier:(NSString *)identifier userInfo:(id)userInfo
 {
-//	NSLog(@"result:%@", [result description]);
-	self.tableView.userInteractionEnabled = YES;
 	[self resetLoading];
 	
 	if ([result isKindOfClass:[NSDictionary class]]) {
@@ -180,13 +247,8 @@
 }
 - (void)APIBox:(TWAPIBox *)APIBox didFailedFetchOBSWithError:(NSError *)error identifier:(NSString *)identifier userInfo:(id)userInfo
 {
-	self.tableView.userInteractionEnabled = YES;
 	[self resetLoading];
-
-	TWErrorViewController *controller = [[TWErrorViewController alloc] init];
-	controller.error = error;
-	[self.navigationController pushViewController:controller animated:YES];
-	[controller release];
+	[self pushErrorViewWithError:error];
 }
 
 

@@ -22,6 +22,8 @@
 }
 - (void)viewDidUnload
 {
+	self.tableView = nil;
+	self.view = nil;
 	[_searchBar release];
 	[super viewDidLoad];
 }
@@ -33,19 +35,19 @@
 
 - (void)_init
 {
-	_array = [[NSMutableArray alloc] init];
-	_filteredArray = [[NSMutableArray alloc] init];
-	_searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 100, 40)];
-	_searchBar.delegate = self;
-	_searchController = [[UISearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
-	_searchController.delegate = self;
-	_searchController.searchResultsDataSource = self;
-	_searchController.searchResultsDelegate = self;	
+	if (!_array) {
+		_array = [[NSMutableArray alloc] init];
+	}
+	if (!_filteredArray) {
+		_filteredArray = [[NSMutableArray alloc] init];
+	}
+	
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
 	if (self = [super initWithStyle:style]) {
+		self.style = style;
 		[self _init];
 	}
 	return self;
@@ -57,13 +59,33 @@
 	}
 	return self;
 }
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+
+- (void)loadView 
 {
-	if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
-		[self _init];
+	UIView *view = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)] autorelease];
+	view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+	self.view = view;
+	
+	UITableView *aTableView = [[[UITableView alloc] initWithFrame:self.view.bounds style:self.style] autorelease];
+	aTableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+	aTableView.delegate = self;
+	aTableView.dataSource = self;
+	self.tableView = aTableView;
+	[self.view addSubview:self.tableView];
+	
+	if (!_searchBar) {
+		_searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 40)];
+		_searchBar.delegate = self;
+		_searchBar.tintColor = [UIColor grayColor];
 	}
-	return self;
+	if (!_searchController) {
+		_searchController = [[UISearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
+		_searchController.delegate = self;
+		_searchController.searchResultsDataSource = self;
+		_searchController.searchResultsDelegate = self;	
+	}
 }
+
 
 #pragma mark UIViewContoller Methods
 
@@ -72,7 +94,7 @@
 	[super viewDidLoad];
 	self.tableView.tableHeaderView = _searchBar;
 	self.navigationItem.backBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:nil action:NULL] autorelease];
-	_firstTimeVisiable = YES;
+	_firstTimeVisiable = YES;	
 }
 - (void)viewWillAppear:(BOOL)animated 
 {
@@ -180,6 +202,8 @@
 }
 
 @dynamic array;
+@synthesize style = _style;
+@synthesize tableView = _tableView;
 
 @end
 
