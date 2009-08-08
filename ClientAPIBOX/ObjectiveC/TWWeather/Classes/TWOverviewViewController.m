@@ -14,12 +14,13 @@
 - (void)dealloc
 {
 	[_text release];
+	_text = nil;
 	[self viewDidUnload];
     [super dealloc];
 }
 - (void)viewDidUnload
 {
-//	[super viewDidLoad];
+	[super viewDidLoad];
 	self.view = nil;
 	self.textView = nil;
 }

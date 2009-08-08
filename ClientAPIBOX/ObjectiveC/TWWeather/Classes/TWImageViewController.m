@@ -14,6 +14,7 @@
 - (void)dealloc
 {
 	[_image release];
+	_image = nil;
 	[self viewDidUnload];
     [super dealloc];
 }

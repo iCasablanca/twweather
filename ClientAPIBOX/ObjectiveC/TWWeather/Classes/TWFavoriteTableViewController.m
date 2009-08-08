@@ -29,7 +29,9 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 - (void)viewDidUnload
 {
 	[loadingView release];	
+	loadingView = nil;
 	[errorLabel release];
+	errorLabel = nil;
 	self.tableView = nil;
 	self.view = nil;
 	[super viewDidLoad];

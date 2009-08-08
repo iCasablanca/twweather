@@ -22,7 +22,9 @@
 - (void)viewDidUnload
 {
 	[_searchBar release];
+	_searchBar = nil;
 	[_searchController release];
+	_searchController = nil;
 	self.tableView = nil;
 	self.view = nil;
 	[super viewDidLoad];

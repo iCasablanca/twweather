@@ -311,8 +311,8 @@
 	[self.tableView reloadData];
 	self.tableView.userInteractionEnabled = YES;
 	TWOverviewViewController *controller = [[TWOverviewViewController alloc] init];
-	[controller setText:string];
 	[[TWWeatherAppDelegate sharedDelegate] pushViewController:controller animated:YES];
+	[controller setText:string];
 	[controller release];
 }
 - (void)APIBox:(TWAPIBox *)APIBox didFailedFetchOverviewWithError:(NSError *)error
