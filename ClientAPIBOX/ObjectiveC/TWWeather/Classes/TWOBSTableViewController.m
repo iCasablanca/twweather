@@ -7,6 +7,8 @@
 //
 
 #import "TWOBSTableViewController.h"
+#import "TWOBSResultTableViewController.h"
+#import "TWErrorViewController.h"
 #import "TWAPIBox+Info.h"
 
 @implementation TWOBSTableViewController
@@ -48,6 +50,11 @@
 
 #pragma mark UIViewContoller Methods
 
+- (void)viewDidLoad
+{
+	[super viewDidLoad];
+	self.title = @"目前天氣";
+}
 - (void)didReceiveMemoryWarning 
 {
     [super didReceiveMemoryWarning]; 
@@ -97,18 +104,46 @@
 		NSArray *items = [sectionDictionary objectForKey:@"items"];
 		NSDictionary *dictionary = [items objectAtIndex:indexPath.row];
 		cell.textLabel.text = [dictionary objectForKey:@"name"];
+		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	}
-    
-// Set up the cell...
-
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-//	AnotherViewController *anotherViewController = [[AnotherViewController alloc] initWithNibName:@"AnotherView" bundle:nil];
-//	[self.navigationController pushViewController:anotherViewController animated:YES];
-//	[anotherViewController release];
+	if (tableView == self.tableView) {
+		NSDictionary *sectionDictionary = [_locations objectAtIndex:indexPath.section];
+		NSArray *items = [sectionDictionary objectForKey:@"items"];
+		NSDictionary *dictionary = [items objectAtIndex:indexPath.row];
+		NSString *identifier = [dictionary objectForKey:@"identifier"];
+		[[TWAPIBox sharedBox] fetchOBSWithLocationIdentifier:identifier delegate:self userInfo:nil];
+	}
 }
+
+- (void)APIBox:(TWAPIBox *)APIBox didFetchOBS:(id)result identifier:(NSString *)identifier userInfo:(id)userInfo
+{
+//	NSLog(@"result:%@", [result description]);
+	if ([result isKindOfClass:[NSDictionary class]]) {
+		TWOBSResultTableViewController *controller = [[TWOBSResultTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+		controller.title = [result objectForKey:@"locationName"];
+		controller.description = [result objectForKey:@"description"];
+		controller.rain = [result objectForKey:@"rain"];
+		controller.temperature = [result objectForKey:@"temperature"];
+		controller.time = [result objectForKey:@"time"];
+		controller.windDirection = [result objectForKey:@"windDirection"];
+		controller.windLevel = [result objectForKey:@"windLevel"];
+		controller.windStrongestLevel = [result objectForKey:@"windStrongestLevel"];		
+		[self.navigationController pushViewController:controller animated:YES];
+		[controller release];
+	}
+}
+- (void)APIBox:(TWAPIBox *)APIBox didFailedFetchOBSWithError:(NSError *)error identifier:(NSString *)identifier userInfo:(id)userInfo
+{
+	TWErrorViewController *controller = [[TWErrorViewController alloc] init];
+	controller.error = error;
+	[self.navigationController pushViewController:controller animated:YES];
+	[controller release];	
+}
+
 
 
 @end

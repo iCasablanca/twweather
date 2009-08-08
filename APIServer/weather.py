@@ -765,12 +765,20 @@ class WeatherOBS(Forecast):
 			elif line.find("溫度") > -1:
 				isHandlingTemperature = True
 			elif isHandlingTemperature is True:
-				temperature = line.replace("<br />", "")[0:-1]
+				line = line.replace("<br />", "")[0:-1]
+				try:
+					temperature = str(float(line))
+				except:
+					temperature = line
 				isHandlingTemperature = False
 			elif line.find("累積雨量") > -1:
 				isHandlingRain = True
 			elif isHandlingRain is True:
-				rain = line.replace("<br />", "")[0:-1]
+				line = line.replace("<br />", "")[0:-1]
+				try:
+					rain = str(float(line))
+				except:
+					rain = line
 				isHandlingRain = False
 			elif line.find("風向") > -1:
 				isHandlingWindDirection = True
@@ -780,12 +788,22 @@ class WeatherOBS(Forecast):
 			elif line.find("風力") > -1:
 				isHandlingWindLevel = True
 			elif isHandlingWindLevel is True:
-				windLevel = line.replace("<br />", "")[0:-1]
+				line = line.replace("<br />", "")[0:-1]
+				try:
+					if int(line)> 0:
+						windLevel = str(int(line))
+				except:
+					windLevel = line.decode("utf-8")
 				isHandlingWindLevel = False
 			elif line.find("陣風") > -1:
 				isHandlingWindStrongestLevel = True
 			elif isHandlingWindStrongestLevel is True:
-				windStrongestLevel = line.replace("<br />", "")[0:-1]
+				line = line.replace("<br />", "")[0:-1]
+				try:
+					if int(line)> 0:
+						windStrongestLevel = str(int(line))
+				except:
+					windStrongestLevel = line.decode("utf-8")
 				isHandlingWindStrongestLevel = False
 				result = {"locationName": locationName, "id": id, "time": time, "description": description, "temperature": temperature, "rain": rain, "windDirection": windDirection, "windLevel": windLevel, "windStrongestLevel": windStrongestLevel}
 				return result
@@ -809,8 +827,7 @@ class TestWeatherOBS(unittest.TestCase):
 			self.assertTrue(result["windStrongestLevel"])
 
 def main():
-	WeatherWarning().fetch()
-	# unittest.main()
+	unittest.main()
 	pass
 
 

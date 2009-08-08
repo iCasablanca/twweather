@@ -149,6 +149,9 @@
 		else if ([identifier isEqualToString:@"tide"] && delegate && [delegate respondsToSelector:@selector(APIBox:didFetchTide:identifier:userInfo:)]) {
 			[delegate APIBox:self didFetchTide:result identifier:inIdentifier userInfo:userInfo];
 		}
+		else if ([identifier isEqualToString:@"obs"] && delegate && [delegate respondsToSelector:@selector(APIBox:didFetchOBS:identifier:userInfo:)]) {
+			[delegate APIBox:self didFetchOBS:result identifier:inIdentifier userInfo:userInfo];
+		}		
 	}
 	else {
 		NSInteger code = TWAPIDataError;
@@ -171,6 +174,9 @@
 		else if ([identifier isEqualToString:@"tide"] && delegate && [delegate respondsToSelector:@selector(APIBox:didFailedFetchTideWithError:identifier:userInfo:)]) {
 			[delegate APIBox:self didFailedFetchTideWithError:theError identifier:inIdentifier userInfo:userInfo];
 		}
+		else if ([identifier isEqualToString:@"obs"] && delegate && [delegate respondsToSelector:@selector(APIBox:didFailedFetchOBSWithError:identifier:userInfo:)]) {
+			[delegate APIBox:self didFailedFetchOBSWithError:theError identifier:inIdentifier userInfo:userInfo];
+		}		
 	}
 	
 }

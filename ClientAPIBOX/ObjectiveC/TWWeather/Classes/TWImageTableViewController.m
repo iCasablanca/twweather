@@ -27,7 +27,7 @@
 	[tableView reloadData];
 
 	NSString *identifier = [dictionary objectForKey:@"identifier"];
-	[[TWAPIBox sharedBox] fetchImageWithLocationIdentifier:identifier delegate:self userInfo:dictionary];
+	[[TWAPIBox sharedBox] fetchImageWithIdentifier:identifier delegate:self userInfo:dictionary];
 }
 
 - (void)APIBox:(TWAPIBox *)APIBox didFetchImageData:(NSData *)data identifier:(NSString *)identifier userInfo:(id)userInfo

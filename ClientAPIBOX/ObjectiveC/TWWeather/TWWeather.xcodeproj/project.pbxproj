@@ -14,6 +14,8 @@
 		2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */; };
 		28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD735F0D9D9599002E5188 /* MainWindow.xib */; };
 		28C286E10D94DF7D0034E888 /* TWRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C286E00D94DF7D0034E888 /* TWRootViewController.m */; };
+		D426D6B7102D142C00BBBEB3 /* TWOBSResultTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D426D6B6102D142C00BBBEB3 /* TWOBSResultTableViewController.m */; };
+		D426D6DD102D17D400BBBEB3 /* TWOBSCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D426D6DC102D17D400BBBEB3 /* TWOBSCell.m */; };
 		D42C7A091023CF59009C3C4E /* TWImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D42C7A081023CF59009C3C4E /* TWImageViewController.m */; };
 		D489E3851023DF2500189460 /* TWAPIBox+Cache.m in Sources */ = {isa = PBXBuildFile; fileRef = D489E3831023DF2500189460 /* TWAPIBox+Cache.m */; };
 		D489E3AB1023E00100189460 /* ball.png in Resources */ = {isa = PBXBuildFile; fileRef = D489E3981023E00100189460 /* ball.png */; };
@@ -87,6 +89,10 @@
 		28C286E00D94DF7D0034E888 /* TWRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWRootViewController.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* TWWeather-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "TWWeather-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		D426D6B5102D142C00BBBEB3 /* TWOBSResultTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWOBSResultTableViewController.h; sourceTree = "<group>"; };
+		D426D6B6102D142C00BBBEB3 /* TWOBSResultTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWOBSResultTableViewController.m; sourceTree = "<group>"; };
+		D426D6DB102D17D400BBBEB3 /* TWOBSCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWOBSCell.h; sourceTree = "<group>"; };
+		D426D6DC102D17D400BBBEB3 /* TWOBSCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWOBSCell.m; sourceTree = "<group>"; };
 		D42C7A071023CF59009C3C4E /* TWImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWImageViewController.h; sourceTree = "<group>"; };
 		D42C7A081023CF59009C3C4E /* TWImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWImageViewController.m; sourceTree = "<group>"; };
 		D489E3831023DF2500189460 /* TWAPIBox+Cache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TWAPIBox+Cache.m"; path = "../TWAPIBox/TWAPIBox+Cache.m"; sourceTree = SOURCE_ROOT; };
@@ -345,6 +351,10 @@
 				D489E5A51024EB3F00189460 /* TWAboutViewController.m */,
 				D4C02E30102C221900FD1D3B /* TWOBSTableViewController.h */,
 				D4C02E31102C221900FD1D3B /* TWOBSTableViewController.m */,
+				D426D6B5102D142C00BBBEB3 /* TWOBSResultTableViewController.h */,
+				D426D6B6102D142C00BBBEB3 /* TWOBSResultTableViewController.m */,
+				D426D6DB102D17D400BBBEB3 /* TWOBSCell.h */,
+				D426D6DC102D17D400BBBEB3 /* TWOBSCell.m */,
 			);
 			name = More;
 			sourceTree = "<group>";
@@ -525,6 +535,8 @@
 				D4C02AAE102BD47000FD1D3B /* TWAPIBox+Private.m in Sources */,
 				D4C02C3D102C03F700FD1D3B /* TWFavoriteTableViewController.m in Sources */,
 				D4C02E32102C221900FD1D3B /* TWOBSTableViewController.m in Sources */,
+				D426D6B7102D142C00BBBEB3 /* TWOBSResultTableViewController.m in Sources */,
+				D426D6DD102D17D400BBBEB3 /* TWOBSCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

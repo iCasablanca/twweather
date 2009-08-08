@@ -158,7 +158,6 @@ static TWAPIBox *apibox;
 - (void)fetchAllForecastsWithDelegate:(id)delegate userInfo:(id)userInfo
 {
 	NSString *path = [NSString stringWithFormat:@"forecast?location=all"];
-//	NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:userInfo, @"userInfo", nil];
 	[self sendRequestWithPath:path identifier:@"forecastAll" action:@selector(didFetchWarning:data:) failedAction:@selector(didFailedFetchWarning:error:) delegate:delegate userInfo:userInfo];	
 }
 - (void)fetchForecastWithLocationIdentifier:(NSString *)identifier delegate:(id)delegate userInfo:(id)userInfo
@@ -200,11 +199,18 @@ static TWAPIBox *apibox;
 	NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:identifier, @"identifier", userInfo, @"userInfo", nil];
 	[self sendRequestWithPath:path identifier:@"tide" action:@selector(didFetchForecast:data:) failedAction:@selector(didFailedFetchForecast:error:) delegate:delegate userInfo:info];	
 }
-- (void)fetchImageWithLocationIdentifier:(NSString *)identifier delegate:(id)delegate userInfo:(id)userInfo
+- (void)fetchImageWithIdentifier:(NSString *)identifier delegate:(id)delegate userInfo:(id)userInfo
 {
 	NSString *path = [NSString stringWithFormat:@"image?id=%@&redirect=1", identifier];
 	NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:identifier, @"identifier", userInfo, @"userInfo", nil];
 	[self sendRequestWithPath:path identifier:@"image" action:@selector(didFetchImage:data:) failedAction:@selector(didFailedFetchImage:error:) delegate:delegate userInfo:info];		
+}
+- (void)fetchOBSWithLocationIdentifier:(NSString *)identifier delegate:(id)delegate userInfo:(id)userInfo
+{
+	NSString *path = [NSString stringWithFormat:@"obs?location=%@", identifier];
+	NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:identifier, @"identifier", userInfo, @"userInfo", nil];
+	[self sendRequestWithPath:path identifier:@"obs" action:@selector(didFetchForecast:data:) failedAction:@selector(didFailedFetchForecast:error:) delegate:delegate userInfo:info];	
+	
 }
 
 #pragma mark -

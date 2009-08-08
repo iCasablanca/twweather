@@ -28,12 +28,12 @@
 
 - (void)loadView 
 {
-	UITextView *theTexView = [[[UITextView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)] autorelease];
-	theTexView.autoresizingMask =  UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-	theTexView.editable = NO;
-	theTexView.font = [UIFont systemFontOfSize:18.0];
-	self.textView = theTexView;
-	self.view = theTexView;
+	UITextView *theTextView = [[[UITextView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)] autorelease];
+	theTextView.autoresizingMask =  UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+	theTextView.editable = NO;
+	theTextView.font = [UIFont systemFontOfSize:18.0];
+	self.textView = theTextView;
+	self.view = theTextView;
 	if (![self.title length]) {
 		self.title = @"關心天氣";
 	}
