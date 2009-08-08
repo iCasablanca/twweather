@@ -9,6 +9,7 @@
 #import "TWOBSTableViewController.h"
 #import "TWOBSResultTableViewController.h"
 #import "TWErrorViewController.h"
+#import "TWLoadingCell.h"
 #import "TWAPIBox+Info.h"
 
 @implementation TWOBSTableViewController
@@ -22,7 +23,20 @@
 {
 	if (!_locations) {
 		_locations = [[NSMutableArray alloc] init];
-		[_locations setArray:[[TWAPIBox sharedBox] OBSLocations]];
+		NSArray *allLocations = [[TWAPIBox sharedBox] OBSLocations];
+		for (NSDictionary *d in allLocations) {
+			NSMutableDictionary *category = [NSMutableDictionary dictionary];
+			[category setObject:[d objectForKey:@"AreaID"] forKey:@"AreaID"];
+			[category setObject:[d objectForKey:@"areaName"] forKey:@"areaName"];
+			NSMutableArray *items = [NSMutableArray array];
+			for (NSDictionary *item in [d objectForKey:@"items"]) {
+				NSMutableDictionary *newItem = [NSMutableDictionary dictionaryWithDictionary:item];
+				[newItem setObject:[NSNumber numberWithBool:NO] forKey:@"isLoading"];
+				[items addObject:newItem];
+			}
+			[category setObject:items forKey:@"items"];
+			[_locations addObject:category];
+		}
 	}
 }
 
@@ -95,9 +109,9 @@
 {    
     static NSString *CellIdentifier = @"Cell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    TWLoadingCell *cell = (TWLoadingCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[[TWLoadingCell alloc] initWithFrame:CGRectZero reuseIdentifier:CellIdentifier] autorelease];
     }
 	if (tableView == self.tableView) {
 		NSDictionary *sectionDictionary = [_locations objectAtIndex:indexPath.section];
@@ -105,6 +119,13 @@
 		NSDictionary *dictionary = [items objectAtIndex:indexPath.row];
 		cell.textLabel.text = [dictionary objectForKey:@"name"];
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+		
+		if ([[dictionary objectForKey:@"isLoading"] boolValue]) {
+			[cell startAnimating];
+		}
+		else {
+			[cell stopAnimating];
+		}
 	}
     return cell;
 }
@@ -113,15 +134,36 @@
 	if (tableView == self.tableView) {
 		NSDictionary *sectionDictionary = [_locations objectAtIndex:indexPath.section];
 		NSArray *items = [sectionDictionary objectForKey:@"items"];
-		NSDictionary *dictionary = [items objectAtIndex:indexPath.row];
+		NSMutableDictionary *dictionary = [items objectAtIndex:indexPath.row];
 		NSString *identifier = [dictionary objectForKey:@"identifier"];
+		
+		[dictionary setObject:[NSNumber numberWithBool:YES] forKey:@"isLoading"];
+		self.tableView.userInteractionEnabled = NO;
+		[self.tableView reloadData];
+		
 		[[TWAPIBox sharedBox] fetchOBSWithLocationIdentifier:identifier delegate:self userInfo:nil];
 	}
+}
+
+#pragma mark -
+
+- (void)resetLoading
+{
+	for (NSDictionary *d in _locations) {
+		NSArray *items = [d valueForKey:@"items"];
+		for (NSMutableDictionary *item in items) {
+			[item setObject:[NSNumber numberWithBool:NO] forKey:@"isLoading"];
+		}		
+	}
+	[self.tableView reloadData];
 }
 
 - (void)APIBox:(TWAPIBox *)APIBox didFetchOBS:(id)result identifier:(NSString *)identifier userInfo:(id)userInfo
 {
 //	NSLog(@"result:%@", [result description]);
+	self.tableView.userInteractionEnabled = YES;
+	[self resetLoading];
+	
 	if ([result isKindOfClass:[NSDictionary class]]) {
 		TWOBSResultTableViewController *controller = [[TWOBSResultTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
 		controller.title = [result objectForKey:@"locationName"];
@@ -138,10 +180,13 @@
 }
 - (void)APIBox:(TWAPIBox *)APIBox didFailedFetchOBSWithError:(NSError *)error identifier:(NSString *)identifier userInfo:(id)userInfo
 {
+	self.tableView.userInteractionEnabled = YES;
+	[self resetLoading];
+
 	TWErrorViewController *controller = [[TWErrorViewController alloc] init];
 	controller.error = error;
 	[self.navigationController pushViewController:controller animated:YES];
-	[controller release];	
+	[controller release];
 }
 
 

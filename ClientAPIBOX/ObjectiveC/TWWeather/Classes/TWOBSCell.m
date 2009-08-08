@@ -3,7 +3,6 @@
 //  TWWeather
 //
 //  Created by zonble on 2009/08/08.
-//  Copyright 2009 Lithoglyph Inc.. All rights reserved.
 //
 
 #import "TWOBSCell.h"
@@ -47,10 +46,10 @@
 	[description release];
 	[rain release];
 	[temperature release];
-//	[time release];
 	[windDirection release];
 	[windLevel release];
 	[windStrongestLevel release];
+	[weatherImage release];
     [super dealloc];
 }
 - (void)_init
@@ -58,7 +57,6 @@
 	CGRect cellFrame = CGRectMake(10, 10, 280, 280);
 	_ourContentView = [[TWOBSCellContentView alloc] initWithFrame:cellFrame];
 	_ourContentView.delegate = self;
-//	_ourContentView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 	[self.contentView addSubview:_ourContentView];	
 }
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -77,8 +75,9 @@
 }
 - (void)draw:(CGRect)bounds
 {
-//	CGContextRef context = UIGraphicsGetCurrentContext();
-//	[time drawInRect:CGRectMake(0, 0, 260, 20) withFont:[UIFont systemFontOfSize:16.0]];
+	CGSize size = weatherImage.size;
+	[weatherImage drawInRect:CGRectMake(10, 20, size.width * 0.8, size.height * 0.8)];
+	
 	[@"天氣現象" drawInRect:CGRectMake(100, 30, 160, 20) withFont:[UIFont boldSystemFontOfSize:16.0]];
 	[description drawInRect:CGRectMake(100, 70, 160, 80) withFont:[UIFont boldSystemFontOfSize:22.0]];
 	
@@ -98,9 +97,9 @@
 @synthesize description;
 @synthesize rain;
 @synthesize temperature;
-//@synthesize time;
 @synthesize windDirection;
 @synthesize windLevel;
 @synthesize windStrongestLevel;
+@synthesize weatherImage;
 
 @end

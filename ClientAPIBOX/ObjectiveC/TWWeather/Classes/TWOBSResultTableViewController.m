@@ -7,6 +7,7 @@
 
 #import "TWOBSResultTableViewController.h"
 #import "TWOBSCell.h"
+#import "TWWeatherAppDelegate.h"
 #import "TWAPIBox.h"
 
 @implementation TWOBSResultTableViewController
@@ -50,12 +51,21 @@
     if (cell == nil) {
         cell = [[[TWOBSCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
+	cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	cell.description = self.description;
 	cell.rain = self.rain;
 	cell.temperature = self.temperature;
 	cell.windDirection = self.windDirection;
 	cell.windLevel = self.windLevel;
 	cell.windStrongestLevel = self.windStrongestLevel;
+	
+	if (![cell.description isEqualToString:@"X"]) {
+		NSString *imageString = [[TWWeatherAppDelegate sharedDelegate] imageNameWithTimeTitle:nil description:cell.description];
+		cell.weatherImage = [UIImage imageNamed:imageString];
+	}
+	else {
+		cell.weatherImage = nil;
+	}
 	
 	[cell setNeedsDisplay];
     return cell;
