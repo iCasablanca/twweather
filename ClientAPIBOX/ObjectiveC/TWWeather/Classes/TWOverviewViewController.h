@@ -16,6 +16,7 @@
 }
 
 - (void)setText:(NSString *)text;
+- (IBAction)copy:(id)sender;
 
 @property (retain, nonatomic) UITextView *textView;
 @property (retain, nonatomic) NSString *text;

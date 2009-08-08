@@ -42,6 +42,10 @@
 {
 	[super viewDidLoad];
 	self.textView.text = _text;
+	
+	UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Copy", @"") style:UIBarButtonItemStyleBordered target:self action:@selector(copy:)];
+	self.navigationItem.rightBarButtonItem = item;
+	[item release];
 }
 - (void)didReceiveMemoryWarning 
 {
@@ -57,6 +61,10 @@
 	[tmp release];
 
 	self.textView.text = text;
+}
+- (IBAction)copy:(id)sender
+{
+	[[UIPasteboard generalPasteboard] setString:_text];
 }
 
 @synthesize textView;
