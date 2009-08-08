@@ -93,7 +93,7 @@
 {
 	[super viewDidLoad];
 	self.tableView.tableHeaderView = _searchBar;
-	self.navigationItem.backBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:nil action:NULL] autorelease];
+	self.navigationItem.backBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Back", @"") style:UIBarButtonItemStyleBordered target:nil action:NULL] autorelease];
 	_firstTimeVisiable = YES;	
 }
 - (void)viewWillAppear:(BOOL)animated 

@@ -23,7 +23,7 @@
 - (void)viewDidLoad 
 {
     [super viewDidLoad];
-	self.title = @"My Favorites";
+//	self.title = @"My Favorites";
 	
 	if (!_filterArray) {
 		_filterArray = [[NSMutableArray alloc] init];

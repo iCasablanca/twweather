@@ -32,7 +32,11 @@
 - (void)applicationDidFinishLaunching:(UIApplication *)application 
 {   	
 	UITabBarController *controller = [[UITabBarController alloc] init];
-	controller.title = @"台灣天氣";
+	
+	NSBundle *bundle = [NSBundle mainBundle];
+	NSDictionary *loaclizedDictionary = [bundle localizedInfoDictionary];
+	controller.title = [loaclizedDictionary objectForKey:@"CFBundleDisplayName"];
+	
 	self.tabBarController = controller;	
 	[controller release];
 	
