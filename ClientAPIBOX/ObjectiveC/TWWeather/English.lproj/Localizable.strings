@@ -1,0 +1,51 @@
+﻿/* No comment provided by engineer. */
+"%@ is an open source project. please check the web site of the project(http://github.com/zonble/twweather) for furthor information.\n\nLFWebAPIKit\nCopyright (c) 2007-2009 Lithoglyph Inc. (http://lithoglyph.com)\nCopyright (c) 2007-2009 Lukhnos D. Liu (http://lukhnos.org)\n\nCocoaCryptoHashing\nCopyright (c) 2004-2009 Denis Defreyne\nCopyright (c) 2008 Chris Verwymeren\nCopyright (c) 2009 Mike Fischer\nAll rights reserved." = "%@ is an open source project. please check the web site of the project(http://github.com/zonble/twweather) for furthor information.\n\nLFWebAPIKit\nCopyright (c) 2007-2009 Lithoglyph Inc. (http://lithoglyph.com)\nCopyright (c) 2007-2009 Lukhnos D. Liu (http://lukhnos.org)\n\nCocoaCryptoHashing\nCopyright (c) 2004-2009 Denis Defreyne\nCopyright (c) 2008 Chris Verwymeren\nCopyright (c) 2009 Mike Fischer\nAll rights reserved.";
+
+/* No comment provided by engineer. */
+"About" = "About";
+
+/* No comment provided by engineer. */
+"Connection Error. Unable to connect to the remote server, please try again." = "Connection Error. Unable to connect to the remote server, please try again.";
+
+/* No comment provided by engineer. */
+"Connection Time Out. Unable to connect to the remote server, please try again." = "Connection Time Out. Unable to connect to the remote server, please try again.";
+
+/* No comment provided by engineer. */
+"Copy" = "Copy";
+
+/* No comment provided by engineer. */
+"Data Error. Unable to parse the data from the remote server, please contact me to fix the server." = "Data Error. Unable to parse the data from the remote server, please contact me to fix the server.";
+
+/* No comment provided by engineer. */
+"Dismiss" = "Dismiss";
+
+/* No comment provided by engineer. */
+"Error!" = "Error!";
+
+/* No comment provided by engineer. */
+"Failed to load data!" = "Failed to load data!";
+
+/* No comment provided by engineer. */
+"Feedback" = "Feedback";
+
+/* No comment provided by engineer. */
+"Thanks for your feedback." = "Thanks for your feedback.";
+
+/* No comment provided by engineer. */
+"TW Weather Questions/Inquery" = "TW Weather Questions/Inquery";
+
+/* No comment provided by engineer. */
+"Version: %@\n%@" = "Version: %1$@\n%2$@";
+
+/* No comment provided by engineer. */
+"You can not make a phone call with an %@" = "You can not make a phone call with an %@";
+
+/* No comment provided by engineer. */
+"You cannot send email now" = "You cannot send email now";
+
+/* No comment provided by engineer. */
+"Your device does not supprt to make a phone call, please use a telephone or cellphone to dial the number." = "Your device does not supprt to make a phone call, please use a telephone or cellphone to dial the number.";
+
+/* No comment provided by engineer. */
+"Your mail is sent!" = "Your mail is sent!";
+

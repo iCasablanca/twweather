@@ -73,6 +73,7 @@
 		D4E508D1102399E0002B39D7 /* TWOverviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E508D0102399E0002B39D7 /* TWOverviewViewController.m */; };
 		D4E509431023C17F002B39D7 /* CocoaCryptoHashing.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E509411023C17F002B39D7 /* CocoaCryptoHashing.m */; };
 		D4E509B31023CB85002B39D7 /* TWImageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E509B21023CB85002B39D7 /* TWImageTableViewController.m */; };
+		D4E84FB1102D4BEC00A80676 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4E84FAF102D4BEC00A80676 /* Localizable.strings */; };
 		D4E9C6E510223D6200B955C7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E9C6E410223D6200B955C7 /* SystemConfiguration.framework */; };
 		D4E9C70110223DBB00B955C7 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E9C70010223DBB00B955C7 /* CFNetwork.framework */; };
 /* End PBXBuildFile section */
@@ -187,6 +188,9 @@
 		D4E509421023C17F002B39D7 /* CocoaCryptoHashing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CocoaCryptoHashing.h; path = ../External/cocoa_crypto_hashing/CocoaCryptoHashing.h; sourceTree = SOURCE_ROOT; };
 		D4E509B11023CB85002B39D7 /* TWImageTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWImageTableViewController.h; sourceTree = "<group>"; };
 		D4E509B21023CB85002B39D7 /* TWImageTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWImageTableViewController.m; sourceTree = "<group>"; };
+		D4E84FAA102D4A5200A80676 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		D4E84FB0102D4BEC00A80676 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D4E84FB3102D4C0500A80676 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		D4E9C6E410223D6200B955C7 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		D4E9C70010223DBB00B955C7 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -263,6 +267,7 @@
 				D489E38C1023DFF500189460 /* Images */,
 				28AD735F0D9D9599002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* TWWeather-Info.plist */,
+				D4E84FAF102D4BEC00A80676 /* Localizable.strings */,
 				D489E59D1024EA4600189460 /* InfoPlist.strings */,
 			);
 			name = Resources;
@@ -456,6 +461,7 @@
 				French,
 				German,
 				en,
+				"zh-Hant",
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
@@ -493,6 +499,7 @@
 				D489E3BD1023E00100189460 /* zonble.jpg in Resources */,
 				D489E5961024DD7600189460 /* Default.png in Resources */,
 				D489E59E1024EA4600189460 /* InfoPlist.strings in Resources */,
+				D4E84FB1102D4BEC00A80676 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -553,8 +560,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				D489E59B1024EA4300189460 /* English */,
+				D4E84FAA102D4A5200A80676 /* zh-Hant */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		D4E84FAF102D4BEC00A80676 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D4E84FB0102D4BEC00A80676 /* English */,
+				D4E84FB3102D4C0500A80676 /* zh-Hant */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
