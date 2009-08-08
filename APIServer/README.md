@@ -1,6 +1,6 @@
 #  台灣天氣預報 API Server
 
-2009 © Weizhong Yang (a.k.a zonble). All Rights Reserved
+Copyright © 2009 Weizhong Yang (a.k.a zonble). All Rights Reserved
 
 ## 簡介
 
