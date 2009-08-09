@@ -57,7 +57,9 @@
 	label = [[[UILabel alloc] initWithFrame:CGRectMake(20, 120, 280, 280)] autorelease];
 	label.font = [UIFont systemFontOfSize:12.0];
 	label.numberOfLines = 100;
-	label.text = [NSString stringWithFormat:NSLocalizedString(@"%@ is an open source project. please check the web site of the project(http://github.com/zonble/twweather) for furthor information.\n\nLFWebAPIKit\nCopyright (c) 2007-2009 Lithoglyph Inc. (http://lithoglyph.com)\nCopyright (c) 2007-2009 Lukhnos D. Liu (http://lukhnos.org)\n\nCocoaCryptoHashing\nCopyright (c) 2004-2009 Denis Defreyne\nCopyright (c) 2008 Chris Verwymeren\nCopyright (c) 2009 Mike Fischer\nAll rights reserved.", @""), [loaclizedDictionary objectForKey:@"CFBundleDisplayName"]];
+	NSMutableString *text = [NSMutableString stringWithString:NSLocalizedString(@"Data comes from Central Weather Bureau\n\n", @"")];	
+	[text appendString:[NSString stringWithFormat:NSLocalizedString(@"%@ is an open source project. please check the web site of the project(http://github.com/zonble/twweather) for furthor information.\n\nLFWebAPIKit\nCopyright (c) 2007-2009 Lithoglyph Inc. (http://lithoglyph.com)\nCopyright (c) 2007-2009 Lukhnos D. Liu (http://lukhnos.org)\n\nCocoaCryptoHashing\nCopyright (c) 2004-2009 Denis Defreyne\nCopyright (c) 2008 Chris Verwymeren\nCopyright (c) 2009 Mike Fischer\nAll rights reserved.", @""), [loaclizedDictionary objectForKey:@"CFBundleDisplayName"]]];
+	label.text = text;
 	self.externalLibraryLabel = label;
 	[self.view addSubview:self.externalLibraryLabel];
 }

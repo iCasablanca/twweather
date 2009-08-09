@@ -11,8 +11,16 @@
 @interface TWForecastResultTableViewController : UITableViewController 
 {
 	NSArray *forecastArray;
+	NSString *weekLocation;
+	NSDictionary *weekDictionary;
+	
+	BOOL isLoadingWeek;
 }
 
+- (void)pushWeekViewController;
+
 @property (retain, nonatomic) NSArray *forecastArray;
+@property (retain, nonatomic) NSString *weekLocation;
+@property (retain, nonatomic) NSDictionary *weekDictionary;
 
 @end

@@ -97,7 +97,7 @@ static TWAPIBox *apibox;
 - (void)runQueue
 {
 	if ([_queue count]) {
-		NSLog(@"runQueue");
+//		NSLog(@"runQueue");
 		id sessionInfo = [_queue objectAtIndex:0];
 		NSURL *URL = [sessionInfo objectForKey:@"URL"];
 		[_request setSessionInfo:sessionInfo];

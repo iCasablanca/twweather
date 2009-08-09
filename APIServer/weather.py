@@ -127,39 +127,48 @@ class Forecast(object):
 			if str(id) == str(locationID):
 				return location['location']
 		return None
+	def locationItemWithID(self, id):
+		for location in self.locations():
+			locationID = location['id']
+			if str(id) == str(locationID):
+				return location
+		return None
+
 
 WeatherForecastLocations = [
-	{"location": u"台北市", "id": 1},
-	{"location": u"高雄市", "id": 2},
-	{"location": u"基隆", "id": 3},
-	{"location": u"台北", "id": 4},
-	{"location": u"桃園", "id": 5},
-	{"location": u"新竹", "id": 6},
-	{"location": u"苗栗", "id": 7},
-	{"location": u"台中", "id": 8},
-	{"location": u"彰化", "id": 9},
-	{"location": u"南投", "id": 10},
-	{"location": u"雲林", "id": 11},
-	{"location": u"嘉義", "id": 12},
-	{"location": u"台南", "id": 13},
-	{"location": u"高雄", "id": 14},
-	{"location": u"屏東", "id": 15},
-	{"location": u"恆春", "id": 16},
-	{"location": u"宜蘭", "id": 17},
-	{"location": u"花蓮", "id": 18},
-	{"location": u"台東", "id": 19},
-	{"location": u"澎湖", "id": 20},
-	{"location": u"金門", "id": 21},
-	{"location": u"馬祖", "id": 22}
+	{"location": u"台北市", "id": 1 , "weekLocation":"Taipei"},
+	{"location": u"高雄市", "id": 2 , "weekLocation":"South"},
+	{"location": u"基隆",  "id": 3 , "weekLocation":"North-East"},
+	{"location": u"台北",  "id": 4 , "weekLocation":"North"},
+	{"location": u"桃園",  "id": 5 , "weekLocation":"North"},
+	{"location": u"新竹",  "id": 6 , "weekLocation":"North"},
+	{"location": u"苗栗",  "id": 7 , "weekLocation":"North"},
+	{"location": u"台中",  "id": 8 , "weekLocation":"Center"},
+	{"location": u"彰化",  "id": 9 , "weekLocation":"Center"},
+	{"location": u"南投",  "id": 10, "weekLocation":"Center"},
+	{"location": u"雲林",  "id": 11, "weekLocation":"Center"},
+	{"location": u"嘉義",  "id": 12, "weekLocation":"Center"},
+	{"location": u"台南",  "id": 13, "weekLocation":"South"},
+	{"location": u"高雄",  "id": 14, "weekLocation":"South"},
+	{"location": u"屏東",  "id": 15, "weekLocation":"South"},
+	{"location": u"恆春",  "id": 16, "weekLocation":"South"},
+	{"location": u"宜蘭",  "id": 17, "weekLocation":"North-East"},
+	{"location": u"花蓮",  "id": 18, "weekLocation":"South-East"},
+	{"location": u"台東",  "id": 19, "weekLocation":"South-East"},
+	{"location": u"澎湖",  "id": 20, "weekLocation":"Penghu"},
+	{"location": u"金門",  "id": 21, "weekLocation":"Kinmen"},
+	{"location": u"馬祖",  "id": 22, "weekLocation":"Matsu"}
 	]
 
 class WeatherForecast(Forecast):
 	def locations(self):
 		return WeatherForecastLocations
 	def fetchWithID(self, id):
-		locationName = self.locationNameWithID(id)
-		if locationName is None:
+		locationItem = self.locationItemWithID(id)
+		if locationItem is None:
 			return None
+		locationName = locationItem['location']
+		weekLocation = locationItem['weekLocation']
 
 		URLString = WeatherForecastURL % {"#": int(id)}
 		try:
@@ -213,7 +222,7 @@ class WeatherForecast(Forecast):
 					description = line.replace("<br />", "")[0:-1]
 					description = description.decode("utf-8")
 					isHandlingDescription = False
-		return {"locationName":locationName, "items":items, "id": id}
+		return {"locationName":locationName, "items":items, "id": id, "weekLocation":weekLocation}
 
 class TestWeatherForecast(unittest.TestCase):
 	def setUp(self):
@@ -221,6 +230,9 @@ class TestWeatherForecast(unittest.TestCase):
 	def testForetest(self):
 		for i in range(1, 23):
 			result = self.forecest.fetchWithID(i)
+			self.assertTrue(result['locationName'])
+			self.assertTrue(result['weekLocation'])
+			self.assertTrue(result['id'])
 			items = result['items']
 			self.assertEqual(int(len(items)), 3)
 			for item in items:
@@ -811,7 +823,6 @@ class WeatherOBS(Forecast):
 						windLevel = line.decode("ascii")
 					except:
 						windLevel = line.decode("utf-8")
-					# windLevel = line.decode("utf-8")
 				isHandlingWindLevel = False
 			elif line.find("陣風") > -1:
 				isHandlingWindStrongestLevel = True
