@@ -16,9 +16,11 @@
 }
 - (void)_init
 {
-	activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-	activityIndicator.frame = CGRectMake(260, 12, 20, 20);
-	[self addSubview:activityIndicator];
+	if (!activityIndicator) {
+		activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+		activityIndicator.frame = CGRectMake(260, 12, 20, 20);
+		[self addSubview:activityIndicator];
+	}
 }
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
