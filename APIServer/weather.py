@@ -65,10 +65,10 @@ class WeatherWarning(object):
 			if m is not None:
 				id = m.group(1)
 				name = m.group(2)
-				item = {"id": id, "name": name.decode('utf-8')}
+				item = {"id": id, "name": name.decode('utf-8'), "text": ""}
 				warnings.append(item)
 		for item in warnings:
-			URLString = WeatherWarningURL % {"id": id}
+			URLString = WeatherWarningURL % {"id": item['id']}
 			try:
 				url = urllib.urlopen(URLString)
 			except:
@@ -820,13 +820,15 @@ class WeatherOBS(Forecast):
 			elif isHandlingWindScale is True:
 				line = line.replace("<br />", "")[0:-1]
 				try:
-					if int(line)> 0:
+					if int(line) > 0:
 						windScale = str(int(line))
 				except:
 					try:
 						windScale = line.decode("ascii")
 					except:
 						windScale = line.decode("utf-8")
+				if windScale == "":
+					windScale = "X"
 				isHandlingWindScale = False
 			elif line.find("陣風") > -1:
 				isHandlingGustWind = True

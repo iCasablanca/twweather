@@ -34,7 +34,7 @@ NSString *TWAPIErrorDomain = @"TWAPIErrorDomain";
 
 static TWAPIBox *apibox;
 
-#define BASE_URL_STRING @"http://twweatherapi.appspot.com/"
+#define BASE_URL_STRING @"http://2.latest.twweatherapi.appspot.com/"
 
 @implementation TWAPIBox
 
