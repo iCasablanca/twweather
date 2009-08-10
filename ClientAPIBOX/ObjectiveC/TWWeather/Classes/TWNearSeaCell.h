@@ -18,7 +18,7 @@
     NSString *wave;
     NSString *waveLevel;
     NSString *wind;
-    NSString *windLevel;
+    NSString *windScale;
 }
 
 @property (retain, nonatomic) NSString *description;
@@ -27,7 +27,7 @@
 @property (retain, nonatomic) NSString *wave;
 @property (retain, nonatomic) NSString *waveLevel;
 @property (retain, nonatomic) NSString *wind;
-@property (retain, nonatomic) NSString *windLevel;
+@property (retain, nonatomic) NSString *windScale;
 
 
 @end

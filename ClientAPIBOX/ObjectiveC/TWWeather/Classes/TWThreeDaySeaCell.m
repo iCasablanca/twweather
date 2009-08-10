@@ -46,7 +46,7 @@
 	[date release];
 	[description release];
 	[wind release];
-	[windLevel release];
+	[windScale release];
 	[wave release];
 	[weatherImage release];
 	
@@ -79,7 +79,7 @@
 	[date drawInRect:CGRectMake(10, 5, 260, 20) withFont:[UIFont boldSystemFontOfSize:14.0]];
 	[description drawInRect:CGRectMake(10, 27, 260, 30) withFont:[UIFont boldSystemFontOfSize:18.0]];
 	[wind drawInRect:CGRectMake(10, 55, 260, 20) withFont:[UIFont systemFontOfSize:14.0]];
-	[windLevel drawInRect:CGRectMake(10, 75, 260, 20) withFont:[UIFont systemFontOfSize:14.0]];
+	[windScale drawInRect:CGRectMake(10, 75, 260, 20) withFont:[UIFont systemFontOfSize:14.0]];
 	[wave drawInRect:CGRectMake(10, 95, 260, 20) withFont:[UIFont systemFontOfSize:14.0]];
 	
 	CGSize size = weatherImage.size;
@@ -95,7 +95,7 @@
 @synthesize date;
 @synthesize description;
 @synthesize wind;
-@synthesize windLevel;
+@synthesize windScale;
 @synthesize wave;
 @synthesize weatherImage;
 

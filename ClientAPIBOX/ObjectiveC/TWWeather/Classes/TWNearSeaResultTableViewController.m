@@ -20,7 +20,7 @@
 	[wave release];
 	[waveLevel release];
 	[wind release];
-	[windLevel release];
+	[windScale release];
     [super dealloc];
 }
 
@@ -55,7 +55,7 @@
 	cell.wave = self.wave;
 	cell.waveLevel = self.waveLevel;
 	cell.wind = self.wind;
-	cell.windLevel = self.windLevel;
+	cell.windScale = self.windScale;
 	cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	
 	NSString *imageString = [[TWWeatherAppDelegate sharedDelegate] imageNameWithTimeTitle:@"" description:cell.description ];
@@ -81,6 +81,6 @@
 @synthesize wave;
 @synthesize waveLevel;
 @synthesize wind;
-@synthesize windLevel;
+@synthesize windScale;
 
 @end

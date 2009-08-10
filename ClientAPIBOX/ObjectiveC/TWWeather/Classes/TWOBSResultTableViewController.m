@@ -19,8 +19,8 @@
 	[temperature release];
 	[time release];
 	[windDirection release];
-	[windLevel release];
-	[windStrongestLevel release];
+	[windScale release];
+	[gustWindScale release];
 	[super dealloc];
 }
 
@@ -56,8 +56,8 @@
 	cell.rain = self.rain;
 	cell.temperature = self.temperature;
 	cell.windDirection = self.windDirection;
-	cell.windLevel = self.windLevel;
-	cell.windStrongestLevel = self.windStrongestLevel;
+	cell.windScale = self.windScale;
+	cell.gustWindScale = self.gustWindScale;
 	
 	if (![cell.description isEqualToString:@"X"]) {
 		NSString *imageString = [[TWWeatherAppDelegate sharedDelegate] imageNameWithTimeTitle:nil description:cell.description];
@@ -89,8 +89,8 @@
 @synthesize temperature;
 @synthesize time;
 @synthesize windDirection;
-@synthesize windLevel;
-@synthesize windStrongestLevel;
+@synthesize windScale;
+@synthesize gustWindScale;
 
 @end
 

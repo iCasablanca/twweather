@@ -50,7 +50,7 @@
 	cell.date = [[TWAPIBox sharedBox] shortDateStringFromDate:date];	
 	cell.description = [dictionary objectForKey:@"description"];
 	cell.wind = [dictionary objectForKey:@"wind"];
-	cell.windLevel = [dictionary objectForKey:@"windLevel"];
+	cell.windScale = [dictionary objectForKey:@"windScale"];
 	cell.wave = [dictionary objectForKey:@"wave"];
 	cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	

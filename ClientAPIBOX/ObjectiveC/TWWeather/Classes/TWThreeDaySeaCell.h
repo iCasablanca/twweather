@@ -15,7 +15,7 @@
 	NSString *date;
 	NSString *description;
 	NSString *wind;
-	NSString *windLevel;
+	NSString *windScale;
 	NSString *wave;
 	UIImage *weatherImage;
 }
@@ -23,7 +23,7 @@
 @property (retain, nonatomic) NSString *date;
 @property (retain, nonatomic) NSString *description;
 @property (retain, nonatomic) NSString *wind;
-@property (retain, nonatomic) NSString *windLevel;
+@property (retain, nonatomic) NSString *windScale;
 @property (retain, nonatomic) NSString *wave;
 @property (retain, nonatomic) UIImage *weatherImage;
 

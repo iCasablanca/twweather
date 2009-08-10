@@ -15,8 +15,8 @@
 	NSString *temperature;
 	NSString *time;
 	NSString *windDirection;
-	NSString *windLevel;
-	NSString *windStrongestLevel;
+	NSString *windScale;
+	NSString *gustWindScale;
 }
 
 @property (retain, nonatomic) NSString *description;
@@ -24,7 +24,7 @@
 @property (retain, nonatomic) NSString *temperature;
 @property (retain, nonatomic) NSString *time;
 @property (retain, nonatomic) NSString *windDirection;
-@property (retain, nonatomic) NSString *windLevel;
-@property (retain, nonatomic) NSString *windStrongestLevel;
+@property (retain, nonatomic) NSString *windScale;
+@property (retain, nonatomic) NSString *gustWindScale;
 
 @end

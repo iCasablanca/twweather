@@ -47,8 +47,8 @@
 	[rain release];
 	[temperature release];
 	[windDirection release];
-	[windLevel release];
-	[windStrongestLevel release];
+	[windScale release];
+	[gustWindScale release];
 	[weatherImage release];
     [super dealloc];
 }
@@ -84,8 +84,8 @@
 	[[NSString stringWithFormat:@"溫度: %@", temperature] drawInRect:CGRectMake(100, 130, 160, 20) withFont:[UIFont systemFontOfSize:18.0]];
 	[[NSString stringWithFormat:@"累積雨量: %@ 毫米", rain] drawInRect:CGRectMake(100, 160, 160, 20) withFont:[UIFont systemFontOfSize:18.0]];
 	[[NSString stringWithFormat:@"風向: %@", windDirection] drawInRect:CGRectMake(100, 190, 160, 20) withFont:[UIFont systemFontOfSize:18.0]];
-	[[NSString stringWithFormat:@"風力: %@ 級", windLevel] drawInRect:CGRectMake(100, 220, 160, 20) withFont:[UIFont systemFontOfSize:18.0]];
-	[[NSString stringWithFormat:@"陣風: %@ 級", windStrongestLevel] drawInRect:CGRectMake(100, 250, 260, 20) withFont:[UIFont systemFontOfSize:18.0]];
+	[[NSString stringWithFormat:@"風力: %@ 級", windScale] drawInRect:CGRectMake(100, 220, 160, 20) withFont:[UIFont systemFontOfSize:18.0]];
+	[[NSString stringWithFormat:@"陣風: %@ 級", gustWindScale] drawInRect:CGRectMake(100, 250, 260, 20) withFont:[UIFont systemFontOfSize:18.0]];
 }
 	
 - (void)setNeedsDisplay
@@ -98,8 +98,8 @@
 @synthesize rain;
 @synthesize temperature;
 @synthesize windDirection;
-@synthesize windLevel;
-@synthesize windStrongestLevel;
+@synthesize windScale;
+@synthesize gustWindScale;
 @synthesize weatherImage;
 
 @end

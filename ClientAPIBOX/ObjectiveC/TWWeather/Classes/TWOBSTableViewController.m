@@ -239,8 +239,8 @@
 		controller.temperature = [result objectForKey:@"temperature"];
 		controller.time = [result objectForKey:@"time"];
 		controller.windDirection = [result objectForKey:@"windDirection"];
-		controller.windLevel = [result objectForKey:@"windLevel"];
-		controller.windStrongestLevel = [result objectForKey:@"windStrongestLevel"];		
+		controller.windScale = [result objectForKey:@"windScale"];
+		controller.gustWindScale = [result objectForKey:@"gustWindScale"];		
 		[self.navigationController pushViewController:controller animated:YES];
 		[controller release];
 	}

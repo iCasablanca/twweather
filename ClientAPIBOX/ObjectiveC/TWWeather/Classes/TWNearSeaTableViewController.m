@@ -52,7 +52,7 @@
 		controller.wave = [result objectForKey:@"wave"];
 		controller.waveLevel = [result objectForKey:@"waveLevel"];
 		controller.wind = [result objectForKey:@"wind"];
-		controller.windLevel = [result objectForKey:@"windLevel"];
+		controller.windScale = [result objectForKey:@"windScale"];
 		
 		[self.navigationController pushViewController:controller animated:YES];
 		[controller release];
