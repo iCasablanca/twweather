@@ -1,4 +1,26 @@
 cron:
+
+- description: warning
+  url: /warning
+  schedule: every 10 minutes
+  timezone: Asia/Taipei
+  
+- description: All forecasts
+  url: /forecast?location=all
+  schedule: every 10 minutes
+  timezone: Asia/Taipei
+
+- description: All forecasts
+  url: /overview?output=plain
+  schedule: every 10 minutes
+  timezone: Asia/Taipei
+
+- description: All forecasts
+  url: /overview?output=html
+  schedule: every 10 minutes
+  timezone: Asia/Taipei
+
 - description: unittest
-  url: /test
+  url: /test/
   schedule: every 30 minutes
+  timezone: Asia/Taipei

@@ -34,6 +34,10 @@ import re
 import unittest
 import urllib
 from datetime import *
+import time
+
+os.environ['TZ'] = "Asia/Taipei"
+time.tzset()
 
 WeatherRootURL = "http://www.cwb.gov.tw/mobile/"
 WeatherWarningURL = "http://www.cwb.gov.tw/mobile/warning/%(id)s.wml"
