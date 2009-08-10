@@ -54,10 +54,12 @@
 }
 - (void)_init
 {
-	CGRect cellFrame = CGRectMake(10, 10, 280, 280);
-	_ourContentView = [[TWOBSCellContentView alloc] initWithFrame:cellFrame];
-	_ourContentView.delegate = self;
-	[self.contentView addSubview:_ourContentView];	
+	if (!_ourContentView) {
+		CGRect cellFrame = CGRectMake(10, 10, 280, 280);
+		_ourContentView = [[TWOBSCellContentView alloc] initWithFrame:cellFrame];
+		_ourContentView.delegate = self;
+		[self.contentView addSubview:_ourContentView];	
+	}
 }
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

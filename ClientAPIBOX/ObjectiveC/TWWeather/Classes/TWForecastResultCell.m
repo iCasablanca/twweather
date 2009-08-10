@@ -54,11 +54,13 @@
 }
 - (void)_init
 {
-	CGRect cellFrame = CGRectMake(10, 5, 280.0, 110.0);
-	_ourContentView.backgroundColor = [UIColor redColor];
-	_ourContentView = [[TWForecastResultCellContentView alloc] initWithFrame:cellFrame];
-	_ourContentView.delegate = self;
-	[self.contentView addSubview:_ourContentView];
+	if (!_ourContentView) {
+		CGRect cellFrame = CGRectMake(10, 5, 280.0, 110.0);
+		_ourContentView.backgroundColor = [UIColor redColor];
+		_ourContentView = [[TWForecastResultCellContentView alloc] initWithFrame:cellFrame];
+		_ourContentView.delegate = self;
+		[self.contentView addSubview:_ourContentView];
+	}
 }
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

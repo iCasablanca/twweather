@@ -63,7 +63,6 @@ static TWAPIBox *apibox;
     if (self) {
 		_request = [[LFHTTPRequest alloc] init];
 		[_request setDelegate:self];
-//		[_request setTimeoutInterval:20.0];
 		_queue = [[NSMutableArray alloc] init];
 		[self initInfoArrays];
     }
@@ -97,7 +96,6 @@ static TWAPIBox *apibox;
 - (void)runQueue
 {
 	if ([_queue count]) {
-//		NSLog(@"runQueue");
 		id sessionInfo = [_queue objectAtIndex:0];
 		NSURL *URL = [sessionInfo objectForKey:@"URL"];
 		[_request setSessionInfo:sessionInfo];
@@ -108,7 +106,6 @@ static TWAPIBox *apibox;
 
 - (void)sendRequestWithPath:(NSString *)path identifier:(NSString *)identifier action:(SEL)action failedAction:(SEL)failedAction delegate:(id)delegate userInfo:(id)userInfo
 {
-//	[_request cancelWithoutDelegateMessage];
 	NSMutableDictionary *sessionInfo = [NSMutableDictionary dictionary];
 	if (delegate)
 		[sessionInfo setObject:delegate forKey:@"delegate"];
@@ -211,8 +208,17 @@ static TWAPIBox *apibox;
 	NSString *path = [NSString stringWithFormat:@"obs?location=%@", identifier];
 	NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:identifier, @"identifier", userInfo, @"userInfo", nil];
 	[self sendRequestWithPath:path identifier:@"obs" action:@selector(didFetchForecast:data:) failedAction:@selector(didFailedFetchForecast:error:) delegate:delegate userInfo:info];	
-	
 }
+- (void)setWaitUntilDone:(BOOL)flag
+{
+	NSLog(@"setShouldWaitUntilDone");
+	[_request setShouldWaitUntilDone:flag];
+}
+- (BOOL)waitUntilDone
+{
+	return [_request shouldWaitUntilDone];
+}
+
 
 #pragma mark -
 
