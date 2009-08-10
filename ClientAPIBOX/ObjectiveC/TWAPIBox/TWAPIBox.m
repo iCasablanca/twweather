@@ -209,12 +209,11 @@ static TWAPIBox *apibox;
 	NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:identifier, @"identifier", userInfo, @"userInfo", nil];
 	[self sendRequestWithPath:path identifier:@"obs" action:@selector(didFetchForecast:data:) failedAction:@selector(didFailedFetchForecast:error:) delegate:delegate userInfo:info];	
 }
-- (void)setWaitUntilDone:(BOOL)flag
+- (void)setShouldWaitUntilDone:(BOOL)flag
 {
-	NSLog(@"setShouldWaitUntilDone");
 	[_request setShouldWaitUntilDone:flag];
 }
-- (BOOL)waitUntilDone
+- (BOOL)shouldWaitUntilDone
 {
 	return [_request shouldWaitUntilDone];
 }

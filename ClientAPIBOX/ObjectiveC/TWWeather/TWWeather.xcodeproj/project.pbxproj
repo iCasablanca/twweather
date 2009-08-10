@@ -18,6 +18,7 @@
 		D426D6DD102D17D400BBBEB3 /* TWOBSCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D426D6DC102D17D400BBBEB3 /* TWOBSCell.m */; };
 		D426D8CF102D377600BBBEB3 /* TWLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = D426D8CE102D377600BBBEB3 /* TWLoadingView.m */; };
 		D42C7A091023CF59009C3C4E /* TWImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D42C7A081023CF59009C3C4E /* TWImageViewController.m */; };
+		D44C172C10309942006B6698 /* CocoaCryptoHashing.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E509411023C17F002B39D7 /* CocoaCryptoHashing.m */; };
 		D471EAE1102F471B00768C5B /* TWAPIBox.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3A0DC1022361E00E7A430 /* TWAPIBox.m */; };
 		D471EAE2102F471B00768C5B /* TWAPIBox+Info.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E5025710233338002B39D7 /* TWAPIBox+Info.m */; };
 		D471EAE3102F471B00768C5B /* TWAPIBox+Cache.m in Sources */ = {isa = PBXBuildFile; fileRef = D489E3831023DF2500189460 /* TWAPIBox+Cache.m */; };
@@ -650,6 +651,7 @@
 				D471EAE3102F471B00768C5B /* TWAPIBox+Cache.m in Sources */,
 				D471EAE4102F471B00768C5B /* TWAPIBox+Private.m in Sources */,
 				D471EBD8102F47D400768C5B /* TWAPITest.m in Sources */,
+				D44C172C10309942006B6698 /* CocoaCryptoHashing.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

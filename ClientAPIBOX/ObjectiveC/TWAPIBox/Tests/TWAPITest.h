@@ -16,6 +16,7 @@
 
 }
 
-- (void)testOverview;
+- (void)testAPI;
+- (void)testForecasts;
 
 @end

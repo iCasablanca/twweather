@@ -245,8 +245,8 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 	[self hideLoadingView];
 	if ([result isKindOfClass:[NSArray class]]) {
 		self.tableView.hidden = NO;
-		NSArray *arrary = (NSArray *)result;
-		[_favArray setArray:arrary];
+		NSArray *array = (NSArray *)result;
+		[_favArray setArray:array];
 		[self updateFilteredArray];
 		[[NSUserDefaults standardUserDefaults] setObject:_favArray forKey:lastAllForecastsPreferenceName];
 	}
