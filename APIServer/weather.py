@@ -404,7 +404,7 @@ class Weather3DaySea(Forecast):
 		time = ""
 		description = ""
 		wind = ""
-		windLevel = ""
+		windScale = ""
 		wave = ""
 
 		for line in lines:
@@ -426,10 +426,10 @@ class Weather3DaySea(Forecast):
 				elif count is 3:
 					wind = line[0:-7].decode("utf-8")
 				elif count is 4:
-					windLevel = line[0:-7].decode("utf-8")
+					windScale = line[0:-7].decode("utf-8")
 				elif count is 5:
 					wave = line[0:-7].decode("utf-8")
-					item = {"date": time, "description": description, "wind": wind, "windLevel": windLevel, "wave": wave}
+					item = {"date": time, "description": description, "wind": wind, "windScale": windScale, "wave": wave}
 					items.append(item)
 					if len(items) >= 3:
 						break
@@ -506,7 +506,7 @@ class WeatherNearSea(Forecast):
 		handlingData = False
 		description = ""
 		wind = ""
-		windLevel = ""
+		windScale = ""
 		wave = ""
 		waveLevel = ""
 		lineCount = 0
@@ -530,7 +530,7 @@ class WeatherNearSea(Forecast):
 					result = {"locationName": locationName, "id": id, "description": description,
 						"publishTime": publishTime, "validBeginTime": validBeginTime, 
 						"validEndTime": validEndTime, "validTime": validTime,
-						"wind": wind, "windLevel": windLevel, "wave": wave,
+						"wind": wind, "windScale": windScale, "wave": wave,
 						"waveLevel": waveLevel
 						}
 					return result
@@ -540,7 +540,7 @@ class WeatherNearSea(Forecast):
 				elif lineCount is 2:
 					wind = line
 				elif lineCount is 3:
-					windLevel = line
+					windScale = line
 				elif lineCount is 4:
 					wave = line
 				elif lineCount is 5:
@@ -562,7 +562,7 @@ class TestWeatherNearSea(unittest.TestCase):
 			self.assertTrue(result["validEndTime"])
 			self.assertTrue(result["validTime"])
 			self.assertTrue(result["wind"])
-			self.assertTrue(result["windLevel"])
+			self.assertTrue(result["windScale"])
 			self.assertTrue(result["wave"])
 			self.assertTrue(result["waveLevel"])
 
@@ -745,8 +745,8 @@ class WeatherOBS(Forecast):
 		isHandlingTemperature = False
 		isHandlingRain = False
 		isHandlingWindDirection = False
-		isHandlingWindLevel = False
-		isHandlingWindStrongestLevel = False
+		isHandlingWindScale = False
+		isHandlingGustWind = False
 		
 		lines = url.readlines()
 		time = ""
@@ -754,8 +754,8 @@ class WeatherOBS(Forecast):
 		temperature = ""
 		rain = ""
 		windDirection = ""
-		windLevel = ""
-		windStrongestLevel = ""
+		windScale = ""
+		gustWindScale = ""
 		
 		for line in lines:
 			if isHandlingTime is True:
@@ -812,35 +812,35 @@ class WeatherOBS(Forecast):
 					windDirection = line.decode("utf-8")
 				isHandlingWindDirection = False
 			elif line.find("風力") > -1:
-				isHandlingWindLevel = True
-			elif isHandlingWindLevel is True:
+				isHandlingWindScale = True
+			elif isHandlingWindScale is True:
 				line = line.replace("<br />", "")[0:-1]
 				try:
 					if int(line)> 0:
-						windLevel = str(int(line))
+						windScale = str(int(line))
 				except:
 					try:
-						windLevel = line.decode("ascii")
+						windScale = line.decode("ascii")
 					except:
-						windLevel = line.decode("utf-8")
-				isHandlingWindLevel = False
+						windScale = line.decode("utf-8")
+				isHandlingWindScale = False
 			elif line.find("陣風") > -1:
-				isHandlingWindStrongestLevel = True
-			elif isHandlingWindStrongestLevel is True:
+				isHandlingGustWind = True
+			elif isHandlingGustWind is True:
 				line = line.replace("<br />", "")[0:-1]
 				if line == "X":
-					windStrongestLevel = "X"
+					gustWindScale = "X"
 				else:
 					try:
 						if int(line)> 0:
-							windStrongestLevel = str(int(line))
+							gustWindScale = str(int(line))
 					except:
 						try:
-							windStrongestLevel = line.decode("ascii")
+							gustWindScale = line.decode("ascii")
 						except:
-							windStrongestLevel = line.decode("utf-8")
-				isHandlingWindStrongestLevel = False
-				result = {"locationName": locationName, "id": id, "time": time, "description": description, "temperature": temperature, "rain": rain, "windDirection": windDirection, "windLevel": windLevel, "windStrongestLevel": windStrongestLevel}
+							gustWindScale = line.decode("utf-8")
+				isHandlingGustWind = False
+				result = {"locationName": locationName, "id": id, "time": time, "description": description, "temperature": temperature, "rain": rain, "windDirection": windDirection, "windScale": windScale, "gustWindScale": gustWindScale}
 				return result
 		pass
 
@@ -858,8 +858,8 @@ class TestWeatherOBS(unittest.TestCase):
 			self.assertTrue(result["temperature"])
 			self.assertTrue(result["rain"])
 			self.assertTrue(result["windDirection"])
-			self.assertTrue(result["windLevel"])
-			self.assertTrue(result["windStrongestLevel"])
+			self.assertTrue(result["windScale"])
+			self.assertTrue(result["gustWindScale"])
 
 def main():
 	unittest.main()
