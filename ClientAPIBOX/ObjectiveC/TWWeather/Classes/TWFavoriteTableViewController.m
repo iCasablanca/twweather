@@ -62,7 +62,7 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 	self.tableView = aTableView;
 	[self.view addSubview:self.tableView];
 	
-	loadingView = [[TWLoadingView alloc] initWithFrame:CGRectMake(110, 40, 100, 100)];	
+	loadingView = [[TWLoadingView alloc] initWithFrame:CGRectMake(100, 100, 120, 120)];	
 }
 
 - (void)viewDidLoad 
