@@ -1,7 +1,3 @@
-//
-//  TWAPITest.m
-//
-
 #import "TWAPITest.h"
 
 @implementation TWAPITest
@@ -22,6 +18,26 @@
 	while (d = [e nextObject]) {		
 		NSString *identifier = [d valueForKey:@"identifier"];
 		[[TWAPIBox sharedBox] fetchForecastWithLocationIdentifier:identifier delegate:self userInfo:identifier];
+	}
+}
+- (void)testWeek
+{
+	NSArray *locations = [[TWAPIBox sharedBox] weekLocations];
+	NSDictionary *d = nil;
+	NSEnumerator *e = [locations objectEnumerator];
+	while (d = [e nextObject]) {		
+		NSString *identifier = [d valueForKey:@"identifier"];
+		[[TWAPIBox sharedBox] fetchWeekWithLocationIdentifier:identifier delegate:self userInfo:identifier];
+	}
+}
+- (void)testWeekTravel
+{
+	NSArray *locations = [[TWAPIBox sharedBox] weekTravelLocations];
+	NSDictionary *d = nil;
+	NSEnumerator *e = [locations objectEnumerator];
+	while (d = [e nextObject]) {		
+		NSString *identifier = [d valueForKey:@"identifier"];
+		[[TWAPIBox sharedBox] fetchWeekTravelWithLocationIdentifier:identifier delegate:self userInfo:identifier];
 	}
 }
 
@@ -75,9 +91,9 @@
 	STAssertNotNil([d valueForKey:@"id"], @"id is nil!");
 	STAssertNotNil([d valueForKey:@"weekLocation"], @"weekLocation is nil!");
 	STAssertNotNil([d valueForKey:@"items"], @"items object is nil!");
-	NSArray *items = [d objectForKey:@"items"];
+	NSArray *items = [d valueForKey:@"items"];
 	STAssertTrue([items isKindOfClass:[NSArray class]], @"The items array is not an NSArray object!");
-	STAssertTrue([items count] == 3, @"The coount of the items array is not correct! [items count]  = %d", [items count]);
+//	STAssertTrue([items count] == 3, @"The coount of the items array is not correct! [items count]  = %d", [items count]);
 	NSDictionary *dictionary = nil;
 	NSEnumerator *enumerator = [items objectEnumerator];
 	while (dictionary = [enumerator nextObject]) {
@@ -95,6 +111,35 @@
 {
 	STFail(@"%s, %@", __PRETTY_FUNCTION__, [error localizedDescription]);
 }
+- (void)APIBox:(TWAPIBox *)APIBox didFetchWeek:(id)result identifier:(NSString *)identifier userInfo:(id)userInfo
+{
+	NSDictionary *d = (NSDictionary *)result;
+	STAssertNotNil([d valueForKey:@"locationName"], @"locationName is nil!");
+	STAssertNotNil([d valueForKey:@"id"], @"id is nil!");
+	STAssertNotNil([d valueForKey:@"publishTime"], @"publishTime is nil!");
+	STAssertNotNil([d valueForKey:@"items"], @"items object is nil!");
+	NSArray *items = [d valueForKey:@"items"];
+	STAssertTrue([items count] == 7, @"The coount of the items array is not correct! [items count]  = %d", [items count]);
+}
+- (void)APIBox:(TWAPIBox *)APIBox didFailedFetchWeekWithError:(NSError *)error identifier:(NSString *)identifier userInfo:(id)userInfo
+{
+	STFail(@"%s, %@", __PRETTY_FUNCTION__, [error localizedDescription]);
+}
+- (void)APIBox:(TWAPIBox *)APIBox didFetchWeekTravel:(id)result identifier:(NSString *)identifier userInfo:(id)userInfo
+{
+	NSDictionary *d = (NSDictionary *)result;
+	STAssertNotNil([d valueForKey:@"locationName"], @"locationName is nil!");
+	STAssertNotNil([d valueForKey:@"id"], @"id is nil!");
+	STAssertNotNil([d valueForKey:@"publishTime"], @"publishTime is nil!");
+	STAssertNotNil([d valueForKey:@"items"], @"items object is nil!");
+	NSArray *items = [d valueForKey:@"items"];
+	STAssertTrue([items count] == 7, @"The coount of the items array is not correct! [items count]  = %d", [items count]);	
+}
+- (void)APIBox:(TWAPIBox *)APIBox didFailedFetchWeekTravelWithError:(NSError *)error identifier:(NSString *)identifier userInfo:(id)userInfo
+{
+	STFail(@"%s, %@", __PRETTY_FUNCTION__, [error localizedDescription]);
+}
+
 
 
 
