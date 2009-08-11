@@ -78,10 +78,16 @@ class WeatherWarning(object):
 			text = ""
 			for line in lines:
 				if line.find("<") == -1:
+					line = line.rstrip()
 					line = line.replace("  ", "")
 					line = line.replace("　", "")
 					line = line.replace(" ", "")
-					text = text + line
+					if line.find("：") > -1:
+						text = text + line + "\n"
+					elif len(line) == 0:
+						text = text + "\n"
+					else:
+						text = text + line
 			item['text'] = text.decode('utf-8')
 		return warnings
 
@@ -195,16 +201,17 @@ class WeatherForecast(Forecast):
 		isHandlingDescription = False
 		
 		for line in lines:
+			line = line.rstrip()
 			if line.startswith("今") or line.startswith("明"):
-				title = line.replace("<br />", "")[:-1].decode("utf-8")
+				title = line.replace("<br />", "").decode("utf-8")
 				isHandlingTime = True
 			elif line.startswith("降雨機率："):
-				line = line.replace("降雨機率：", "").replace("<br />", "").replace("%", "").replace(" ", "")[0:-1]
+				line = line.replace("降雨機率：", "").replace("<br />", "").replace("%", "").replace(" ", "")
 				rain = line
 				item = {"title":title, "time":time, "beginTime":beginTime, "endTime":endTime, "description":description, "temperature":temperature, "rain":rain}
 				items.append(item)
 			elif line.startswith("溫度"):
-				line = line.replace("溫度(℃)：", "").replace("<br />", "")[0:-1]
+				line = line.replace("溫度(℃)：", "").replace("<br />", "")
 				temperature = line
 			elif isHandlingTime is True:
 				time = line
@@ -223,7 +230,7 @@ class WeatherForecast(Forecast):
 				isHandlingDescription = True
 			elif isHandlingDescription is True:
 				if line.startswith("<br />") is False and len(line) > 2:
-					description = line.replace("<br />", "")[0:-1]
+					description = line.replace("<br />", "")
 					description = description.decode("utf-8")
 					isHandlingDescription = False
 		return {"locationName":locationName, "items":items, "id": id, "weekLocation":weekLocation}
@@ -283,6 +290,7 @@ class WeatherWeek(Forecast):
 		time = ""
 		
 		for line in lines:
+			line = line.rstrip()
 			if isHandlingItems is True and len(line) is 1 and len(items) > 0:
 				break
 			if line.find("發布時間") > -1:
@@ -295,13 +303,13 @@ class WeatherWeek(Forecast):
 				isHandlingItems = True
 				isHandlingTime = True
 			elif isHandlingTemprature is True:
-				temperature = line[:-5].decode("utf-8")
+				temperature = line.replace("</p>", "").decode("utf-8")
 				isHandlingTemprature = False
 				item = {"date": time, "description": description, "temperature": temperature}
 				items.append(item)
 			elif isHandlingTime is True:
-				if line.startswith("<p>"):
-					line = line[3:-7]
+				if line.startswith("<p>") and len(line) > 10:
+					line = line.replace("<p>", "").replace("<br />", "")
 					parts = line.split("　")
 					timeString = parts[0].decode("utf-8")
 					timeParts = timeString.split("/")
@@ -354,8 +362,6 @@ WeatherWeekTravelLocations = [
 	]
 
 class WeatherWeekTravel(WeatherWeek):
-	# def __init__(self):
-	# 	pass
 	def locations(self):
 		return WeatherWeekTravelLocations
 	def fetchWithID(self, name):
@@ -412,11 +418,12 @@ class Weather3DaySea(Forecast):
 		wave = ""
 
 		for line in lines:
+			line = line.rstrip()
 			if didHandlingPublishTime:
 				if line.startswith("<p>"):
 					count = 0
 				if count is 1:
-					line = line[0:-7]
+					line = line.replace("<br />", "")
 					parts = line.split("/")
 					if len(parts) >  1:
 						month = int(parts[0])
@@ -426,20 +433,20 @@ class Weather3DaySea(Forecast):
 							year = year + 1
 						time = date(year, month, day).__str__()
 				elif count is 2:
-					description = line[0:-7].decode("utf-8")
+					description = line.replace("<br />", "").decode("utf-8")
 				elif count is 3:
-					wind = line[0:-7].decode("utf-8")
+					wind = line.replace("<br />", "").decode("utf-8")
 				elif count is 4:
-					windScale = line[0:-7].decode("utf-8")
+					windScale = line.replace("<br />", "").decode("utf-8")
 				elif count is 5:
-					wave = line[0:-7].decode("utf-8")
+					wave = line.replace("<br />", "").decode("utf-8")
 					item = {"date": time, "description": description, "wind": wind, "windScale": windScale, "wave": wave}
 					items.append(item)
 					if len(items) >= 3:
 						break
 				count = count + 1
 			if line.find("發布時間") > -1:
-				line = line[20:-7]
+				line = line[20:].replace("<br />", "")
 				month = int(line[0:2])
 				year = int(date.today().year)
 				if date.today().month == 12 and month == 1:
@@ -515,11 +522,12 @@ class WeatherNearSea(Forecast):
 		waveLevel = ""
 		lineCount = 0
 		for line in lines:
+			line = line.rstrip()
 			if line.find("發布時間:") > -1:
-				line = line[20:-7]
+				line = line[20:].replace("<br />", "")
 				publishTime = self.handleDate(line)
 			elif line.find("有效時間:") > -1:
-				line = line[20:-1]
+				line = line[20:]
 				parts = line.split("~")
 				if len(parts) > 1:
 					validBeginTime = self.handleDate(parts[0])
@@ -538,7 +546,7 @@ class WeatherNearSea(Forecast):
 						"waveLevel": waveLevel
 						}
 					return result
-				line = line.replace("<br />", "")[0:-1].decode("utf-8")
+				line = line.replace("<br />", "").decode("utf-8")
 				if lineCount is 1:
 					description = line
 				elif lineCount is 2:
@@ -603,7 +611,7 @@ class WeatherTide(Forecast):
 	def locations(self):
 		return WeatherTideLocations
 	def handelWave(self, line, theDate):
-		line = line[7:-10]
+		line = line.rstrip()[7:].replace("<br />", "")
 		parts = line.split(" ")
 		if len(parts) > 1:
 			shortTime = parts[0]
@@ -632,18 +640,19 @@ class WeatherTide(Forecast):
 		low = []
 		high = []
 		for line in lines:
+			line = line.rstrip()
 			if isHandlingItem is False and line.startswith("<p>") and line.find("<br />") > -1:
 				isHandlingItem = True
 			if isHandlingItem is True:
 				if line.startswith("<p>") and line.find("<br />") > -1:
-					line = line[3:-7]
+					line = line.replace("<p>", "").replace("<br />", "")
 					year = int(line[0:4])
 					month = int(line[5:7])
 					day = int(line[8:10])
 					theDate = date(year, month, day)
 					time = theDate.__str__()
 				elif line.find("農曆") > -1:
-					lunarTime = line[0:-7].decode("utf-8")
+					lunarTime = line.replace("<br />", "").decode("utf-8")
 				elif line.find("乾潮") > -1:
 					low = self.handelWave(line, theDate)
 				elif line.find("滿潮") > -1:
@@ -762,6 +771,7 @@ class WeatherOBS(Forecast):
 		gustWindScale = ""
 		
 		for line in lines:
+			line = line.rstrip()
 			if isHandlingTime is True:
 				if line.startswith("<") is not True:
 					year = int(line[0:4])
@@ -776,7 +786,7 @@ class WeatherOBS(Forecast):
 			elif line.find("天氣現象") > -1:
 				isHandlingDescription = True
 			elif isHandlingDescription is True:
-				line = line.replace("<br />", "")[0:-1]
+				line = line.replace("<br />", "")
 				if line == "X":
 					description = "X"
 				else:
@@ -788,7 +798,7 @@ class WeatherOBS(Forecast):
 			elif line.find("溫度") > -1:
 				isHandlingTemperature = True
 			elif isHandlingTemperature is True:
-				line = line.replace("<br />", "")[0:-1]
+				line = line.replace("<br />", "")
 				try:
 					temperature = str(float(line))
 				except:
@@ -800,7 +810,7 @@ class WeatherOBS(Forecast):
 			elif line.find("累積雨量") > -1:
 				isHandlingRain = True
 			elif isHandlingRain is True:
-				line = line.replace("<br />", "")[0:-1]
+				line = line.replace("<br />", "")
 				try:
 					rain = str(float(line))
 				except:
@@ -809,7 +819,7 @@ class WeatherOBS(Forecast):
 			elif line.find("風向") > -1:
 				isHandlingWindDirection = True
 			elif isHandlingWindDirection is True:
-				line = line.replace("<br />", "")[0:-1]
+				line = line.replace("<br />", "")
 				try:
 					windDirection = line.decode("ascii")
 				except:
@@ -818,7 +828,7 @@ class WeatherOBS(Forecast):
 			elif line.find("風力") > -1:
 				isHandlingWindScale = True
 			elif isHandlingWindScale is True:
-				line = line.replace("<br />", "")[0:-1]
+				line = line.replace("<br />", "")
 				try:
 					if int(line) > 0:
 						windScale = str(int(line))
@@ -833,7 +843,7 @@ class WeatherOBS(Forecast):
 			elif line.find("陣風") > -1:
 				isHandlingGustWind = True
 			elif isHandlingGustWind is True:
-				line = line.replace("<br />", "")[0:-1]
+				line = line.replace("<br />", "")
 				if line == "X":
 					gustWindScale = "X"
 				else:
