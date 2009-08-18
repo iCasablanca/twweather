@@ -90,20 +90,21 @@ class ForecastController(webapp.RequestHandler):
 		self.model = weather.WeatherForecast()
 		self.key_prefix = "forecast_"
 	def getAll(self):
-		outputtype = self.request.get("output")
 		key = self.key_prefix + "_all"
+		outputtype = self.request.get("output")
 		allItems = memcache.get(key)
 		if allItems is None:
 			allItems = []
 			for location in self.model.locations():
 				id = location['id']
-				key = self.key_prefix + str(id)
-				result = memcache.get(key)
+				key2 = self.key_prefix + str(id)
+				result = memcache.get(key2)
 				if result is None:
 					result = self.model.fetchWithID(id)
 					if result is None:
 						return
 				allItems.append(result)
+				memcache.add(key2, result, 30 * 60)
 			memcache.add(key, allItems, 30 * 60)
 		if outputtype == "json":
 			self.response.headers['Content-Type'] = 'text/plain; charset=utf-8'
