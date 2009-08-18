@@ -195,23 +195,26 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
         cell = [[[TWForecastResultCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
 	NSDictionary *item = [_filteredArray objectAtIndex:indexPath.section];
-	NSDictionary *dictionary = [[item objectForKey:@"items"] objectAtIndex:0];
-	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    cell.title = [dictionary objectForKey:@"title"];
-	cell.description = [dictionary objectForKey:@"description"];
-	cell.rain = [dictionary objectForKey:@"rain"];
-	cell.temperature = [dictionary objectForKey:@"temperature"];
-	NSString *beginTimeString = [dictionary objectForKey:@"beginTime"];
-	NSDate *beginDate = [[TWAPIBox sharedBox] dateFromString:beginTimeString];
-	cell.beginTime = [[TWAPIBox sharedBox] shortDateTimeStringFromDate:beginDate];
-	NSString *endTimeString = [dictionary objectForKey:@"endTime"];
-	NSDate *endDate = [[TWAPIBox sharedBox] dateFromString:endTimeString];
-	cell.endTime = [[TWAPIBox sharedBox] shortDateTimeStringFromDate:endDate];
 	
-	NSString *imageString = [[TWWeatherAppDelegate sharedDelegate] imageNameWithTimeTitle:cell.title description:cell.description ];
-	cell.weatherImage = [UIImage imageNamed:imageString];
-	
-	[cell setNeedsDisplay];
+	if ([item isKindOfClass:[NSDictionary class]]) {
+		NSDictionary *dictionary = [[item objectForKey:@"items"] objectAtIndex:0];
+		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+		cell.title = [dictionary objectForKey:@"title"];
+		cell.description = [dictionary objectForKey:@"description"];
+		cell.rain = [dictionary objectForKey:@"rain"];
+		cell.temperature = [dictionary objectForKey:@"temperature"];
+		NSString *beginTimeString = [dictionary objectForKey:@"beginTime"];
+		NSDate *beginDate = [[TWAPIBox sharedBox] dateFromString:beginTimeString];
+		cell.beginTime = [[TWAPIBox sharedBox] shortDateTimeStringFromDate:beginDate];
+		NSString *endTimeString = [dictionary objectForKey:@"endTime"];
+		NSDate *endDate = [[TWAPIBox sharedBox] dateFromString:endTimeString];
+		cell.endTime = [[TWAPIBox sharedBox] shortDateTimeStringFromDate:endDate];
+		
+		NSString *imageString = [[TWWeatherAppDelegate sharedDelegate] imageNameWithTimeTitle:cell.title description:cell.description ];
+		cell.weatherImage = [UIImage imageNamed:imageString];
+		
+		[cell setNeedsDisplay];
+	}
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
