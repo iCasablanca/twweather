@@ -9,5 +9,8 @@
 - (void)testForecasts;
 - (void)testWeek;
 - (void)testWeekTravel;
+- (void)testThreeDaySee;
+- (void)testNearSee;
+- (void)testTide;
 
 @end

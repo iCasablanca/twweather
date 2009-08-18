@@ -40,6 +40,36 @@
 		[[TWAPIBox sharedBox] fetchWeekTravelWithLocationIdentifier:identifier delegate:self userInfo:identifier];
 	}
 }
+- (void)testThreeDaySee
+{
+	NSArray *locations = [[TWAPIBox sharedBox] threeDaySeaLocations];
+	NSDictionary *d = nil;
+	NSEnumerator *e = [locations objectEnumerator];
+	while (d = [e nextObject]) {		
+		NSString *identifier = [d valueForKey:@"identifier"];
+		[[TWAPIBox sharedBox] fetchThreeDaySeaWithLocationIdentifier:identifier delegate:self userInfo:identifier];
+	}
+}
+- (void)testNearSee
+{
+	NSArray *locations = [[TWAPIBox sharedBox] nearSeaLocations];
+	NSDictionary *d = nil;
+	NSEnumerator *e = [locations objectEnumerator];
+	while (d = [e nextObject]) {		
+		NSString *identifier = [d valueForKey:@"identifier"];
+		[[TWAPIBox sharedBox] fetchNearSeaWithLocationIdentifier:identifier delegate:self userInfo:identifier];
+	}
+}
+- (void)testTide
+{
+	NSArray *locations = [[TWAPIBox sharedBox] tideLocations];
+	NSDictionary *d = nil;
+	NSEnumerator *e = [locations objectEnumerator];
+	while (d = [e nextObject]) {		
+		NSString *identifier = [d valueForKey:@"identifier"];
+		[[TWAPIBox sharedBox] fetchTideWithLocationIdentifier:identifier delegate:self userInfo:identifier];
+	}
+}
 
 #pragma mark -
 
@@ -77,6 +107,20 @@
 		STAssertNotNil([d valueForKey:@"items"], @"items object is nil!");
 		NSArray *items = [d valueForKey:@"items"];
 		STAssertTrue([items isKindOfClass:[NSArray class]], @"The items array is not an NSArray object!");
+		STAssertTrue([items count] == 3, @"The coount of the items array is not correct! [items count]  = %d", [items count]);
+		NSDictionary *dictionary = nil;
+		NSEnumerator *enumerator = [items objectEnumerator];
+		while (dictionary = [enumerator nextObject]) {
+			STAssertTrue([dictionary isKindOfClass:[NSDictionary class]], @"The item is not an NSDictionary object!");
+			STAssertNotNil(dictionary, @"title is nil!");
+			STAssertNotNil([dictionary valueForKey:@"title"], @"title is nil!");
+			STAssertNotNil([dictionary valueForKey:@"time"], @"time is nil!");
+			STAssertNotNil([dictionary valueForKey:@"beginTime"], @"beginTime is nil!");
+			STAssertNotNil([dictionary valueForKey:@"endTime"], @"endTime is nil!");
+			STAssertNotNil([dictionary valueForKey:@"description"], @"description is nil!");
+			STAssertNotNil([dictionary valueForKey:@"temperature"], @"temperature is nil!");
+			STAssertNotNil([dictionary valueForKey:@"rain"], @"rain is nil!");			
+		}
 	}
 }
 - (void)APIBox:(TWAPIBox *)APIBox didFailedFetchAllForecastsWithError:(NSError *)error
@@ -93,10 +137,11 @@
 	STAssertNotNil([d valueForKey:@"items"], @"items object is nil!");
 	NSArray *items = [d valueForKey:@"items"];
 	STAssertTrue([items isKindOfClass:[NSArray class]], @"The items array is not an NSArray object!");
-//	STAssertTrue([items count] == 3, @"The coount of the items array is not correct! [items count]  = %d", [items count]);
+	STAssertTrue([items count] == 3, @"The coount of the items array is not correct! [items count]  = %d", [items count]);
 	NSDictionary *dictionary = nil;
 	NSEnumerator *enumerator = [items objectEnumerator];
 	while (dictionary = [enumerator nextObject]) {
+		STAssertTrue([dictionary isKindOfClass:[NSDictionary class]], @"The item is not an NSDictionary object!");
 		STAssertNotNil(dictionary, @"title is nil!");
 		STAssertNotNil([dictionary valueForKey:@"title"], @"title is nil!");
 		STAssertNotNil([dictionary valueForKey:@"time"], @"time is nil!");
@@ -114,6 +159,7 @@
 - (void)APIBox:(TWAPIBox *)APIBox didFetchWeek:(id)result identifier:(NSString *)identifier userInfo:(id)userInfo
 {
 	NSDictionary *d = (NSDictionary *)result;
+	STAssertTrue([d isKindOfClass:[NSDictionary class]], @"The item is not an NSDictionary object!");
 	STAssertNotNil([d valueForKey:@"locationName"], @"locationName is nil!");
 	STAssertNotNil([d valueForKey:@"id"], @"id is nil!");
 	STAssertNotNil([d valueForKey:@"publishTime"], @"publishTime is nil!");
@@ -128,6 +174,7 @@
 - (void)APIBox:(TWAPIBox *)APIBox didFetchWeekTravel:(id)result identifier:(NSString *)identifier userInfo:(id)userInfo
 {
 	NSDictionary *d = (NSDictionary *)result;
+	STAssertTrue([d isKindOfClass:[NSDictionary class]], @"The item is not an NSDictionary object!");
 	STAssertNotNil([d valueForKey:@"locationName"], @"locationName is nil!");
 	STAssertNotNil([d valueForKey:@"id"], @"id is nil!");
 	STAssertNotNil([d valueForKey:@"publishTime"], @"publishTime is nil!");
@@ -139,7 +186,81 @@
 {
 	STFail(@"%s, %@", __PRETTY_FUNCTION__, [error localizedDescription]);
 }
-
+- (void)APIBox:(TWAPIBox *)APIBox didFetchThreeDaySea:(id)result identifier:(NSString *)identifier userInfo:(id)userInfo
+{
+	NSDictionary *d = (NSDictionary *)result;
+	STAssertTrue([d isKindOfClass:[NSDictionary class]], @"The item is not an NSDictionary object!");
+	STAssertNotNil([d valueForKey:@"locationName"], @"locationName is nil!");
+	STAssertNotNil([d valueForKey:@"id"], @"id is nil!");
+	STAssertNotNil([d valueForKey:@"publishTime"], @"publishTime is nil!");
+	STAssertNotNil([d valueForKey:@"items"], @"items object is nil!");
+	NSArray *items = [d valueForKey:@"items"];
+	STAssertTrue([items count] == 3, @"The coount of the items array is not correct! [items count]  = %d", [items count]);	
+	NSDictionary *dictionary = nil;
+	NSEnumerator *enumerator = [items objectEnumerator];
+	while (dictionary = [enumerator nextObject]) {
+		STAssertNotNil([dictionary valueForKey:@"date"], @"date is nil!");
+		STAssertNotNil([dictionary valueForKey:@"description"], @"description is nil!");
+		STAssertNotNil([dictionary valueForKey:@"wave"], @"wave is nil!");
+		STAssertNotNil([dictionary valueForKey:@"wind"], @"wind is nil!");
+		STAssertNotNil([dictionary valueForKey:@"windScale"], @"windScale is nil!");
+	}
+}
+- (void)APIBox:(TWAPIBox *)APIBox didFailedFetchThreeDaySeaWithError:(NSError *)error identifier:(NSString *)identifier userInfo:(id)userInfo
+{
+	STFail(@"%s, %@", __PRETTY_FUNCTION__, [error localizedDescription]);
+}
+- (void)APIBox:(TWAPIBox *)APIBox didFetchNearSea:(id)result identifier:(NSString *)identifier userInfo:(id)userInfo
+{
+	NSDictionary *d = (NSDictionary *)result;
+	STAssertTrue([d isKindOfClass:[NSDictionary class]], @"The item is not an NSDictionary object!");
+	STAssertNotNil([d valueForKey:@"locationName"], @"locationName is nil!");
+	STAssertNotNil([d valueForKey:@"id"], @"id is nil!");
+	STAssertNotNil([d valueForKey:@"description"], @"description is nil!");
+	STAssertNotNil([d valueForKey:@"publishTime"], @"publishTime is nil!");	
+	STAssertNotNil([d valueForKey:@"validBeginTime"], @"validBeginTime is nil!");
+	STAssertNotNil([d valueForKey:@"validEndTime"], @"validEndTime is nil!");
+	STAssertNotNil([d valueForKey:@"validTime"], @"validTime is nil!");
+	STAssertNotNil([d valueForKey:@"wave"], @"wave is nil!");
+	STAssertNotNil([d valueForKey:@"waveLevel"], @"waveLevel is nil!");
+	STAssertNotNil([d valueForKey:@"wind"], @"wind is nil!");
+	STAssertNotNil([d valueForKey:@"windScale"], @"windScale is nil!");
+}
+- (void)APIBox:(TWAPIBox *)APIBox didFailedFetchNearSeaWithError:(NSError *)error identifier:(NSString *)identifier userInfo:(id)userInfo
+{
+	STFail(@"%s, %@", __PRETTY_FUNCTION__, [error localizedDescription]);
+}
+- (void)APIBox:(TWAPIBox *)APIBox didFetchTide:(id)result identifier:(NSString *)identifier userInfo:(id)userInfo
+{
+	NSDictionary *d = (NSDictionary *)result;
+	STAssertTrue([d isKindOfClass:[NSDictionary class]], @"The item is not an NSDictionary object!");
+	STAssertNotNil([d valueForKey:@"locationName"], @"locationName is nil!");
+	STAssertNotNil([d valueForKey:@"id"], @"id is nil!");
+	STAssertNotNil([d valueForKey:@"publishTime"], @"publishTime is nil!");
+	STAssertNotNil([d valueForKey:@"items"], @"items object is nil!");
+	NSArray *items = [d valueForKey:@"items"];
+	STAssertTrue([items count] == 3, @"The coount of the items array is not correct! [items count]  = %d", [items count]);	
+	NSDictionary *dictionary = nil;
+	NSEnumerator *enumerator = [items objectEnumerator];
+	while (dictionary = [enumerator nextObject]) {
+		STAssertNotNil([dictionary valueForKey:@"date"], @"date is nil!");
+		STAssertNotNil([dictionary valueForKey:@"lunarDate"], @"lunarDate is nil!");
+		STAssertNotNil([dictionary valueForKey:@"high"], @"high is nil!");
+		NSDictionary *high = [dictionary valueForKey:@"high"];
+		STAssertNotNil([high valueForKey:@"height"], @"height is nil!");
+		STAssertNotNil([high valueForKey:@"longTime"], @"longTime is nil!");
+		STAssertNotNil([high valueForKey:@"shortTime"], @"shortTime is nil!");
+		STAssertNotNil([dictionary valueForKey:@"low"], @"low is nil!");
+		NSDictionary *low = [dictionary valueForKey:@"low"];
+		STAssertNotNil([low valueForKey:@"height"], @"height is nil!");
+		STAssertNotNil([low valueForKey:@"longTime"], @"longTime is nil!");
+		STAssertNotNil([low valueForKey:@"shortTime"], @"shortTime is nil!");		
+	}
+}
+- (void)APIBox:(TWAPIBox *)APIBox didFailedFetchTideWithError:(NSError *)error identifier:(NSString *)identifier userInfo:(id)userInfo
+{
+	STFail(@"%s, %@", __PRETTY_FUNCTION__, [error localizedDescription]);
+}
 
 
 
