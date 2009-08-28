@@ -50,7 +50,6 @@ WeatherNearSeaURL = "http://www.cwb.gov.tw/mobile/nearsea/nearsea%(#)d.wml"
 WeatherTideURL = "http://www.cwb.gov.tw/mobile/tide/area%(#)d.wml"
 WeatherOBSURL = "http://www.cwb.gov.tw/mobile/obs/%(location)s.wml"
 
-
 class WeatherWarning(object):
 	def __init__(self):
 		pass
@@ -95,8 +94,10 @@ class WeatherWarning(object):
 class TestWeatherWarning(unittest.TestCase):
 	def setUp(self):
 		self.warnings = WeatherWarning()
-	def testOverview(self):
+	def testWarning(self):
 		result = self.warnings.fetch()
+		# It is ok to fail here, since there might not be always
+		# warnings.
 		self.assertTrue(result)
 
 class WeatherOverview(object):
@@ -638,8 +639,8 @@ class WeatherTide(Forecast):
 		time = ""
 		lunarTime = ""
 		isHandlingItem = False
-		low = []
-		high = []
+		low = {"longTime": "", "shortTime": "", "height": ""}
+		high = {"longTime": "", "shortTime": "", "height": ""}
 		for line in lines:
 			line = line.rstrip()
 			if isHandlingItem is False and line.startswith("<p>") and line.find("<br />") > -1:
