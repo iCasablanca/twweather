@@ -48,7 +48,8 @@ class WarningController(webapp.RequestHandler):
 		warnings = memcache.get("warnings")
 		if warnings is None:
 			warnings = self.model.fetch()
-			memcache.add("warnings", warnings, 30 * 60)
+			if warnings != None:
+				memcache.add("warnings", warnings, 30 * 60)
 		if warnings is None:
 			return
 		if outputtype == "json":
@@ -72,7 +73,8 @@ class OverviewController(webapp.RequestHandler):
 			if text is None:
 				self.overview.fetch()
 				text = self.overview.plain
-			memcache.add("overview_plain", text, 30 * 60)
+			if text != None:
+				memcache.add("overview_plain", text, 30 * 60)
 			self.response.headers['Content-Type'] = 'text/plain; charset=utf-8'
 			self.response.out.write(text)
 		else:
@@ -90,8 +92,7 @@ class ForecastController(webapp.RequestHandler):
 		self.model = weather.WeatherForecast()
 		self.key_prefix = "forecast_"
 	def getAll(self):
-		key = self.key_prefix + "_all"
-		outputtype = self.request.get("output")
+		key = self.key_prefix + "all"
 		allItems = memcache.get(key)
 		if allItems is None:
 			allItems = []
@@ -106,6 +107,7 @@ class ForecastController(webapp.RequestHandler):
 				allItems.append(result)
 				memcache.add(key2, result, 30 * 60)
 			memcache.add(key, allItems, 30 * 60)
+		outputtype = self.request.get("output")
 		if outputtype == "json":
 			self.response.headers['Content-Type'] = 'text/plain; charset=utf-8'
 			jsonText = json.write({"result":allItems})

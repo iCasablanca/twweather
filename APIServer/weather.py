@@ -50,6 +50,7 @@ WeatherNearSeaURL = "http://www.cwb.gov.tw/mobile/nearsea/nearsea%(#)d.wml"
 WeatherTideURL = "http://www.cwb.gov.tw/mobile/tide/area%(#)d.wml"
 WeatherOBSURL = "http://www.cwb.gov.tw/mobile/obs/%(location)s.wml"
 
+
 class WeatherWarning(object):
 	def __init__(self):
 		pass
@@ -238,7 +239,7 @@ class WeatherForecast(Forecast):
 class TestWeatherForecast(unittest.TestCase):
 	def setUp(self):
 		self.forecest = WeatherForecast()
-	def testForetest(self):
+	def testForecast(self):
 		for i in range(1, 23):
 			result = self.forecest.fetchWithID(i)
 			self.assertTrue(result['locationName'])
@@ -335,7 +336,7 @@ class WeatherWeek(Forecast):
 class TestWeatherWeek(unittest.TestCase):
 	def setUp(self):
 		self.week = WeatherWeek()
-	def testForetest(self):
+	def testForecast(self):
 		for item in self.week.locations():
 			locationName = item['id']
 			items = self.week.fetchWithID(locationName)
@@ -459,7 +460,7 @@ class Weather3DaySea(Forecast):
 class TestWeather3DaySea(unittest.TestCase):
 	def setUp(self):
 		self.sea = Weather3DaySea()
-	def testForetest(self):
+	def testForecast(self):
 		for i in range(1, 15):
 			result = self.sea.fetchWithID(i)
 			self.assertTrue(result)
@@ -563,7 +564,7 @@ class WeatherNearSea(Forecast):
 class TestWeatherNearSea(unittest.TestCase):
 	def setUp(self):
 		self.model = WeatherNearSea()
-	def testForetest(self):
+	def testForecast(self):
 		for i in range(1, 16):
 			result = self.model.fetchWithID(i)
 			self.assertTrue(result)
@@ -667,7 +668,7 @@ class WeatherTide(Forecast):
 class TestWeatherTide(unittest.TestCase):
 	def setUp(self):
 		self.model = WeatherTide()
-	def testForetest(self):
+	def testForecast(self):
 		for i in range(1, 26):
 			result = self.model.fetchWithID(i)
 			self.assertEqual(int(len(result['items'])), 3)
@@ -816,7 +817,7 @@ class WeatherOBS(Forecast):
 				except:
 					rain = line.decode("utf-8")
 				isHandlingRain = False
-			elif line.find("風向") > -1:
+			elif isHandlingWindDirection == False and line.find("風向") > -1:
 				isHandlingWindDirection = True
 			elif isHandlingWindDirection is True:
 				line = line.replace("<br />", "")
@@ -863,7 +864,7 @@ class WeatherOBS(Forecast):
 class TestWeatherOBS(unittest.TestCase):
 	def setUp(self):
 		self.model = WeatherOBS()
-	def testForetest(self):
+	def testForecast(self):
 		for item in self.model.locations():
 			result = self.model.fetchWithID(item['id'])
 			self.assertTrue(result)
