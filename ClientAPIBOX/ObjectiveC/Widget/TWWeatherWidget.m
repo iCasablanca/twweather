@@ -38,6 +38,7 @@
 
 + (NSString *)webScriptNameForSelector:(SEL)selector
 {
+	NSString *selName = NSStringFromSelector(selector);
 	return selName;
 }
 

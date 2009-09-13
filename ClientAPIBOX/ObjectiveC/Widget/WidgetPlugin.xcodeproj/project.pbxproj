@@ -22,7 +22,6 @@
 
 /* Begin PBXFileReference section */
 		089C167EFE841241C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		0AA1909FFE8422F4C02AAC07 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = /System/Library/Frameworks/CoreFoundation.framework; sourceTree = "<absolute>"; };
 		8D576316048677EA00EA77CD /* WidgetPlugin.widgetplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WidgetPlugin.widgetplugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D576317048677EA00EA77CD /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D4AFE35C105C83810044A356 /* TWAPIBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TWAPIBox.h; path = ../TWAPIBox/TWAPIBox.h; sourceTree = SOURCE_ROOT; };
@@ -69,8 +68,6 @@
 				089C167CFE841241C02AAC07 /* Resources */,
 				089C1671FE841209C02AAC07 /* External Frameworks and Libraries */,
 				19C28FB6FE9D52B211CA2CBB /* Products */,
-				D4AFE3DC105C85C20044A356 /* Cocoa.framework */,
-				D4AFE3E5105C85E30044A356 /* SystemConfiguration.framework */,
 			);
 			name = WeatherWidget;
 			sourceTree = "<group>";
@@ -78,7 +75,8 @@
 		089C1671FE841209C02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				0AA1909FFE8422F4C02AAC07 /* CoreFoundation.framework */,
+				D4AFE3DC105C85C20044A356 /* Cocoa.framework */,
+				D4AFE3E5105C85E30044A356 /* SystemConfiguration.framework */,
 			);
 			name = "External Frameworks and Libraries";
 			sourceTree = "<group>";
@@ -236,8 +234,10 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "WIDGET=1";
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				OTHER_CFLAGS = "";
 				PRODUCT_NAME = WidgetPlugin;
+				SDKROOT = macosx10.5;
 				WRAPPER_EXTENSION = widgetplugin;
 			};
 			name = Debug;
@@ -251,9 +251,10 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "WIDGET=1";
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				OTHER_CFLAGS = "";
 				PRODUCT_NAME = WidgetPlugin;
+				SDKROOT = macosx10.5;
 				WRAPPER_EXTENSION = widgetplugin;
 			};
 			name = Release;
