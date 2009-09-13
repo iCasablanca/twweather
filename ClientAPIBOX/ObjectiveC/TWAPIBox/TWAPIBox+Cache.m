@@ -32,9 +32,16 @@
 
 - (NSString *)cacheFolderPath
 {
+	
+#ifdef WIDGET
+	NSArray *docPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+	NSString *docPath = [docPaths objectAtIndex:0];
+	NSString *cachePath = [docPath stringByAppendingPathComponent:@"net.zonble.twweather.widget"];	
+#else
 	NSArray *docPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *docPath = [docPaths objectAtIndex:0];
-	NSString *cachePath = [docPath stringByAppendingPathComponent:@"cache"];
+	NSString *cachePath = [docPath stringByAppendingPathComponent:@"cache"];	
+#endif
 	BOOL isDir = NO;
 	if (![[NSFileManager defaultManager] fileExistsAtPath:cachePath isDirectory:&isDir]) {
 		[[NSFileManager defaultManager] createDirectoryAtPath:cachePath attributes:nil];

@@ -1,0 +1,311 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8D5B49A804867FD3000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8D5B49A704867FD3000E48DA /* InfoPlist.strings */; };
+		D4AFE364105C83810044A356 /* TWAPIBox.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AFE35D105C83810044A356 /* TWAPIBox.m */; };
+		D4AFE365105C83810044A356 /* TWAPIBox+Cache.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AFE35F105C83810044A356 /* TWAPIBox+Cache.m */; };
+		D4AFE366105C83810044A356 /* TWAPIBox+Info.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AFE361105C83810044A356 /* TWAPIBox+Info.m */; };
+		D4AFE367105C83810044A356 /* TWAPIBox+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AFE363105C83810044A356 /* TWAPIBox+Private.m */; };
+		D4AFE3B5105C85200044A356 /* LFHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AFE3AF105C85200044A356 /* LFHTTPRequest.m */; };
+		D4AFE3B7105C85200044A356 /* NSData+LFHTTPFormExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AFE3B4105C85200044A356 /* NSData+LFHTTPFormExtensions.m */; };
+		D4AFE3CA105C85420044A356 /* CocoaCryptoHashing.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AFE3C9105C85420044A356 /* CocoaCryptoHashing.m */; };
+		D4AFE3DD105C85C20044A356 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4AFE3DC105C85C20044A356 /* Cocoa.framework */; };
+		D4AFE3E6105C85E30044A356 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4AFE3E5105C85E30044A356 /* SystemConfiguration.framework */; };
+		D4AFE3F3105C86D60044A356 /* TWWeatherWidget.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AFE3F2105C86D60044A356 /* TWWeatherWidget.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		089C167EFE841241C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0AA1909FFE8422F4C02AAC07 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = /System/Library/Frameworks/CoreFoundation.framework; sourceTree = "<absolute>"; };
+		8D576316048677EA00EA77CD /* WidgetPlugin.widgetplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WidgetPlugin.widgetplugin; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D576317048677EA00EA77CD /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D4AFE35C105C83810044A356 /* TWAPIBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TWAPIBox.h; path = ../TWAPIBox/TWAPIBox.h; sourceTree = SOURCE_ROOT; };
+		D4AFE35D105C83810044A356 /* TWAPIBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TWAPIBox.m; path = ../TWAPIBox/TWAPIBox.m; sourceTree = SOURCE_ROOT; };
+		D4AFE35E105C83810044A356 /* TWAPIBox+Cache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TWAPIBox+Cache.h"; path = "../TWAPIBox/TWAPIBox+Cache.h"; sourceTree = SOURCE_ROOT; };
+		D4AFE35F105C83810044A356 /* TWAPIBox+Cache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TWAPIBox+Cache.m"; path = "../TWAPIBox/TWAPIBox+Cache.m"; sourceTree = SOURCE_ROOT; };
+		D4AFE360105C83810044A356 /* TWAPIBox+Info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TWAPIBox+Info.h"; path = "../TWAPIBox/TWAPIBox+Info.h"; sourceTree = SOURCE_ROOT; };
+		D4AFE361105C83810044A356 /* TWAPIBox+Info.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TWAPIBox+Info.m"; path = "../TWAPIBox/TWAPIBox+Info.m"; sourceTree = SOURCE_ROOT; };
+		D4AFE362105C83810044A356 /* TWAPIBox+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TWAPIBox+Private.h"; path = "../TWAPIBox/TWAPIBox+Private.h"; sourceTree = SOURCE_ROOT; };
+		D4AFE363105C83810044A356 /* TWAPIBox+Private.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TWAPIBox+Private.m"; path = "../TWAPIBox/TWAPIBox+Private.m"; sourceTree = SOURCE_ROOT; };
+		D4AFE3AE105C85200044A356 /* LFHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFHTTPRequest.h; path = ../External/LFWebAPIKit/LFHTTPRequest.h; sourceTree = SOURCE_ROOT; };
+		D4AFE3AF105C85200044A356 /* LFHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFHTTPRequest.m; path = ../External/LFWebAPIKit/LFHTTPRequest.m; sourceTree = SOURCE_ROOT; };
+		D4AFE3B2105C85200044A356 /* LFWebAPIKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFWebAPIKit.h; path = ../External/LFWebAPIKit/LFWebAPIKit.h; sourceTree = SOURCE_ROOT; };
+		D4AFE3B3105C85200044A356 /* NSData+LFHTTPFormExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+LFHTTPFormExtensions.h"; path = "../External/LFWebAPIKit/NSData+LFHTTPFormExtensions.h"; sourceTree = SOURCE_ROOT; };
+		D4AFE3B4105C85200044A356 /* NSData+LFHTTPFormExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+LFHTTPFormExtensions.m"; path = "../External/LFWebAPIKit/NSData+LFHTTPFormExtensions.m"; sourceTree = SOURCE_ROOT; };
+		D4AFE3C8105C85420044A356 /* CocoaCryptoHashing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CocoaCryptoHashing.h; path = ../External/cocoa_crypto_hashing/CocoaCryptoHashing.h; sourceTree = SOURCE_ROOT; };
+		D4AFE3C9105C85420044A356 /* CocoaCryptoHashing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CocoaCryptoHashing.m; path = ../External/cocoa_crypto_hashing/CocoaCryptoHashing.m; sourceTree = SOURCE_ROOT; };
+		D4AFE3DC105C85C20044A356 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		D4AFE3E5105C85E30044A356 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		D4AFE3F1105C86D60044A356 /* TWWeatherWidget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWWeatherWidget.h; sourceTree = "<group>"; };
+		D4AFE3F2105C86D60044A356 /* TWWeatherWidget.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWWeatherWidget.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D576313048677EA00EA77CD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4AFE3DD105C85C20044A356 /* Cocoa.framework in Frameworks */,
+				D4AFE3E6105C85E30044A356 /* SystemConfiguration.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		089C166AFE841209C02AAC07 /* WeatherWidget */ = {
+			isa = PBXGroup;
+			children = (
+				D4AFE3ED105C86830044A356 /* Source */,
+				D4AFE3C4105C85300044A356 /* Cocoa Crypto Hash */,
+				D4AFE3AA105C85150044A356 /* LFWebAPI */,
+				08FB77AFFE84173DC02AAC07 /* APIBOX */,
+				089C167CFE841241C02AAC07 /* Resources */,
+				089C1671FE841209C02AAC07 /* External Frameworks and Libraries */,
+				19C28FB6FE9D52B211CA2CBB /* Products */,
+				D4AFE3DC105C85C20044A356 /* Cocoa.framework */,
+				D4AFE3E5105C85E30044A356 /* SystemConfiguration.framework */,
+			);
+			name = WeatherWidget;
+			sourceTree = "<group>";
+		};
+		089C1671FE841209C02AAC07 /* External Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				0AA1909FFE8422F4C02AAC07 /* CoreFoundation.framework */,
+			);
+			name = "External Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		089C167CFE841241C02AAC07 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8D576317048677EA00EA77CD /* Info.plist */,
+				8D5B49A704867FD3000E48DA /* InfoPlist.strings */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		08FB77AFFE84173DC02AAC07 /* APIBOX */ = {
+			isa = PBXGroup;
+			children = (
+				D4AFE35C105C83810044A356 /* TWAPIBox.h */,
+				D4AFE35D105C83810044A356 /* TWAPIBox.m */,
+				D4AFE35E105C83810044A356 /* TWAPIBox+Cache.h */,
+				D4AFE35F105C83810044A356 /* TWAPIBox+Cache.m */,
+				D4AFE360105C83810044A356 /* TWAPIBox+Info.h */,
+				D4AFE361105C83810044A356 /* TWAPIBox+Info.m */,
+				D4AFE362105C83810044A356 /* TWAPIBox+Private.h */,
+				D4AFE363105C83810044A356 /* TWAPIBox+Private.m */,
+			);
+			name = APIBOX;
+			sourceTree = "<group>";
+		};
+		19C28FB6FE9D52B211CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D576316048677EA00EA77CD /* WidgetPlugin.widgetplugin */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D4AFE3AA105C85150044A356 /* LFWebAPI */ = {
+			isa = PBXGroup;
+			children = (
+				D4AFE3AE105C85200044A356 /* LFHTTPRequest.h */,
+				D4AFE3AF105C85200044A356 /* LFHTTPRequest.m */,
+				D4AFE3B2105C85200044A356 /* LFWebAPIKit.h */,
+				D4AFE3B3105C85200044A356 /* NSData+LFHTTPFormExtensions.h */,
+				D4AFE3B4105C85200044A356 /* NSData+LFHTTPFormExtensions.m */,
+			);
+			name = LFWebAPI;
+			sourceTree = "<group>";
+		};
+		D4AFE3C4105C85300044A356 /* Cocoa Crypto Hash */ = {
+			isa = PBXGroup;
+			children = (
+				D4AFE3C8105C85420044A356 /* CocoaCryptoHashing.h */,
+				D4AFE3C9105C85420044A356 /* CocoaCryptoHashing.m */,
+			);
+			name = "Cocoa Crypto Hash";
+			sourceTree = "<group>";
+		};
+		D4AFE3ED105C86830044A356 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				D4AFE3F1105C86D60044A356 /* TWWeatherWidget.h */,
+				D4AFE3F2105C86D60044A356 /* TWWeatherWidget.m */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D57630D048677EA00EA77CD /* WidgetPlugin */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB911A08733D790010E9CD /* Build configuration list for PBXNativeTarget "WidgetPlugin" */;
+			buildPhases = (
+				8D57630F048677EA00EA77CD /* Resources */,
+				8D576311048677EA00EA77CD /* Sources */,
+				8D576313048677EA00EA77CD /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WidgetPlugin;
+			productInstallPath = "$(HOME)/Library/Bundles";
+			productName = WeatherWidget;
+			productReference = 8D576316048677EA00EA77CD /* WidgetPlugin.widgetplugin */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		089C1669FE841209C02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB911E08733D790010E9CD /* Build configuration list for PBXProject "WidgetPlugin" */;
+			compatibilityVersion = "Xcode 3.1";
+			hasScannedForEncodings = 1;
+			mainGroup = 089C166AFE841209C02AAC07 /* WeatherWidget */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D57630D048677EA00EA77CD /* WidgetPlugin */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D57630F048677EA00EA77CD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D5B49A804867FD3000E48DA /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D576311048677EA00EA77CD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4AFE364105C83810044A356 /* TWAPIBox.m in Sources */,
+				D4AFE365105C83810044A356 /* TWAPIBox+Cache.m in Sources */,
+				D4AFE366105C83810044A356 /* TWAPIBox+Info.m in Sources */,
+				D4AFE367105C83810044A356 /* TWAPIBox+Private.m in Sources */,
+				D4AFE3B5105C85200044A356 /* LFHTTPRequest.m in Sources */,
+				D4AFE3B7105C85200044A356 /* NSData+LFHTTPFormExtensions.m in Sources */,
+				D4AFE3CA105C85420044A356 /* CocoaCryptoHashing.m in Sources */,
+				D4AFE3F3105C86D60044A356 /* TWWeatherWidget.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		8D5B49A704867FD3000E48DA /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				089C167EFE841241C02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB911B08733D790010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "WIDGET=1";
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Library/Bundles";
+				OTHER_CFLAGS = "";
+				PRODUCT_NAME = WidgetPlugin;
+				WRAPPER_EXTENSION = widgetplugin;
+			};
+			name = Debug;
+		};
+		1DEB911C08733D790010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_MODEL_TUNING = G5;
+				GCC_PREPROCESSOR_DEFINITIONS = "WIDGET=1";
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Library/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				OTHER_CFLAGS = "";
+				PRODUCT_NAME = WidgetPlugin;
+				WRAPPER_EXTENSION = widgetplugin;
+			};
+			name = Release;
+		};
+		1DEB911F08733D790010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.5;
+			};
+			name = Debug;
+		};
+		1DEB912008733D790010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.5;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB911A08733D790010E9CD /* Build configuration list for PBXNativeTarget "WidgetPlugin" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB911B08733D790010E9CD /* Debug */,
+				1DEB911C08733D790010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB911E08733D790010E9CD /* Build configuration list for PBXProject "WidgetPlugin" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB911F08733D790010E9CD /* Debug */,
+				1DEB912008733D790010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 089C1669FE841209C02AAC07 /* Project object */;
+}
