@@ -28,6 +28,12 @@
 {
     [webScriptObject setValue:self forKey:@"WeatherPlugin"];
 }
+
+- (NSArray *)locations
+{
+	return [[TWAPIBox sharedBox] forecastLocations];
+}
+
 #pragma mark -
 #pragma mark WebScripting
 

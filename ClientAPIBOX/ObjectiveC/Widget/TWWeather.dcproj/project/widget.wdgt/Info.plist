@@ -7,7 +7,7 @@
 	<key>CFBundleDisplayName</key>
 	<string>Untitled</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.zonble.widget.Untitled</string>
+	<string>net.zonble.widget.twweather</string>
 	<key>CFBundleName</key>
 	<string>Untitled</string>
 	<key>CFBundleShortVersionString</key>
@@ -22,6 +22,8 @@
 	<integer>150</integer>
 	<key>MainHTML</key>
 	<string>main.html</string>
+	<key>Plugin</key>
+	<string>WidgetPlugin.widgetplugin</string>
 	<key>Width</key>
 	<integer>336</integer>
 </dict>

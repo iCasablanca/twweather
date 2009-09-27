@@ -165,7 +165,7 @@
 	[self addToArray:_tideLocations name:"南灣" identifier:@"17"];
 	[self addToArray:_tideLocations name:"澎湖" identifier:@"18"];
 	[self addToArray:_tideLocations name:"蘇澳" identifier:@"19"];
-	[self addToArray:_tideLocations name:"頭城" identifier:@"10"];
+	[self addToArray:_tideLocations name:"頭城" identifier:@"20"];
 	[self addToArray:_tideLocations name:"花蓮" identifier:@"21"];
 	[self addToArray:_tideLocations name:"台東" identifier:@"22"];
 	[self addToArray:_tideLocations name:"成功" identifier:@"23"];

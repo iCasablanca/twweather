@@ -8,10 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebKit.h>
+#import "TWAPIBox.h"
+#import "TWAPIBox+Info.h"
 
 @interface TWWeatherWidget : NSObject
 {
 	WebView *_webView;
 }
+
+- (NSArray *)locations;
 
 @end

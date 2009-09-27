@@ -11,6 +11,16 @@
 function load()
 {
     dashcode.setupParts();
+	updateLocations();
+}
+
+function updateLocations()
+{
+	var plugin = window.WeatherPlugin;
+	var popupToChange = document.getElementById("popup");				// replace with ID of popup
+	var locations = plugin.locations();	// an array of arrays that contain labels and values
+	popupToChange.object.setOptions(locations);
+
 }
 
 //
