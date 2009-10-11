@@ -10,7 +10,7 @@
 
 @interface TWForecastResultCell (ProtectedMethods)
 - (void)draw:(CGRect)bounds;
-- (void)copy:(id)sender;
+- (IBAction)copy:(id)sender;
 @end
 
 @interface TWForecastResultCellContentView : UIView
@@ -46,7 +46,7 @@
 {
 	return YES;
 }
-- (void)copy:(id)sender
+- (IBAction)copy:(id)sender
 {
 	[_delegate copy:sender];	
 }
@@ -79,7 +79,6 @@
 	[touchBeginDate release];
 	touchBeginDate = nil;
 }
-
 
 @synthesize delegate = _delegate;
 @end
@@ -138,7 +137,7 @@
 	CGSize size = weatherImage.size;
 	[weatherImage drawInRect:CGRectMake(0, 40, size.width * 0.8, size.height * 0.8)];
 }
-- (void)copy:(id)sender
+- (IBAction)copy:(id)sender
 {
 	NSMutableString *s = [NSMutableString string];
 	[s appendFormat:@"%@\n", title];

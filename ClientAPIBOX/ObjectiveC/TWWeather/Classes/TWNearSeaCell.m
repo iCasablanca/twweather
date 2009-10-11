@@ -10,28 +10,73 @@
 
 @interface TWNearSeaCell (ProtectedMethods)
 - (void)draw:(CGRect)bounds;
+- (IBAction)copy:(id)sender;
 @end
 
 @interface TWNearSeaCellContentView : UIView
 {
 	TWNearSeaCell *_delegate;
+	NSDate *touchBeginDate;
 }
 @property (assign, nonatomic) TWNearSeaCell *delegate;
 @end
 
 @implementation TWNearSeaCellContentView
 
+- (void) dealloc
+{
+	[touchBeginDate release];
+	[super dealloc];
+}
 - (id)initWithFrame:(CGRect)frame
 {
 	if (self = [super initWithFrame:frame]) {
 		self.opaque = YES;
 		self.backgroundColor = [UIColor whiteColor];
+		touchBeginDate = nil;
 	}
 	return self;
 }
 - (void)drawRect:(CGRect)rect
 {
 	[_delegate draw:self.bounds];
+}
+- (BOOL)canBecomeFirstResponder
+{
+	return YES;
+}
+- (IBAction)copy:(id)sender
+{
+	[_delegate copy:sender];	
+}
+- (BOOL)canPerformAction:(SEL)action withSender:(id)sender
+{
+	if (action == @selector(copy:)) {
+		return YES;
+	}
+	return NO;
+}
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+	[super touchesBegan:touches withEvent:event];
+	if (touchBeginDate) {
+		[touchBeginDate release];
+	}
+	touchBeginDate = [[NSDate date] retain];
+}
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+	if ( touchBeginDate && ([[NSDate date] timeIntervalSinceDate:touchBeginDate] > 2.0)) {	
+		[self becomeFirstResponder];
+		[[UIMenuController sharedMenuController] update];
+		[[UIMenuController sharedMenuController] setTargetRect:CGRectMake(0, 0, 100, 100) inView:self];
+		[[UIMenuController sharedMenuController] setMenuVisible:YES animated:YES];
+	}
+	else {
+		[super touchesEnded:touches withEvent:event];
+	}
+	[touchBeginDate release];
+	touchBeginDate = nil;
 }
 
 @synthesize delegate = _delegate;
@@ -70,13 +115,6 @@
     }
     return self;
 }
-- (id)initWithFrame:(CGRect)frame reuseIdentifier:(NSString *)reuseIdentifier
-{
-    if (self = [super initWithFrame:frame reuseIdentifier:reuseIdentifier]) {
-		[self _init];
-    }
-    return self;
-}
 - (void)draw:(CGRect)bounds
 {
 	[@"有效時間" drawInRect:CGRectMake(10, 10, 260, 30) withFont:[UIFont boldSystemFontOfSize:16.0]];
@@ -87,6 +125,20 @@
 	[windScale drawInRect:CGRectMake(10, 204, 260, 30) withFont:[UIFont systemFontOfSize:16.0]];
 	[wave drawInRect:CGRectMake(10, 240, 260, 30) withFont:[UIFont systemFontOfSize:16.0]];
 	[waveLevel drawInRect:CGRectMake(10, 264, 260, 30) withFont:[UIFont systemFontOfSize:16.0]];
+}
+- (IBAction)copy:(id)sender
+{
+	NSMutableString *s = [NSMutableString string];
+	[s appendFormat:@"%@\n", @"有效時間"];
+	NSString *valid = [NSString stringWithFormat:@"%@ - %@", validBeginTime, validEndTime];
+	[s appendFormat:@"%@\n", valid];
+	[s appendFormat:@"%@\n", description];
+	[s appendFormat:@"%@\n", wind];
+	[s appendFormat:@"%@\n", windScale];
+	[s appendFormat:@"%@\n", wave];
+	[s appendFormat:@"%@", waveLevel];
+	UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
+	[pasteBoard setString:s];
 }
 - (void)setNeedsDisplay
 {
