@@ -60,6 +60,9 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
 	[super touchesBegan:touches withEvent:event];
+	if (_delegate.selectionStyle != UITableViewCellSelectionStyleNone) {
+		return;
+	}
 	if (touchBeginDate) {
 		[touchBeginDate release];
 	}
@@ -67,7 +70,10 @@
 }
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-	if ( touchBeginDate && ([[NSDate date] timeIntervalSinceDate:touchBeginDate] > 2.0)) {	
+	if (_delegate.selectionStyle != UITableViewCellSelectionStyleNone) {
+		[super touchesEnded:touches withEvent:event];
+	}	
+	else if ( touchBeginDate && ([[NSDate date] timeIntervalSinceDate:touchBeginDate] > 1.0)) {	
 		[self becomeFirstResponder];
 		[[UIMenuController sharedMenuController] update];
 		[[UIMenuController sharedMenuController] setTargetRect:CGRectMake(0, 0, 100, 100) inView:self];
