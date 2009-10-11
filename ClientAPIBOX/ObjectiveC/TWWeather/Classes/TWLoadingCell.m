@@ -30,13 +30,6 @@
     return self;
 	
 }
-- (id)initWithFrame:(CGRect)frame reuseIdentifier:(NSString *)reuseIdentifier
-{
-    if (self = [super initWithFrame:frame reuseIdentifier:reuseIdentifier]) {
-		[self _init];
-    }
-    return self;
-}
 - (void)startAnimating
 {
 	activityIndicator.hidden = NO;

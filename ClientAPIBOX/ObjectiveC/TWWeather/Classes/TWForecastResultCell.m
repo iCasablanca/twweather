@@ -10,22 +10,31 @@
 
 @interface TWForecastResultCell (ProtectedMethods)
 - (void)draw:(CGRect)bounds;
+- (void)copy:(id)sender;
 @end
 
 @interface TWForecastResultCellContentView : UIView
 {
 	TWForecastResultCell *_delegate;
+	NSDate *touchBeginDate;
 }
 @property (assign, nonatomic) TWForecastResultCell *delegate;
 @end
 
 @implementation TWForecastResultCellContentView
 
+- (void) dealloc
+{
+	[touchBeginDate release];
+	[super dealloc];
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
 	if (self = [super initWithFrame:frame]) {
 		self.opaque = YES;
 		self.backgroundColor = [UIColor whiteColor];
+		touchBeginDate = nil;
 	}
 	return self;
 }
@@ -33,6 +42,44 @@
 {
 	[_delegate draw:self.bounds];
 }
+- (BOOL)canBecomeFirstResponder
+{
+	return YES;
+}
+- (void)copy:(id)sender
+{
+	[_delegate copy:sender];	
+}
+- (BOOL)canPerformAction:(SEL)action withSender:(id)sender
+{
+	if (action == @selector(copy:)) {
+		return YES;
+	}
+	return NO;
+}
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+	[super touchesBegan:touches withEvent:event];
+	if (touchBeginDate) {
+		[touchBeginDate release];
+	}
+	touchBeginDate = [[NSDate date] retain];
+}
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+	if ( touchBeginDate && ([[NSDate date] timeIntervalSinceDate:touchBeginDate] > 2.0)) {	
+		[self becomeFirstResponder];
+		[[UIMenuController sharedMenuController] update];
+		[[UIMenuController sharedMenuController] setTargetRect:CGRectMake(0, 0, 100, 100) inView:self];
+		[[UIMenuController sharedMenuController] setMenuVisible:YES animated:YES];
+	}
+	else {
+		[super touchesEnded:touches withEvent:event];
+	}
+	[touchBeginDate release];
+	touchBeginDate = nil;
+}
+
 
 @synthesize delegate = _delegate;
 @end
@@ -70,13 +117,6 @@
     return self;
 	
 }
-- (id)initWithFrame:(CGRect)frame reuseIdentifier:(NSString *)reuseIdentifier
-{
-    if (self = [super initWithFrame:frame reuseIdentifier:reuseIdentifier]) {
-		[self _init];
-    }
-    return self;
-}
 - (void)draw:(CGRect)bounds
 {
 	if (self.highlighted || self.selected) {
@@ -97,6 +137,17 @@
 	
 	CGSize size = weatherImage.size;
 	[weatherImage drawInRect:CGRectMake(0, 40, size.width * 0.8, size.height * 0.8)];
+}
+- (void)copy:(id)sender
+{
+	NSMutableString *s = [NSMutableString string];
+	[s appendFormat:@"%@\n", title];
+	[s appendFormat:@"%@ - %@\n", beginTime, endTime];
+	[s appendFormat:@"%@\n", description];
+	[s appendFormat:@"溫度： %@ ℃\n", temperature];
+	[s appendFormat:@"降雨機率： %@ %%", rain];
+	UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
+	[pasteBoard setString:s];
 }
 
 - (void)setNeedsDisplay
