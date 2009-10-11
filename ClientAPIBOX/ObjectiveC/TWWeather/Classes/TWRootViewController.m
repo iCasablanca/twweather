@@ -29,7 +29,7 @@
 
 - (void)dealloc
 {
-	[warningArray release];
+//	[warningArray release];
 	[super dealloc];
 }
 - (void)viewDidUnload
@@ -43,10 +43,10 @@
 {
     [super viewDidLoad];
 	self.title = @"台灣天氣";
-	if (!warningArray) {
-		warningArray = [[NSMutableArray alloc] init];
-	}
-	[[TWAPIBox sharedBox] fetchWarningsWithDelegate:self userInfo:nil];
+//	if (!warningArray) {
+//		warningArray = [[NSMutableArray alloc] init];
+//	}
+//	[[TWAPIBox sharedBox] fetchWarningsWithDelegate:self userInfo:nil];
 }
 
 - (void)didReceiveMemoryWarning 
@@ -76,20 +76,21 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView 
 {
-    return 4;
+    return 3;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section 
 {
+//	if (section == 0) {
+//		return [warningArray count];
+//	}
+//	else 
 	if (section == 0) {
-		return [warningArray count];
-	}
-	else if (section == 1) {
 		return 9;
 	}
-	else if (section == 2) {
+	else if (section == 1) {
 		return 3;
 	}		
-	else if (section == 3) {
+	else if (section == 2) {
 		return 1;
 	}	
     return 0;
@@ -99,17 +100,18 @@
     static NSString *CellIdentifier = @"Cell";
 	static NSString *NormalIdentifier = @"NormalCell";
     
-    if (indexPath.section == 0) {
-		TWLoadingCell *cell = (TWLoadingCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-		if (cell == nil) {
-			cell = [[[TWLoadingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-		}
-		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-		NSDictionary *dictionary = [warningArray objectAtIndex:indexPath.row];
-		cell.textLabel.text = [dictionary objectForKey:@"name"];
-		return cell;
-	}
-	else if (indexPath.section == 1) {
+//    if (indexPath.section == 0) {
+//		TWLoadingCell *cell = (TWLoadingCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+//		if (cell == nil) {
+//			cell = [[[TWLoadingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+//		}
+//		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//		NSDictionary *dictionary = [warningArray objectAtIndex:indexPath.row];
+//		cell.textLabel.text = [dictionary objectForKey:@"name"];
+//		return cell;
+//	}
+//	else 
+	if (indexPath.section == 0) {
 		TWLoadingCell *cell = (TWLoadingCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 		if (cell == nil) {
 			cell = [[[TWLoadingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
@@ -157,7 +159,7 @@
 		}
 		return cell;
 	}
-	else if (indexPath.section == 2) {
+	else if (indexPath.section == 1) {
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NormalIdentifier];
 		if (cell == nil) {
 			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NormalIdentifier] autorelease];
@@ -180,7 +182,7 @@
 		}
 		return cell;
 	}	
-	else if (indexPath.section == 3) {
+	else if (indexPath.section == 2) {
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NormalIdentifier];
 		if (cell == nil) {
 			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NormalIdentifier] autorelease];
@@ -201,15 +203,16 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
+//	if (indexPath.section == 0) {
+//		NSDictionary *dictionary = [warningArray objectAtIndex:indexPath.row];
+//		TWOverviewViewController *controller = [[TWOverviewViewController alloc] init];
+//		[controller setText:[dictionary objectForKey:@"text"]];
+//		controller.title = [dictionary objectForKey:@"name"];
+//		[[TWWeatherAppDelegate sharedDelegate] pushViewController:controller animated:YES];
+//		[controller release];		
+//	}
+//	else 
 	if (indexPath.section == 0) {
-		NSDictionary *dictionary = [warningArray objectAtIndex:indexPath.row];
-		TWOverviewViewController *controller = [[TWOverviewViewController alloc] init];
-		[controller setText:[dictionary objectForKey:@"text"]];
-		controller.title = [dictionary objectForKey:@"name"];
-		[[TWWeatherAppDelegate sharedDelegate] pushViewController:controller animated:YES];
-		[controller release];		
-	}
-	else if (indexPath.section == 1) {
 		UITableViewController *controller = nil;
 		if (indexPath.row == 0) {
 			controller = [[TWOBSTableViewController alloc] initWithStyle:UITableViewStylePlain];
@@ -246,7 +249,7 @@
 			[controller release];
 		}
 	}
-	else if (indexPath.section == 2) {
+	else if (indexPath.section == 1) {
 		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 		
 		if (indexPath.row == 2) {
@@ -279,7 +282,7 @@
 		}
 		
 	}
-	else if (indexPath.section == 3) {
+	else if (indexPath.section == 2) {
 		UITableViewController *controller = nil;
 		if (indexPath.row == 0) {
 			controller = [[TWAboutViewController alloc] init];
@@ -301,26 +304,12 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
 	if (section == 0) {
-	}
-	else if (section == 1) {
 		return @"功能列表";
 	}
 	return nil;
 }
 
 #pragma mark -
-
-- (void)APIBox:(TWAPIBox *)APIBox didFetchWarnings:(id)result userInfo:(id)userInfo
-{
-	if ([result isKindOfClass:[NSArray class]]) {
-		[warningArray setArray:result];
-	}
-	[self.tableView reloadData];
-}
-- (void)APIBox:(TWAPIBox *)APIBox didFailedFetchWarningsWithError:(NSError *)error
-{
-	
-}
 
 - (void)APIBox:(TWAPIBox *)APIBox didFetchOverview:(NSString *)string userInfo:(id)userInfo
 {

@@ -14,12 +14,14 @@
 	NSMutableArray *_filterArray;
 	NSMutableArray *_filteredArray;
 	NSMutableArray *_favArray;
+	NSMutableArray *warningArray;
 	
 	TWLoadingView *loadingView;
 	UITableView *_tableView;
 	UILabel *errorLabel;
 	
 	BOOL isLoading;
+	NSUInteger retryCount;
 }
 
 - (void)updateFilteredArray;

@@ -7,6 +7,8 @@
 
 #import "TWFavoriteTableViewController.h"
 #import "TWForecastResultTableViewController.h"
+#import "TWOverviewViewController.h"
+#import "TWWebController.h"
 #import "TWForecastResultCell.h"
 #import "TWWeatherAppDelegate.h"
 #import "TWAPIBox.h"
@@ -90,9 +92,13 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 		_filteredArray = [[NSMutableArray alloc] init];
 		[self updateFilteredArray];
 	}
-		
+	if (!warningArray) {
+		warningArray = [[NSMutableArray alloc] init];
+	}	
+	
 	[self loadData];
 }
+
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
@@ -154,6 +160,7 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 {
 	[self showLoadingView];
 	[[TWAPIBox sharedBox] fetchAllForecastsWithDelegate:self userInfo:nil];
+	[[TWAPIBox sharedBox] fetchWarningsWithDelegate:self userInfo:nil];	
 }
 - (void)showLoadingView
 {
@@ -177,10 +184,21 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 	if (![_filteredArray count]) {
 		return 1;
 	}
-	return [_filteredArray count];
+	return [_filteredArray count] + 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+	if (section == 0) {
+		NSUInteger count = [warningArray count];
+		for (NSDictionary *dictionary in warningArray) {
+			NSString *name = [dictionary objectForKey:@"name"];
+			if ([name rangeOfString:@"颱風"].location != NSNotFound) {
+				return count + 1;
+			}
+		}
+		return count;
+	}
+	
 	if ([_filteredArray count]) {
 		return 1;
 	}
@@ -188,13 +206,31 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
 {    
+	static NSString *WarningCellIdentifier = @"WarningCellIdentifier";
+
+	if (indexPath.section == 0) {
+		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:WarningCellIdentifier];
+		if (cell == nil) {
+			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:WarningCellIdentifier] autorelease];
+		}
+		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+		if (indexPath.row >= [warningArray count]) {
+			cell.textLabel.text = @"人事行政局網頁";
+		}
+		else {
+			NSDictionary *dictionary = [warningArray objectAtIndex:indexPath.row];
+			cell.textLabel.text = [dictionary objectForKey:@"name"];
+		}
+		return cell;
+	}
+	
     static NSString *CellIdentifier = @"Cell";
     
     TWForecastResultCell *cell = (TWForecastResultCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[TWForecastResultCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
-	NSDictionary *item = [_filteredArray objectAtIndex:indexPath.section];
+	NSDictionary *item = [_filteredArray objectAtIndex:indexPath.section - 1];
 	
 	if ([item isKindOfClass:[NSDictionary class]]) {
 		NSDictionary *dictionary = [[item objectForKey:@"items"] objectAtIndex:0];
@@ -219,7 +255,25 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	NSDictionary *dictionary = [_filteredArray objectAtIndex:indexPath.section];
+	if (indexPath.section == 0) {
+		if (indexPath.row >= [warningArray count]) {
+			TWWebController *webController = [[TWWebController alloc] initWithNibName:@"TWWebController" bundle:[NSBundle mainBundle]];
+			webController.title = @"人事行政局網頁";
+			[[TWWeatherAppDelegate sharedDelegate] pushViewController:webController animated:YES];
+			[webController.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.cpa.gov.tw/"]]];
+			[webController release];
+			return;			
+		}		
+		NSDictionary *dictionary = [warningArray objectAtIndex:indexPath.row];
+		TWOverviewViewController *controller = [[TWOverviewViewController alloc] init];
+		[controller setText:[dictionary objectForKey:@"text"]];
+		controller.title = [dictionary objectForKey:@"name"];
+		[[TWWeatherAppDelegate sharedDelegate] pushViewController:controller animated:YES];
+		[controller release];
+		return;
+	}
+	
+	NSDictionary *dictionary = [_filteredArray objectAtIndex:indexPath.section - 1];
 	TWForecastResultTableViewController *controller = [[TWForecastResultTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
 	controller.title = [dictionary objectForKey:@"locationName"];
 	controller.forecastArray = [dictionary objectForKey:@"items"];
@@ -230,14 +284,21 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
+	if (section == 0) {
+		return nil;
+	}
+	
 	if ([_filteredArray count])  {
-		NSDictionary *item = [_filteredArray objectAtIndex:section];
+		NSDictionary *item = [_filteredArray objectAtIndex:section - 1];
 		return [item objectForKey:@"locationName"];
 	}		
 	return nil;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+	if (indexPath.section == 0) {
+		return 40.0;
+	}
 	return 130.0;
 }
 
@@ -261,6 +322,11 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 }
 - (void)APIBox:(TWAPIBox *)APIBox didFailedFetchAllForecastsWithError:(NSError *)error
 {
+	if (retryCount < 1) {
+		[self loadData];
+		retryCount++;
+	}
+	retryCount = 0;	
 	[self hideLoadingView];
 	self.tableView.hidden = YES;
 	errorLabel.text = [error localizedDescription];
@@ -277,6 +343,18 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 	else if (!isLoading) {
 		[[TWAPIBox sharedBox] fetchAllForecastsWithDelegate:self userInfo:nil];
 	}
+}
+
+- (void)APIBox:(TWAPIBox *)APIBox didFetchWarnings:(id)result userInfo:(id)userInfo
+{
+	if ([result isKindOfClass:[NSArray class]]) {
+		[warningArray setArray:result];
+	}
+	[self.tableView reloadData];
+}
+- (void)APIBox:(TWAPIBox *)APIBox didFailedFetchWarningsWithError:(NSError *)error
+{
+	
 }
 
 @synthesize tableView = _tableView;
