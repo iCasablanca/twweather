@@ -22,6 +22,7 @@
 #import "TWAboutViewController.h"
 #import "TWLocationSettingTableViewController.h"
 #import "TWWeatherAppDelegate.h"
+#import "TWWebController.h"
 #import "TWForecastResultCell.h"
 
 @implementation TWRootViewController
@@ -86,7 +87,7 @@
 		return 9;
 	}
 	else if (section == 2) {
-		return 2;
+		return 3;
 	}		
 	else if (section == 3) {
 		return 1;
@@ -169,6 +170,11 @@
 			case 1:
 				cell.textLabel.text = @"地震查詢：886-2-23491168";
 				break;
+			case 2:
+				cell.textLabel.text = @"中央氣象局網頁";
+				cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+				break;
+				
 			default:
 				break;
 		}
@@ -243,6 +249,15 @@
 	else if (indexPath.section == 2) {
 		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 		
+		if (indexPath.row == 2) {
+			TWWebController *webController = [[TWWebController alloc] initWithNibName:@"TWWebController" bundle:[NSBundle mainBundle]];
+			webController.title = @"中央氣象局網頁";
+			[[TWWeatherAppDelegate sharedDelegate] pushViewController:webController animated:YES];
+			[webController.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.cwb.gov.tw/"]]];
+			[webController release];
+			return;
+		}
+		
 		NSString *model = [UIDevice currentDevice].model;
 		if (![model isEqualToString:@"iPhone"]) {
 			NSString *title = [NSString stringWithFormat:NSLocalizedString(@"You can not make a phone call with an %@", @""), model];
@@ -292,6 +307,8 @@
 	}
 	return nil;
 }
+
+#pragma mark -
 
 - (void)APIBox:(TWAPIBox *)APIBox didFetchWarnings:(id)result userInfo:(id)userInfo
 {

@@ -91,6 +91,10 @@
 		D4E85027102D668E00A80676 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D4E85026102D668E00A80676 /* Icon.png */; };
 		D4E9C6E510223D6200B955C7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E9C6E410223D6200B955C7 /* SystemConfiguration.framework */; };
 		D4E9C70110223DBB00B955C7 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E9C70010223DBB00B955C7 /* CFNetwork.framework */; };
+		D4EDBEF31082032900C9EBFE /* TWWebController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4EDBEF21082032900C9EBFE /* TWWebController.m */; };
+		D4EDBEF71082034800C9EBFE /* TWWebController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4EDBEF61082034800C9EBFE /* TWWebController.xib */; };
+		D4EDBEFB1082042000C9EBFE /* webBack.png in Resources */ = {isa = PBXBuildFile; fileRef = D4EDBEF91082042000C9EBFE /* webBack.png */; };
+		D4EDBEFC1082042000C9EBFE /* webForward.png in Resources */ = {isa = PBXBuildFile; fileRef = D4EDBEFA1082042000C9EBFE /* webForward.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -214,6 +218,11 @@
 		D4E85026102D668E00A80676 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		D4E9C6E410223D6200B955C7 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		D4E9C70010223DBB00B955C7 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		D4EDBEF11082032900C9EBFE /* TWWebController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWWebController.h; sourceTree = "<group>"; };
+		D4EDBEF21082032900C9EBFE /* TWWebController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWWebController.m; sourceTree = "<group>"; };
+		D4EDBEF61082034800C9EBFE /* TWWebController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TWWebController.xib; sourceTree = "<group>"; };
+		D4EDBEF91082042000C9EBFE /* webBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = webBack.png; path = Images/webBack.png; sourceTree = "<group>"; };
+		D4EDBEFA1082042000C9EBFE /* webForward.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = webForward.png; path = Images/webForward.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -255,6 +264,8 @@
 				1D3623250D0F684500981E51 /* TWWeatherAppDelegate.m */,
 				D4E50841102391DB002B39D7 /* TWErrorViewController.h */,
 				D4E50842102391DB002B39D7 /* TWErrorViewController.m */,
+				D4EDBEF11082032900C9EBFE /* TWWebController.h */,
+				D4EDBEF21082032900C9EBFE /* TWWebController.m */,
 				D426D8CD102D377600BBBEB3 /* TWLoadingView.h */,
 				D426D8CE102D377600BBBEB3 /* TWLoadingView.m */,
 			);
@@ -305,6 +316,7 @@
 				8D1107310486CEB800E47090 /* TWWeather-Info.plist */,
 				D4E84FAF102D4BEC00A80676 /* Localizable.strings */,
 				D489E59D1024EA4600189460 /* InfoPlist.strings */,
+				D4EDBEF61082034800C9EBFE /* TWWebController.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -334,6 +346,8 @@
 		D489E38C1023DFF500189460 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				D4EDBEF91082042000C9EBFE /* webBack.png */,
+				D4EDBEFA1082042000C9EBFE /* webForward.png */,
 				D489E3981023E00100189460 /* ball.png */,
 				D489E3991023E00100189460 /* DayCloudy.png */,
 				D489E39A1023E00100189460 /* DayCloudyGlommy.png */,
@@ -567,6 +581,9 @@
 				D4E84FB1102D4BEC00A80676 /* Localizable.strings in Resources */,
 				D4E85027102D668E00A80676 /* Icon.png in Resources */,
 				D41B04361031F212000AA604 /* Entitlements.plist in Resources */,
+				D4EDBEF71082034800C9EBFE /* TWWebController.xib in Resources */,
+				D4EDBEFB1082042000C9EBFE /* webBack.png in Resources */,
+				D4EDBEFC1082042000C9EBFE /* webForward.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -640,6 +657,7 @@
 				D426D6B7102D142C00BBBEB3 /* TWOBSResultTableViewController.m in Sources */,
 				D426D6DD102D17D400BBBEB3 /* TWOBSCell.m in Sources */,
 				D426D8CF102D377600BBBEB3 /* TWLoadingView.m in Sources */,
+				D4EDBEF31082032900C9EBFE /* TWWebController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
