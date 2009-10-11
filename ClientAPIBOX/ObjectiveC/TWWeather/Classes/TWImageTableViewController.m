@@ -38,10 +38,10 @@
 	NSString *name = [dictionary objectForKey:@"name"];
 	
 	TWImageViewController *controller = [[TWImageViewController alloc] init];
-	controller.title = name;
 	UIImage *image = [UIImage imageWithData:data];
 	controller.image = image;
 	[self.navigationController pushViewController:controller animated:YES];
+	controller.title = name;
 	[controller release];
 
 }

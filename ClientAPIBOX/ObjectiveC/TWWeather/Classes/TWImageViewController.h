@@ -14,6 +14,8 @@
 	UIImage *_image;
 }
 
+- (IBAction)copy:(id)sender;
+
 @property (retain, nonatomic) UIImageView *imageView;
 @property (assign, nonatomic) UIImage *image;
 

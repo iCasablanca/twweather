@@ -47,6 +47,11 @@
 	[view addSubview:imageView];
 }
 
+- (IBAction)copy:(id)sender
+{
+	UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
+	pasteBoard.image = self.image;
+}
 
 #pragma mark UIViewContoller Methods
 
@@ -55,6 +60,10 @@
     [super viewDidLoad];
 	self.imageView.image = self.image;
 	[(UIScrollView *)self.view setContentSize:_imageView.frame.size];
+	
+	UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Copy", @"") style:UIBarButtonItemStyleBordered target:self action:@selector(copy:)];
+	self.navigationItem.rightBarButtonItem = item;
+	[item release];
 }
 - (void)viewWillAppear:(BOOL)animated 
 {
@@ -85,32 +94,6 @@
 	// Releases the view if it doesn't have a superview
     // Release anything that's not essential, such as cached data
 }
-
-//- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation 
-//{
-//	[UIView beginAnimations:nil context:NULL];
-//	[UIView setAnimationDuration:0.5];
-//	
-//	if (interfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
-//		CGAffineTransform transform = CGAffineTransformMakeRotation(-90.0 * 3.14/180);
-//		self.imageView.transform = transform;
-//		self.imageView.frame = CGRectMake(0, 0, [self.view bounds].size.width, [self.view bounds].size.height);		
-//	}
-//	else if (interfaceOrientation == UIInterfaceOrientationLandscapeRight) {
-//		CGAffineTransform transform = CGAffineTransformMakeRotation(90.0 * 3.14/180);			
-//		self.imageView.transform = transform;
-//		self.imageView.frame = CGRectMake(0, 0, [self.view bounds].size.width, [self.view bounds].size.height);			
-//	}	
-//	else {
-//		CGAffineTransform transform = CGAffineTransformMakeRotation(0.0 * 3.14/180);	
-//		self.imageView.transform = transform;
-//		self.imageView.frame = CGRectMake(0, 0, [self.view bounds].size.width, [self.view bounds].size.height);				
-//	}
-//	
-//	[(UIScrollView *)self.view setContentSize:_imageView.frame.size];
-//	[UIView commitAnimations];
-//	return NO;
-//}
 
 - (void)setImage:(UIImage *)image
 {

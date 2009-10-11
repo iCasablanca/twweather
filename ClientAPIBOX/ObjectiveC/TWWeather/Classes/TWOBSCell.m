@@ -10,28 +10,73 @@
 
 @interface TWOBSCell (ProtectedMethods)
 - (void)draw:(CGRect)bounds;
+- (IBAction)copy:(id)sender;
 @end
 
 @interface TWOBSCellContentView : UIView
 {
 	TWOBSCell *_delegate;
+	NSDate *touchBeginDate;
 }
 @property (assign, nonatomic) TWOBSCell *delegate;
 @end
 
 @implementation TWOBSCellContentView
 
+- (void) dealloc
+{
+	[touchBeginDate release];
+	[super dealloc];
+}
 - (id)initWithFrame:(CGRect)frame
 {
 	if (self = [super initWithFrame:frame]) {
 		self.opaque = YES;
 		self.backgroundColor = [UIColor whiteColor];
+		touchBeginDate = nil;
 	}
 	return self;
 }
 - (void)drawRect:(CGRect)rect
 {
 	[_delegate draw:self.bounds];
+}
+- (BOOL)canBecomeFirstResponder
+{
+	return YES;
+}
+- (IBAction)copy:(id)sender
+{
+	[_delegate copy:sender];	
+}
+- (BOOL)canPerformAction:(SEL)action withSender:(id)sender
+{
+	if (action == @selector(copy:)) {
+		return YES;
+	}
+	return NO;
+}
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+	[super touchesBegan:touches withEvent:event];
+	if (touchBeginDate) {
+		[touchBeginDate release];
+	}
+	touchBeginDate = [[NSDate date] retain];
+}
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+	if ( touchBeginDate && ([[NSDate date] timeIntervalSinceDate:touchBeginDate] > 2.0)) {	
+		[self becomeFirstResponder];
+		[[UIMenuController sharedMenuController] update];
+		[[UIMenuController sharedMenuController] setTargetRect:CGRectMake(0, 0, 100, 100) inView:self];
+		[[UIMenuController sharedMenuController] setMenuVisible:YES animated:YES];
+	}
+	else {
+		[super touchesEnded:touches withEvent:event];
+	}
+	[touchBeginDate release];
+	touchBeginDate = nil;
 }
 
 @synthesize delegate = _delegate;
@@ -68,13 +113,6 @@
     }
     return self;
 }
-- (id)initWithFrame:(CGRect)frame reuseIdentifier:(NSString *)reuseIdentifier
-{
-    if (self = [super initWithFrame:frame reuseIdentifier:reuseIdentifier]) {
-		[self _init];
-    }
-    return self;
-}
 - (void)draw:(CGRect)bounds
 {
 	CGSize size = weatherImage.size;
@@ -89,7 +127,20 @@
 	[[NSString stringWithFormat:@"風力: %@ 級", windScale] drawInRect:CGRectMake(100, 220, 160, 20) withFont:[UIFont systemFontOfSize:18.0]];
 	[[NSString stringWithFormat:@"陣風: %@ 級", gustWindScale] drawInRect:CGRectMake(100, 250, 260, 20) withFont:[UIFont systemFontOfSize:18.0]];
 }
+- (IBAction)copy:(id)sender
+{
+	NSMutableString *s = [NSMutableString string];
+	[s appendFormat:@"%@\n", @"天氣現象"];
+	[s appendFormat:@"%@\n", description];
+	[s appendFormat:@"溫度: %@\n", temperature];
+	[s appendFormat:@"累積雨量: %@ 毫米\n", rain];
+	[s appendFormat:@"風向: %@\n", windDirection];
+	[s appendFormat:@"風力: %@ 級\n", windScale];
+	[s appendFormat:@"陣風: %@ 級\n", gustWindScale];
 	
+	UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
+	[pasteBoard setString:s];
+}
 - (void)setNeedsDisplay
 {
 	[_ourContentView setNeedsDisplay];

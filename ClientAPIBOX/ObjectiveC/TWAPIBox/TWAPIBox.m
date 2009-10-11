@@ -122,6 +122,7 @@ static TWAPIBox *apibox;
 	if ([identifier isEqualToString:@"image"]) {
 		if ([self shouldUseCachedDataForURL:URL]) {
 			NSData *data = [self dataInCacheForURL:URL];
+			_request.sessionInfo = sessionInfo;
 			[self didFetchImage:_request data:data];
 			return;
 		}
@@ -132,7 +133,12 @@ static TWAPIBox *apibox;
 		[_request performMethod:LFHTTPRequestGETMethod onURL:URL withData:nil];
 	}
 	else {
-		[_queue addObject:sessionInfo];
+		if ([_queue count]) {
+			[_queue insertObject:sessionInfo atIndex:0];
+		}
+		else {
+			[_queue addObject:sessionInfo];
+		}
 	}
 	
 }
@@ -199,7 +205,7 @@ static TWAPIBox *apibox;
 }
 - (void)fetchImageWithIdentifier:(NSString *)identifier delegate:(id)delegate userInfo:(id)userInfo
 {
-	NSString *path = [NSString stringWithFormat:@"image?id=%@&redirect=1", identifier];
+	NSString *path = [NSString stringWithFormat:@"image?id=%@&redirect=0", identifier];
 	NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:identifier, @"identifier", userInfo, @"userInfo", nil];
 	[self sendRequestWithPath:path identifier:@"image" action:@selector(didFetchImage:data:) failedAction:@selector(didFailedFetchImage:error:) delegate:delegate userInfo:info];		
 }
