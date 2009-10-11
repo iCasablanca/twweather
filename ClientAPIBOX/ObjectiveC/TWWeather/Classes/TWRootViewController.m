@@ -80,15 +80,11 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section 
 {
-//	if (section == 0) {
-//		return [warningArray count];
-//	}
-//	else 
 	if (section == 0) {
 		return 9;
 	}
 	else if (section == 1) {
-		return 3;
+		return 4;
 	}		
 	else if (section == 2) {
 		return 1;
@@ -100,17 +96,6 @@
     static NSString *CellIdentifier = @"Cell";
 	static NSString *NormalIdentifier = @"NormalCell";
     
-//    if (indexPath.section == 0) {
-//		TWLoadingCell *cell = (TWLoadingCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-//		if (cell == nil) {
-//			cell = [[[TWLoadingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-//		}
-//		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-//		NSDictionary *dictionary = [warningArray objectAtIndex:indexPath.row];
-//		cell.textLabel.text = [dictionary objectForKey:@"name"];
-//		return cell;
-//	}
-//	else 
 	if (indexPath.section == 0) {
 		TWLoadingCell *cell = (TWLoadingCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 		if (cell == nil) {
@@ -167,14 +152,18 @@
 		cell.accessoryType = UITableViewCellAccessoryNone;
 		switch (indexPath.row) {
 			case 0:
-				cell.textLabel.text = @"氣象查詢：886-2-23491234";
-				break;
-			case 1:
-				cell.textLabel.text = @"地震查詢：886-2-23491168";
-				break;
-			case 2:
 				cell.textLabel.text = @"中央氣象局網頁";
 				cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+				break;
+			case 1:
+				cell.textLabel.text = @"中央氣象局網頁 PDA 版";
+				cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+				break;				
+			case 2:
+				cell.textLabel.text = @"氣象查詢：886-2-23491234";
+				break;
+			case 3:
+				cell.textLabel.text = @"地震查詢：886-2-23491168";
 				break;
 				
 			default:
@@ -203,15 +192,6 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-//	if (indexPath.section == 0) {
-//		NSDictionary *dictionary = [warningArray objectAtIndex:indexPath.row];
-//		TWOverviewViewController *controller = [[TWOverviewViewController alloc] init];
-//		[controller setText:[dictionary objectForKey:@"text"]];
-//		controller.title = [dictionary objectForKey:@"name"];
-//		[[TWWeatherAppDelegate sharedDelegate] pushViewController:controller animated:YES];
-//		[controller release];		
-//	}
-//	else 
 	if (indexPath.section == 0) {
 		UITableViewController *controller = nil;
 		if (indexPath.row == 0) {
@@ -252,11 +232,18 @@
 	else if (indexPath.section == 1) {
 		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 		
-		if (indexPath.row == 2) {
+		if (indexPath.row < 2) {
 			TWWebController *webController = [[TWWebController alloc] initWithNibName:@"TWWebController" bundle:[NSBundle mainBundle]];
-			webController.title = @"中央氣象局網頁";
 			[[TWWeatherAppDelegate sharedDelegate] pushViewController:webController animated:YES];
-			[webController.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.cwb.gov.tw/"]]];
+			if (indexPath.row == 0) {
+				webController.title = @"中央氣象局網頁";
+				[webController.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.cwb.gov.tw/"]]];
+			}
+			else if (indexPath.row == 1) {
+				webController.title = @"中央氣象局網頁 PDA 版";
+				webController.webView.scalesPageToFit = NO;
+				[webController.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.cwb.gov.tw/pda/"]]];
+			}
 			[webController release];
 			return;
 		}
@@ -270,10 +257,10 @@
 		}
 		
 		NSString *URLString = nil;
-		if (indexPath.row == 0) {
+		if (indexPath.row == 2) {
 			URLString = @"tel://88622349123";
 		}
-		else if (indexPath.row == 1) {
+		else if (indexPath.row == 3) {
 			URLString = @"tel://886223491168";
 		}
 		if (URLString) {

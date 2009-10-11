@@ -3,7 +3,7 @@
 //  TWWeather
 //
 //  Created by zonble on 10/11/09.
-//  Copyright 2009 Lithoglyph Inc.. All rights reserved.
+//  Copyright 2009 zonble.net. All rights reserved.
 //
 
 #import "TWWebController.h"
@@ -14,6 +14,14 @@
 - (void)removeOutletsAndControls_TWWebController
 {
     // remove and clean outlets and controls here
+	[self.webView stopLoading];
+	self.webView = nil;
+	self.activityIndicatorView = nil;
+	self.toolbar = nil;
+	self.goBackItem = nil;
+	self.goFowardItem = nil;
+	self.stopItem = nil;
+	self.reloadItem = nil;
 }
 
 - (void)dealloc 
@@ -55,7 +63,14 @@
 - (void)viewDidLoad 
 {
     [super viewDidLoad];
+	NSMutableArray *a = [NSMutableArray arrayWithArray:toolbar.items];
+	UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:activityIndicatorView];
+	[a addObject:item];
+	[item release];
+	toolbar.items = a;
+	activityIndicatorView.hidesWhenStopped = YES;
 	[webView setDelegate:self];
+	[self updateButtonState];
 }
 - (void)viewWillAppear:(BOOL)animated 
 {
@@ -82,21 +97,53 @@
 	// Release any cached data, images, etc that aren't in use.
 }
 
-
-/*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+- (IBAction)openInExternalWebBrowser:(id)sender
 {
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+	NSURL *URL = [webView.request URL];
+	[[UIApplication sharedApplication] openURL:URL];
 }
-*/
+
+#pragma mark -
+
+- (void)webViewDidStartLoad:(UIWebView *)webView
+{
+	[activityIndicatorView startAnimating];
+	[self updateButtonState];
+	[reloadItem setEnabled:NO];
+	[stopItem setEnabled:YES];
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+	[activityIndicatorView startAnimating];	
+	[self updateButtonState];
+	[reloadItem setEnabled:YES];
+	[stopItem setEnabled:NO];
+	
+	UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Failed to open web page.", @"") message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:nil];
+	[alertView show];
+	[alertView release];
+}
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-	[webView scalesPageToFit];
+	[activityIndicatorView stopAnimating];
+	[self updateButtonState];
+	[reloadItem setEnabled:YES];
+	[stopItem setEnabled:NO];
+}
+
+- (void)updateButtonState
+{
+	[goBackItem setEnabled:[webView canGoBack]];
+	[goFowardItem setEnabled:[webView canGoForward]];
 }
 
 @synthesize webView;
-
+@synthesize activityIndicatorView;
+@synthesize toolbar;
+@synthesize goBackItem;
+@synthesize goFowardItem;
+@synthesize stopItem;
+@synthesize reloadItem;
 @end
