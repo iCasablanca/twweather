@@ -48,19 +48,16 @@
 	NSDate *date = [[TWAPIBox sharedBox] dateFromShortString:dateString];
 	cell.dateString = [[TWAPIBox sharedBox] shortDateStringFromDate:date];
 	cell.lunarDateString = [dictionary objectForKey:@"lunarDate"];
-	NSDictionary *low = [dictionary objectForKey:@"low"];
-	NSDictionary *high = [dictionary objectForKey:@"high"];
-	cell.lowHeight = [low objectForKey:@"height"];
-	cell.lowShortTime = [low objectForKey:@"shortTime"];
-	cell.highHeight = [high objectForKey:@"height"];
-	cell.highshortTime = [high objectForKey:@"shortTime"];
+	cell.tides = [dictionary objectForKey:@"tides"];
 	cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	[cell setNeedsDisplay];
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	return 120.0;
+	NSDictionary *dictionary = [forecastArray objectAtIndex:indexPath.row];
+	NSArray *tides = [dictionary objectForKey:@"tides"];
+	return 60.0 + [tides count] * 30.0;
 }
 
 

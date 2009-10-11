@@ -260,6 +260,7 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+	[tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:NO];
 	if (indexPath.section == 0) {
 		if (indexPath.row >= [warningArray count]) {
 			TWWebController *webController = [[TWWebController alloc] initWithNibName:@"TWWebController" bundle:[NSBundle mainBundle]];

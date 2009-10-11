@@ -46,10 +46,13 @@
 	
 	[dateString release];
 	[lunarDateString release];
-	[lowShortTime release];
-	[lowHeight release];
-	[highshortTime release];
-	[highHeight release];
+
+//	[lowShortTime release];
+//	[lowHeight release];
+//	[highshortTime release];
+//	[highHeight release];
+	
+	[tides release];
 	
 	[super dealloc];
 }
@@ -58,7 +61,9 @@
 	if (!_ourContentView) {
 		CGRect cellFrame = CGRectMake(10, 10, 280, 100);
 		_ourContentView = [[TWTideCellContentView alloc] initWithFrame:cellFrame];
+		_ourContentView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
 		_ourContentView.delegate = self;
+		_ourContentView.backgroundColor = [UIColor clearColor];
 		[self.contentView addSubview:_ourContentView];
 	}
 }
@@ -69,23 +74,20 @@
     }
     return self;
 }
-- (id)initWithFrame:(CGRect)frame reuseIdentifier:(NSString *)reuseIdentifier
-{
-    if (self = [super initWithFrame:frame reuseIdentifier:reuseIdentifier]) {
-		[self _init];
-    }	
-    return self;
-}
 - (void)draw:(CGRect)bounds
 {
 	[dateString drawInRect:CGRectMake(10, 0, 260, 30) withFont:[UIFont boldSystemFontOfSize:20.0]];
 	[lunarDateString drawInRect:CGRectMake(10, 6, 260, 30) withFont:[UIFont systemFontOfSize:14.0] lineBreakMode:UILineBreakModeClip alignment:UITextAlignmentRight];
-	[@"乾潮" drawInRect:CGRectMake(10, 40, 100, 40) withFont:[UIFont boldSystemFontOfSize:20.0]];
-	[lowShortTime drawInRect:CGRectMake(90, 44, 80, 20) withFont:[UIFont systemFontOfSize:16.0]];
-	[[lowHeight stringByAppendingString:@"cm"] drawInRect:CGRectMake(160, 44, 80, 20) withFont:[UIFont systemFontOfSize:16.0]];
-	[@"滿潮" drawInRect:CGRectMake(10, 70, 100, 40) withFont:[UIFont boldSystemFontOfSize:20.0]];
-	[highshortTime drawInRect:CGRectMake(90, 74, 80, 20) withFont:[UIFont systemFontOfSize:16.0]];
-	[[highHeight stringByAppendingString:@"cm"] drawInRect:CGRectMake(160, 74, 80, 20) withFont:[UIFont systemFontOfSize:16.0]];
+	NSUInteger i = 0;
+	for (NSDictionary *tide in tides) {
+		NSString *name = [tide objectForKey:@"name"];
+		NSString *shortTime = [tide objectForKey:@"shortTime"];
+		NSString *height = [tide objectForKey:@"height"];
+		[name drawInRect:CGRectMake(10, 40.0 + 30 * i, 100, 40) withFont:[UIFont boldSystemFontOfSize:20.0]];
+		[shortTime drawInRect:CGRectMake(90, 44 + 30 * i, 80, 20) withFont:[UIFont systemFontOfSize:16.0]];
+		[[height stringByAppendingString:@"cm"] drawInRect:CGRectMake(160, 44 + 30 * i, 80, 20) withFont:[UIFont systemFontOfSize:16.0] lineBreakMode:UILineBreakModeClip alignment:UITextAlignmentRight];
+		i++;
+	}
 }
 - (void)setNeedsDisplay
 {
@@ -96,9 +98,11 @@
 
 @synthesize dateString;
 @synthesize lunarDateString;
-@synthesize lowShortTime;
-@synthesize lowHeight;
-@synthesize highshortTime;
-@synthesize highHeight;
+//@synthesize lowShortTime;
+//@synthesize lowHeight;
+//@synthesize highshortTime;
+//@synthesize highHeight;
+
+@synthesize tides;
 
 @end

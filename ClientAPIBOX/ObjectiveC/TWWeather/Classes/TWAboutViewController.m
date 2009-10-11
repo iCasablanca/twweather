@@ -30,6 +30,7 @@
 {
 	UIView *view = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)] autorelease];
 	view.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+	view.backgroundColor = [UIColor whiteColor];
 	self.view = view;
 	self.title = NSLocalizedString(@"About", @"");
 	

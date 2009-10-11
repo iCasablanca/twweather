@@ -662,7 +662,7 @@ class WeatherTide(Forecast):
 					tides.append(low)
 				elif line.find("滿潮") > -1:
 					high = self.handelWave(line, theDate)
-					high["name"] = u"乾潮"
+					high["name"] = u"滿潮"
 					tides.append(high)
 				elif line.find("--------") > -1:
 					item = {"date": time, "lunarDate": lunarTime, "low": low, "high": high, "tides":tides}
