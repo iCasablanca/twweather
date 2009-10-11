@@ -641,6 +641,7 @@ class WeatherTide(Forecast):
 		isHandlingItem = False
 		low = {"longTime": "", "shortTime": "", "height": ""}
 		high = {"longTime": "", "shortTime": "", "height": ""}
+		tides = []
 		for line in lines:
 			line = line.rstrip()
 			if isHandlingItem is False and line.startswith("<p>") and line.find("<br />") > -1:
@@ -657,11 +658,16 @@ class WeatherTide(Forecast):
 					lunarTime = line.replace("<br />", "").decode("utf-8")
 				elif line.find("乾潮") > -1:
 					low = self.handelWave(line, theDate)
+					low["name"] = u"乾潮"
+					tides.append(low)
 				elif line.find("滿潮") > -1:
 					high = self.handelWave(line, theDate)
+					high["name"] = u"乾潮"
+					tides.append(high)
 				elif line.find("--------") > -1:
-					item = {"date": time, "lunarDate": lunarTime, "low": low, "high": high}
+					item = {"date": time, "lunarDate": lunarTime, "low": low, "high": high, "tides":tides}
 					items.append(item)
+					tides = []
 					if len(items) >= 3:
 						result = {"locationName": locationName, "id": id, "items": items}
 						return result
