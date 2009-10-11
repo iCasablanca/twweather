@@ -113,6 +113,10 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 - (void)viewWillDisappear:(BOOL)animated
 {
 	[super viewWillDisappear:animated];
+}
+- (void)viewDidDisappear:(BOOL)animated
+{
+	[super viewDidDisappear:animated];
 	self.tabBarController.navigationItem.rightBarButtonItem = nil;
 	self.tabBarController.navigationItem.leftBarButtonItem = nil;
 }
@@ -134,6 +138,7 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 	[controller setFilter:_filterArray];
 	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
 	[controller release];
+	navController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
 	[self.tabBarController presentModalViewController:navController animated:YES];
 	[navController release];
 }

@@ -31,6 +31,8 @@
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application 
 {   	
+	window.backgroundColor = [UIColor blackColor];
+
 	UITabBarController *controller = [[UITabBarController alloc] init];
 	
 	NSBundle *bundle = [NSBundle mainBundle];
