@@ -112,10 +112,10 @@
 		
 		NSString *URLString = nil;
 		if (indexPath.row == 2) {
-			URLString = @"tel://88622349123";
+			URLString = @"tel://+886223491234";
 		}
 		else if (indexPath.row == 3) {
-			URLString = @"tel://886223491168";
+			URLString = @"tel://+886223491168";
 		}
 		if (URLString) {
 			NSURL *URL = [NSURL URLWithString:URLString];
