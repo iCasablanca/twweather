@@ -304,6 +304,13 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 	}		
 	return nil;
 }
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+	if (section == 0) {
+		return 0.0;
+	}
+	return 35.0;	
+}
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	if (indexPath.section == 0) {
@@ -332,11 +339,6 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 }
 - (void)APIBox:(TWAPIBox *)APIBox didFailedFetchAllForecastsWithError:(NSError *)error
 {
-//	if (retryCount < 1) {
-//		[self loadData];
-//		retryCount++;
-//	}
-//	retryCount = 0;	
 	[self hideLoadingView];
 	self.tableView.hidden = YES;
 	errorLabel.text = [error localizedDescription];
