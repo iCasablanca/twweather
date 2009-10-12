@@ -19,17 +19,12 @@
 #import "TWNearSeaTableViewController.h"
 #import "TWTideTableViewController.h"
 #import "TWImageTableViewController.h"
-#import "TWAboutViewController.h"
-#import "TWLocationSettingTableViewController.h"
 #import "TWWeatherAppDelegate.h"
-#import "TWWebController.h"
-#import "TWForecastResultCell.h"
 
 @implementation TWRootViewController
 
 - (void)dealloc
 {
-//	[warningArray release];
 	[super dealloc];
 }
 - (void)viewDidUnload
@@ -42,11 +37,7 @@
 - (void)viewDidLoad 
 {
     [super viewDidLoad];
-	self.title = @"台灣天氣";
-//	if (!warningArray) {
-//		warningArray = [[NSMutableArray alloc] init];
-//	}
-//	[[TWAPIBox sharedBox] fetchWarningsWithDelegate:self userInfo:nil];
+	self.title = NSLocalizedString(@"Forecasts", @"");
 }
 
 - (void)didReceiveMemoryWarning 
@@ -57,229 +48,105 @@
 	// Release any cached data, images, etc that aren't in use.
 }
 
-#pragma mark -
-
-- (IBAction)changeCurrentLocationAction:(id)sender
-{
-	if (isLoadingOverview) {
-		return;
-	}
-	
-	TWLocationSettingTableViewController *controller = [[TWLocationSettingTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
-	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
-	[controller release];
-	[self presentModalViewController:navController animated:YES];
-	[navController release];
-}
-
 #pragma mark Table view methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView 
 {
-    return 3;
+    return 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section 
 {
-	if (section == 0) {
-		return 9;
-	}
-	else if (section == 1) {
-		return 4;
-	}		
-	else if (section == 2) {
-		return 1;
-	}	
-    return 0;
+	return 9;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-    static NSString *CellIdentifier = @"Cell";
-	static NSString *NormalIdentifier = @"NormalCell";
-    
-	if (indexPath.section == 0) {
-		TWLoadingCell *cell = (TWLoadingCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-		if (cell == nil) {
-			cell = [[[TWLoadingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-		}
-		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-		if (indexPath.row != 0) {
-			[cell stopAnimating];
-		}		
-		switch (indexPath.row) {
-			case 0:
-				cell.textLabel.text = @"目前天氣";
-				break;				
-			case 1:
-				cell.textLabel.text = @"關心天氣";
-				if (isLoadingOverview) {
-					[cell startAnimating];
-				}
-				else {
-					[cell stopAnimating];
-				}
-				break;				
-			case 2:
-				cell.textLabel.text = @"今明預報";
-				break;
-			case 3:
-				cell.textLabel.text = @"一週天氣";
-				break;				
-			case 4:
-				cell.textLabel.text = @"一週旅遊";
-				break;				
-			case 5:
-				cell.textLabel.text = @"三天漁業";
-				break;				
-			case 6:
-				cell.textLabel.text = @"台灣近海";
-				break;				
-			case 7:
-				cell.textLabel.text = @"三天潮汐";
-				break;				
-			case 8:
-				cell.textLabel.text = @"天氣觀測雲圖";
-				break;				
-			default:
-				break;
-		}
-		return cell;
+    static NSString *CellIdentifier = @"Cell";    
+	TWLoadingCell *cell = (TWLoadingCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	if (cell == nil) {
+		cell = [[[TWLoadingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
 	}
-	else if (indexPath.section == 1) {
-		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NormalIdentifier];
-		if (cell == nil) {
-			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NormalIdentifier] autorelease];
-		}
-		cell.accessoryType = UITableViewCellAccessoryNone;
-		cell.imageView.image = nil;
-		switch (indexPath.row) {
-			case 0:
-				cell.textLabel.text = @"中央氣象局網頁";
-				cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-				break;
-			case 1:
-				cell.textLabel.text = @"中央氣象局網頁 PDA 版";
-				cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-				break;				
-			case 2:
-				cell.textLabel.text = @"氣象查詢：886-2-23491234";
-				cell.imageView.image = [UIImage imageNamed:@"tel.png"];
-				break;
-			case 3:
-				cell.textLabel.text = @"地震查詢：886-2-23491168";
-				cell.imageView.image = [UIImage imageNamed:@"tel.png"];
-				break;				
-			default:
-				break;
-		}
-		return cell;
-	}	
-	else if (indexPath.section == 2) {
-		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NormalIdentifier];
-		if (cell == nil) {
-			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NormalIdentifier] autorelease];
-		}
-		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-		switch (indexPath.row) {
-			case 0:
-				cell.textLabel.text = NSLocalizedString(@"About", @"");
-				break;
-			default:
-				break;
-		}
-		return cell;
+	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+	cell.textLabel.font = [UIFont boldSystemFontOfSize:18.0];
+	cell.imageView.image = nil;
+	if (indexPath.row != 0) {
+		[cell stopAnimating];
+	}		
+	switch (indexPath.row) {
+		case 0:
+			cell.textLabel.text = @"目前天氣";
+			break;				
+		case 1:
+			cell.textLabel.text = @"關心天氣";
+			if (isLoadingOverview) {
+				[cell startAnimating];
+			}
+			else {
+				[cell stopAnimating];
+			}
+			break;				
+		case 2:
+			cell.textLabel.text = @"今明預報";
+			break;
+		case 3:
+			cell.textLabel.text = @"一週天氣";
+			break;				
+		case 4:
+			cell.textLabel.text = @"一週旅遊";
+			break;				
+		case 5:
+			cell.textLabel.text = @"三天漁業";
+			break;				
+		case 6:
+			cell.textLabel.text = @"台灣近海";
+			break;				
+		case 7:
+			cell.textLabel.text = @"三天潮汐";
+			break;				
+		case 8:
+			cell.textLabel.text = @"天氣觀測雲圖";
+			break;				
+		default:
+			break;
 	}
-		
-	return nil;
+	return cell;
 
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-	if (indexPath.section == 0) {
-		UITableViewController *controller = nil;
-		if (indexPath.row == 0) {
-			controller = [[TWOBSTableViewController alloc] initWithStyle:UITableViewStylePlain];
-		}		
-		else if (indexPath.row == 1) {
-			[[TWAPIBox sharedBox] fetchOverviewWithFormat:TWOverviewPlainFormat delegate:self userInfo:nil];
-			isLoadingOverview = YES;
-			[self.tableView reloadData];
-			self.tableView.userInteractionEnabled = NO;
-		}
-		else if (indexPath.row == 2) {
-			controller = [[TWForecastTableViewController alloc] initWithStyle:UITableViewStylePlain];
-		}
-		else if (indexPath.row == 3) {
-			controller = [[TWWeekTableViewController alloc] initWithStyle:UITableViewStylePlain];
-		}
-		else if (indexPath.row == 4) {
-			controller = [[TWWeekTravelTableViewController alloc] initWithStyle:UITableViewStylePlain];
-		}
-		else if (indexPath.row == 5) {
-			controller = [[TWThreeDaySeaTableViewController alloc] initWithStyle:UITableViewStylePlain];
-		}
-		else if (indexPath.row == 6) {
-			controller = [[TWNearSeaTableViewController alloc] initWithStyle:UITableViewStylePlain];
-		}
-		else if (indexPath.row == 7) {
-			controller = [[TWTideTableViewController alloc] initWithStyle:UITableViewStylePlain];
-		}
-		else if (indexPath.row == 8) {
-			controller = [[TWImageTableViewController alloc] initWithStyle:UITableViewStylePlain];
-		}
-		if (controller) {
-			[[TWWeatherAppDelegate sharedDelegate] pushViewController:controller animated:YES];
-			[controller release];
-		}
+	UITableViewController *controller = nil;
+	if (indexPath.row == 0) {
+		controller = [[TWOBSTableViewController alloc] initWithStyle:UITableViewStylePlain];
+	}		
+	else if (indexPath.row == 1) {
+		[[TWAPIBox sharedBox] fetchOverviewWithFormat:TWOverviewPlainFormat delegate:self userInfo:nil];
+		isLoadingOverview = YES;
+		[self.tableView reloadData];
+		self.tableView.userInteractionEnabled = NO;
 	}
-	else if (indexPath.section == 1) {
-		[tableView deselectRowAtIndexPath:indexPath animated:YES];
-		
-		if (indexPath.row < 2) {
-			TWWebController *webController = [[TWWebController alloc] initWithNibName:@"TWWebController" bundle:[NSBundle mainBundle]];
-			[[TWWeatherAppDelegate sharedDelegate] pushViewController:webController animated:YES];
-			if (indexPath.row == 0) {
-				webController.title = @"中央氣象局網頁";
-				[webController.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.cwb.gov.tw/"]]];
-			}
-			else if (indexPath.row == 1) {
-				webController.title = @"中央氣象局網頁 PDA 版";
-				webController.webView.scalesPageToFit = NO;
-				[webController.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.cwb.gov.tw/pda/"]]];
-			}
-			[webController release];
-			return;
-		}
-		
-		NSString *model = [UIDevice currentDevice].model;
-		if (![model isEqualToString:@"iPhone"]) {
-			NSString *title = [NSString stringWithFormat:NSLocalizedString(@"You can not make a phone call with an %@", @""), model];
-			UIAlertView *alertview = [[UIAlertView alloc] initWithTitle:title message:NSLocalizedString(@"Your device does not supprt to make a phone call, please use a telephone or cellphone to dial the number.", @"") delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:nil];
-			[alertview show];
-			[alertview release];
-		}
-		
-		NSString *URLString = nil;
-		if (indexPath.row == 2) {
-			URLString = @"tel://88622349123";
-		}
-		else if (indexPath.row == 3) {
-			URLString = @"tel://886223491168";
-		}
-		if (URLString) {
-			NSURL *URL = [NSURL URLWithString:URLString];
-			[[UIApplication sharedApplication] openURL:URL];
-		}
-		
+	else if (indexPath.row == 2) {
+		controller = [[TWForecastTableViewController alloc] initWithStyle:UITableViewStylePlain];
 	}
-	else if (indexPath.section == 2) {
-		UITableViewController *controller = nil;
-		if (indexPath.row == 0) {
-			controller = [[TWAboutViewController alloc] init];
-		}
-		if (controller) {
-			[[TWWeatherAppDelegate sharedDelegate] pushViewController:controller animated:YES];
-			[controller release];
-		}		
+	else if (indexPath.row == 3) {
+		controller = [[TWWeekTableViewController alloc] initWithStyle:UITableViewStylePlain];
+	}
+	else if (indexPath.row == 4) {
+		controller = [[TWWeekTravelTableViewController alloc] initWithStyle:UITableViewStylePlain];
+	}
+	else if (indexPath.row == 5) {
+		controller = [[TWThreeDaySeaTableViewController alloc] initWithStyle:UITableViewStylePlain];
+	}
+	else if (indexPath.row == 6) {
+		controller = [[TWNearSeaTableViewController alloc] initWithStyle:UITableViewStylePlain];
+	}
+	else if (indexPath.row == 7) {
+		controller = [[TWTideTableViewController alloc] initWithStyle:UITableViewStylePlain];
+	}
+	else if (indexPath.row == 8) {
+		controller = [[TWImageTableViewController alloc] initWithStyle:UITableViewStylePlain];
+	}
+	if (controller) {
+		[[TWWeatherAppDelegate sharedDelegate] pushViewController:controller animated:YES];
+		[controller release];
 	}
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -292,9 +159,9 @@
 }
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-	if (section == 0) {
-		return @"功能列表";
-	}
+//	if (section == 0) {
+//		return @"功能列表";
+//	}
 	return nil;
 }
 

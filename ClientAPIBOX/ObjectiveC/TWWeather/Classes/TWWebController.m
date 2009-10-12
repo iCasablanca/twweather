@@ -63,11 +63,9 @@
 - (void)viewDidLoad 
 {
     [super viewDidLoad];
-	NSMutableArray *a = [NSMutableArray arrayWithArray:toolbar.items];
 	UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:activityIndicatorView];
-	[a addObject:item];
+	self.navigationItem.rightBarButtonItem = item;
 	[item release];
-	toolbar.items = a;
 	activityIndicatorView.hidesWhenStopped = YES;
 	[webView setDelegate:self];
 	[self updateButtonState];

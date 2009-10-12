@@ -7,6 +7,7 @@
 
 #import "TWWeatherAppDelegate.h"
 #import "TWRootViewController.h"
+#import "TWMoreViewController.h"
 #import "TWFavoriteTableViewController.h"
 #import "TWAPIBox.h"
 #import "TWAPIBox+Info.h"
@@ -38,6 +39,9 @@
 	NSBundle *bundle = [NSBundle mainBundle];
 	NSDictionary *loaclizedDictionary = [bundle localizedInfoDictionary];
 	controller.title = [loaclizedDictionary objectForKey:@"CFBundleDisplayName"];
+	UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Back", @"") style:UIBarButtonItemStyleBordered target:nil action:NULL];
+	controller.navigationItem.backBarButtonItem = item;
+	[item release];
 	
 	self.tabBarController = controller;	
 	[controller release];
@@ -49,11 +53,16 @@
 	[controllerArray addObject:favControlelr];
 	[favControlelr release];
 	
-	TWRootViewController *rootController = [[TWRootViewController alloc] initWithStyle:UITableViewStyleGrouped];
-	rootController.tabBarItem = [[[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemMore tag:1] autorelease];	
+	TWRootViewController *rootController = [[TWRootViewController alloc] initWithStyle:UITableViewStylePlain];
+	rootController.tabBarItem = [[[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Forecasts", @"") image:[UIImage imageNamed:@"forecasts.png"] tag:1] autorelease];
 	[controllerArray addObject:rootController];
 	[rootController release];
 
+	TWMoreViewController *moreController = [[TWMoreViewController alloc] initWithStyle:UITableViewStyleGrouped];
+	moreController.tabBarItem = [[[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemMore tag:2] autorelease];	
+	[controllerArray addObject:moreController];
+	[moreController release];
+	
 	self.tabBarController.viewControllers = controllerArray;
 	
 	UINavigationController *ourNavigationController = [[UINavigationController alloc] initWithRootViewController:self.tabBarController];
@@ -112,4 +121,3 @@
 @synthesize navigationController;
 
 @end
-

@@ -7,7 +7,6 @@
 
 @interface TWRootViewController : UITableViewController 
 {
-//	NSMutableArray *warningArray;
 	BOOL isLoadingOverview;
 }
 
