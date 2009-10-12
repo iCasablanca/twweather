@@ -280,10 +280,19 @@ static TWAPIBox *apibox;
 
 - (void)httpRequestDidComplete:(LFHTTPRequest *)request
 {
+	NSData *data = [request receivedData];
+	
+	if (![data length] && !_retryCount) {
+		NSURL *URL = [request.sessionInfo objectForKey:@"URL"];
+		[_request performMethod:LFHTTPRequestGETMethod onURL:URL withData:nil];		
+		_retryCount++;
+		return;
+	}
+	_retryCount = 0;
+	
 	NSString *actionString = [[request sessionInfo] objectForKey:@"action"];
 	SEL action = NSSelectorFromString(actionString);
 	NSURL *URL = [[request sessionInfo] objectForKey:@"URL"];
-	NSData *data = [request receivedData];
 	if (URL) {
 		[self writeDataToCache:data fromURL:URL];
 	}
@@ -299,6 +308,15 @@ static TWAPIBox *apibox;
 }
 - (void)httpRequest:(LFHTTPRequest *)request didFailWithError:(NSString *)error;
 {
+	if (!_retryCount) {
+		NSURL *URL = [request.sessionInfo objectForKey:@"URL"];
+		[_request performMethod:LFHTTPRequestGETMethod onURL:URL withData:nil];		
+		_retryCount++;
+		return;
+	}
+	
+	_retryCount = 0;
+	
 	NSURL *URL = [[request sessionInfo] objectForKey:@"URL"];
 	if (URL) {
 		NSData *data = [self dataInCacheForURL:URL];

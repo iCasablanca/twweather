@@ -221,10 +221,14 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		if (indexPath.row >= [warningArray count]) {
 			cell.textLabel.text = @"人事行政局網頁";
+			cell.imageView.image = nil;
+			cell.textLabel.textColor = [UIColor blackColor];
 		}
 		else {
 			NSDictionary *dictionary = [warningArray objectAtIndex:indexPath.row];
 			cell.textLabel.text = [dictionary objectForKey:@"name"];
+			cell.imageView.image = [UIImage imageNamed:@"alert.png"];
+			cell.textLabel.textColor = [UIColor redColor];
 		}
 		return cell;
 	}
@@ -328,11 +332,11 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 }
 - (void)APIBox:(TWAPIBox *)APIBox didFailedFetchAllForecastsWithError:(NSError *)error
 {
-	if (retryCount < 1) {
-		[self loadData];
-		retryCount++;
-	}
-	retryCount = 0;	
+//	if (retryCount < 1) {
+//		[self loadData];
+//		retryCount++;
+//	}
+//	retryCount = 0;	
 	[self hideLoadingView];
 	self.tableView.hidden = YES;
 	errorLabel.text = [error localizedDescription];

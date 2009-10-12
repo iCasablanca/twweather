@@ -95,6 +95,8 @@ typedef enum {
 	NSMutableArray *_imageIdentifiers;
 	NSMutableArray *_OBSLocations;
 	NSDateFormatter *_formatter;
+	
+	NSUInteger _retryCount;
 }
 
 + (TWAPIBox *)sharedBox;

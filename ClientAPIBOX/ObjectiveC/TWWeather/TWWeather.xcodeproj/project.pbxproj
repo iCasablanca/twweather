@@ -21,6 +21,7 @@
 		D42C7A091023CF59009C3C4E /* TWImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D42C7A081023CF59009C3C4E /* TWImageViewController.m */; };
 		D44C172C10309942006B6698 /* CocoaCryptoHashing.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E509411023C17F002B39D7 /* CocoaCryptoHashing.m */; };
 		D46045931083A64B00B97EEF /* tel.png in Resources */ = {isa = PBXBuildFile; fileRef = D46045921083A64B00B97EEF /* tel.png */; };
+		D46045A11083A92200B97EEF /* alert.png in Resources */ = {isa = PBXBuildFile; fileRef = D46045A01083A92200B97EEF /* alert.png */; };
 		D471EAE1102F471B00768C5B /* TWAPIBox.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3A0DC1022361E00E7A430 /* TWAPIBox.m */; };
 		D471EAE2102F471B00768C5B /* TWAPIBox+Info.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E5025710233338002B39D7 /* TWAPIBox+Info.m */; };
 		D471EAE3102F471B00768C5B /* TWAPIBox+Cache.m in Sources */ = {isa = PBXBuildFile; fileRef = D489E3831023DF2500189460 /* TWAPIBox+Cache.m */; };
@@ -118,6 +119,7 @@
 		D42C7A071023CF59009C3C4E /* TWImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWImageViewController.h; sourceTree = "<group>"; };
 		D42C7A081023CF59009C3C4E /* TWImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWImageViewController.m; sourceTree = "<group>"; };
 		D46045921083A64B00B97EEF /* tel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tel.png; path = Images/tel.png; sourceTree = "<group>"; };
+		D46045A01083A92200B97EEF /* alert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = alert.png; path = Images/alert.png; sourceTree = "<group>"; };
 		D471EAB8102F460600768C5B /* TWTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TWTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D471EAB9102F460600768C5B /* TWTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TWTests-Info.plist"; sourceTree = "<group>"; };
 		D471EBD6102F47D400768C5B /* TWAPITest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TWAPITest.h; path = ../TWAPIBox/Tests/TWAPITest.h; sourceTree = SOURCE_ROOT; };
@@ -342,6 +344,7 @@
 		D489E38C1023DFF500189460 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				D46045A01083A92200B97EEF /* alert.png */,
 				D46045921083A64B00B97EEF /* tel.png */,
 				D4EDBEF91082042000C9EBFE /* webBack.png */,
 				D4EDBEFA1082042000C9EBFE /* webForward.png */,
@@ -576,6 +579,7 @@
 				D4EDBEFB1082042000C9EBFE /* webBack.png in Resources */,
 				D4EDBEFC1082042000C9EBFE /* webForward.png in Resources */,
 				D46045931083A64B00B97EEF /* tel.png in Resources */,
+				D46045A11083A92200B97EEF /* alert.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
