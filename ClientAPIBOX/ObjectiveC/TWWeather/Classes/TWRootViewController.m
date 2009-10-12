@@ -150,6 +150,7 @@
 			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NormalIdentifier] autorelease];
 		}
 		cell.accessoryType = UITableViewCellAccessoryNone;
+		cell.imageView.image = nil;
 		switch (indexPath.row) {
 			case 0:
 				cell.textLabel.text = @"中央氣象局網頁";
@@ -161,11 +162,12 @@
 				break;				
 			case 2:
 				cell.textLabel.text = @"氣象查詢：886-2-23491234";
+				cell.imageView.image = [UIImage imageNamed:@"tel.png"];
 				break;
 			case 3:
 				cell.textLabel.text = @"地震查詢：886-2-23491168";
-				break;
-				
+				cell.imageView.image = [UIImage imageNamed:@"tel.png"];
+				break;				
 			default:
 				break;
 		}

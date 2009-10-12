@@ -20,6 +20,7 @@
 		D426D8CF102D377600BBBEB3 /* TWLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = D426D8CE102D377600BBBEB3 /* TWLoadingView.m */; };
 		D42C7A091023CF59009C3C4E /* TWImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D42C7A081023CF59009C3C4E /* TWImageViewController.m */; };
 		D44C172C10309942006B6698 /* CocoaCryptoHashing.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E509411023C17F002B39D7 /* CocoaCryptoHashing.m */; };
+		D46045931083A64B00B97EEF /* tel.png in Resources */ = {isa = PBXBuildFile; fileRef = D46045921083A64B00B97EEF /* tel.png */; };
 		D471EAE1102F471B00768C5B /* TWAPIBox.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3A0DC1022361E00E7A430 /* TWAPIBox.m */; };
 		D471EAE2102F471B00768C5B /* TWAPIBox+Info.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E5025710233338002B39D7 /* TWAPIBox+Info.m */; };
 		D471EAE3102F471B00768C5B /* TWAPIBox+Cache.m in Sources */ = {isa = PBXBuildFile; fileRef = D489E3831023DF2500189460 /* TWAPIBox+Cache.m */; };
@@ -33,7 +34,6 @@
 		D471EBB9102F476100768C5B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E9C70010223DBB00B955C7 /* CFNetwork.framework */; };
 		D471EBD8102F47D400768C5B /* TWAPITest.m in Sources */ = {isa = PBXBuildFile; fileRef = D471EBD7102F47D400768C5B /* TWAPITest.m */; };
 		D489E3851023DF2500189460 /* TWAPIBox+Cache.m in Sources */ = {isa = PBXBuildFile; fileRef = D489E3831023DF2500189460 /* TWAPIBox+Cache.m */; };
-		D489E3AB1023E00100189460 /* ball.png in Resources */ = {isa = PBXBuildFile; fileRef = D489E3981023E00100189460 /* ball.png */; };
 		D489E3AC1023E00100189460 /* DayCloudy.png in Resources */ = {isa = PBXBuildFile; fileRef = D489E3991023E00100189460 /* DayCloudy.png */; };
 		D489E3AD1023E00100189460 /* DayCloudyGlommy.png in Resources */ = {isa = PBXBuildFile; fileRef = D489E39A1023E00100189460 /* DayCloudyGlommy.png */; };
 		D489E3AE1023E00100189460 /* DayCloudySunny.png in Resources */ = {isa = PBXBuildFile; fileRef = D489E39B1023E00100189460 /* DayCloudySunny.png */; };
@@ -42,7 +42,6 @@
 		D489E3B11023E00100189460 /* DayRainy.png in Resources */ = {isa = PBXBuildFile; fileRef = D489E39E1023E00100189460 /* DayRainy.png */; };
 		D489E3B21023E00100189460 /* DaySunny.png in Resources */ = {isa = PBXBuildFile; fileRef = D489E39F1023E00100189460 /* DaySunny.png */; };
 		D489E3B31023E00100189460 /* DaySunnyCloudy.png in Resources */ = {isa = PBXBuildFile; fileRef = D489E3A01023E00100189460 /* DaySunnyCloudy.png */; };
-		D489E3B41023E00100189460 /* Info.png in Resources */ = {isa = PBXBuildFile; fileRef = D489E3A11023E00100189460 /* Info.png */; };
 		D489E3B51023E00100189460 /* NightCloudy.png in Resources */ = {isa = PBXBuildFile; fileRef = D489E3A21023E00100189460 /* NightCloudy.png */; };
 		D489E3B61023E00100189460 /* NightCloudyGlommy.png in Resources */ = {isa = PBXBuildFile; fileRef = D489E3A31023E00100189460 /* NightCloudyGlommy.png */; };
 		D489E3B71023E00100189460 /* NightCloudySunny.png in Resources */ = {isa = PBXBuildFile; fileRef = D489E3A41023E00100189460 /* NightCloudySunny.png */; };
@@ -51,7 +50,6 @@
 		D489E3BA1023E00100189460 /* NightRainy.png in Resources */ = {isa = PBXBuildFile; fileRef = D489E3A71023E00100189460 /* NightRainy.png */; };
 		D489E3BB1023E00100189460 /* NightSunny.png in Resources */ = {isa = PBXBuildFile; fileRef = D489E3A81023E00100189460 /* NightSunny.png */; };
 		D489E3BC1023E00100189460 /* NightSunnyCloudy.png in Resources */ = {isa = PBXBuildFile; fileRef = D489E3A91023E00100189460 /* NightSunnyCloudy.png */; };
-		D489E3BD1023E00100189460 /* zonble.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D489E3AA1023E00100189460 /* zonble.jpg */; };
 		D489E4FA1023F2A200189460 /* TWLocationSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D489E4F91023F2A200189460 /* TWLocationSettingTableViewController.m */; };
 		D489E5961024DD7600189460 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = D489E5951024DD7600189460 /* Default.png */; };
 		D489E59E1024EA4600189460 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D489E59D1024EA4600189460 /* InfoPlist.strings */; };
@@ -119,13 +117,13 @@
 		D426D8CE102D377600BBBEB3 /* TWLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWLoadingView.m; sourceTree = "<group>"; };
 		D42C7A071023CF59009C3C4E /* TWImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWImageViewController.h; sourceTree = "<group>"; };
 		D42C7A081023CF59009C3C4E /* TWImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWImageViewController.m; sourceTree = "<group>"; };
+		D46045921083A64B00B97EEF /* tel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tel.png; path = Images/tel.png; sourceTree = "<group>"; };
 		D471EAB8102F460600768C5B /* TWTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TWTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D471EAB9102F460600768C5B /* TWTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TWTests-Info.plist"; sourceTree = "<group>"; };
 		D471EBD6102F47D400768C5B /* TWAPITest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TWAPITest.h; path = ../TWAPIBox/Tests/TWAPITest.h; sourceTree = SOURCE_ROOT; };
 		D471EBD7102F47D400768C5B /* TWAPITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TWAPITest.m; path = ../TWAPIBox/Tests/TWAPITest.m; sourceTree = SOURCE_ROOT; wrapsLines = 1; };
 		D489E3831023DF2500189460 /* TWAPIBox+Cache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TWAPIBox+Cache.m"; path = "../TWAPIBox/TWAPIBox+Cache.m"; sourceTree = SOURCE_ROOT; };
 		D489E3841023DF2500189460 /* TWAPIBox+Cache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TWAPIBox+Cache.h"; path = "../TWAPIBox/TWAPIBox+Cache.h"; sourceTree = SOURCE_ROOT; };
-		D489E3981023E00100189460 /* ball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ball.png; path = Images/ball.png; sourceTree = "<group>"; };
 		D489E3991023E00100189460 /* DayCloudy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DayCloudy.png; path = Images/DayCloudy.png; sourceTree = "<group>"; };
 		D489E39A1023E00100189460 /* DayCloudyGlommy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DayCloudyGlommy.png; path = Images/DayCloudyGlommy.png; sourceTree = "<group>"; };
 		D489E39B1023E00100189460 /* DayCloudySunny.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DayCloudySunny.png; path = Images/DayCloudySunny.png; sourceTree = "<group>"; };
@@ -134,7 +132,6 @@
 		D489E39E1023E00100189460 /* DayRainy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DayRainy.png; path = Images/DayRainy.png; sourceTree = "<group>"; };
 		D489E39F1023E00100189460 /* DaySunny.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DaySunny.png; path = Images/DaySunny.png; sourceTree = "<group>"; };
 		D489E3A01023E00100189460 /* DaySunnyCloudy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DaySunnyCloudy.png; path = Images/DaySunnyCloudy.png; sourceTree = "<group>"; };
-		D489E3A11023E00100189460 /* Info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Info.png; path = Images/Info.png; sourceTree = "<group>"; };
 		D489E3A21023E00100189460 /* NightCloudy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = NightCloudy.png; path = Images/NightCloudy.png; sourceTree = "<group>"; };
 		D489E3A31023E00100189460 /* NightCloudyGlommy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = NightCloudyGlommy.png; path = Images/NightCloudyGlommy.png; sourceTree = "<group>"; };
 		D489E3A41023E00100189460 /* NightCloudySunny.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = NightCloudySunny.png; path = Images/NightCloudySunny.png; sourceTree = "<group>"; };
@@ -143,7 +140,6 @@
 		D489E3A71023E00100189460 /* NightRainy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = NightRainy.png; path = Images/NightRainy.png; sourceTree = "<group>"; };
 		D489E3A81023E00100189460 /* NightSunny.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = NightSunny.png; path = Images/NightSunny.png; sourceTree = "<group>"; };
 		D489E3A91023E00100189460 /* NightSunnyCloudy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = NightSunnyCloudy.png; path = Images/NightSunnyCloudy.png; sourceTree = "<group>"; };
-		D489E3AA1023E00100189460 /* zonble.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = zonble.jpg; path = Images/zonble.jpg; sourceTree = "<group>"; };
 		D489E4F81023F2A200189460 /* TWLocationSettingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWLocationSettingTableViewController.h; sourceTree = "<group>"; };
 		D489E4F91023F2A200189460 /* TWLocationSettingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWLocationSettingTableViewController.m; sourceTree = "<group>"; };
 		D489E5951024DD7600189460 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Images/Default.png; sourceTree = "<group>"; };
@@ -346,9 +342,9 @@
 		D489E38C1023DFF500189460 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				D46045921083A64B00B97EEF /* tel.png */,
 				D4EDBEF91082042000C9EBFE /* webBack.png */,
 				D4EDBEFA1082042000C9EBFE /* webForward.png */,
-				D489E3981023E00100189460 /* ball.png */,
 				D489E3991023E00100189460 /* DayCloudy.png */,
 				D489E39A1023E00100189460 /* DayCloudyGlommy.png */,
 				D489E39B1023E00100189460 /* DayCloudySunny.png */,
@@ -357,7 +353,6 @@
 				D489E39E1023E00100189460 /* DayRainy.png */,
 				D489E39F1023E00100189460 /* DaySunny.png */,
 				D489E3A01023E00100189460 /* DaySunnyCloudy.png */,
-				D489E3A11023E00100189460 /* Info.png */,
 				D489E3A21023E00100189460 /* NightCloudy.png */,
 				D489E3A31023E00100189460 /* NightCloudyGlommy.png */,
 				D489E3A41023E00100189460 /* NightCloudySunny.png */,
@@ -366,7 +361,6 @@
 				D489E3A71023E00100189460 /* NightRainy.png */,
 				D489E3A81023E00100189460 /* NightSunny.png */,
 				D489E3A91023E00100189460 /* NightSunnyCloudy.png */,
-				D489E3AA1023E00100189460 /* zonble.jpg */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -557,7 +551,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */,
-				D489E3AB1023E00100189460 /* ball.png in Resources */,
 				D489E3AC1023E00100189460 /* DayCloudy.png in Resources */,
 				D489E3AD1023E00100189460 /* DayCloudyGlommy.png in Resources */,
 				D489E3AE1023E00100189460 /* DayCloudySunny.png in Resources */,
@@ -566,7 +559,6 @@
 				D489E3B11023E00100189460 /* DayRainy.png in Resources */,
 				D489E3B21023E00100189460 /* DaySunny.png in Resources */,
 				D489E3B31023E00100189460 /* DaySunnyCloudy.png in Resources */,
-				D489E3B41023E00100189460 /* Info.png in Resources */,
 				D489E3B51023E00100189460 /* NightCloudy.png in Resources */,
 				D489E3B61023E00100189460 /* NightCloudyGlommy.png in Resources */,
 				D489E3B71023E00100189460 /* NightCloudySunny.png in Resources */,
@@ -575,7 +567,6 @@
 				D489E3BA1023E00100189460 /* NightRainy.png in Resources */,
 				D489E3BB1023E00100189460 /* NightSunny.png in Resources */,
 				D489E3BC1023E00100189460 /* NightSunnyCloudy.png in Resources */,
-				D489E3BD1023E00100189460 /* zonble.jpg in Resources */,
 				D489E5961024DD7600189460 /* Default.png in Resources */,
 				D489E59E1024EA4600189460 /* InfoPlist.strings in Resources */,
 				D4E84FB1102D4BEC00A80676 /* Localizable.strings in Resources */,
@@ -584,6 +575,7 @@
 				D4EDBEF71082034800C9EBFE /* TWWebController.xib in Resources */,
 				D4EDBEFB1082042000C9EBFE /* webBack.png in Resources */,
 				D4EDBEFC1082042000C9EBFE /* webForward.png in Resources */,
+				D46045931083A64B00B97EEF /* tel.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
