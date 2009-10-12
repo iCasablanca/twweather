@@ -107,9 +107,9 @@
 - (void)_init
 {
 	if (!_ourContentView) {
-		CGRect cellFrame = CGRectMake(10, 5, 280.0, 110.0);
-		_ourContentView.backgroundColor = [UIColor redColor];
+		CGRect cellFrame = CGRectMake(10, 5, 280.0, 120.0);
 		_ourContentView = [[TWForecastResultCellContentView alloc] initWithFrame:cellFrame];
+		_ourContentView.backgroundColor = [UIColor whiteColor];
 		_ourContentView.delegate = self;
 		[self.contentView addSubview:_ourContentView];
 	}
@@ -124,24 +124,26 @@
 }
 - (void)draw:(CGRect)bounds
 {
+	CGSize size = weatherImage.size;
+	[weatherImage drawInRect:CGRectMake(0, -5, size.width * 0.75, size.height * 0.75)];
+	
 	if (self.highlighted || self.selected) {
 		[[UIColor whiteColor] set];
 	}
 	else {
 		[[UIColor blackColor] set];
 	}
-	
-	[title drawInRect:CGRectMake(70, 5, 210, 20) withFont:[UIFont systemFontOfSize:14.0]];
-	NSString *timeString = [NSString stringWithFormat:@"%@ - %@", beginTime, endTime];
-	[timeString drawInRect:CGRectMake(70, 25, 210, 20) withFont:[UIFont systemFontOfSize:10.0]];
-	[description drawInRect:CGRectMake(70, 42, 210, 30) withFont:[UIFont boldSystemFontOfSize:22.0]];
-	NSString *temperatureString = [NSString stringWithFormat:@"溫度： %@ ℃", temperature];
-	[temperatureString drawInRect:CGRectMake(70, 74, 210, 20) withFont:[UIFont systemFontOfSize:14.0]];
+		
+	[title drawInRect:CGRectMake(140, 5, 100, 20) withFont:[UIFont boldSystemFontOfSize:14.0] lineBreakMode:UILineBreakModeClip alignment:UITextAlignmentLeft];
+	NSString *timeString = [NSString stringWithFormat:@"%@\n%@", beginTime, endTime];
+	[timeString drawInRect:CGRectMake(140, 30, 160, 40) withFont:[UIFont systemFontOfSize:10.0] lineBreakMode:UILineBreakModeClip alignment:UITextAlignmentLeft];
+
+	[description drawInRect:CGRectMake(10, 82, 100, 60) withFont:[UIFont systemFontOfSize:12.0] lineBreakMode:UILineBreakModeCharacterWrap alignment:UITextAlignmentCenter];	
+	NSString *temperatureString = [NSString stringWithFormat:@"%@ ℃", temperature];
+	[temperatureString drawInRect:CGRectMake(140, 64, 100, 20) withFont:[UIFont boldSystemFontOfSize:18.0] lineBreakMode:UILineBreakModeClip alignment:UITextAlignmentLeft];
 	NSString *rainString = [NSString stringWithFormat:@"降雨機率： %@ %%", rain];
-	[rainString drawInRect:CGRectMake(70, 94, 210, 20) withFont:[UIFont systemFontOfSize:14.0]];
+	[rainString drawInRect:CGRectMake(140, 94, 100, 20) withFont:[UIFont systemFontOfSize:12.0] lineBreakMode:UILineBreakModeClip alignment:UITextAlignmentLeft];
 	
-	CGSize size = weatherImage.size;
-	[weatherImage drawInRect:CGRectMake(0, 40, size.width * 0.8, size.height * 0.8)];
 }
 - (IBAction)copy:(id)sender
 {

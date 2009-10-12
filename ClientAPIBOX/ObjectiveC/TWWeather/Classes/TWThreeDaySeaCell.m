@@ -113,12 +113,12 @@
 {
 	[date drawInRect:CGRectMake(10, 5, 260, 20) withFont:[UIFont boldSystemFontOfSize:14.0]];
 	[description drawInRect:CGRectMake(10, 27, 260, 30) withFont:[UIFont boldSystemFontOfSize:18.0]];
-	[wind drawInRect:CGRectMake(10, 55, 260, 20) withFont:[UIFont systemFontOfSize:14.0]];
-	[windScale drawInRect:CGRectMake(10, 75, 260, 20) withFont:[UIFont systemFontOfSize:14.0]];
-	[wave drawInRect:CGRectMake(10, 95, 260, 20) withFont:[UIFont systemFontOfSize:14.0]];
+	[wind drawInRect:CGRectMake(10, 55, 260, 20) withFont:[UIFont systemFontOfSize:12.0]];
+	[windScale drawInRect:CGRectMake(10, 75, 260, 20) withFont:[UIFont systemFontOfSize:12.0]];
+	[wave drawInRect:CGRectMake(10, 95, 260, 20) withFont:[UIFont systemFontOfSize:12.0]];
 	
 	CGSize size = weatherImage.size;
-	[weatherImage drawInRect:CGRectMake(220, 20, size.width * 0.8, size.height * 0.8)];
+	[weatherImage drawInRect:CGRectMake(180, 20, size.width * 0.6, size.height * 0.6)];
 }
 - (IBAction)copy:(id)sender
 {

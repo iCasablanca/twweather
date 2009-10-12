@@ -100,7 +100,7 @@
 - (void)_init
 {
 	if (!_ourContentView) {
-		CGRect cellFrame = CGRectMake(10, 10, 280, 280);
+		CGRect cellFrame = CGRectMake(10, 10, 280, 290);
 		_ourContentView = [[TWOBSCellContentView alloc] initWithFrame:cellFrame];
 		_ourContentView.delegate = self;
 		[self.contentView addSubview:_ourContentView];	
@@ -116,16 +116,16 @@
 - (void)draw:(CGRect)bounds
 {
 	CGSize size = weatherImage.size;
-	[weatherImage drawInRect:CGRectMake(10, 20, size.width * 0.8, size.height * 0.8)];
+	[weatherImage drawInRect:CGRectMake(10, 0, size.width * 0.8, size.height * 0.8)];
 	
-	[@"天氣現象" drawInRect:CGRectMake(100, 30, 160, 20) withFont:[UIFont boldSystemFontOfSize:16.0]];
-	[description drawInRect:CGRectMake(100, 70, 160, 80) withFont:[UIFont boldSystemFontOfSize:22.0]];
+	[@"天氣現象" drawInRect:CGRectMake(100, 90, 160, 20) withFont:[UIFont boldSystemFontOfSize:16.0]];
+	[description drawInRect:CGRectMake(100, 140, 160, 80) withFont:[UIFont boldSystemFontOfSize:22.0]];
 	
-	[[NSString stringWithFormat:@"溫度: %@", temperature] drawInRect:CGRectMake(100, 130, 160, 20) withFont:[UIFont systemFontOfSize:18.0]];
-	[[NSString stringWithFormat:@"累積雨量: %@ 毫米", rain] drawInRect:CGRectMake(100, 160, 160, 20) withFont:[UIFont systemFontOfSize:18.0]];
-	[[NSString stringWithFormat:@"風向: %@", windDirection] drawInRect:CGRectMake(100, 190, 160, 20) withFont:[UIFont systemFontOfSize:18.0]];
-	[[NSString stringWithFormat:@"風力: %@ 級", windScale] drawInRect:CGRectMake(100, 220, 160, 20) withFont:[UIFont systemFontOfSize:18.0]];
-	[[NSString stringWithFormat:@"陣風: %@ 級", gustWindScale] drawInRect:CGRectMake(100, 250, 260, 20) withFont:[UIFont systemFontOfSize:18.0]];
+	[[NSString stringWithFormat:@"溫度: %@", temperature] drawInRect:CGRectMake(100, 190, 160, 20) withFont:[UIFont systemFontOfSize:14.0]];
+	[[NSString stringWithFormat:@"累積雨量: %@ 毫米", rain] drawInRect:CGRectMake(100, 210, 160, 20) withFont:[UIFont systemFontOfSize:14.0]];
+	[[NSString stringWithFormat:@"風向: %@", windDirection] drawInRect:CGRectMake(100, 230, 160, 20) withFont:[UIFont systemFontOfSize:14.0]];
+	[[NSString stringWithFormat:@"風力: %@ 級", windScale] drawInRect:CGRectMake(100, 250, 160, 20) withFont:[UIFont systemFontOfSize:14.0]];
+	[[NSString stringWithFormat:@"陣風: %@ 級", gustWindScale] drawInRect:CGRectMake(100, 270, 260, 20) withFont:[UIFont systemFontOfSize:14.0]];
 }
 - (IBAction)copy:(id)sender
 {

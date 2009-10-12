@@ -120,11 +120,11 @@
 	[@"有效時間" drawInRect:CGRectMake(10, 10, 260, 30) withFont:[UIFont boldSystemFontOfSize:16.0]];
 	NSString *valid = [NSString stringWithFormat:@"%@ - %@", validBeginTime, validEndTime];
 	[valid drawInRect:CGRectMake(10, 35, 260, 30) withFont:[UIFont systemFontOfSize:14.0]];
-	[description drawInRect:CGRectMake(10, 70, 260, 60) withFont:[UIFont boldSystemFontOfSize:20.0]];
-	[wind drawInRect:CGRectMake(10, 180, 260, 30) withFont:[UIFont systemFontOfSize:16.0]];
-	[windScale drawInRect:CGRectMake(10, 204, 260, 30) withFont:[UIFont systemFontOfSize:16.0]];
-	[wave drawInRect:CGRectMake(10, 240, 260, 30) withFont:[UIFont systemFontOfSize:16.0]];
-	[waveLevel drawInRect:CGRectMake(10, 264, 260, 30) withFont:[UIFont systemFontOfSize:16.0]];
+	[description drawInRect:CGRectMake(10, 64, 260, 60) withFont:[UIFont boldSystemFontOfSize:20.0]];
+	[wind drawInRect:CGRectMake(10, 210, 260, 30) withFont:[UIFont systemFontOfSize:14.0]];
+	[windScale drawInRect:CGRectMake(10, 230, 260, 30) withFont:[UIFont systemFontOfSize:14.0]];
+	[wave drawInRect:CGRectMake(10, 250, 260, 30) withFont:[UIFont systemFontOfSize:14.0]];
+	[waveLevel drawInRect:CGRectMake(10, 270, 260, 30) withFont:[UIFont systemFontOfSize:14.0]];
 }
 - (IBAction)copy:(id)sender
 {
