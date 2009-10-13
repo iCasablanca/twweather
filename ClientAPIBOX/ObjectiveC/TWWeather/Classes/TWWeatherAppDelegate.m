@@ -6,11 +6,13 @@
 //
 
 #import "TWWeatherAppDelegate.h"
+#import "TWWeatherAppDelegate+BGM.h"
 #import "TWRootViewController.h"
 #import "TWMoreViewController.h"
 #import "TWFavoriteTableViewController.h"
 #import "TWAPIBox.h"
 #import "TWAPIBox+Info.h"
+#import "TWCommonHeader.h"
 
 @implementation TWWeatherAppDelegate
 
@@ -23,6 +25,7 @@
 {
 	[tabBarController release];
 	[window release];
+	[audioPlayer release];
 	[super dealloc];
 }
 
@@ -32,6 +35,7 @@
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application 
 {   	
+	audioPlayer = nil;
 	window.backgroundColor = [UIColor blackColor];
 
 	UITabBarController *controller = [[UITabBarController alloc] init];
@@ -71,6 +75,10 @@
 	
 	[window addSubview:[self.navigationController view]];
     [window makeKeyAndVisible];
+	
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:TWBGMPreferencen]) {
+		[self startPlayingBGM];
+	}
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application 

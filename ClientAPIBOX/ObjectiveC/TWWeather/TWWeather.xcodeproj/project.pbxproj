@@ -15,6 +15,10 @@
 		28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD735F0D9D9599002E5188 /* MainWindow.xib */; };
 		28C286E10D94DF7D0034E888 /* TWRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C286E00D94DF7D0034E888 /* TWRootViewController.m */; };
 		D41B04361031F212000AA604 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = D41B04351031F212000AA604 /* Entitlements.plist */; };
+		D41E1D391084288400A6675D /* bgm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D41E1D381084288400A6675D /* bgm.mp3 */; };
+		D41E1D3E1084289D00A6675D /* TWWeatherAppDelegate+BGM.m in Sources */ = {isa = PBXBuildFile; fileRef = D41E1D3D1084289D00A6675D /* TWWeatherAppDelegate+BGM.m */; };
+		D41E1D4E108428F600A6675D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D41E1D4D108428F600A6675D /* AVFoundation.framework */; };
+		D41E1D8F10842B6600A6675D /* TWSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D41E1D8E10842B6600A6675D /* TWSettingTableViewController.m */; };
 		D426D6B7102D142C00BBBEB3 /* TWOBSResultTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D426D6B6102D142C00BBBEB3 /* TWOBSResultTableViewController.m */; };
 		D426D6DD102D17D400BBBEB3 /* TWOBSCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D426D6DC102D17D400BBBEB3 /* TWOBSCell.m */; };
 		D426D8CF102D377600BBBEB3 /* TWLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = D426D8CE102D377600BBBEB3 /* TWLoadingView.m */; };
@@ -112,6 +116,13 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* TWWeather-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "TWWeather-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		D41B04351031F212000AA604 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
+		D41E1D381084288400A6675D /* bgm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = bgm.mp3; path = AudioClip/bgm.mp3; sourceTree = "<group>"; };
+		D41E1D3C1084289D00A6675D /* TWWeatherAppDelegate+BGM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TWWeatherAppDelegate+BGM.h"; sourceTree = "<group>"; };
+		D41E1D3D1084289D00A6675D /* TWWeatherAppDelegate+BGM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TWWeatherAppDelegate+BGM.m"; sourceTree = "<group>"; };
+		D41E1D4D108428F600A6675D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		D41E1D8D10842B6600A6675D /* TWSettingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWSettingTableViewController.h; sourceTree = "<group>"; };
+		D41E1D8E10842B6600A6675D /* TWSettingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWSettingTableViewController.m; sourceTree = "<group>"; };
+		D41E1DD110842E2600A6675D /* TWCommonHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWCommonHeader.h; sourceTree = "<group>"; };
 		D426D6B5102D142C00BBBEB3 /* TWOBSResultTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWOBSResultTableViewController.h; sourceTree = "<group>"; };
 		D426D6B6102D142C00BBBEB3 /* TWOBSResultTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWOBSResultTableViewController.m; sourceTree = "<group>"; };
 		D426D6DB102D17D400BBBEB3 /* TWOBSCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWOBSCell.h; sourceTree = "<group>"; };
@@ -239,6 +250,7 @@
 				D4E9C6E510223D6200B955C7 /* SystemConfiguration.framework in Frameworks */,
 				D4E9C70110223DBB00B955C7 /* CFNetwork.framework in Frameworks */,
 				D489E5DC1024EF6000189460 /* MessageUI.framework in Frameworks */,
+				D41E1D4E108428F600A6675D /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,12 +271,15 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				D41E1DD110842E2600A6675D /* TWCommonHeader.h */,
 				D4C02C38102C03E000FD1D3B /* Favorite */,
 				D4C02C35102C03C300FD1D3B /* More */,
 				D4E503DC102357FC002B39D7 /* TWLoadingCell.h */,
 				D4E503DD102357FC002B39D7 /* TWLoadingCell.m */,
 				1D3623240D0F684500981E51 /* TWWeatherAppDelegate.h */,
 				1D3623250D0F684500981E51 /* TWWeatherAppDelegate.m */,
+				D41E1D3C1084289D00A6675D /* TWWeatherAppDelegate+BGM.h */,
+				D41E1D3D1084289D00A6675D /* TWWeatherAppDelegate+BGM.m */,
 				D4E50841102391DB002B39D7 /* TWErrorViewController.h */,
 				D4E50842102391DB002B39D7 /* TWErrorViewController.m */,
 				D4EDBEF11082032900C9EBFE /* TWWebController.h */,
@@ -312,6 +327,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D41E1D381084288400A6675D /* bgm.mp3 */,
 				D4E85026102D668E00A80676 /* Icon.png */,
 				D489E5951024DD7600189460 /* Default.png */,
 				D489E38C1023DFF500189460 /* Images */,
@@ -327,6 +343,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D41E1D4D108428F600A6675D /* AVFoundation.framework */,
 				D489E5DB1024EF6000189460 /* MessageUI.framework */,
 				D4E9C70010223DBB00B955C7 /* CFNetwork.framework */,
 				D4E9C6E410223D6200B955C7 /* SystemConfiguration.framework */,
@@ -377,10 +394,10 @@
 		D4C02C35102C03C300FD1D3B /* More */ = {
 			isa = PBXGroup;
 			children = (
-				D46045FF1083B40E00B97EEF /* TWMoreViewController.h */,
-				D46046001083B40E00B97EEF /* TWMoreViewController.m */,
 				28C286DF0D94DF7D0034E888 /* TWRootViewController.h */,
 				28C286E00D94DF7D0034E888 /* TWRootViewController.m */,
+				D46045FF1083B40E00B97EEF /* TWMoreViewController.h */,
+				D46046001083B40E00B97EEF /* TWMoreViewController.m */,
 				D4E508CF102399E0002B39D7 /* TWOverviewViewController.h */,
 				D4E508D0102399E0002B39D7 /* TWOverviewViewController.m */,
 				D4E5029810234126002B39D7 /* TWBasicForecastTableViewController.h */,
@@ -429,6 +446,8 @@
 				D426D6B6102D142C00BBBEB3 /* TWOBSResultTableViewController.m */,
 				D426D6DB102D17D400BBBEB3 /* TWOBSCell.h */,
 				D426D6DC102D17D400BBBEB3 /* TWOBSCell.m */,
+				D41E1D8D10842B6600A6675D /* TWSettingTableViewController.h */,
+				D41E1D8E10842B6600A6675D /* TWSettingTableViewController.m */,
 			);
 			name = More;
 			sourceTree = "<group>";
@@ -589,6 +608,7 @@
 				D46045931083A64B00B97EEF /* tel.png in Resources */,
 				D46045A11083A92200B97EEF /* alert.png in Resources */,
 				D460464A1083B69600B97EEF /* forecasts.png in Resources */,
+				D41E1D391084288400A6675D /* bgm.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -664,6 +684,8 @@
 				D426D8CF102D377600BBBEB3 /* TWLoadingView.m in Sources */,
 				D4EDBEF31082032900C9EBFE /* TWWebController.m in Sources */,
 				D46046011083B40E00B97EEF /* TWMoreViewController.m in Sources */,
+				D41E1D3E1084289D00A6675D /* TWWeatherAppDelegate+BGM.m in Sources */,
+				D41E1D8F10842B6600A6675D /* TWSettingTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -6,6 +6,7 @@
 //
 
 #import "TWMoreViewController.h"
+#import "TWSettingTableViewController.h"
 #import "TWAboutViewController.h"
 #import "TWWebController.h"
 #import "TWWeatherAppDelegate.h"
@@ -24,7 +25,7 @@
 		return 4;
 	}		
 	else if (section == 1) {
-		return 1;
+		return 2;
 	}	
     return 0;
 }
@@ -70,8 +71,11 @@
 		cell.imageView.image = nil;
 		switch (indexPath.row) {
 			case 0:
-				cell.textLabel.text = NSLocalizedString(@"About", @"");
+				cell.textLabel.text = NSLocalizedString(@"Settings", @"");
 				break;
+			case 1:
+				cell.textLabel.text = NSLocalizedString(@"About", @"");
+				break;				
 			default:
 				break;
 		}
@@ -126,6 +130,9 @@
 	else if (indexPath.section == 1) {
 		UITableViewController *controller = nil;
 		if (indexPath.row == 0) {
+			controller = [[TWSettingTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+		}		
+		else if (indexPath.row == 1) {
 			controller = [[TWAboutViewController alloc] init];
 		}
 		if (controller) {

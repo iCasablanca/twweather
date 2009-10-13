@@ -5,11 +5,15 @@
 //  Created by zonble on 2009/07/31.s
 //
 
-@interface TWWeatherAppDelegate : NSObject <UIApplicationDelegate> 
+#import <AVFoundation/AVFoundation.h>
+
+@interface TWWeatherAppDelegate : NSObject <UIApplicationDelegate, AVAudioPlayerDelegate> 
 {
     UIWindow *window;
 	UINavigationController *navigationController;
     UITabBarController *tabBarController;
+	
+	AVAudioPlayer *audioPlayer;
 }
 
 + (TWWeatherAppDelegate*)sharedDelegate;
