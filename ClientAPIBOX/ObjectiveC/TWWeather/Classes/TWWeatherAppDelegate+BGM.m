@@ -17,7 +17,12 @@
 	}
 	NSString *path = [[NSBundle mainBundle] pathForResource:@"bgm" ofType:@"mp3"];
 	NSURL *URL = [NSURL fileURLWithPath:path];
-	audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:URL error:NULL];
+	NSError *error;
+	audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:URL error:&error];
+	if (error) {
+		NSLog(@"error:%@", [error description]);
+		return;
+	}
 	audioPlayer.delegate = self;
 	[audioPlayer play];
 }

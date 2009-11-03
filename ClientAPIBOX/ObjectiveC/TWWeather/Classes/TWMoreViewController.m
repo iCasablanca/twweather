@@ -24,9 +24,13 @@
 	if (section == 0) {
 		return 4;
 	}		
+//	else if (section == 1) {
+//		return 2;
+//	}	
 	else if (section == 1) {
-		return 2;
+		return 1;
 	}	
+	
     return 0;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
@@ -69,16 +73,17 @@
 		}
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		cell.imageView.image = nil;
-		switch (indexPath.row) {
-			case 0:
-				cell.textLabel.text = NSLocalizedString(@"Settings", @"");
-				break;
-			case 1:
-				cell.textLabel.text = NSLocalizedString(@"About", @"");
-				break;				
-			default:
-				break;
-		}
+//		switch (indexPath.row) {
+//			case 0:
+//				cell.textLabel.text = NSLocalizedString(@"Settings", @"");
+//				break;
+//			case 1:
+//				cell.textLabel.text = NSLocalizedString(@"About", @"");
+//				break;				
+//			default:
+//				break;
+//		}
+		cell.textLabel.text = NSLocalizedString(@"About", @"");
 		return cell;
 	}
 	
@@ -129,12 +134,13 @@
 	}
 	else if (indexPath.section == 1) {
 		UITableViewController *controller = nil;
-		if (indexPath.row == 0) {
-			controller = [[TWSettingTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
-		}		
-		else if (indexPath.row == 1) {
-			controller = [[TWAboutViewController alloc] init];
-		}
+//		if (indexPath.row == 0) {
+//			controller = [[TWSettingTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+//		}		
+//		else if (indexPath.row == 1) {
+//			controller = [[TWAboutViewController alloc] init];
+//		}
+		controller = [[TWAboutViewController alloc] init];
 		if (controller) {
 			[[TWWeatherAppDelegate sharedDelegate] pushViewController:controller animated:YES];
 			[controller release];

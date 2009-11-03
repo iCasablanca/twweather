@@ -89,16 +89,27 @@
 
 - (void)didReceiveMemoryWarning
 {
-	// Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
+}
 
-	// Release any cached data, images, etc that aren't in use.
+- (void)openInExternalWebBrowser
+{
+	NSURL *URL = [webView.request URL];
+	[[UIApplication sharedApplication] openURL:URL];
 }
 
 - (IBAction)openInExternalWebBrowser:(id)sender
 {
-	NSURL *URL = [webView.request URL];
-	[[UIApplication sharedApplication] openURL:URL];
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Open in Safari", @""), nil];
+	[actionSheet showInView:self.view];
+	[actionSheet release];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+	if (buttonIndex == 0) {
+		[self openInExternalWebBrowser];
+	}
 }
 
 #pragma mark -

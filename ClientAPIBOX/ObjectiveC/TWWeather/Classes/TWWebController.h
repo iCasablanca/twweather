@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-
-@interface TWWebController : UIViewController <UIWebViewDelegate>
+@interface TWWebController : UIViewController <UIWebViewDelegate, UIActionSheetDelegate>
 {
 	UIWebView *webView;
 	UIActivityIndicatorView *activityIndicatorView;
@@ -28,6 +27,7 @@
 @property (retain, nonatomic) IBOutlet UIBarButtonItem *stopItem;
 @property (retain, nonatomic) IBOutlet UIBarButtonItem *reloadItem;
 
+- (void)openInExternalWebBrowser;
 - (IBAction)openInExternalWebBrowser:(id)sender;
 - (void)updateButtonState;
 
