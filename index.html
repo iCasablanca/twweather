@@ -29,13 +29,14 @@
 		.description { font-size: 11pt; margin-bottom: 50px; margin-top: 10px;}
 		.download { float: right; }
 		pre { background: #000; color: #fff; padding: 15px;}
-		hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
+		hr { border: 0; width: 80%; border-bottom: 1px solid #aaa; margin: 40px auto;}
 		.footer { text-align:center; padding-top:30px; font-style: italic; }
 		.logo {float: right; margin-left: 30px; margin-bottom: 30px; margin-top: 30px;}
 		div#download {border: 1px solid #666; padding: 20px;}
 		code {font-size: 12px; }
 		p, li {font-size: 11pt; line-height: 1.5em;}
 		.screenshot {float:right; margin:10px; border: 1px solid #333;}
+		.appstore {border: 0;}
 	</style>
 	
 </head>
@@ -52,6 +53,8 @@
 
 	<p>這個東西當然是拿來看天氣資訊的，不然還能夠有什麼用途？</p>
 	
+	<hr />
+	
 	<img src="screenshot.png" class="screenshot" alt="screenshot"/>
 	
 	<h2>簡介</h2>
@@ -67,7 +70,7 @@
 	
 	<h2>iPhone 軟體</h2>
 	
-	<p><a href="http://itunes.apple.com/tw/app/id302846279?mt=8"><img src="appstore.jpeg" /></a></p>
+	<p><a href="http://itunes.apple.com/tw/app/id302846279?mt=8"><img src="appstore.jpeg" class="appstore"/></a></p>
 
 	<p>目前提供的功能包括－</p>
 	<ul>
@@ -87,17 +90,20 @@
 	
 	<h2>Server 端程式</h2>
 	
-	<p>這個程式的資料來源來自於中央氣象局網站，不過，因為中央氣象局網站三不五時會改一個版本，氣象雲圖也往往在改版之後就換一個位置，所以，client 軟體不是直接去抓取資料，而是中間又透過一台 web server，這個 server 負責向中央氣象局抓取資料，並且轉換成方便供 client 端使用的資料。如此一來，就算中央氣象局改了資料，也只需要改 server 端的程式，而不需要再 App Store 上另外更新一個版本，而苦苦等候蘋果的審核程序。</p>
+	<p>這個程式的資料來源來自於中央氣象局網站，不過，因為中央氣象局網站三不五時會改一個版本，氣象雲圖也往往在改版之後就換一個位置，所以，client 軟體不是直接去抓取資料，而是中間又透過一台 web server，這個 server 負責向中央氣象局抓取資料，並且轉換成方便供 client 端使用的資料。在抓完資料之後，會用 memcache 快取起來，所以多一點人用，反應速度就會比較快。</p>
+	<p>如此一來，就算中央氣象局改了資料，也只需要改 server 端的程式，而不需要再 App Store 上另外更新一個版本，而苦苦等候蘋果的審核程序。</p>
 	
 	<p>這個專案所使用的 server 是 Google 的 <a href="http://code.google.com/appengine/">App Engine</a>，用的是其中的 python API 開發。其中最主要的是兩個檔案－</p>
 	<ul>
-	<li>weather.py：負責抓取中央氣象局網頁資料，轉換成 python 的 list 資料。您或許也可以拿這個東西，搭配 plurk 的非官方 python API，寫個 plurk 機器人之類的東西。</li>
+	<li>weather.py：負責抓取中央氣象局網頁資料，轉換成 python 的 list 資料。您或許也可以拿這個東西，搭配 plurk 的非官方 python API，寫個 plurk 機器人之類的。</li>
 	<li>main.py：App Engine 主程式。負責將抓來的資料轉成其他格式，目前提供 <a href="http://developer.apple.com/mac/library/documentation/cocoa/Conceptual/PropertyLists/index.html">Property list</a>（plist）以及 JSON 兩種格式。iPhone client 端目前使用的是 plist 格式。</li>
 	</ul>
 	
 	<h2>Objective-C API Box</h2>
 	
 	<p>在 iPhone 軟體的部份，基本上將使用者介面、與用來處理網路資料的部份分成了兩塊，所以，用來處理網路資料的部分，其實還可以繼續做其他用途，例如寫 Mac 版本的應用程式，或是 Dashboard widget 用的 <a href="http://developer.apple.com/Mac/library/documentation/AppleApplications/Conceptual/Dashboard_ProgTopics/Articles/WidgetPlugin.html">widget plugin</a>。不過目前還沒有這方面的實作。</p>
+	
+	<hr />
 	
 	<h2>編譯 iPhone 軟體</h2>
 	
@@ -119,7 +125,11 @@ $ git submodule update</pre>
 	
 	<p>您需要 python 2.5 以上的環境，並且就您目前所使用的平台，下載 <a href="http://code.google.com/appengine/downloads.html">Google App Engine SDK</a>。您可以使用本專案的基礎，另外製作其他的天氣程式，不過建議不要直接使用本專案目前使用的 API server 的網址，請將程式架設到其他的機器上，因為本專案使用的 API server，也很有可能在未來有所修改。</p>
 	
-	<h2>改 iPhone 開發人員的建議</h2>
+	<p>API 的使用方法，主要就是傳入你想要看哪一種資料（今明預報、一週預報），還有地區的代號，詳細資料請參見 Wiki 上的<a href="http://wiki.github.com/zonble/twweather/api">資料</a>。
+	
+	<hr />
+	
+	<h2>給 iPhone 開發人員的建議</h2>
 	
 	<p>雖然 iPhone 上面有那麼多種的應用程式，但是最多的不外乎兩種：遊戲以及網路資料的 client 端。</p>
 	<p>就網路資料的 client 端來說，你可以看到 Facebook、Flickr、Google 與 Yahoo 的應用程式、所有的天氣軟體，甚至像電子書下載等，都是這種類型；也就是如何從網路上抓取資料，然後透過 native 的 iPhone UI 做流暢的呈現。這類型程式的開發，就可以區分成幾個部分－server 端的資料庫與 API 設計（XML/JSON）、Objective-C 對於網路資料的處理、iPhone 本身的 UI 設計。個人覺得目前寫得還算是精簡，希望對您撰寫這方面程式時，可以有所幫助。</p>
@@ -128,7 +138,14 @@ $ git submodule update</pre>
 	
 	<h2>建議或詢問</h2>
 
-	<p>請來信至 service {at} zonble {dot} net</p>
+	<p>請來信至 service {at} zonble {dot} net 。</p>
+	
+	<p>另外，因為蘋果的限制－開發者本身不能夠對自己的產品發表評論，所以，如果您在 App Store 上，透過發表評論發問，因為這個限制，我是沒有辦法在 App Store 上回應的。祈請見諒。</p>
+	
+	<h2>FAQ</h2>
+	
+	<p><b>問：為什麼 iPhone 程式會限制 17 歲以上才可以使用？除了天氣之外，難道有什麼好料嗎？</b></p>
+	<p>答：這是因為 App Store 的一項限制造成的。因為這個程式裡頭，放了一個瀏覽器元件，用來開中央氣象局的網頁，而根據蘋果的想法，只要是用到了 web 元件，都有可能拿來看十八禁的內容，所以必須要加上這個年齡限制。</p>
 	
 	<img src="badge.gif" alt="Made on a Mac"/>
 </div>
