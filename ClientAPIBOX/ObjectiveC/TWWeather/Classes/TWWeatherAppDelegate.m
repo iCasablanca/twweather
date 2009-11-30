@@ -140,16 +140,16 @@
 
 - (void)dialogDidSucceed:(FBDialog*)dialog
 {
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Successfully posted on Facebook!", @"") message:@"" delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:nil];
-	[alert show];
-	[alert release];
+//	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Successfully posted on Facebook!", @"") message:@"" delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:nil];
+//	[alert show];
+//	[alert release];
 }
 - (void)dialogDidCancel:(FBDialog*)dialog
 {
 }
 - (void)dialog:(FBDialog*)dialog didFailWithError:(NSError*)error
 {
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Failed to post on Facebook!", @"") message:@"" delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:nil];
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Failed to post on Facebook!", @"") message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:nil];
 	[alert show];
 	[alert release];
 }

@@ -54,20 +54,18 @@
 	if ([[TWWeatherAppDelegate sharedDelegate] confirmFacebookLoggedIn]) {
 		FBStreamDialog* dialog = [[[FBStreamDialog alloc] init] autorelease];
 		dialog.delegate = [TWWeatherAppDelegate sharedDelegate];
-		dialog.userMessagePrompt = @"Example prompt";
 		
 		NSString *feedTitle = [NSString stringWithFormat:@"%@ 四十八小時天氣預報", [self title]];
 		NSMutableString *description = [NSMutableString string];
 		for (NSDictionary *forecast in forecastArray) {
 			[description appendFormat:@"※ %@", [forecast valueForKey:@"title"]];
-			[description appendFormat:@"(%@ - %@)", [forecast valueForKey:@"beginTime"], [forecast valueForKey:@"endTime"]];
+			[description appendFormat:@"(%@ - %@) ", [forecast valueForKey:@"beginTime"], [forecast valueForKey:@"endTime"]];
 			[description appendFormat:@"%@ ", [forecast valueForKey:@"description"]];
-			[description appendFormat:@"%@ ", [forecast valueForKey:@"rain"]];
-			[description appendFormat:@"%@", [forecast valueForKey:@"temperature"]];
+			[description appendFormat:@"降雨機率：%@ ", [forecast valueForKey:@"rain"]];
+			[description appendFormat:@"氣溫：%@", [forecast valueForKey:@"temperature"]];
 
 		}
 		NSString *attachment = [NSString stringWithFormat:@"{\"name\":\"%@\", \"description\":\"%@\"}", feedTitle, description];
-		NSLog(@"attachment:%@", attachment);
 		dialog.attachment = attachment;
 		dialog.userMessagePrompt = feedTitle;
 		[dialog show];
