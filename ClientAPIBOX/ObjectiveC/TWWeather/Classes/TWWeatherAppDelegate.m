@@ -26,6 +26,7 @@
 	[tabBarController release];
 	[window release];
 	[audioPlayer release];
+	[facebookSession.delegates removeObject:self];
 	[facebookSession release];
 	[super dealloc];
 }
@@ -36,7 +37,7 @@
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application 
 {  
-	facebookSession = [[FBSession sessionForApplication:APP_ID secret:SECRET delegate:self] retain];
+	facebookSession = [[FBSession sessionForApplication:API_KEY secret:SECRET delegate:self] retain];
 	audioPlayer = nil;
 	window.backgroundColor = [UIColor blackColor];
 

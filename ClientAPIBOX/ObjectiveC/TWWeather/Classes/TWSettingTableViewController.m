@@ -7,6 +7,7 @@
 //
 
 #import "TWSettingTableViewController.h"
+#import "TWWeatherAppDelegate.h"
 #import "TWWeatherAppDelegate+BGM.h"
 #import "TWCommonHeader.h"
 
@@ -17,6 +18,8 @@
     // remove and clean outlets and controls here
 	[BGMSwitch release];
 	BGMSwitch = nil;
+	[loginButton release];
+	loginButton = nil;
 }
 
 - (void)dealloc 
@@ -42,6 +45,12 @@
 		[BGMSwitch addTarget:self action:@selector(toggleBGMSettingAction:) forControlEvents:UIControlEventValueChanged];
 		BGMSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:TWBGMPreferencen];
 	}
+	if (!loginButton) {
+		loginButton = [[FBLoginButton alloc] init];
+		loginButton.session = [TWWeatherAppDelegate sharedDelegate].facebookSession;
+		loginButton.frame = CGRectMake(200, 3, 80, 40);
+	}
+	
 	self.title = NSLocalizedString(@"Settings", @"");
 }
 - (void)viewWillAppear:(BOOL)animated 
@@ -74,7 +83,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 2;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -89,13 +98,41 @@
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
-	cell.textLabel.text = NSLocalizedString(@"BGM", @"");
+	if (indexPath.section == 0) {
+		cell.textLabel.text = NSLocalizedString(@"BGM", @"");
+		[cell.contentView addSubview:BGMSwitch];
+	}
+	else if (indexPath.section == 1) {
+		cell.textLabel.text = NSLocalizedString(@"Facebook", @"");
+		[cell.contentView addSubview:loginButton];
+	}
 	cell.textLabel.font = [UIFont boldSystemFontOfSize:18.0];
 	cell.selectionStyle = UITableViewCellSelectionStyleNone;
-	[cell.contentView addSubview:BGMSwitch];
     return cell;
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+	switch (section) {
+		case 0:
+			return NSLocalizedString(@"Basic Settings", @"");
+			break;
+		case 1:
+			return NSLocalizedString(@"Social Network", @"");
+			break;			
+		default:
+			break;
+	}
+	return nil;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
+{
+	if (section	== 1) {
+		return NSLocalizedString(@"You can share the forecasts with your friends via Facebook!", @"");
+	}
+	return nil;
+}
 
 - (IBAction)toggleBGMSettingAction:(id)sender
 {

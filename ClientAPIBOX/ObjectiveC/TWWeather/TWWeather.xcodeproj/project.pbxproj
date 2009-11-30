@@ -148,7 +148,7 @@
 		D400825410C34195007416F6 /* FBFeedDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FBFeedDialog.m; path = "../External/facebook-iphone-sdk/src/FBFeedDialog.m"; sourceTree = SOURCE_ROOT; };
 		D400825510C34195007416F6 /* FBStreamDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FBStreamDialog.m; path = "../External/facebook-iphone-sdk/src/FBStreamDialog.m"; sourceTree = SOURCE_ROOT; };
 		D400825610C34195007416F6 /* FBConnect.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = FBConnect.bundle; path = "../External/facebook-iphone-sdk/src/FBConnect.bundle"; sourceTree = SOURCE_ROOT; };
-		D400828F10C34714007416F6 /* TWFacebookAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWFacebookAPI.h; sourceTree = "<group>"; };
+		D400828F10C34714007416F6 /* TWFacebookAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TWFacebookAPI.h; path = ../TWFacebookAPI.h; sourceTree = "<group>"; };
 		D41B04351031F212000AA604 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		D41E1D381084288400A6675D /* bgm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = bgm.mp3; path = AudioClip/bgm.mp3; sourceTree = "<group>"; };
 		D41E1D3C1084289D00A6675D /* TWWeatherAppDelegate+BGM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TWWeatherAppDelegate+BGM.h"; sourceTree = "<group>"; };
@@ -307,7 +307,6 @@
 			children = (
 				D40082C910C34C50007416F6 /* App Delegate */,
 				D40082C610C34C28007416F6 /* Other UI Controls */,
-				D41E1DD110842E2600A6675D /* TWCommonHeader.h */,
 				D4C02C38102C03E000FD1D3B /* Favorite Table View Controller */,
 				D4C02C35102C03C300FD1D3B /* Forecast Table View Controllers */,
 			);
@@ -326,7 +325,6 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				D400828F10C34714007416F6 /* TWFacebookAPI.h */,
 				D4C3A0D81022360F00E7A430 /* TWAPIBOX */,
 				D4C3A0CA102235B800E7A430 /* External Libraries */,
 				080E96DDFE201D6D7F000001 /* Classes */,
@@ -546,6 +544,8 @@
 		D40082C910C34C50007416F6 /* App Delegate */ = {
 			isa = PBXGroup;
 			children = (
+				D400828F10C34714007416F6 /* TWFacebookAPI.h */,
+				D41E1DD110842E2600A6675D /* TWCommonHeader.h */,
 				1D3623240D0F684500981E51 /* TWWeatherAppDelegate.h */,
 				1D3623250D0F684500981E51 /* TWWeatherAppDelegate.m */,
 				D41E1D3C1084289D00A6675D /* TWWeatherAppDelegate+BGM.h */,
