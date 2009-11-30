@@ -9,8 +9,5 @@
 #import "TWBasicForecastTableViewController.h"
 
 @interface TWForecastTableViewController : TWBasicForecastTableViewController 
-{
-
-}
 
 @end

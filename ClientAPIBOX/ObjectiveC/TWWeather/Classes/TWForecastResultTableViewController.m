@@ -25,6 +25,12 @@
 
 #pragma mark UIViewContoller Methods
 
+- (void)viewDidLoad
+{
+	UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(navBarAction:)];
+	self.navigationItem.rightBarButtonItem = item;
+	[item release];	
+}
 - (void)viewWillDisappear:(BOOL)animated
 {
 	[super viewWillDisappear:animated];
@@ -37,6 +43,47 @@
     // Release anything that's not essential, such as cached data
 }
 
+- (IBAction)navBarAction:(id)sender
+{
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Share via Facebook", @""), nil];
+	[actionSheet showInView:[self view]];
+	[actionSheet release];
+}
+- (void)shareViaFacebook
+{
+	if ([[TWWeatherAppDelegate sharedDelegate] confirmFacebookLoggedIn]) {
+		FBStreamDialog* dialog = [[[FBStreamDialog alloc] init] autorelease];
+		dialog.delegate = [TWWeatherAppDelegate sharedDelegate];
+		dialog.userMessagePrompt = @"Example prompt";
+		
+		NSString *feedTitle = [NSString stringWithFormat:@"%@ 四十八小時天氣預報", [self title]];
+		NSMutableString *description = [NSMutableString string];
+		for (NSDictionary *forecast in forecastArray) {
+			[description appendFormat:@"※ %@", [forecast valueForKey:@"title"]];
+			[description appendFormat:@"(%@ - %@)", [forecast valueForKey:@"beginTime"], [forecast valueForKey:@"endTime"]];
+			[description appendFormat:@"%@ ", [forecast valueForKey:@"description"]];
+			[description appendFormat:@"%@ ", [forecast valueForKey:@"rain"]];
+			[description appendFormat:@"%@", [forecast valueForKey:@"temperature"]];
+
+		}
+		NSString *attachment = [NSString stringWithFormat:@"{\"name\":\"%@\", \"description\":\"%@\"}", feedTitle, description];
+		NSLog(@"attachment:%@", attachment);
+		dialog.attachment = attachment;
+		dialog.userMessagePrompt = feedTitle;
+		[dialog show];
+	}
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+	if (!buttonIndex) {
+		[self shareViaFacebook];
+	}
+}
+
+
+
+#pragma mark -
 #pragma mark UITableViewDataSource and UITableViewDelegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -126,6 +173,7 @@
 }
 
 #pragma mark -
+#pragma mark TWWeatherAPI delegate
 
 - (void)pushWeekViewController
 {
@@ -145,8 +193,6 @@
 	[self.navigationController pushViewController:controller animated:YES];
 	[controller release];
 }
-
-#pragma mark -
 
 - (void)APIBox:(TWAPIBox *)APIBox didFetchWeek:(id)result identifier:(NSString *)identifier userInfo:(id)userInfo
 {

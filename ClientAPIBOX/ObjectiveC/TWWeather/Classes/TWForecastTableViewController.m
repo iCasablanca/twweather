@@ -19,6 +19,7 @@
 	self.title = @"48 小時天氣預報";
 }
 
+#pragma mark -
 #pragma mark UITableViewDataSource and UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
@@ -31,6 +32,8 @@
 	NSString *identifier = [dictionary objectForKey:@"identifier"];
 	[[TWAPIBox sharedBox] fetchForecastWithLocationIdentifier:identifier delegate:self userInfo:dictionary];
 }
+
+#pragma mark TWWeatherAPI delegate
 
 - (void)APIBox:(TWAPIBox *)APIBox didFetchForecast:(id)result identifier:(NSString *)identifier userInfo:(id)userInfo
 {
