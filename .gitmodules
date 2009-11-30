@@ -1,6 +1,3 @@
 [submodule "ClientAPIBOX/ObjectiveC/External/LFWebAPIKit"]
 	path = ClientAPIBOX/ObjectiveC/External/LFWebAPIKit
 	url = git://github.com/lukhnos/LFWebAPIKit.git
-[submodule "ClientAPIBOX/ObjectiveC/External/facebook-iphone-sdk"]
-	path = ClientAPIBOX/ObjectiveC/External/facebook-iphone-sdk
-	url = http://github.com/facebook/facebook-iphone-sdk.git
