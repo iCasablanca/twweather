@@ -14,6 +14,17 @@
 		2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */; };
 		28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD735F0D9D9599002E5188 /* MainWindow.xib */; };
 		28C286E10D94DF7D0034E888 /* TWRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C286E00D94DF7D0034E888 /* TWRootViewController.m */; };
+		D400825710C34195007416F6 /* FBConnectGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = D400824310C34195007416F6 /* FBConnectGlobal.m */; };
+		D400825810C34195007416F6 /* FBSession.m in Sources */ = {isa = PBXBuildFile; fileRef = D400824510C34195007416F6 /* FBSession.m */; };
+		D400825910C34195007416F6 /* FBRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D400824710C34195007416F6 /* FBRequest.m */; };
+		D400825A10C34195007416F6 /* FBXMLHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = D400824910C34195007416F6 /* FBXMLHandler.m */; };
+		D400825B10C34195007416F6 /* FBLoginButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D400824B10C34195007416F6 /* FBLoginButton.m */; };
+		D400825C10C34195007416F6 /* FBDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = D400824D10C34195007416F6 /* FBDialog.m */; };
+		D400825D10C34195007416F6 /* FBLoginDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = D400824F10C34195007416F6 /* FBLoginDialog.m */; };
+		D400825E10C34195007416F6 /* FBPermissionDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = D400825110C34195007416F6 /* FBPermissionDialog.m */; };
+		D400825F10C34195007416F6 /* FBFeedDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = D400825410C34195007416F6 /* FBFeedDialog.m */; };
+		D400826010C34195007416F6 /* FBStreamDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = D400825510C34195007416F6 /* FBStreamDialog.m */; };
+		D400826110C34195007416F6 /* FBConnect.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D400825610C34195007416F6 /* FBConnect.bundle */; };
 		D41B04361031F212000AA604 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = D41B04351031F212000AA604 /* Entitlements.plist */; };
 		D41E1D391084288400A6675D /* bgm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D41E1D381084288400A6675D /* bgm.mp3 */; };
 		D41E1D3E1084289D00A6675D /* TWWeatherAppDelegate+BGM.m in Sources */ = {isa = PBXBuildFile; fileRef = D41E1D3D1084289D00A6675D /* TWWeatherAppDelegate+BGM.m */; };
@@ -115,6 +126,28 @@
 		28C286E00D94DF7D0034E888 /* TWRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWRootViewController.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* TWWeather-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "TWWeather-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		D400824110C34195007416F6 /* FBConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FBConnect.h; path = "../External/facebook-iphone-sdk/src/FBConnect/FBConnect.h"; sourceTree = SOURCE_ROOT; };
+		D400824210C34195007416F6 /* FBConnectGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FBConnectGlobal.h; path = "../External/facebook-iphone-sdk/src/FBConnect/FBConnectGlobal.h"; sourceTree = SOURCE_ROOT; };
+		D400824310C34195007416F6 /* FBConnectGlobal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FBConnectGlobal.m; path = "../External/facebook-iphone-sdk/src/FBConnectGlobal.m"; sourceTree = SOURCE_ROOT; };
+		D400824410C34195007416F6 /* FBSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FBSession.h; path = "../External/facebook-iphone-sdk/src/FBConnect/FBSession.h"; sourceTree = SOURCE_ROOT; };
+		D400824510C34195007416F6 /* FBSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FBSession.m; path = "../External/facebook-iphone-sdk/src/FBSession.m"; sourceTree = SOURCE_ROOT; };
+		D400824610C34195007416F6 /* FBRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FBRequest.h; path = "../External/facebook-iphone-sdk/src/FBConnect/FBRequest.h"; sourceTree = SOURCE_ROOT; };
+		D400824710C34195007416F6 /* FBRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FBRequest.m; path = "../External/facebook-iphone-sdk/src/FBRequest.m"; sourceTree = SOURCE_ROOT; };
+		D400824810C34195007416F6 /* FBXMLHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FBXMLHandler.h; path = "../External/facebook-iphone-sdk/src/FBXMLHandler.h"; sourceTree = SOURCE_ROOT; };
+		D400824910C34195007416F6 /* FBXMLHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FBXMLHandler.m; path = "../External/facebook-iphone-sdk/src/FBXMLHandler.m"; sourceTree = SOURCE_ROOT; };
+		D400824A10C34195007416F6 /* FBLoginButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FBLoginButton.h; path = "../External/facebook-iphone-sdk/src/FBConnect/FBLoginButton.h"; sourceTree = SOURCE_ROOT; };
+		D400824B10C34195007416F6 /* FBLoginButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FBLoginButton.m; path = "../External/facebook-iphone-sdk/src/FBLoginButton.m"; sourceTree = SOURCE_ROOT; };
+		D400824C10C34195007416F6 /* FBDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FBDialog.h; path = "../External/facebook-iphone-sdk/src/FBConnect/FBDialog.h"; sourceTree = SOURCE_ROOT; };
+		D400824D10C34195007416F6 /* FBDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FBDialog.m; path = "../External/facebook-iphone-sdk/src/FBDialog.m"; sourceTree = SOURCE_ROOT; };
+		D400824E10C34195007416F6 /* FBLoginDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FBLoginDialog.h; path = "../External/facebook-iphone-sdk/src/FBConnect/FBLoginDialog.h"; sourceTree = SOURCE_ROOT; };
+		D400824F10C34195007416F6 /* FBLoginDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FBLoginDialog.m; path = "../External/facebook-iphone-sdk/src/FBLoginDialog.m"; sourceTree = SOURCE_ROOT; };
+		D400825010C34195007416F6 /* FBPermissionDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FBPermissionDialog.h; path = "../External/facebook-iphone-sdk/src/FBConnect/FBPermissionDialog.h"; sourceTree = SOURCE_ROOT; };
+		D400825110C34195007416F6 /* FBPermissionDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FBPermissionDialog.m; path = "../External/facebook-iphone-sdk/src/FBPermissionDialog.m"; sourceTree = SOURCE_ROOT; };
+		D400825210C34195007416F6 /* FBStreamDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FBStreamDialog.h; path = "../External/facebook-iphone-sdk/src/FBConnect/FBStreamDialog.h"; sourceTree = SOURCE_ROOT; };
+		D400825310C34195007416F6 /* FBFeedDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FBFeedDialog.h; path = "../External/facebook-iphone-sdk/src/FBConnect/FBFeedDialog.h"; sourceTree = SOURCE_ROOT; };
+		D400825410C34195007416F6 /* FBFeedDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FBFeedDialog.m; path = "../External/facebook-iphone-sdk/src/FBFeedDialog.m"; sourceTree = SOURCE_ROOT; };
+		D400825510C34195007416F6 /* FBStreamDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FBStreamDialog.m; path = "../External/facebook-iphone-sdk/src/FBStreamDialog.m"; sourceTree = SOURCE_ROOT; };
+		D400825610C34195007416F6 /* FBConnect.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = FBConnect.bundle; path = "../External/facebook-iphone-sdk/src/FBConnect.bundle"; sourceTree = SOURCE_ROOT; };
 		D41B04351031F212000AA604 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		D41E1D381084288400A6675D /* bgm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = bgm.mp3; path = AudioClip/bgm.mp3; sourceTree = "<group>"; };
 		D41E1D3C1084289D00A6675D /* TWWeatherAppDelegate+BGM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TWWeatherAppDelegate+BGM.h"; sourceTree = "<group>"; };
@@ -354,6 +387,35 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		D400824010C34195007416F6 /* FBConnect */ = {
+			isa = PBXGroup;
+			children = (
+				D400824110C34195007416F6 /* FBConnect.h */,
+				D400824210C34195007416F6 /* FBConnectGlobal.h */,
+				D400824310C34195007416F6 /* FBConnectGlobal.m */,
+				D400824410C34195007416F6 /* FBSession.h */,
+				D400824510C34195007416F6 /* FBSession.m */,
+				D400824610C34195007416F6 /* FBRequest.h */,
+				D400824710C34195007416F6 /* FBRequest.m */,
+				D400824810C34195007416F6 /* FBXMLHandler.h */,
+				D400824910C34195007416F6 /* FBXMLHandler.m */,
+				D400824A10C34195007416F6 /* FBLoginButton.h */,
+				D400824B10C34195007416F6 /* FBLoginButton.m */,
+				D400824C10C34195007416F6 /* FBDialog.h */,
+				D400824D10C34195007416F6 /* FBDialog.m */,
+				D400824E10C34195007416F6 /* FBLoginDialog.h */,
+				D400824F10C34195007416F6 /* FBLoginDialog.m */,
+				D400825010C34195007416F6 /* FBPermissionDialog.h */,
+				D400825110C34195007416F6 /* FBPermissionDialog.m */,
+				D400825210C34195007416F6 /* FBStreamDialog.h */,
+				D400825310C34195007416F6 /* FBFeedDialog.h */,
+				D400825410C34195007416F6 /* FBFeedDialog.m */,
+				D400825510C34195007416F6 /* FBStreamDialog.m */,
+				D400825610C34195007416F6 /* FBConnect.bundle */,
+			);
+			name = FBConnect;
+			sourceTree = "<group>";
+		};
 		D471EBD3102F47A300768C5B /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -466,6 +528,7 @@
 		D4C3A0CA102235B800E7A430 /* External Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				D400824010C34195007416F6 /* FBConnect */,
 				D4E509401023C171002B39D7 /* cocoa_crypto_hashing */,
 				D4C3A0CB102235C900E7A430 /* LFWebAPIKit */,
 			);
@@ -609,6 +672,7 @@
 				D46045A11083A92200B97EEF /* alert.png in Resources */,
 				D460464A1083B69600B97EEF /* forecasts.png in Resources */,
 				D41E1D391084288400A6675D /* bgm.mp3 in Resources */,
+				D400826110C34195007416F6 /* FBConnect.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -686,6 +750,16 @@
 				D46046011083B40E00B97EEF /* TWMoreViewController.m in Sources */,
 				D41E1D3E1084289D00A6675D /* TWWeatherAppDelegate+BGM.m in Sources */,
 				D41E1D8F10842B6600A6675D /* TWSettingTableViewController.m in Sources */,
+				D400825710C34195007416F6 /* FBConnectGlobal.m in Sources */,
+				D400825810C34195007416F6 /* FBSession.m in Sources */,
+				D400825910C34195007416F6 /* FBRequest.m in Sources */,
+				D400825A10C34195007416F6 /* FBXMLHandler.m in Sources */,
+				D400825B10C34195007416F6 /* FBLoginButton.m in Sources */,
+				D400825C10C34195007416F6 /* FBDialog.m in Sources */,
+				D400825D10C34195007416F6 /* FBLoginDialog.m in Sources */,
+				D400825E10C34195007416F6 /* FBPermissionDialog.m in Sources */,
+				D400825F10C34195007416F6 /* FBFeedDialog.m in Sources */,
+				D400826010C34195007416F6 /* FBStreamDialog.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -738,6 +812,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = TWWeather_Prefix.pch;
+				HEADER_SEARCH_PATHS = "../External/facebook-iphone-sdk/src/";
 				INFOPLIST_FILE = "TWWeather-Info.plist";
 				PRODUCT_NAME = TWWeather;
 				SDKROOT = iphoneos3.0;
@@ -752,6 +827,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = TWWeather_Prefix.pch;
+				HEADER_SEARCH_PATHS = "../External/facebook-iphone-sdk/src/";
 				INFOPLIST_FILE = "TWWeather-Info.plist";
 				PRODUCT_NAME = TWWeather;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
@@ -807,6 +883,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = TWWeather_Prefix.pch;
+				HEADER_SEARCH_PATHS = "../External/facebook-iphone-sdk/src/";
 				INFOPLIST_FILE = "TWWeather-Info.plist";
 				PRODUCT_NAME = TWWeather;
 				PROVISIONING_PROFILE = "";
