@@ -148,6 +148,7 @@
 		D400825410C34195007416F6 /* FBFeedDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FBFeedDialog.m; path = "../External/facebook-iphone-sdk/src/FBFeedDialog.m"; sourceTree = SOURCE_ROOT; };
 		D400825510C34195007416F6 /* FBStreamDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FBStreamDialog.m; path = "../External/facebook-iphone-sdk/src/FBStreamDialog.m"; sourceTree = SOURCE_ROOT; };
 		D400825610C34195007416F6 /* FBConnect.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = FBConnect.bundle; path = "../External/facebook-iphone-sdk/src/FBConnect.bundle"; sourceTree = SOURCE_ROOT; };
+		D400828F10C34714007416F6 /* TWFacebookAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWFacebookAPI.h; sourceTree = "<group>"; };
 		D41B04351031F212000AA604 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		D41E1D381084288400A6675D /* bgm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = bgm.mp3; path = AudioClip/bgm.mp3; sourceTree = "<group>"; };
 		D41E1D3C1084289D00A6675D /* TWWeatherAppDelegate+BGM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TWWeatherAppDelegate+BGM.h"; sourceTree = "<group>"; };
@@ -335,6 +336,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				D400828F10C34714007416F6 /* TWFacebookAPI.h */,
 				D4C3A0D81022360F00E7A430 /* TWAPIBOX */,
 				D4C3A0CA102235B800E7A430 /* External Libraries */,
 				080E96DDFE201D6D7F000001 /* Classes */,
