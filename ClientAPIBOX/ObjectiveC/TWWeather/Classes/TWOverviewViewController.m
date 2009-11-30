@@ -7,7 +7,7 @@
 //
 
 #import "TWOverviewViewController.h"
-
+#import "TWWeatherAppDelegate.h"
 
 @implementation TWOverviewViewController
 
@@ -38,15 +38,15 @@
 	if (![self.title length]) {
 		self.title = @"關心天氣";
 	}
+	
+	UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(navBarAction:)];
+	self.navigationItem.rightBarButtonItem = item;
+	[item release];	
 }
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
-	self.textView.text = _text;
-	
-	UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Copy", @"") style:UIBarButtonItemStyleBordered target:self action:@selector(copy:)];
-	self.navigationItem.rightBarButtonItem = item;
-	[item release];
+	self.textView.text = _text;	
 }
 - (void)didReceiveMemoryWarning 
 {
@@ -63,10 +63,43 @@
 
 	self.textView.text = text;
 }
-- (IBAction)copy:(id)sender
+- (void)copy
 {
 	[[UIPasteboard generalPasteboard] setString:_text];
 }
+
+- (void)shareViaFacebook
+{
+	if ([[TWWeatherAppDelegate sharedDelegate] confirmFacebookLoggedIn]) {
+		FBStreamDialog *dialog = [[[FBStreamDialog alloc] init] autorelease];
+		dialog.delegate = [TWWeatherAppDelegate sharedDelegate];
+		
+		NSString *feedTitle = [self title];
+		NSString *description = [_text stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+		NSString *attachment = [NSString stringWithFormat:@"{\"name\":\"%@\", \"description\":\"%@\"}", feedTitle, description];
+		dialog.attachment = attachment;
+		dialog.userMessagePrompt = feedTitle;
+		[dialog show];
+	}
+}
+
+- (IBAction)navBarAction:(id)sender
+{
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Copy", @""), NSLocalizedString(@"Share via Facebook", @""), nil];
+	[actionSheet showInView:[self view]];
+	[actionSheet release];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+	if (buttonIndex == 0) {
+		[self copy];
+	}
+	else if (buttonIndex == 1) {
+		[self shareViaFacebook];
+	}
+}
+
 
 @synthesize textView;
 @dynamic text;

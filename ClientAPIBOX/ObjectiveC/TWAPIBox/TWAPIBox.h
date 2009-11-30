@@ -117,6 +117,8 @@ typedef enum {
 - (void)setShouldWaitUntilDone:(BOOL)flag;
 - (BOOL)shouldWaitUntilDone;
 
+- (NSURL *)imageURLFromIdentifier:(NSString *)identifier;
+
 - (NSDate *)dateFromString:(NSString *)string;
 - (NSDate *)dateFromShortString:(NSString *)string;
 - (NSString *)shortDateTimeStringFromDate:(NSDate *)date;

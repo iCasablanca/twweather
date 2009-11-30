@@ -5,10 +5,9 @@
 //  Created by zonble on 2009/07/31.
 //
 
-#import <UIKit/UIKit.h>
+#import "FBConnect/FBConnect.h"
 
-
-@interface TWForecastResultTableViewController : UITableViewController 
+@interface TWForecastResultTableViewController : UITableViewController <UIActionSheetDelegate>
 {
 	NSArray *forecastArray;
 	NSString *weekLocation;
@@ -17,6 +16,8 @@
 	BOOL isLoadingWeek;
 }
 
+- (IBAction)navBarAction:(id)sender;
+- (void)shareViaFacebook;
 - (void)pushWeekViewController;
 
 @property (retain, nonatomic) NSArray *forecastArray;

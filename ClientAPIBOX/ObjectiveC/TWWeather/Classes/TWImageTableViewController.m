@@ -40,6 +40,8 @@
 	TWImageViewController *controller = [[TWImageViewController alloc] init];
 	UIImage *image = [UIImage imageWithData:data];
 	controller.image = image;
+	controller.imageURL = [[TWAPIBox sharedBox] imageURLFromIdentifier:identifier];
+	NSLog(@"imageURL:%@", [controller.imageURL description]);
 	[self.navigationController pushViewController:controller animated:YES];
 	controller.title = name;
 	[controller release];

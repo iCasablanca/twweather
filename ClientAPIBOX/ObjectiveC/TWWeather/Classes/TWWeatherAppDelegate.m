@@ -26,6 +26,8 @@
 	[tabBarController release];
 	[window release];
 	[audioPlayer release];
+	[facebookSession.delegates removeObject:self];
+	[facebookSession release];
 	[super dealloc];
 }
 
@@ -34,7 +36,9 @@
 #pragma mark Application lifecycle
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application 
-{   	
+{  
+	facebookSession = [[FBSession sessionForApplication:API_KEY secret:SECRET delegate:self] retain];
+	 
 	audioPlayer = nil;
 	window.backgroundColor = [UIColor blackColor];
 
@@ -124,8 +128,48 @@
 	return string;
 }
 
+- (BOOL)confirmFacebookLoggedIn
+{
+	if (!facebookSession.isConnected) {
+		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"You did not connect to Facebook.", @"") message:NSLocalizedString(@"Please visit the \"Settings\" to connect to Facebook.", @"") delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:nil];
+		[alertView show];
+		[alertView release];
+	}
+	return facebookSession.isConnected;
+}
+
+- (void)dialogDidSucceed:(FBDialog*)dialog
+{
+}
+- (void)dialogDidCancel:(FBDialog*)dialog
+{
+}
+- (void)dialog:(FBDialog*)dialog didFailWithError:(NSError*)error
+{
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Failed to post on Facebook!", @"") message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:nil];
+	[alert show];
+	[alert release];
+}
+
+#pragma mark facebookSession
+
+- (void)session:(FBSession*)session didLogin:(FBUID)uid
+{
+}
+- (void)sessionDidNotLogin:(FBSession*)session
+{
+}
+- (void)session:(FBSession*)session willLogout:(FBUID)uid
+{
+}
+- (void)sessionDidLogout:(FBSession*)session
+{
+}
+
+
 @synthesize window;
 @synthesize tabBarController;
 @synthesize navigationController;
+@synthesize facebookSession;
 
 @end

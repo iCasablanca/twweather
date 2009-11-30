@@ -5,7 +5,6 @@
 //  Created by zonble on 2009/08/02.
 //
 
-#import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
 
 @interface TWAboutViewController : UIViewController <MFMailComposeViewControllerDelegate>
