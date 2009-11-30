@@ -305,21 +305,11 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				D40082C910C34C50007416F6 /* App Delegate */,
+				D40082C610C34C28007416F6 /* Other UI Controls */,
 				D41E1DD110842E2600A6675D /* TWCommonHeader.h */,
-				D4C02C38102C03E000FD1D3B /* Favorite */,
-				D4C02C35102C03C300FD1D3B /* More */,
-				D4E503DC102357FC002B39D7 /* TWLoadingCell.h */,
-				D4E503DD102357FC002B39D7 /* TWLoadingCell.m */,
-				1D3623240D0F684500981E51 /* TWWeatherAppDelegate.h */,
-				1D3623250D0F684500981E51 /* TWWeatherAppDelegate.m */,
-				D41E1D3C1084289D00A6675D /* TWWeatherAppDelegate+BGM.h */,
-				D41E1D3D1084289D00A6675D /* TWWeatherAppDelegate+BGM.m */,
-				D4E50841102391DB002B39D7 /* TWErrorViewController.h */,
-				D4E50842102391DB002B39D7 /* TWErrorViewController.m */,
-				D4EDBEF11082032900C9EBFE /* TWWebController.h */,
-				D4EDBEF21082032900C9EBFE /* TWWebController.m */,
-				D426D8CD102D377600BBBEB3 /* TWLoadingView.h */,
-				D426D8CE102D377600BBBEB3 /* TWLoadingView.m */,
+				D4C02C38102C03E000FD1D3B /* Favorite Table View Controller */,
+				D4C02C35102C03C300FD1D3B /* Forecast Table View Controllers */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -362,10 +352,9 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				D41E1D381084288400A6675D /* bgm.mp3 */,
-				D4E85026102D668E00A80676 /* Icon.png */,
-				D489E5951024DD7600189460 /* Default.png */,
-				D489E38C1023DFF500189460 /* Images */,
+				D40082D110C34C9D007416F6 /* Sounds */,
+				D40082D010C34C95007416F6 /* App Images */,
+				D489E38C1023DFF500189460 /* Weather Images */,
 				28AD735F0D9D9599002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* TWWeather-Info.plist */,
 				D4E84FAF102D4BEC00A80676 /* Localizable.strings */,
@@ -418,6 +407,181 @@
 			name = FBConnect;
 			sourceTree = "<group>";
 		};
+		D40082B010C34B27007416F6 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				28C286DF0D94DF7D0034E888 /* TWRootViewController.h */,
+				28C286E00D94DF7D0034E888 /* TWRootViewController.m */,
+				D46045FF1083B40E00B97EEF /* TWMoreViewController.h */,
+				D46046001083B40E00B97EEF /* TWMoreViewController.m */,
+				D4E5029810234126002B39D7 /* TWBasicForecastTableViewController.h */,
+				D4E5029910234126002B39D7 /* TWBasicForecastTableViewController.m */,
+			);
+			name = Root;
+			sourceTree = "<group>";
+		};
+		D40082B210C34B35007416F6 /* Overview */ = {
+			isa = PBXGroup;
+			children = (
+				D4E508CF102399E0002B39D7 /* TWOverviewViewController.h */,
+				D4E508D0102399E0002B39D7 /* TWOverviewViewController.m */,
+			);
+			name = Overview;
+			sourceTree = "<group>";
+		};
+		D40082B410C34B52007416F6 /* 48Hr Forecast */ = {
+			isa = PBXGroup;
+			children = (
+				D4E502A6102343C6002B39D7 /* TWForecastTableViewController.h */,
+				D4E502A7102343C6002B39D7 /* TWForecastTableViewController.m */,
+				D4E502F710234698002B39D7 /* TWForecastResultTableViewController.h */,
+				D4E502F810234698002B39D7 /* TWForecastResultTableViewController.m */,
+				D4E5033110234C2D002B39D7 /* TWForecastResultCell.h */,
+				D4E5033210234C2D002B39D7 /* TWForecastResultCell.m */,
+			);
+			name = "48Hr Forecast";
+			sourceTree = "<group>";
+		};
+		D40082B610C34B74007416F6 /* Weekly Forecast */ = {
+			isa = PBXGroup;
+			children = (
+				D4E5042810235B65002B39D7 /* TWWeekTableViewController.h */,
+				D4E5042910235B65002B39D7 /* TWWeekTableViewController.m */,
+				D4E5046510235E92002B39D7 /* TWWeekResultTableViewController.h */,
+				D4E5046610235E92002B39D7 /* TWWeekResultTableViewController.m */,
+				D4E504AC10236201002B39D7 /* TWWeekResultCell.h */,
+				D4E504AD10236201002B39D7 /* TWWeekResultCell.m */,
+				D4E5052510236A1A002B39D7 /* TWWeekTravelTableViewController.h */,
+				D4E5052610236A1A002B39D7 /* TWWeekTravelTableViewController.m */,
+			);
+			name = "Weekly Forecast";
+			sourceTree = "<group>";
+		};
+		D40082B810C34B97007416F6 /* Sea Forecast */ = {
+			isa = PBXGroup;
+			children = (
+				D4E5056E10236C6B002B39D7 /* TWThreeDaySeaTableViewController.h */,
+				D4E5056F10236C6B002B39D7 /* TWThreeDaySeaTableViewController.m */,
+				D4E505A010236EF0002B39D7 /* TWThreeDaySeaResultTableViewController.h */,
+				D4E505A110236EF0002B39D7 /* TWThreeDaySeaResultTableViewController.m */,
+				D4E505E0102370EF002B39D7 /* TWThreeDaySeaCell.h */,
+				D4E505E1102370EF002B39D7 /* TWThreeDaySeaCell.m */,
+			);
+			name = "Sea Forecast";
+			sourceTree = "<group>";
+		};
+		D40082BA10C34BA9007416F6 /* Near Sea Forecast */ = {
+			isa = PBXGroup;
+			children = (
+				D4E5063410237768002B39D7 /* TWNearSeaTableViewController.h */,
+				D4E5063510237768002B39D7 /* TWNearSeaTableViewController.m */,
+				D4E5067E10237944002B39D7 /* TWNearSeaResultTableViewController.h */,
+				D4E5067F10237944002B39D7 /* TWNearSeaResultTableViewController.m */,
+				D4E506A310237A99002B39D7 /* TWNearSeaCell.h */,
+				D4E506A410237A99002B39D7 /* TWNearSeaCell.m */,
+			);
+			name = "Near Sea Forecast";
+			sourceTree = "<group>";
+		};
+		D40082BD10C34BBC007416F6 /* Tide forecast */ = {
+			isa = PBXGroup;
+			children = (
+				D4E507331023838B002B39D7 /* TWTideTableViewController.h */,
+				D4E507341023838B002B39D7 /* TWTideTableViewController.m */,
+				D4E5075310238538002B39D7 /* TWTideResultTableViewController.h */,
+				D4E5075410238538002B39D7 /* TWTideResultTableViewController.m */,
+				D4E5078B10238957002B39D7 /* TWTideCell.h */,
+				D4E5078C10238957002B39D7 /* TWTideCell.m */,
+			);
+			name = "Tide forecast";
+			sourceTree = "<group>";
+		};
+		D40082BF10C34BDA007416F6 /* OBS */ = {
+			isa = PBXGroup;
+			children = (
+				D4C02E30102C221900FD1D3B /* TWOBSTableViewController.h */,
+				D4C02E31102C221900FD1D3B /* TWOBSTableViewController.m */,
+				D426D6B5102D142C00BBBEB3 /* TWOBSResultTableViewController.h */,
+				D426D6B6102D142C00BBBEB3 /* TWOBSResultTableViewController.m */,
+				D426D6DB102D17D400BBBEB3 /* TWOBSCell.h */,
+				D426D6DC102D17D400BBBEB3 /* TWOBSCell.m */,
+			);
+			name = OBS;
+			sourceTree = "<group>";
+		};
+		D40082C110C34BEE007416F6 /* Forecast Images */ = {
+			isa = PBXGroup;
+			children = (
+				D4E509B11023CB85002B39D7 /* TWImageTableViewController.h */,
+				D4E509B21023CB85002B39D7 /* TWImageTableViewController.m */,
+				D42C7A071023CF59009C3C4E /* TWImageViewController.h */,
+				D42C7A081023CF59009C3C4E /* TWImageViewController.m */,
+			);
+			name = "Forecast Images";
+			sourceTree = "<group>";
+		};
+		D40082C610C34C28007416F6 /* Other UI Controls */ = {
+			isa = PBXGroup;
+			children = (
+				D40082C710C34C40007416F6 /* Loading */,
+				D4E50841102391DB002B39D7 /* TWErrorViewController.h */,
+				D4E50842102391DB002B39D7 /* TWErrorViewController.m */,
+				D4EDBEF11082032900C9EBFE /* TWWebController.h */,
+				D4EDBEF21082032900C9EBFE /* TWWebController.m */,
+			);
+			name = "Other UI Controls";
+			sourceTree = "<group>";
+		};
+		D40082C710C34C40007416F6 /* Loading */ = {
+			isa = PBXGroup;
+			children = (
+				D426D8CD102D377600BBBEB3 /* TWLoadingView.h */,
+				D426D8CE102D377600BBBEB3 /* TWLoadingView.m */,
+				D4E503DC102357FC002B39D7 /* TWLoadingCell.h */,
+				D4E503DD102357FC002B39D7 /* TWLoadingCell.m */,
+			);
+			name = Loading;
+			sourceTree = "<group>";
+		};
+		D40082C910C34C50007416F6 /* App Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				1D3623240D0F684500981E51 /* TWWeatherAppDelegate.h */,
+				1D3623250D0F684500981E51 /* TWWeatherAppDelegate.m */,
+				D41E1D3C1084289D00A6675D /* TWWeatherAppDelegate+BGM.h */,
+				D41E1D3D1084289D00A6675D /* TWWeatherAppDelegate+BGM.m */,
+			);
+			name = "App Delegate";
+			sourceTree = "<group>";
+		};
+		D40082CC10C34C6A007416F6 /* Other Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D489E5A41024EB3F00189460 /* TWAboutViewController.h */,
+				D489E5A51024EB3F00189460 /* TWAboutViewController.m */,
+				D41E1D8D10842B6600A6675D /* TWSettingTableViewController.h */,
+				D41E1D8E10842B6600A6675D /* TWSettingTableViewController.m */,
+			);
+			name = "Other Controllers";
+			sourceTree = "<group>";
+		};
+		D40082D010C34C95007416F6 /* App Images */ = {
+			isa = PBXGroup;
+			children = (
+				D4E85026102D668E00A80676 /* Icon.png */,
+				D489E5951024DD7600189460 /* Default.png */,
+			);
+			name = "App Images";
+			sourceTree = "<group>";
+		};
+		D40082D110C34C9D007416F6 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				D41E1D381084288400A6675D /* bgm.mp3 */,
+			);
+			name = Sounds;
+			sourceTree = "<group>";
+		};
 		D471EBD3102F47A300768C5B /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -427,7 +591,7 @@
 			name = Tests;
 			sourceTree = "<group>";
 		};
-		D489E38C1023DFF500189460 /* Images */ = {
+		D489E38C1023DFF500189460 /* Weather Images */ = {
 			isa = PBXGroup;
 			children = (
 				D46046491083B69600B97EEF /* forecasts.png */,
@@ -452,71 +616,27 @@
 				D489E3A81023E00100189460 /* NightSunny.png */,
 				D489E3A91023E00100189460 /* NightSunnyCloudy.png */,
 			);
-			name = Images;
+			name = "Weather Images";
 			sourceTree = "<group>";
 		};
-		D4C02C35102C03C300FD1D3B /* More */ = {
+		D4C02C35102C03C300FD1D3B /* Forecast Table View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				28C286DF0D94DF7D0034E888 /* TWRootViewController.h */,
-				28C286E00D94DF7D0034E888 /* TWRootViewController.m */,
-				D46045FF1083B40E00B97EEF /* TWMoreViewController.h */,
-				D46046001083B40E00B97EEF /* TWMoreViewController.m */,
-				D4E508CF102399E0002B39D7 /* TWOverviewViewController.h */,
-				D4E508D0102399E0002B39D7 /* TWOverviewViewController.m */,
-				D4E5029810234126002B39D7 /* TWBasicForecastTableViewController.h */,
-				D4E5029910234126002B39D7 /* TWBasicForecastTableViewController.m */,
-				D4E502A6102343C6002B39D7 /* TWForecastTableViewController.h */,
-				D4E502A7102343C6002B39D7 /* TWForecastTableViewController.m */,
-				D4E502F710234698002B39D7 /* TWForecastResultTableViewController.h */,
-				D4E502F810234698002B39D7 /* TWForecastResultTableViewController.m */,
-				D4E5033110234C2D002B39D7 /* TWForecastResultCell.h */,
-				D4E5033210234C2D002B39D7 /* TWForecastResultCell.m */,
-				D4E5042810235B65002B39D7 /* TWWeekTableViewController.h */,
-				D4E5042910235B65002B39D7 /* TWWeekTableViewController.m */,
-				D4E5046510235E92002B39D7 /* TWWeekResultTableViewController.h */,
-				D4E5046610235E92002B39D7 /* TWWeekResultTableViewController.m */,
-				D4E504AC10236201002B39D7 /* TWWeekResultCell.h */,
-				D4E504AD10236201002B39D7 /* TWWeekResultCell.m */,
-				D4E5052510236A1A002B39D7 /* TWWeekTravelTableViewController.h */,
-				D4E5052610236A1A002B39D7 /* TWWeekTravelTableViewController.m */,
-				D4E5056E10236C6B002B39D7 /* TWThreeDaySeaTableViewController.h */,
-				D4E5056F10236C6B002B39D7 /* TWThreeDaySeaTableViewController.m */,
-				D4E505A010236EF0002B39D7 /* TWThreeDaySeaResultTableViewController.h */,
-				D4E505A110236EF0002B39D7 /* TWThreeDaySeaResultTableViewController.m */,
-				D4E505E0102370EF002B39D7 /* TWThreeDaySeaCell.h */,
-				D4E505E1102370EF002B39D7 /* TWThreeDaySeaCell.m */,
-				D4E5063410237768002B39D7 /* TWNearSeaTableViewController.h */,
-				D4E5063510237768002B39D7 /* TWNearSeaTableViewController.m */,
-				D4E5067E10237944002B39D7 /* TWNearSeaResultTableViewController.h */,
-				D4E5067F10237944002B39D7 /* TWNearSeaResultTableViewController.m */,
-				D4E506A310237A99002B39D7 /* TWNearSeaCell.h */,
-				D4E506A410237A99002B39D7 /* TWNearSeaCell.m */,
-				D4E507331023838B002B39D7 /* TWTideTableViewController.h */,
-				D4E507341023838B002B39D7 /* TWTideTableViewController.m */,
-				D4E5075310238538002B39D7 /* TWTideResultTableViewController.h */,
-				D4E5075410238538002B39D7 /* TWTideResultTableViewController.m */,
-				D4E5078B10238957002B39D7 /* TWTideCell.h */,
-				D4E5078C10238957002B39D7 /* TWTideCell.m */,
-				D4E509B11023CB85002B39D7 /* TWImageTableViewController.h */,
-				D4E509B21023CB85002B39D7 /* TWImageTableViewController.m */,
-				D42C7A071023CF59009C3C4E /* TWImageViewController.h */,
-				D42C7A081023CF59009C3C4E /* TWImageViewController.m */,
-				D489E5A41024EB3F00189460 /* TWAboutViewController.h */,
-				D489E5A51024EB3F00189460 /* TWAboutViewController.m */,
-				D4C02E30102C221900FD1D3B /* TWOBSTableViewController.h */,
-				D4C02E31102C221900FD1D3B /* TWOBSTableViewController.m */,
-				D426D6B5102D142C00BBBEB3 /* TWOBSResultTableViewController.h */,
-				D426D6B6102D142C00BBBEB3 /* TWOBSResultTableViewController.m */,
-				D426D6DB102D17D400BBBEB3 /* TWOBSCell.h */,
-				D426D6DC102D17D400BBBEB3 /* TWOBSCell.m */,
-				D41E1D8D10842B6600A6675D /* TWSettingTableViewController.h */,
-				D41E1D8E10842B6600A6675D /* TWSettingTableViewController.m */,
+				D40082B010C34B27007416F6 /* Root */,
+				D40082B210C34B35007416F6 /* Overview */,
+				D40082B410C34B52007416F6 /* 48Hr Forecast */,
+				D40082B610C34B74007416F6 /* Weekly Forecast */,
+				D40082B810C34B97007416F6 /* Sea Forecast */,
+				D40082BA10C34BA9007416F6 /* Near Sea Forecast */,
+				D40082BD10C34BBC007416F6 /* Tide forecast */,
+				D40082BF10C34BDA007416F6 /* OBS */,
+				D40082C110C34BEE007416F6 /* Forecast Images */,
+				D40082CC10C34C6A007416F6 /* Other Controllers */,
 			);
-			name = More;
+			name = "Forecast Table View Controllers";
 			sourceTree = "<group>";
 		};
-		D4C02C38102C03E000FD1D3B /* Favorite */ = {
+		D4C02C38102C03E000FD1D3B /* Favorite Table View Controller */ = {
 			isa = PBXGroup;
 			children = (
 				D4C02C3B102C03F700FD1D3B /* TWFavoriteTableViewController.h */,
@@ -524,7 +644,7 @@
 				D489E4F81023F2A200189460 /* TWLocationSettingTableViewController.h */,
 				D489E4F91023F2A200189460 /* TWLocationSettingTableViewController.m */,
 			);
-			name = Favorite;
+			name = "Favorite Table View Controller";
 			sourceTree = "<group>";
 		};
 		D4C3A0CA102235B800E7A430 /* External Libraries */ = {

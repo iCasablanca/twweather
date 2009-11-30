@@ -6,14 +6,19 @@
 //
 
 #import <AVFoundation/AVFoundation.h>
+#import "FBconnect/FBConnect.h"
+#import "TWFacebookAPI.h"
 
-@interface TWWeatherAppDelegate : NSObject <UIApplicationDelegate, AVAudioPlayerDelegate> 
+@interface TWWeatherAppDelegate : NSObject <UIApplicationDelegate, AVAudioPlayerDelegate,FBSessionDelegate> 
 {
     UIWindow *window;
 	UINavigationController *navigationController;
     UITabBarController *tabBarController;
 	
 	AVAudioPlayer *audioPlayer;
+	
+	FBSession *facebookSession;
+	BOOL facebookLoggedIn;
 }
 
 + (TWWeatherAppDelegate*)sharedDelegate;
@@ -24,6 +29,7 @@
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet UITabBarController *tabBarController;
 @property (nonatomic, retain) IBOutlet UINavigationController *navigationController;
+@property (readonly) FBSession *facebookSession;
 
 @end
 

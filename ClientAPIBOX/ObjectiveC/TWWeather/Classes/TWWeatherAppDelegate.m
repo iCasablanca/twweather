@@ -26,6 +26,7 @@
 	[tabBarController release];
 	[window release];
 	[audioPlayer release];
+	[facebookSession release];
 	[super dealloc];
 }
 
@@ -34,7 +35,8 @@
 #pragma mark Application lifecycle
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application 
-{   	
+{  
+	facebookSession = [[FBSession sessionForApplication:APP_ID secret:SECRET delegate:self] retain];
 	audioPlayer = nil;
 	window.backgroundColor = [UIColor blackColor];
 
@@ -124,8 +126,27 @@
 	return string;
 }
 
+#pragma mark facebookSession
+
+- (void)session:(FBSession*)session didLogin:(FBUID)uid
+{
+	facebookLoggedIn = YES;
+}
+- (void)sessionDidNotLogin:(FBSession*)session
+{
+}
+- (void)session:(FBSession*)session willLogout:(FBUID)uid
+{
+}
+- (void)sessionDidLogout:(FBSession*)session
+{
+	facebookLoggedIn = NO;
+}
+
+
 @synthesize window;
 @synthesize tabBarController;
 @synthesize navigationController;
+@synthesize facebookSession;
 
 @end
