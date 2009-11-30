@@ -140,9 +140,6 @@
 
 - (void)dialogDidSucceed:(FBDialog*)dialog
 {
-//	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Successfully posted on Facebook!", @"") message:@"" delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:nil];
-//	[alert show];
-//	[alert release];
 }
 - (void)dialogDidCancel:(FBDialog*)dialog
 {

@@ -52,7 +52,7 @@
 - (void)shareViaFacebook
 {
 	if ([[TWWeatherAppDelegate sharedDelegate] confirmFacebookLoggedIn]) {
-		FBStreamDialog* dialog = [[[FBStreamDialog alloc] init] autorelease];
+		FBStreamDialog *dialog = [[[FBStreamDialog alloc] init] autorelease];
 		dialog.delegate = [TWWeatherAppDelegate sharedDelegate];
 		
 		NSString *feedTitle = [NSString stringWithFormat:@"%@ 四十八小時天氣預報", [self title]];

@@ -224,6 +224,12 @@ static TWAPIBox *apibox;
 	return [_request shouldWaitUntilDone];
 }
 
+- (NSURL *)imageURLFromIdentifier:(NSString *)identifier
+{
+	NSString *path = [NSString stringWithFormat:@"image?id=%@&redirect=0", identifier];
+	NSString *URLString = [BASE_URL_STRING stringByAppendingString:path];
+	NSURL *URL = [NSURL URLWithString:URLString];
+}
 
 #pragma mark -
 

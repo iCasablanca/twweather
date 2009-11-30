@@ -5,18 +5,21 @@
 //  Created by zonble on 2009/08/01.
 //
 
-#import <UIKit/UIKit.h>
+#import "FBconnect/FBConnect.h"
 
-
-@interface TWImageViewController : UIViewController <UIScrollViewDelegate>
+@interface TWImageViewController : UIViewController <UIScrollViewDelegate, UIActionSheetDelegate>
 {
 	UIImageView *_imageView;
 	UIImage *_image;
+	NSURL *_imageURL;
 }
 
-- (IBAction)copy:(id)sender;
+- (IBAction)navBarAction:(id)sender;
+- (void)shareImageViaFacebook;
+- (void)copy;
 
 @property (retain, nonatomic) UIImageView *imageView;
 @property (assign, nonatomic) UIImage *image;
+@property (retain, nonatomic) NSURL *imageURL;
 
 @end

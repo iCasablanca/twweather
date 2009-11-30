@@ -6,9 +6,6 @@
 //  Copyright 2009 Lithoglyph Inc.. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
-
 @interface TWOverviewViewController : UIViewController <UIActionSheetDelegate>
 {
 	UITextView *textView;

@@ -71,7 +71,7 @@
 - (void)shareViaFacebook
 {
 	if ([[TWWeatherAppDelegate sharedDelegate] confirmFacebookLoggedIn]) {
-		FBStreamDialog* dialog = [[[FBStreamDialog alloc] init] autorelease];
+		FBStreamDialog *dialog = [[[FBStreamDialog alloc] init] autorelease];
 		dialog.delegate = [TWWeatherAppDelegate sharedDelegate];
 		
 		NSString *feedTitle = [self title];
@@ -98,7 +98,6 @@
 	else if (buttonIndex == 1) {
 		[self shareViaFacebook];
 	}
-			 
 }
 
 
