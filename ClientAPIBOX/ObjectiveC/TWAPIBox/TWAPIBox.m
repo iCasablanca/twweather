@@ -2,6 +2,7 @@
 // TWAPIBox.m
 //
 // Copyright (c) 2009 Weizhong Yang (http://zonble.net)
+// All Rights Reserved
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
@@ -63,6 +64,7 @@ static TWAPIBox *apibox;
 	self = [super init];
     if (self) {
 		_request = [[LFHTTPRequest alloc] init];
+		_request.timeoutInterval = 5.0;
 		[_request setDelegate:self];
 		_queue = [[NSMutableArray alloc] init];
 		[self initInfoArrays];
@@ -77,6 +79,10 @@ static TWAPIBox *apibox;
 }
 - (void)cancelAllRequestWithDelegate:(id)delegate
 {
+	if (!delegate) {
+		return;
+	}
+	
 	NSEnumerator *enumerator = [_queue objectEnumerator];
 	id sessionInfo = nil;
 	while (sessionInfo = [enumerator nextObject]) {

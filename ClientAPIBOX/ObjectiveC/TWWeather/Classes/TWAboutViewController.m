@@ -2,6 +2,7 @@
 // TWAboutViewController.m
 //
 // Copyright (c) 2009 Weizhong Yang (http://zonble.net)
+// All Rights Reserved
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
@@ -55,7 +56,7 @@
 	scrollView.scrollEnabled = YES;
 	self.view = scrollView;
 	
-	UIView *contentView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)] autorelease];
+	UIView *contentView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 500)] autorelease];
 //	contentView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
 	contentView.backgroundColor = [UIColor whiteColor];
 	[self.view addSubview:contentView];
@@ -84,7 +85,7 @@
 	self.copyrightLabel = label;
 	[contentView addSubview:self.copyrightLabel];
 	
-	label = [[[UILabel alloc] initWithFrame:CGRectMake(20, 120, 280, 320)] autorelease];
+	label = [[[UILabel alloc] initWithFrame:CGRectMake(20, 120, 280, 340)] autorelease];
 	label.font = [UIFont systemFontOfSize:12.0];
 	label.numberOfLines = 100;
 	NSMutableString *text = [NSMutableString stringWithString:NSLocalizedString(@"Data comes from Central Weather Bureau\n\n", @"")];	
