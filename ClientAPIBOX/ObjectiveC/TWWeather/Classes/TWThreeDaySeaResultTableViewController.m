@@ -26,6 +26,52 @@
     // Release anything that's not essential, such as cached data
 }
 
+- (void)viewDidLoad
+{
+	UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(navBarAction:)];
+	self.navigationItem.rightBarButtonItem = item;
+	[item release];	
+}
+
+#pragma mark -
+
+- (IBAction)navBarAction:(id)sender
+{
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Share via Facebook", @""), nil];
+	[actionSheet showInView:[self view]];
+	[actionSheet release];
+}
+- (void)shareViaFacebook
+{
+	if ([[TWWeatherAppDelegate sharedDelegate] confirmFacebookLoggedIn]) {
+		FBStreamDialog *dialog = [[[FBStreamDialog alloc] init] autorelease];
+		dialog.delegate = [TWWeatherAppDelegate sharedDelegate];
+		
+		NSString *feedTitle = [NSString stringWithFormat:@"%@ 三天漁業預報", [self title]];
+		NSMutableString *description = [NSMutableString string];
+		for (NSDictionary *forecast in forecastArray) {
+			[description appendFormat:@"※ %@ ", [forecast valueForKey:@"date"]];
+			[description appendFormat:@"%@ ", [forecast valueForKey:@"description"]];
+			[description appendFormat:@"%@ ", [forecast valueForKey:@"wind"]];
+			[description appendFormat:@"%@ ", [forecast valueForKey:@"windScale"]];
+			[description appendFormat:@"%@ ", [forecast valueForKey:@"wave"]];
+		}
+		[description appendFormat:@" 發佈時間%@", publishTime];
+		
+		NSString *attachment = [NSString stringWithFormat:@"{\"name\":\"%@\", \"description\":\"%@\"}", feedTitle, description];
+		dialog.attachment = attachment;
+		dialog.userMessagePrompt = feedTitle;
+		[dialog show];
+	}
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+	if (!buttonIndex) {
+		[self shareViaFacebook];
+	}
+}
+
 #pragma mark UITableViewDataSource and UITableViewDelegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

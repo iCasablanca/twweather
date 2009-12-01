@@ -31,6 +31,50 @@
     // Release anything that's not essential, such as cached data
 }
 
+- (void)viewDidLoad
+{
+	UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(navBarAction:)];
+	self.navigationItem.rightBarButtonItem = item;
+	[item release];	
+}
+
+#pragma mark -
+
+- (IBAction)navBarAction:(id)sender
+{
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Share via Facebook", @""), nil];
+	[actionSheet showInView:[self view]];
+	[actionSheet release];
+}
+- (void)shareViaFacebook
+{
+	if ([[TWWeatherAppDelegate sharedDelegate] confirmFacebookLoggedIn]) {
+		FBStreamDialog *dialog = [[[FBStreamDialog alloc] init] autorelease];
+		dialog.delegate = [TWWeatherAppDelegate sharedDelegate];
+		
+		NSString *feedTitle = [NSString stringWithFormat:@"%@ 天氣預報", [self title]];
+		NSMutableString *attachmentDescription = [NSMutableString string];
+		[attachmentDescription appendFormat:@"※ %@ - %@ ", self.validBeginTime, self.validEndTime];
+		[attachmentDescription appendFormat:@"%@ ", self.description];
+		[attachmentDescription appendFormat:@"%@ ", self.wave];
+		[attachmentDescription appendFormat:@"%@ ", self.waveLevel];
+		[attachmentDescription appendFormat:@"%@ ", self.wind];
+		[attachmentDescription appendFormat:@"%@ ", self.windScale];
+				
+		NSString *attachment = [NSString stringWithFormat:@"{\"name\":\"%@\", \"description\":\"%@\"}", feedTitle, attachmentDescription];
+		dialog.attachment = attachment;
+		dialog.userMessagePrompt = feedTitle;
+		[dialog show];
+	}
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+	if (!buttonIndex) {
+		[self shareViaFacebook];
+	}
+}
+
 #pragma mark UITableViewDataSource and UITableViewDelegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
