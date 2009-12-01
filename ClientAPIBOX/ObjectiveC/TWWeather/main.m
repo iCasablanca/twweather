@@ -1,10 +1,3 @@
-//
-//  main.m
-//  TWWeather
-//
-//  Created by zonble on 2009/07/31.
-//
-
 #import <UIKit/UIKit.h>
 
 int main(int argc, char *argv[]) {
