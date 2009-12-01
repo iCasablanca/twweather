@@ -9,7 +9,7 @@
 #import "FBconnect/FBConnect.h"
 #import "TWFacebookAPI.h"
 
-@interface TWWeatherAppDelegate : NSObject <UIApplicationDelegate, AVAudioPlayerDelegate,FBSessionDelegate, FBDialogDelegate> 
+@interface TWWeatherAppDelegate : NSObject <UIApplicationDelegate, AVAudioPlayerDelegate,FBSessionDelegate, FBDialogDelegate, UIAlertViewDelegate> 
 {
     UIWindow *window;
 	UINavigationController *navigationController;

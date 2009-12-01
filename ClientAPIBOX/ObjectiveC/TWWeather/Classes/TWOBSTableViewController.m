@@ -214,7 +214,7 @@
 		[d setObject:[NSNumber numberWithBool:NO] forKey:@"isLoading"];
 	}
 	for (NSDictionary *d in _locations) {
-		NSArray *items = [d valueForKey:@"items"];
+		NSArray *items = [d objectForKey:@"items"];
 		for (NSMutableDictionary *item in items) {
 			[item setObject:[NSNumber numberWithBool:NO] forKey:@"isLoading"];
 		}		

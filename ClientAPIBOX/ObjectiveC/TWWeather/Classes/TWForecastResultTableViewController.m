@@ -58,11 +58,11 @@
 		NSString *feedTitle = [NSString stringWithFormat:@"%@ 四十八小時天氣預報", [self title]];
 		NSMutableString *description = [NSMutableString string];
 		for (NSDictionary *forecast in forecastArray) {
-			[description appendFormat:@"※ %@", [forecast valueForKey:@"title"]];
-			[description appendFormat:@"(%@ - %@) ", [forecast valueForKey:@"beginTime"], [forecast valueForKey:@"endTime"]];
-			[description appendFormat:@"%@ ", [forecast valueForKey:@"description"]];
-			[description appendFormat:@"降雨機率：%@ ", [forecast valueForKey:@"rain"]];
-			[description appendFormat:@"氣溫：%@", [forecast valueForKey:@"temperature"]];
+			[description appendFormat:@"※ %@", [forecast objectForKey:@"title"]];
+			[description appendFormat:@"(%@ - %@) ", [forecast objectForKey:@"beginTime"], [forecast objectForKey:@"endTime"]];
+			[description appendFormat:@"%@ ", [forecast objectForKey:@"description"]];
+			[description appendFormat:@"降雨機率：%@ ", [forecast objectForKey:@"rain"]];
+			[description appendFormat:@"氣溫：%@", [forecast objectForKey:@"temperature"]];
 
 		}
 		NSString *attachment = [NSString stringWithFormat:@"{\"name\":\"%@\", \"description\":\"%@\"}", feedTitle, description];

@@ -50,11 +50,11 @@
 		NSString *feedTitle = [NSString stringWithFormat:@"%@ 三天漁業預報", [self title]];
 		NSMutableString *description = [NSMutableString string];
 		for (NSDictionary *forecast in forecastArray) {
-			[description appendFormat:@"※ %@ ", [forecast valueForKey:@"date"]];
-			[description appendFormat:@"%@ ", [forecast valueForKey:@"description"]];
-			[description appendFormat:@"%@ ", [forecast valueForKey:@"wind"]];
-			[description appendFormat:@"%@ ", [forecast valueForKey:@"windScale"]];
-			[description appendFormat:@"%@ ", [forecast valueForKey:@"wave"]];
+			[description appendFormat:@"※ %@ ", [forecast objectForKey:@"date"]];
+			[description appendFormat:@"%@ ", [forecast objectForKey:@"description"]];
+			[description appendFormat:@"%@ ", [forecast objectForKey:@"wind"]];
+			[description appendFormat:@"%@ ", [forecast objectForKey:@"windScale"]];
+			[description appendFormat:@"%@ ", [forecast objectForKey:@"wave"]];
 		}
 		[description appendFormat:@" 發佈時間%@", publishTime];
 		

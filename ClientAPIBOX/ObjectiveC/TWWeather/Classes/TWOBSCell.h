@@ -5,8 +5,6 @@
 //  Created by zonble on 2009/08/08.
 //
 
-#import <UIKit/UIKit.h>
-
 @class TWOBSCellContentView;
 
 @interface TWOBSCell : UITableViewCell 

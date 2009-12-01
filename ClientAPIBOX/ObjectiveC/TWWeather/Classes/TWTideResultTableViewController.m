@@ -6,6 +6,7 @@
 //
 
 #import "TWTideResultTableViewController.h"
+#import "TWWeatherAppDelegate.h"
 #import "TWTideCell.h"
 #import "TWAPIBox.h"
 
@@ -22,6 +23,54 @@
     [super didReceiveMemoryWarning]; 
 	// Releases the view if it doesn't have a superview
     // Release anything that's not essential, such as cached data
+}
+
+- (void)viewDidLoad
+{
+	UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(navBarAction:)];
+	self.navigationItem.rightBarButtonItem = item;
+	[item release];	
+}
+
+#pragma mark -
+
+- (IBAction)navBarAction:(id)sender
+{
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Share via Facebook", @""), nil];
+	[actionSheet showInView:[self view]];
+	[actionSheet release];
+}
+- (void)shareViaFacebook
+{
+	if ([[TWWeatherAppDelegate sharedDelegate] confirmFacebookLoggedIn]) {
+		FBStreamDialog *dialog = [[[FBStreamDialog alloc] init] autorelease];
+		dialog.delegate = [TWWeatherAppDelegate sharedDelegate];
+		
+		NSString *feedTitle = [NSString stringWithFormat:@"%@ 三天潮汐", [self title]];
+		NSMutableString *description = [NSMutableString string];
+		for (NSDictionary *forecast in forecastArray) {
+			[description appendFormat:@"※ %@ ", [forecast objectForKey:@"date"]];
+			[description appendFormat:@"%@ ", [forecast objectForKey:@"lunarDate"]];
+			for (NSDictionary *tide in [forecast objectForKey:@"tides"]) {
+				NSString *name = [tide objectForKey:@"name"];
+				NSString *shortTime = [tide objectForKey:@"shortTime"];
+				NSString *height = [tide objectForKey:@"height"];
+				[description appendFormat:@"%@ %@ %@ -", name, shortTime, height];
+			}
+		}
+		
+		NSString *attachment = [NSString stringWithFormat:@"{\"name\":\"%@\", \"description\":\"%@\"}", feedTitle, description];
+		dialog.attachment = attachment;
+		dialog.userMessagePrompt = feedTitle;
+		[dialog show];
+	}
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+	if (!buttonIndex) {
+		[self shareViaFacebook];
+	}
 }
 
 #pragma mark UITableViewDataSource and UITableViewDelegate

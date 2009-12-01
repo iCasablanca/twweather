@@ -6,8 +6,6 @@
 //  Copyright 2009 zonble.net. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 @interface TWWebController : UIViewController <UIWebViewDelegate, UIActionSheetDelegate>
 {
 	UIWebView *webView;

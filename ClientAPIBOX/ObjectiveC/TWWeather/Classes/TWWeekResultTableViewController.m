@@ -50,9 +50,9 @@
 		NSString *feedTitle = [NSString stringWithFormat:@"%@ 一周天氣預報", [self title]];
 		NSMutableString *description = [NSMutableString string];
 		for (NSDictionary *forecast in forecastArray) {
-			[description appendFormat:@"※ %@", [forecast valueForKey:@"date"]];
-			[description appendFormat:@" %@ ", [forecast valueForKey:@"description"]];
-			[description appendFormat:@"氣溫：%@", [forecast valueForKey:@"temperature"]];
+			[description appendFormat:@"※ %@", [forecast objectForKey:@"date"]];
+			[description appendFormat:@" %@ ", [forecast objectForKey:@"description"]];
+			[description appendFormat:@"氣溫：%@", [forecast objectForKey:@"temperature"]];
 		}
 		[description appendFormat:@" 發佈時間%@", publishTime];
 		

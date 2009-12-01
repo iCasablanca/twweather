@@ -196,7 +196,7 @@
 	[_filteredArray removeAllObjects];
 	searchText = [searchText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	for (NSDictionary *d in _array) {
-		NSString *name = [d valueForKey:@"name"];
+		NSString *name = [d objectForKey:@"name"];
 		NSRange range = [name rangeOfString:searchText];
 		if (range.location != NSNotFound) {
 			[_filteredArray addObject:d];

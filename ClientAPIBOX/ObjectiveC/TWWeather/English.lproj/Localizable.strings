@@ -68,3 +68,6 @@
 "You did not connect to Facebook." = "You did not connect to Facebook.";
 "Please visit the \"Settings\" to connect to Facebook." = "Please visit the \"Settings\" to connect to Facebook.";
 "Failed to post on Facebook!" = "Failed to post on Facebook!";
+"Do you want to connect now?" = "Do you want to connect now?"; 
+"Connect" = "Connect";
+"Successfully connected on Facebook!" = "Successfully connected on Facebook!";

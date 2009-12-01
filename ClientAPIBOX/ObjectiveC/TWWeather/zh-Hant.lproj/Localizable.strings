@@ -67,3 +67,6 @@
 "You did not connect to Facebook." = "您還沒有連線到 Facebook 上";
 "Please visit the \"Settings\" to connect to Facebook." = "請使用「設定」畫面中的功能登入。";
 "Failed to post on Facebook!" = "與 Facebook 連線失敗！";
+"Do you want to connect now?" = "請問您想要連線到 Facebook 上嗎？"; 
+"Connect" = "連線";
+"Successfully connected on Facebook!" = "與 Facebook 連線成功！";

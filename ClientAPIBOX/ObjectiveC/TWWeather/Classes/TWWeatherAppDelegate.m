@@ -131,7 +131,7 @@
 - (BOOL)confirmFacebookLoggedIn
 {
 	if (!facebookSession.isConnected) {
-		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"You did not connect to Facebook.", @"") message:NSLocalizedString(@"Please visit the \"Settings\" to connect to Facebook.", @"") delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:nil];
+		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"You did not connect to Facebook.", @"") message:NSLocalizedString(@"Do you want to connect now?", @"") delegate:self cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:NSLocalizedString(@"Connect", @""), nil];
 		[alertView show];
 		[alertView release];
 	}
@@ -140,15 +140,36 @@
 
 - (void)dialogDidSucceed:(FBDialog*)dialog
 {
+	if ([dialog isKindOfClass:[FBLoginDialog class]]) {
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Successfully connected on Facebook!", @"") message:@"" delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:nil];
+		[alert show];
+		[alert release];		
+	}
 }
 - (void)dialogDidCancel:(FBDialog*)dialog
 {
 }
 - (void)dialog:(FBDialog*)dialog didFailWithError:(NSError*)error
 {
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Failed to post on Facebook!", @"") message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:nil];
-	[alert show];
-	[alert release];
+	if ([dialog isKindOfClass:[FBLoginDialog class]]) {
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Failed to post on Facebook!", @"") message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:nil];
+		[alert show];
+		[alert release];
+	}
+}
+
+- (void)_showFacebookLoginViewWithDelay
+{
+	FBLoginDialog* dialog = [[[FBLoginDialog alloc] initWithSession:facebookSession] autorelease];
+	dialog.delegate = self;
+	[dialog show];
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+	if (buttonIndex == 1) {
+		[self performSelector:@selector(_showFacebookLoginViewWithDelay) withObject:nil afterDelay:0.2];
+	}
 }
 
 #pragma mark facebookSession
