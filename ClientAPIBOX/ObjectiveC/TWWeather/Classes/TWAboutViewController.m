@@ -28,10 +28,18 @@
 
 - (void)loadView 
 {
-	UIView *view = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)] autorelease];
-	view.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-	view.backgroundColor = [UIColor whiteColor];
-	self.view = view;
+	UIScrollView *scrollView = [[[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)] autorelease];
+	scrollView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+	scrollView.backgroundColor = [UIColor whiteColor];
+	scrollView.scrollEnabled = YES;
+	self.view = scrollView;
+	
+	UIView *contentView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)] autorelease];
+//	contentView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+	contentView.backgroundColor = [UIColor whiteColor];
+	[self.view addSubview:contentView];
+	scrollView.contentSize = contentView.frame.size;
+
 	self.title = NSLocalizedString(@"About", @"");
 	
 	UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Feedback",@"") style:UIBarButtonItemStyleBordered target:self action:@selector(sendEmailAction:)];
@@ -46,23 +54,23 @@
 	label.font = [UIFont boldSystemFontOfSize:20.0];
 	label.text = [loaclizedDictionary objectForKey:@"CFBundleDisplayName"];
 	self.titleLabel = label;
-	[self.view addSubview:self.titleLabel];
+	[contentView addSubview:self.titleLabel];
 	
 	label = [[[UILabel alloc] initWithFrame:CGRectMake(20, 50, 280, 60)] autorelease];
 	label.font = [UIFont systemFontOfSize:14.0];
 	label.numberOfLines = 3;	
 	label.text = [NSString stringWithFormat:NSLocalizedString(@"Version: %@\n%@", @""), [infoDictionary objectForKey:@"CFBundleVersion"], [loaclizedDictionary objectForKey:@"NSHumanReadableCopyright"]];
 	self.copyrightLabel = label;
-	[self.view addSubview:self.copyrightLabel];
+	[contentView addSubview:self.copyrightLabel];
 	
-	label = [[[UILabel alloc] initWithFrame:CGRectMake(20, 120, 280, 280)] autorelease];
+	label = [[[UILabel alloc] initWithFrame:CGRectMake(20, 120, 280, 320)] autorelease];
 	label.font = [UIFont systemFontOfSize:12.0];
 	label.numberOfLines = 100;
 	NSMutableString *text = [NSMutableString stringWithString:NSLocalizedString(@"Data comes from Central Weather Bureau\n\n", @"")];	
 	[text appendString:[NSString stringWithFormat:NSLocalizedString(@"%@ is an open source project. please check the web site of the project(http://github.com/zonble/twweather) for furthor information.\n\nLFWebAPIKit\nCopyright (c) 2007-2009 Lithoglyph Inc. (http://lithoglyph.com)\nCopyright (c) 2007-2009 Lukhnos D. Liu (http://lukhnos.org)\n\nCocoaCryptoHashing\nCopyright (c) 2004-2009 Denis Defreyne\nCopyright (c) 2008 Chris Verwymeren\nCopyright (c) 2009 Mike Fischer\nAll rights reserved.", @""), [loaclizedDictionary objectForKey:@"CFBundleDisplayName"]]];
 	label.text = text;
 	self.externalLibraryLabel = label;
-	[self.view addSubview:self.externalLibraryLabel];
+	[contentView addSubview:self.externalLibraryLabel];
 }
 
 - (void)didReceiveMemoryWarning 
