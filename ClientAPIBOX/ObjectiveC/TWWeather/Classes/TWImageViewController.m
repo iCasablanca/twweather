@@ -106,7 +106,7 @@
 
 - (IBAction)navBarAction:(id)sender
 {
-	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Copy", @""), NSLocalizedString(@"Share via Facebook", @""), nil];
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Copy", @""), NSLocalizedString(@"Share via Facebook", @""), NSLocalizedString(@"Save", @""), nil];
 	[actionSheet showInView:[self view]];
 	[actionSheet release];
 }
@@ -130,14 +130,33 @@
 	pasteBoard.image = self.image;
 }
 
+- (void)_image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo: (void *) contextInfo
+{
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Failed to save your image.", @"") message:[error description] delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:nil];
+	[alert show];
+	[alert release];
+}
+
+- (void)save
+{
+	UIImageWriteToSavedPhotosAlbum(self.image, self, @selector(_image:didFinishSavingWithError:contextInfo:), NULL);
+}
+
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-	if (buttonIndex == 0) {
-		[self copy];
+	switch (buttonIndex) {
+		case 0:
+			[self copy];
+			break;
+		case 1:
+			[self shareImageViaFacebook];
+			break;			
+		case 2:
+			[self save];
+			break;
+		default:
+			break;
 	}
-	else if (buttonIndex == 1) {
-		[self shareImageViaFacebook];
-	}	
 }
 
 #pragma mark -

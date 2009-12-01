@@ -17,6 +17,7 @@
 - (IBAction)navBarAction:(id)sender;
 - (void)shareImageViaFacebook;
 - (void)copy;
+- (void)save;
 
 @property (retain, nonatomic) UIImageView *imageView;
 @property (assign, nonatomic) UIImage *image;

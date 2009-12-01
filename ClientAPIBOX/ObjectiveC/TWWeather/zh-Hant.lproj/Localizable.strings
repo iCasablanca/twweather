@@ -70,3 +70,5 @@
 "Do you want to connect now?" = "請問您想要連線到 Facebook 上嗎？"; 
 "Connect" = "連線";
 "Successfully connected on Facebook!" = "與 Facebook 連線成功！";
+"Failed to save your image." = "天氣雲圖儲存失敗";
+"Save" = "儲存";
