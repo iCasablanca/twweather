@@ -58,3 +58,12 @@
 "BGM" = "背景音樂";
 "Cancel" = "取消";
 "Open in Safari" = "使用 Safari 開啟";
+
+"Basic Settings" = "基本設定";
+"Social Network" = "社群網路";
+"You can share the forecasts with your friends via Facebook!" = "您可以將天氣資訊張貼到 Facebook 上，提醒您的好朋友！";
+"Share via Facebook" = "Facebook 分享";
+
+"You did not connect to Facebook." = "您還沒有連線到 Facebook 上";
+"Please visit the \"Settings\" to connect to Facebook." = "請使用「設定」畫面中的功能登入。";
+"Failed to post on Facebook!" = "與 Facebook 連線失敗！";

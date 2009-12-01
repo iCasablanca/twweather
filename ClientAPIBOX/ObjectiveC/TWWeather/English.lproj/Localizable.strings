@@ -41,6 +41,7 @@
 "You can not make a phone call with an %@" = "You can not make a phone call with an %@";
 
 /* No comment provided by engineer. */
+
 "You cannot send email now" = "You cannot send email now";
 
 /* No comment provided by engineer. */
@@ -58,3 +59,12 @@
 "BGM" = "BGM";
 "Cancel" = "Cancel";
 "Open in Safari" = "Open in Safari";
+
+"Basic Settings" = "Basic Settings";
+"Social Network" = "Social Network";
+"You can share the forecasts with your friends via Facebook!" = "You can share the forecasts with your friends via Facebook!";
+"Share via Facebook" = "Share via Facebook";
+
+"You did not connect to Facebook." = "You did not connect to Facebook.";
+"Please visit the \"Settings\" to connect to Facebook." = "Please visit the \"Settings\" to connect to Facebook.";
+"Failed to post on Facebook!" = "Failed to post on Facebook!";
