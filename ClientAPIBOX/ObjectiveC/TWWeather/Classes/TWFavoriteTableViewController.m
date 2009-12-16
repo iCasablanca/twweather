@@ -175,13 +175,21 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 - (void)updateFilteredArray
 {
 	[_filteredArray removeAllObjects];
-	for (NSInteger i = 0; i < [_favArray count]; i++) {
-		NSNumber *number = [NSNumber numberWithInt:i];
-		if ([_filterArray containsObject:number]) {
-			NSDictionary *dictionary = [_favArray objectAtIndex:i];
-			[_filteredArray addObject:dictionary];
-		}
+	for (NSNumber *number in _filterArray) {
+		NSUInteger index = [number intValue];
+		if ([_favArray count]  > index) {
+			NSDictionary *d = [_favArray objectAtIndex:index];
+			[_filteredArray addObject:d];
+		}		
 	}
+	
+//	for (NSInteger i = 0; i < [_favArray count]; i++) {
+//		NSNumber *number = [NSNumber numberWithInt:i];
+//		if ([_filterArray containsObject:number]) {
+//			NSDictionary *dictionary = [_favArray objectAtIndex:i];
+//			[_filteredArray addObject:dictionary];
+//		}
+//	}
 }
 - (void)loadData
 {

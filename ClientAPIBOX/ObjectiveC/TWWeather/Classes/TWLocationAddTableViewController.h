@@ -1,5 +1,5 @@
 //
-// TWLocationSettingTableViewController.h
+// TWLocationAddTableViewController.h
 //
 // Copyright (c) 2009 Weizhong Yang (http://zonble.net)
 // All Rights Reserved
@@ -27,26 +27,22 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#import "TWLocationAddTableViewController.h"
+@class TWLocationAddTableViewController;
 
-@class TWLocationSettingTableViewController;
-
-@protocol TWLocationSettingTableViewControllerDelegate <NSObject>
-@required
-- (void)settingController:(TWLocationSettingTableViewController *)controller didUpdateFilter:(NSArray *)filterArray;
+@protocol TWLocationAddTableViewControllerDelegate <NSObject>
+- (void)locationAddTableViewController:(TWLocationAddTableViewController *)controller didSelectedLocationIdentifier:(NSUInteger)locationIdentifier;
 @end
 
-@interface TWLocationSettingTableViewController : UITableViewController <TWLocationAddTableViewControllerDelegate> 
+@interface TWLocationAddTableViewController : UITableViewController
 {
-	id<TWLocationSettingTableViewControllerDelegate> delegate;
-	NSMutableArray *_filterArray;
-	
-	TWLocationAddTableViewController *_addController;
+	id <TWLocationAddTableViewControllerDelegate> delegate;
+	NSArray *contentArray;
 }
 
-- (void)setFilter:(NSArray *)filter;
-- (IBAction)donelAction:(id)sender;
+- (IBAction)cancelAction:(id)sender;
+- (void)updateContentArrayWithFilterArray:(NSArray *)filterArray;
 
-@property (assign, nonatomic) id<TWLocationSettingTableViewControllerDelegate> delegate;
+@property (assign) id <TWLocationAddTableViewControllerDelegate> delegate;
+@property (retain, nonatomic) NSArray *contentArray;
 
 @end

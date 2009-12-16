@@ -73,6 +73,7 @@
 		D489E59E1024EA4600189460 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D489E59D1024EA4600189460 /* InfoPlist.strings */; };
 		D489E5A61024EB3F00189460 /* TWAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D489E5A51024EB3F00189460 /* TWAboutViewController.m */; };
 		D489E5DC1024EF6000189460 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D489E5DB1024EF6000189460 /* MessageUI.framework */; };
+		D4A09D3410D95D6000013733 /* TWLocationAddTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A09D3310D95D6000013733 /* TWLocationAddTableViewController.m */; };
 		D4C02AAE102BD47000FD1D3B /* TWAPIBox+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C02AAD102BD47000FD1D3B /* TWAPIBox+Private.m */; };
 		D4C02C3D102C03F700FD1D3B /* TWFavoriteTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C02C3C102C03F700FD1D3B /* TWFavoriteTableViewController.m */; };
 		D4C02E32102C221900FD1D3B /* TWOBSTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C02E31102C221900FD1D3B /* TWOBSTableViewController.m */; };
@@ -199,6 +200,8 @@
 		D489E5A41024EB3F00189460 /* TWAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWAboutViewController.h; sourceTree = "<group>"; };
 		D489E5A51024EB3F00189460 /* TWAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWAboutViewController.m; sourceTree = "<group>"; };
 		D489E5DB1024EF6000189460 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		D4A09D3210D95D6000013733 /* TWLocationAddTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWLocationAddTableViewController.h; sourceTree = "<group>"; };
+		D4A09D3310D95D6000013733 /* TWLocationAddTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWLocationAddTableViewController.m; sourceTree = "<group>"; };
 		D4C02AAC102BD47000FD1D3B /* TWAPIBox+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TWAPIBox+Private.h"; path = "../TWAPIBox/TWAPIBox+Private.h"; sourceTree = SOURCE_ROOT; };
 		D4C02AAD102BD47000FD1D3B /* TWAPIBox+Private.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TWAPIBox+Private.m"; path = "../TWAPIBox/TWAPIBox+Private.m"; sourceTree = SOURCE_ROOT; };
 		D4C02C3B102C03F700FD1D3B /* TWFavoriteTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWFavoriteTableViewController.h; sourceTree = "<group>"; };
@@ -643,6 +646,8 @@
 				D4C02C3C102C03F700FD1D3B /* TWFavoriteTableViewController.m */,
 				D489E4F81023F2A200189460 /* TWLocationSettingTableViewController.h */,
 				D489E4F91023F2A200189460 /* TWLocationSettingTableViewController.m */,
+				D4A09D3210D95D6000013733 /* TWLocationAddTableViewController.h */,
+				D4A09D3310D95D6000013733 /* TWLocationAddTableViewController.m */,
 			);
 			name = "Favorite Table View Controller";
 			sourceTree = "<group>";
@@ -882,6 +887,7 @@
 				D400825E10C34195007416F6 /* FBPermissionDialog.m in Sources */,
 				D400825F10C34195007416F6 /* FBFeedDialog.m in Sources */,
 				D400826010C34195007416F6 /* FBStreamDialog.m in Sources */,
+				D4A09D3410D95D6000013733 /* TWLocationAddTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
