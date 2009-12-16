@@ -286,7 +286,13 @@ static TWAPIBox *apibox;
 	}
 	[_formatter setDateStyle:kCFDateFormatterShortStyle];
 	[_formatter setTimeStyle:kCFDateFormatterNoStyle];
-	return [_formatter stringFromDate:date];	
+	
+	NSMutableString *s = [NSMutableString stringWithString:[_formatter stringFromDate:date]];
+	[_formatter setDateFormat:@"EEE"];
+	[s appendFormat:@" %@", [_formatter stringFromDate:date]];
+	return s;
+//	
+//	return [_formatter stringFromDate:date];	
 }
 
 #pragma mark -
