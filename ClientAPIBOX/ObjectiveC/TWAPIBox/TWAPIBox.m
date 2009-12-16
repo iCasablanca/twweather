@@ -114,13 +114,17 @@ static TWAPIBox *apibox;
 - (void)performFetchWithSessionInfo:(id)sessionInfo URL:(NSURL *)URL
 {
 	_currentURL = [URL retain];
-	_currentSessionInfo = [sessionInfo retain];;
+	_currentSessionInfo = [sessionInfo retain];
 	[_reachability startChecking];
+	
+//	[_request setSessionInfo:sessionInfo];
+//	[_request performMethod:LFHTTPRequestGETMethod onURL:URL withData:nil];	
+//
 }
 
 - (void)runQueue
 {
-	if ([_queue count]) {
+	if ([_queue count] && ![_request isRunning] && ![_reachability isChecking]) {
 		id sessionInfo = [_queue objectAtIndex:0];
 		NSURL *URL = [sessionInfo objectForKey:@"URL"];
 		[self performFetchWithSessionInfo:sessionInfo URL:URL];
