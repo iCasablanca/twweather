@@ -1,3 +1,0 @@
-#define APP_ID @"188341743092"
-#define API_KEY @"eec657acdca6e360444746a917b620a5"
-#define SECRET @"f9e795f4fef927292158d19f8f9cbf04"
