@@ -368,6 +368,7 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 
 - (void)settingController:(TWLocationSettingTableViewController *)controller didUpdateFilter:(NSArray *)filterArray
 {
+	[self hideLoadingView];
 	[_filterArray setArray:filterArray];
 	[[NSUserDefaults standardUserDefaults] setObject:_filterArray forKey:favoitesPreferenceName];
 	if (_favArray) {
@@ -381,6 +382,7 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 
 - (void)APIBox:(TWAPIBox *)APIBox didFetchWarnings:(id)result userInfo:(id)userInfo
 {
+	[self hideLoadingView];
 	if ([result isKindOfClass:[NSArray class]]) {
 		[warningArray setArray:result];
 	}

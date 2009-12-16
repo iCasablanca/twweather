@@ -50,12 +50,17 @@ static TWAPIBox *apibox;
 
 - (void)dealloc
 {
+	_currentSessionInfo = nil;
+	_currentURL = nil;
+
 	[_request cancelWithoutDelegateMessage];
 	_request.delegate = nil;
 	[_request release];
 	[_queue release];
 	[self releaseInfoArrays];
 	[_formatter release];
+	[_reachability release];
+	[_retryCountDictionary release];
 	[super dealloc];
 }
 
@@ -63,10 +68,15 @@ static TWAPIBox *apibox;
 {
 	self = [super init];
     if (self) {
+		_reachability = [[LFSiteReachability alloc] init];
+		_reachability.siteURL = [NSURL URLWithString:BASE_URL_STRING];
+		_reachability.timeoutInterval = 5.0;
+		_reachability.delegate = self;
 		_request = [[LFHTTPRequest alloc] init];
 		_request.timeoutInterval = 5.0;
 		[_request setDelegate:self];
 		_queue = [[NSMutableArray alloc] init];
+		_retryCountDictionary = [[NSMutableDictionary alloc] init];
 		[self initInfoArrays];
     }
     return self;
@@ -100,14 +110,21 @@ static TWAPIBox *apibox;
 		}
 	}
 }
+
+- (void)performFetchWithSessionInfo:(id)sessionInfo URL:(NSURL *)URL
+{
+	_currentURL = [URL retain];
+	_currentSessionInfo = [sessionInfo retain];;
+	[_reachability startChecking];
+}
+
 - (void)runQueue
 {
 	if ([_queue count]) {
 		id sessionInfo = [_queue objectAtIndex:0];
 		NSURL *URL = [sessionInfo objectForKey:@"URL"];
-		[_request setSessionInfo:sessionInfo];
-		[_request performMethod:LFHTTPRequestGETMethod onURL:URL withData:nil];
-		[_queue removeObject:sessionInfo];		
+		[self performFetchWithSessionInfo:sessionInfo URL:URL];
+		[_queue removeObject:sessionInfo];
 	}
 }
 
@@ -134,20 +151,14 @@ static TWAPIBox *apibox;
 			return;
 		}
 	}
-	
-	if (![_queue count] && ![_request isRunning]) {
-		[_request setSessionInfo:sessionInfo];
-		[_request performMethod:LFHTTPRequestGETMethod onURL:URL withData:nil];
+
+	if ([_queue count]) {
+		[_queue insertObject:sessionInfo atIndex:0];
 	}
 	else {
-		if ([_queue count]) {
-			[_queue insertObject:sessionInfo atIndex:0];
-		}
-		else {
-			[_queue addObject:sessionInfo];
-		}
+		[_queue addObject:sessionInfo];
 	}
-	
+	[self runQueue];
 }
 
 #pragma mark -
@@ -300,18 +311,20 @@ static TWAPIBox *apibox;
 - (void)httpRequestDidComplete:(LFHTTPRequest *)request
 {
 	NSData *data = [request receivedData];
+	NSURL *URL = [request.sessionInfo objectForKey:@"URL"];	
+	NSUInteger retryCount = [[_retryCountDictionary valueForKey:[URL absoluteString]] intValue];
 	
-	if (![data length] && !_retryCount) {
-		NSURL *URL = [request.sessionInfo objectForKey:@"URL"];
+	if (![data length] && !retryCount) {
 		[_request performMethod:LFHTTPRequestGETMethod onURL:URL withData:nil];		
-		_retryCount++;
+		retryCount++;
+		[_retryCountDictionary setObject:[NSNumber numberWithInt:retryCount] forKey:[URL absoluteString]];
 		return;
 	}
-	_retryCount = 0;
+	[_retryCountDictionary removeObjectForKey:[URL absoluteString]];
 	
 	NSString *actionString = [[request sessionInfo] objectForKey:@"action"];
 	SEL action = NSSelectorFromString(actionString);
-	NSURL *URL = [[request sessionInfo] objectForKey:@"URL"];
+
 	if (URL) {
 		[self writeDataToCache:data fromURL:URL];
 	}
@@ -327,16 +340,19 @@ static TWAPIBox *apibox;
 }
 - (void)httpRequest:(LFHTTPRequest *)request didFailWithError:(NSString *)error;
 {
-	if (!_retryCount) {
-		NSURL *URL = [request.sessionInfo objectForKey:@"URL"];
+	NSURL *URL = [[request sessionInfo] objectForKey:@"URL"];
+	
+	NSUInteger retryCount = [[_retryCountDictionary valueForKey:[URL absoluteString]] intValue];
+	
+	if (!retryCount) {
 		[_request performMethod:LFHTTPRequestGETMethod onURL:URL withData:nil];		
-		_retryCount++;
+		retryCount++;
+		[_retryCountDictionary setObject:[NSNumber numberWithInt:retryCount] forKey:[URL absoluteString]];
 		return;
 	}
+	[_retryCountDictionary removeObjectForKey:[URL absoluteString]];
 	
-	_retryCount = 0;
-	
-	NSURL *URL = [[request sessionInfo] objectForKey:@"URL"];
+
 	if (URL) {
 		NSData *data = [self dataInCacheForURL:URL];
 		if (data) {
@@ -352,6 +368,28 @@ static TWAPIBox *apibox;
 	[self performSelector:failedAction withObject:request withObject:error];
 	[self runQueue];
 }
+
+#pragma mark -
+
+- (void)reachability:(LFSiteReachability *)inReachability site:(NSURL *)inURL isAvailableOverConnectionType:(NSString *)inConnectionType
+{
+	[_request setSessionInfo:[_currentSessionInfo autorelease]];
+	[_request performMethod:LFHTTPRequestGETMethod onURL:[_currentURL autorelease] withData:nil];	
+	[inReachability stopChecking];
+	_currentSessionInfo = nil;
+	_currentURL = nil;
 	
+}
+- (void)reachability:(LFSiteReachability *)inReachability siteIsNotAvailable:(NSURL *)inURL
+{
+	[_request setSessionInfo:[_currentSessionInfo autorelease]];
+	[_currentURL autorelease];
+	[self httpRequest:_request didFailWithError:LFHTTPRequestConnectionError];
+	[inReachability stopChecking];
+	_currentSessionInfo = nil;
+	_currentURL = nil;
+}
+
+
 	
 @end

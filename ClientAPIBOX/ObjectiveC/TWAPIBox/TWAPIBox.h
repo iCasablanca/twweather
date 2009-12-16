@@ -29,6 +29,7 @@
 
 #import <Foundation/Foundation.h>
 #import "LFHTTPRequest.h"
+#import "LFSiteReachability.h"
 
 typedef enum {
 	TWOverviewHTMLFormat = 0,
@@ -84,7 +85,7 @@ typedef enum {
 
 @end
 
-@interface TWAPIBox : NSObject 
+@interface TWAPIBox : NSObject <LFSiteReachabilityDelegate>
 {
 	LFHTTPRequest *_request;
 	NSMutableArray *_queue;
@@ -99,6 +100,13 @@ typedef enum {
 	NSDateFormatter *_formatter;
 	
 	NSUInteger _retryCount;
+	NSMutableDictionary *_retryCountDictionary;
+	
+	LFSiteReachability *_reachability;
+	
+	
+	id _currentSessionInfo;
+	NSURL *_currentURL;
 }
 
 + (TWAPIBox *)sharedBox;
