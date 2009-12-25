@@ -115,10 +115,10 @@ static TWAPIBox *apibox;
 {
 	_currentURL = [URL retain];
 	_currentSessionInfo = [sessionInfo retain];
-	[_reachability startChecking];
+//	[_reachability startChecking];
 	
-//	[_request setSessionInfo:sessionInfo];
-//	[_request performMethod:LFHTTPRequestGETMethod onURL:URL withData:nil];	
+	[_request setSessionInfo:sessionInfo];
+	[_request performMethod:LFHTTPRequestGETMethod onURL:URL withData:nil];	
 //
 }
 
