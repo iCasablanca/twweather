@@ -29,6 +29,7 @@
 
 #import <AVFoundation/AVFoundation.h>
 #import "FBconnect/FBConnect.h"
+#import "ObjectivePlurk.h"
 #import "TWFacebookAPI.h"
 
 @interface TWWeatherAppDelegate : NSObject <UIApplicationDelegate, AVAudioPlayerDelegate,FBSessionDelegate, FBDialogDelegate, UIAlertViewDelegate> 

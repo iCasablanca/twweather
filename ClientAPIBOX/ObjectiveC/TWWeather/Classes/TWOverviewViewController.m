@@ -104,9 +104,13 @@
 	}
 }
 
+- (void)shareViaPlurk
+{
+}
+
 - (IBAction)navBarAction:(id)sender
 {
-	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Copy", @""), NSLocalizedString(@"Share via Facebook", @""), nil];
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Copy", @""), NSLocalizedString(@"Share via Facebook", @""), NSLocalizedString(@"Share via Plurk", @""), nil];
 	[actionSheet showInView:[self view]];
 	[actionSheet release];
 }
@@ -119,6 +123,10 @@
 	else if (buttonIndex == 1) {
 		[self shareViaFacebook];
 	}
+	else if (buttonIndex == 2) {
+		[self shareViaPlurk];
+	}
+	
 }
 
 

@@ -26,3 +26,5 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define TWBGMPreferencen @"TWBGMPreferencen"
+#define TWPlurkLoginNamePreference @"TWPlurkLoginNamePreference"
+#define TWPlurkPasswordPreference @"TWPlurkPasswordPreference"

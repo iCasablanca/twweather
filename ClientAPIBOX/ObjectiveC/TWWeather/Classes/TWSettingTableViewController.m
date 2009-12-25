@@ -30,6 +30,7 @@
 #import "TWSettingTableViewController.h"
 #import "TWWeatherAppDelegate.h"
 #import "TWWeatherAppDelegate+BGM.h"
+#import "TWPlurkSettingTableViewController.h"
 #import "TWCommonHeader.h"
 
 @implementation TWSettingTableViewController
@@ -81,15 +82,16 @@
 - (void)viewDidAppear:(BOOL)animated 
 {
     [super viewDidAppear:animated];
+	[self.tableView reloadData];
 }
-- (void)viewWillDisappear:(BOOL)animated 
-{
-	[super viewWillDisappear:animated];
-}
-- (void)viewDidDisappear:(BOOL)animated 
-{
-	[super viewDidDisappear:animated];
-}
+//- (void)viewWillDisappear:(BOOL)animated 
+//{
+//	[super viewWillDisappear:animated];
+//}
+//- (void)viewDidDisappear:(BOOL)animated 
+//{
+//	[super viewDidDisappear:animated];
+//}
 
 
 - (void)didReceiveMemoryWarning
@@ -108,7 +110,17 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+	switch (section) {
+		case 0:
+			return 1;
+			break;
+		case 1:
+			return 2;
+			break;			
+		default:
+			break;
+	}
+    return 0;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -117,19 +129,42 @@
 
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
     }
+	cell.textLabel.font = [UIFont boldSystemFontOfSize:18.0];
+	cell.detailTextLabel.font = [UIFont systemFontOfSize:12.0];
+	cell.selectionStyle = UITableViewCellSelectionStyleNone;
+	cell.accessoryType = UITableViewCellAccessoryNone;
 	if (indexPath.section == 0) {
 		cell.textLabel.text = NSLocalizedString(@"BGM", @"");
 		[cell.contentView addSubview:BGMSwitch];
 	}
 	else if (indexPath.section == 1) {
-		cell.textLabel.text = NSLocalizedString(@"Facebook", @"");
-		[cell.contentView addSubview:loginButton];
+		switch (indexPath.row) {
+			case 0:
+				cell.textLabel.text = NSLocalizedString(@"Facebook", @"");
+				[cell.contentView addSubview:loginButton];
+				break;
+			case 1:
+				cell.textLabel.text = NSLocalizedString(@"Plurk", @"");
+				cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+				cell.detailTextLabel.text = NSLocalizedString(@"Not Logged In", @"");
+				cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+				break;
+			default:
+				break;
+		}
 	}
-	cell.textLabel.font = [UIFont boldSystemFontOfSize:18.0];
-	cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	if (indexPath.section == 1 && indexPath.row == 1) {
+		TWPlurkSettingTableViewController *controller = [[TWPlurkSettingTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+		[self.navigationController pushViewController:controller animated:YES];
+		[controller release];
+	}
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section

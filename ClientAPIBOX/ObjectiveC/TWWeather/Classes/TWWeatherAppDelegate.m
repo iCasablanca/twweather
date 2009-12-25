@@ -59,6 +59,9 @@
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application 
 {  
+	[ObjectivePlurk sharedInstance].APIKey = PLURK_API_KEY;
+	[[ObjectivePlurk sharedInstance] resume];
+	
 	facebookSession = [[FBSession sessionForApplication:API_KEY secret:SECRET delegate:self] retain];
 	[facebookSession resume];
 	 
