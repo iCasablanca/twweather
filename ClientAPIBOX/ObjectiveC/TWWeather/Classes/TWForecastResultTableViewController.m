@@ -34,6 +34,7 @@
 #import "TWWeatherAppDelegate.h"
 #import "TWLoadingCell.h"
 #import "TWAPIBox.h"
+#import "TWPlurkComposer.h"
 
 @implementation TWForecastResultTableViewController
 
@@ -61,16 +62,28 @@
 - (void)didReceiveMemoryWarning 
 {
     [super didReceiveMemoryWarning]; 
-	// Releases the view if it doesn't have a superview
-    // Release anything that's not essential, such as cached data
 }
 
 - (IBAction)navBarAction:(id)sender
 {
-	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Share via Facebook", @""), nil];
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Share via Facebook", @""), NSLocalizedString(@"Share via Plurk", @""), nil];
 	[actionSheet showInView:[self view]];
 	[actionSheet release];
 }
+
+- (NSString *)_feedDescription
+{
+	NSMutableString *description = [NSMutableString string];
+	for (NSDictionary *forecast in forecastArray) {
+		[description appendFormat:@"※ %@", [forecast objectForKey:@"title"]];
+		[description appendFormat:@"(%@ - %@) ", [forecast objectForKey:@"beginTime"], [forecast objectForKey:@"endTime"]];
+		[description appendFormat:@"%@ ", [forecast objectForKey:@"description"]];
+		[description appendFormat:@"降雨機率：%@ ", [forecast objectForKey:@"rain"]];
+		[description appendFormat:@"氣溫：%@ ", [forecast objectForKey:@"temperature"]];
+	}
+	return description;
+}
+
 - (void)shareViaFacebook
 {
 	if ([[TWWeatherAppDelegate sharedDelegate] confirmFacebookLoggedIn]) {
@@ -78,15 +91,7 @@
 		dialog.delegate = [TWWeatherAppDelegate sharedDelegate];
 		
 		NSString *feedTitle = [NSString stringWithFormat:@"%@ 四十八小時天氣預報", [self title]];
-		NSMutableString *description = [NSMutableString string];
-		for (NSDictionary *forecast in forecastArray) {
-			[description appendFormat:@"※ %@", [forecast objectForKey:@"title"]];
-			[description appendFormat:@"(%@ - %@) ", [forecast objectForKey:@"beginTime"], [forecast objectForKey:@"endTime"]];
-			[description appendFormat:@"%@ ", [forecast objectForKey:@"description"]];
-			[description appendFormat:@"降雨機率：%@ ", [forecast objectForKey:@"rain"]];
-			[description appendFormat:@"氣溫：%@ ", [forecast objectForKey:@"temperature"]];
-
-		}
+		NSString *description = [self _feedDescription];
 		NSString *attachment = [NSString stringWithFormat:@"{\"name\":\"%@\", \"description\":\"%@\"}", feedTitle, description];
 		dialog.attachment = attachment;
 		dialog.userMessagePrompt = feedTitle;
@@ -94,11 +99,24 @@
 	}
 }
 
+- (void)shareViaPlurk
+{
+	NSString *feedTitle = [NSString stringWithFormat:@"%@ 四十八小時天氣預報", [self title]];
+	NSString *description = [self _feedDescription];
+	NSString *text = [NSString stringWithFormat:@"%@ %@", feedTitle, description];
+
+	[[TWPlurkComposer sharedComposer] showWithController:self text:text];
+}
+
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-	if (!buttonIndex) {
+	if (buttonIndex == 0) {
 		[self shareViaFacebook];
 	}
+	else if (buttonIndex == 1) {
+		[self shareViaPlurk];
+	}
+	
 }
 
 

@@ -137,12 +137,15 @@ static TWPlurkComposer *sharedComposer;
 {
 	if (self.navigationController.parentViewController) {
 		[self.navigationController.parentViewController dismissModalViewControllerAnimated:YES];
+		textView.editable = YES;
 	}
 }
 - (IBAction)doneAction:(id)sender
 {
 	NSString *content = textView.text;
+	textView.editable = NO;
 	[[ObjectivePlurk sharedInstance] addNewMessageWithContent:content qualifier:@"shares" othersCanComment:YES lang:@"tr_ch" limitToUsers:nil delegate:self userInfo:nil];
+	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 }
 
 - (void)textViewDidChange:(UITextView *)textView
@@ -152,10 +155,13 @@ static TWPlurkComposer *sharedComposer;
 
 - (void)plurk:(ObjectivePlurk *)plurk didAddMessage:(NSDictionary *)result
 {
+	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 	[self cancelAction:self];
 }
 - (void)plurk:(ObjectivePlurk *)plurk didFailAddingMessage:(NSError *)error
 {
+	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+	textView.editable = YES;
 	UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Failed to post on Plurk", @"") message:[error localizedDescription] delegate:self cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:nil];
 	[alertView show];
 	[alertView release];

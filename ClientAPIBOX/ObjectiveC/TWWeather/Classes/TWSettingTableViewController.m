@@ -148,7 +148,13 @@
 			case 1:
 				cell.textLabel.text = NSLocalizedString(@"Plurk", @"");
 				cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-				cell.detailTextLabel.text = NSLocalizedString(@"Not Logged In", @"");
+				if ([[ObjectivePlurk sharedInstance] isLoggedIn]) {
+					cell.detailTextLabel.text = NSLocalizedString(@"Logged In", @"");
+				}
+				else {
+					cell.detailTextLabel.text = NSLocalizedString(@"Not Logged In", @"");
+				}
+
 				cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 				break;
 			default:

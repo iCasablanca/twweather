@@ -30,6 +30,7 @@
 #import "TWNearSeaResultTableViewController.h"
 #import "TWWeatherAppDelegate.h"
 #import "TWNearSeaCell.h"
+#import "TWPlurkComposer.h"
 
 @implementation TWNearSeaResultTableViewController
 
@@ -64,10 +65,23 @@
 
 - (IBAction)navBarAction:(id)sender
 {
-	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Share via Facebook", @""), nil];
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Share via Facebook", @""), NSLocalizedString(@"Share via Plurk", @""), nil];
 	[actionSheet showInView:[self view]];
 	[actionSheet release];
 }
+
+- (NSString *)_feedDescription
+{
+	NSMutableString *attachmentDescription = [NSMutableString string];
+	[attachmentDescription appendFormat:@"※ %@ - %@ ", self.validBeginTime, self.validEndTime];
+	[attachmentDescription appendFormat:@"%@ ", self.description];
+	[attachmentDescription appendFormat:@"%@ ", self.wave];
+	[attachmentDescription appendFormat:@"%@ ", self.waveLevel];
+	[attachmentDescription appendFormat:@"%@ ", self.wind];
+	[attachmentDescription appendFormat:@"%@ ", self.windScale];
+	return attachmentDescription;
+}
+
 - (void)shareViaFacebook
 {
 	if ([[TWWeatherAppDelegate sharedDelegate] confirmFacebookLoggedIn]) {
@@ -75,26 +89,30 @@
 		dialog.delegate = [TWWeatherAppDelegate sharedDelegate];
 		
 		NSString *feedTitle = [NSString stringWithFormat:@"%@ 天氣預報", [self title]];
-		NSMutableString *attachmentDescription = [NSMutableString string];
-		[attachmentDescription appendFormat:@"※ %@ - %@ ", self.validBeginTime, self.validEndTime];
-		[attachmentDescription appendFormat:@"%@ ", self.description];
-		[attachmentDescription appendFormat:@"%@ ", self.wave];
-		[attachmentDescription appendFormat:@"%@ ", self.waveLevel];
-		[attachmentDescription appendFormat:@"%@ ", self.wind];
-		[attachmentDescription appendFormat:@"%@ ", self.windScale];
-				
+		NSString *attachmentDescription = [self _feedDescription];				
 		NSString *attachment = [NSString stringWithFormat:@"{\"name\":\"%@\", \"description\":\"%@\"}", feedTitle, attachmentDescription];
 		dialog.attachment = attachment;
 		dialog.userMessagePrompt = feedTitle;
 		[dialog show];
 	}
 }
+- (void)shareViaPlurk
+{
+	NSString *feedTitle = [NSString stringWithFormat:@"%@ 天氣預報", [self title]];
+	NSString *attachmentDescription = [self _feedDescription];
+	NSString *text = [NSString stringWithFormat:@"%@ %@", feedTitle, attachmentDescription];
+	[[TWPlurkComposer sharedComposer] showWithController:self text:text];
+}
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-	if (!buttonIndex) {
+	if (buttonIndex == 0) {
 		[self shareViaFacebook];
 	}
+	else if (buttonIndex == 1) {
+		[self shareViaPlurk];
+	}
+	
 }
 
 #pragma mark UITableViewDataSource and UITableViewDelegate
