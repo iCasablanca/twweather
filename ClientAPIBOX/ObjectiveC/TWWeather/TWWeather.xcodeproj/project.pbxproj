@@ -84,6 +84,7 @@
 		D4B3E9A510E521C800B6D5D3 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4B3E9A410E521C800B6D5D3 /* MobileCoreServices.framework */; };
 		D4B3E9C410E52D0000B6D5D3 /* TWPlurkSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4B3E9C310E52D0000B6D5D3 /* TWPlurkSettingTableViewController.m */; };
 		D4B3EA8F10E545C600B6D5D3 /* TWPlurkComposer.m in Sources */ = {isa = PBXBuildFile; fileRef = D4B3EA8E10E545C600B6D5D3 /* TWPlurkComposer.m */; };
+		D4B3EC3E10E5542D00B6D5D3 /* TWPlurkBackgroudView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4B3EC3D10E5542D00B6D5D3 /* TWPlurkBackgroudView.m */; };
 		D4C02AAE102BD47000FD1D3B /* TWAPIBox+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C02AAD102BD47000FD1D3B /* TWAPIBox+Private.m */; };
 		D4C02C3D102C03F700FD1D3B /* TWFavoriteTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C02C3C102C03F700FD1D3B /* TWFavoriteTableViewController.m */; };
 		D4C02E32102C221900FD1D3B /* TWOBSTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C02E31102C221900FD1D3B /* TWOBSTableViewController.m */; };
@@ -231,6 +232,8 @@
 		D4B3E9C310E52D0000B6D5D3 /* TWPlurkSettingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWPlurkSettingTableViewController.m; sourceTree = "<group>"; };
 		D4B3EA8D10E545C600B6D5D3 /* TWPlurkComposer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWPlurkComposer.h; sourceTree = "<group>"; };
 		D4B3EA8E10E545C600B6D5D3 /* TWPlurkComposer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWPlurkComposer.m; sourceTree = "<group>"; };
+		D4B3EC3C10E5542D00B6D5D3 /* TWPlurkBackgroudView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWPlurkBackgroudView.h; sourceTree = "<group>"; };
+		D4B3EC3D10E5542D00B6D5D3 /* TWPlurkBackgroudView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWPlurkBackgroudView.m; sourceTree = "<group>"; };
 		D4C02AAC102BD47000FD1D3B /* TWAPIBox+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TWAPIBox+Private.h"; path = "../TWAPIBox/TWAPIBox+Private.h"; sourceTree = SOURCE_ROOT; };
 		D4C02AAD102BD47000FD1D3B /* TWAPIBox+Private.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TWAPIBox+Private.m"; path = "../TWAPIBox/TWAPIBox+Private.m"; sourceTree = SOURCE_ROOT; };
 		D4C02C3B102C03F700FD1D3B /* TWFavoriteTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWFavoriteTableViewController.h; sourceTree = "<group>"; };
@@ -586,6 +589,8 @@
 				D41E1D3D1084289D00A6675D /* TWWeatherAppDelegate+BGM.m */,
 				D4B3EA8D10E545C600B6D5D3 /* TWPlurkComposer.h */,
 				D4B3EA8E10E545C600B6D5D3 /* TWPlurkComposer.m */,
+				D4B3EC3C10E5542D00B6D5D3 /* TWPlurkBackgroudView.h */,
+				D4B3EC3D10E5542D00B6D5D3 /* TWPlurkBackgroudView.m */,
 			);
 			name = "App Delegate";
 			sourceTree = "<group>";
@@ -962,6 +967,7 @@
 				D44D36DE10E521550022D163 /* NSString+BSJSONAdditions.m in Sources */,
 				D4B3E9C410E52D0000B6D5D3 /* TWPlurkSettingTableViewController.m in Sources */,
 				D4B3EA8F10E545C600B6D5D3 /* TWPlurkComposer.m in Sources */,
+				D4B3EC3E10E5542D00B6D5D3 /* TWPlurkBackgroudView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

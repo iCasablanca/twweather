@@ -10,8 +10,10 @@
 @interface TWPlurkComposerViewController : UIViewController
 {
 	UITextView *textView;
+	UILabel *wordCountLabel;
 }
 
+- (void)updateWordCount;
 - (IBAction)cancelAction:(id)sender;
 - (IBAction)doneAction:(id)sender;
 

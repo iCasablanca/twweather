@@ -6,6 +6,7 @@
 //
 
 #import "TWPlurkComposer.h"
+#import "TWPlurkBackgroudView.h"
 
 static TWPlurkComposer *sharedComposer;
 
@@ -36,6 +37,7 @@ static TWPlurkComposer *sharedComposer;
 	[controller presentModalViewController:self animated:YES];
 
 	composer.textView.text = text;
+	[composer updateWordCount];
 }
 
 @end
@@ -46,7 +48,6 @@ static TWPlurkComposer *sharedComposer;
 - (void)removeOutletsAndControls_TWPlurkComposer
 {
 	[textView release];
-    // remove and clean outlets and controls here
 }
 
 - (void)dealloc 
@@ -58,8 +59,6 @@ static TWPlurkComposer *sharedComposer;
 {
 	[super viewDidUnload];
 	[self removeOutletsAndControls_TWPlurkComposer];
-	// Release any retained subviews of the main view.
-	// e.g. self.myOutlet = nil;
 }
 
 
@@ -68,18 +67,26 @@ static TWPlurkComposer *sharedComposer;
 
 - (void)loadView 
 {
-	UIView *aView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)] autorelease];
+	TWPlurkBackgroudView *aView = [[[TWPlurkBackgroudView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)] autorelease];
 	aView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
 	aView.backgroundColor = [UIColor whiteColor];
 	self.view = aView;
 	
-	textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 320, 180)];
-//	textView.backgroundColor = [UIColor redColor];
+	textView = [[UITextView alloc] initWithFrame:CGRectMake(10, 10, 300, 170)];
+	textView.backgroundColor = [UIColor clearColor];
 	textView.editable = YES;
 	textView.contentOffset = CGPointMake(10, 10);
 	textView.font = [UIFont systemFontOfSize:14.0];
-//	textView.keyboardAppearance = UIKeyboardAppearanceAlert;
+	textView.keyboardAppearance = UIKeyboardAppearanceAlert;
+	textView.delegate = self;
 	[self.view addSubview:textView];
+	
+	wordCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 190, 300, 10)];
+	wordCountLabel.textColor = [UIColor whiteColor];
+	wordCountLabel.font = [UIFont systemFontOfSize:10.0];
+	wordCountLabel.textAlignment = UITextAlignmentCenter;
+	wordCountLabel.backgroundColor = [UIColor blackColor];
+	[self.view addSubview:wordCountLabel];
 }
 
 - (void)viewDidLoad 
@@ -116,10 +123,14 @@ static TWPlurkComposer *sharedComposer;
 
 - (void)didReceiveMemoryWarning
 {
-	// Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
+}
 
-	// Release any cached data, images, etc that aren't in use.
+- (void)updateWordCount
+{
+	NSUInteger count = [textView.text length];
+	NSString *s = [NSString stringWithFormat:@"%d/140", count];
+	wordCountLabel.text = s;
 }
 
 - (IBAction)cancelAction:(id)sender
@@ -132,6 +143,11 @@ static TWPlurkComposer *sharedComposer;
 {
 	NSString *content = textView.text;
 	[[ObjectivePlurk sharedInstance] addNewMessageWithContent:content qualifier:@"shares" othersCanComment:YES lang:@"tr_ch" limitToUsers:nil delegate:self userInfo:nil];
+}
+
+- (void)textViewDidChange:(UITextView *)textView
+{
+	[self updateWordCount];
 }
 
 - (void)plurk:(ObjectivePlurk *)plurk didAddMessage:(NSDictionary *)result
