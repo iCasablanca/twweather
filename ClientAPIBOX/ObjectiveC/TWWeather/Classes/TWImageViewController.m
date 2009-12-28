@@ -251,7 +251,6 @@
 - (void)request:(FBRequest*)request didLoad:(id)result
 {
 	[self hideLoadingView];	
-	NSLog(@"result:%@", [result description]);
 
 	FBStreamDialog *dialog = [[[FBStreamDialog alloc] init] autorelease];
 	dialog.delegate = [TWWeatherAppDelegate sharedDelegate];
@@ -262,7 +261,6 @@
 	NSString *href = [result objectForKey:@"link"];
 	
 	NSString *attachment = [NSString stringWithFormat:@"{\"name\":\"%@\",\"media\":[{\"type\":\"image\", \"src\":\"%@\", \"href\":\"%@\"}]}", name, src, href];
-	NSLog(@"attachment:%@", [attachment description]);
 	dialog.attachment = attachment;
 	[dialog show];	
 }

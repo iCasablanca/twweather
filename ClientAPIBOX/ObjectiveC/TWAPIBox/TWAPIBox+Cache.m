@@ -93,6 +93,10 @@
 	NSString *string = [URL absoluteString];
 	NSString *path = [self md5HashPathForURLString:string];
 	if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+		NSDate *date = [[[NSFileManager defaultManager] attributesOfItemAtPath:path error:nil] fileModificationDate];
+		if ([date timeIntervalSinceNow] < -60 * 60 * 24 * 7) {
+			return nil;
+		}
 		NSData *data = [NSData dataWithContentsOfFile:path];
 		return data;
 	}

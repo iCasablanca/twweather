@@ -42,7 +42,6 @@
 	NSError *error;
 	audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:URL error:&error];
 	if (error) {
-		NSLog(@"error:%@", [error description]);
 		return;
 	}
 	audioPlayer.delegate = self;
