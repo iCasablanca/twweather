@@ -31,6 +31,7 @@
 #import "TWWeatherAppDelegate.h"
 #import "TWTideCell.h"
 #import "TWAPIBox.h"
+#import "TWPlurkComposer.h"
 
 @implementation TWTideResultTableViewController
 
@@ -43,8 +44,6 @@
 - (void)didReceiveMemoryWarning 
 {
     [super didReceiveMemoryWarning]; 
-	// Releases the view if it doesn't have a superview
-    // Release anything that's not essential, such as cached data
 }
 
 - (void)viewDidLoad
@@ -58,10 +57,27 @@
 
 - (IBAction)navBarAction:(id)sender
 {
-	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Share via Facebook", @""), nil];
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Share via Facebook", @""), NSLocalizedString(@"Share via Plurk", @""), nil];
 	[actionSheet showInView:[self view]];
 	[actionSheet release];
 }
+
+- (NSString *)_feedDescription
+{
+	NSMutableString *description = [NSMutableString string];
+	for (NSDictionary *forecast in forecastArray) {
+		[description appendFormat:@"※ %@ ", [forecast objectForKey:@"date"]];
+		[description appendFormat:@"%@ ", [forecast objectForKey:@"lunarDate"]];
+		for (NSDictionary *tide in [forecast objectForKey:@"tides"]) {
+			NSString *name = [tide objectForKey:@"name"];
+			NSString *shortTime = [tide objectForKey:@"shortTime"];
+			NSString *height = [tide objectForKey:@"height"];
+			[description appendFormat:@"%@ %@ %@", name, shortTime, height];
+		}
+	}
+	return description;
+}
+
 - (void)shareViaFacebook
 {
 	if ([[TWWeatherAppDelegate sharedDelegate] confirmFacebookLoggedIn]) {
@@ -69,18 +85,7 @@
 		dialog.delegate = [TWWeatherAppDelegate sharedDelegate];
 		
 		NSString *feedTitle = [NSString stringWithFormat:@"%@ 三天潮汐", [self title]];
-		NSMutableString *description = [NSMutableString string];
-		for (NSDictionary *forecast in forecastArray) {
-			[description appendFormat:@"※ %@ ", [forecast objectForKey:@"date"]];
-			[description appendFormat:@"%@ ", [forecast objectForKey:@"lunarDate"]];
-			for (NSDictionary *tide in [forecast objectForKey:@"tides"]) {
-				NSString *name = [tide objectForKey:@"name"];
-				NSString *shortTime = [tide objectForKey:@"shortTime"];
-				NSString *height = [tide objectForKey:@"height"];
-				[description appendFormat:@"%@ %@ %@ -", name, shortTime, height];
-			}
-		}
-		
+		NSString *description = [self _feedDescription];		
 		NSString *attachment = [NSString stringWithFormat:@"{\"name\":\"%@\", \"description\":\"%@\"}", feedTitle, description];
 		dialog.attachment = attachment;
 		dialog.userMessagePrompt = feedTitle;
@@ -88,11 +93,23 @@
 	}
 }
 
+- (void)shareViaPlurk
+{
+	NSString *feedTitle = [NSString stringWithFormat:@"%@ 三天潮汐", [self title]];
+	NSString *description = [self _feedDescription];
+	NSString *text = [NSString stringWithFormat:@"%@ %@", feedTitle, description];
+	[[TWPlurkComposer sharedComposer] showWithController:self text:text];
+}
+
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-	if (!buttonIndex) {
+	if (buttonIndex == 0) {
 		[self shareViaFacebook];
 	}
+	else if (buttonIndex == 1) {
+		[self shareViaPlurk];
+	}
+	
 }
 
 #pragma mark UITableViewDataSource and UITableViewDelegate

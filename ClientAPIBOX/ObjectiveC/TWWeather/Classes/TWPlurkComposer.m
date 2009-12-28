@@ -1,9 +1,31 @@
 //
-//  TWPlurkComposer.m
-//  TWWeather
+// TWPlurkComposer.m
 //
-//  Created by zonble on 12/26/09.
+// Copyright (c) 2009 Weizhong Yang (http://zonble.net)
+// All Rights Reserved
 //
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions are met:
+//
+//     * Redistributions of source code must retain the above copyright
+//       notice, this list of conditions and the following disclaimer.
+//     * Redistributions in binary form must reproduce the above copyright
+//       notice, this list of conditions and the following disclaimer in the
+//       documentation and/or other materials provided with the distribution.
+//     * Neither the name of Weizhong Yang (zonble) nor the
+//       names of its contributors may be used to endorse or promote products
+//       derived from this software without specific prior written permission.
+// 
+// THIS SOFTWARE IS PROVIDED BY WEIZHONG YANG ''AS IS'' AND ANY
+// EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+// WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+// DISCLAIMED. IN NO EVENT SHALL WEIZHONG YANG BE LIABLE FOR ANY
+// DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+// (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+// LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+// ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+// SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import "TWPlurkComposer.h"
 #import "TWPlurkBackgroudView.h"
@@ -17,6 +39,7 @@ static TWPlurkComposer *sharedComposer;
 	if (!sharedComposer) {
 		TWPlurkComposerViewController *viewController = [[TWPlurkComposerViewController alloc] init];
 		sharedComposer = [[TWPlurkComposer alloc] initWithRootViewController:viewController];
+		sharedComposer.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
 		sharedComposer.navigationBar.barStyle = UIBarStyleBlack;
 		[viewController release];
 	}
@@ -36,6 +59,7 @@ static TWPlurkComposer *sharedComposer;
 	[composer view];
 	[controller presentModalViewController:self animated:YES];
 
+	composer.textView.editable = YES;
 	composer.textView.text = text;
 	[composer updateWordCount];
 }
@@ -48,6 +72,11 @@ static TWPlurkComposer *sharedComposer;
 - (void)removeOutletsAndControls_TWPlurkComposer
 {
 	[textView release];
+	textView = nil;
+	[loadingView release];
+	loadingView = nil;
+	[loadingLabel release];
+	loadingLabel = nil;
 }
 
 - (void)dealloc 
@@ -87,11 +116,27 @@ static TWPlurkComposer *sharedComposer;
 	wordCountLabel.textAlignment = UITextAlignmentCenter;
 	wordCountLabel.backgroundColor = [UIColor blackColor];
 	[self.view addSubview:wordCountLabel];
+	
+	loadingView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+	loadingView.frame = CGRectMake(40, 230, 19, 19);
+	loadingView.hidden = YES;
+	[self.view addSubview:loadingView];
+		
+	loadingLabel = [[UILabel alloc] initWithFrame:CGRectMake(80, 230, 220, 20)];					
+	loadingLabel.backgroundColor = [UIColor blackColor];
+	loadingLabel.textColor = [UIColor whiteColor];
+	loadingLabel.font = [UIFont systemFontOfSize:16.0];
+	loadingLabel.text = NSLocalizedString(@"Posting your message...", @"");
+	loadingLabel.hidden = YES;
+	[self.view addSubview:loadingLabel];
+
 }
 
 - (void)viewDidLoad 
 {
     [super viewDidLoad];
+	self.title = NSLocalizedString(@"Post to Plurk", @"");
+	
 	UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelAction:)];
 	self.navigationItem.leftBarButtonItem = cancelItem;
 	[cancelItem release];
@@ -105,6 +150,11 @@ static TWPlurkComposer *sharedComposer;
 {
     [super viewWillAppear:animated];
 	[textView becomeFirstResponder];
+
+	[loadingView stopAnimating];
+	loadingView.hidden = YES;
+	loadingLabel.hidden = YES;	
+
 	[UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackOpaque;
 }
 - (void)viewDidAppear:(BOOL)animated 
@@ -114,6 +164,7 @@ static TWPlurkComposer *sharedComposer;
 - (void)viewWillDisappear:(BOOL)animated 
 {
 	[super viewWillDisappear:animated];
+	[textView resignFirstResponder];
 	[UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
 }
 - (void)viewDidDisappear:(BOOL)animated 
@@ -137,13 +188,17 @@ static TWPlurkComposer *sharedComposer;
 {
 	if (self.navigationController.parentViewController) {
 		[self.navigationController.parentViewController dismissModalViewControllerAnimated:YES];
-		textView.editable = YES;
 	}
 }
 - (IBAction)doneAction:(id)sender
 {
 	NSString *content = textView.text;
 	textView.editable = NO;
+
+	[loadingView startAnimating];
+	loadingView.hidden = NO;
+	loadingLabel.hidden = NO;
+	
 	[[ObjectivePlurk sharedInstance] addNewMessageWithContent:content qualifier:@"shares" othersCanComment:YES lang:@"tr_ch" limitToUsers:nil delegate:self userInfo:nil];
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 }
@@ -155,11 +210,19 @@ static TWPlurkComposer *sharedComposer;
 
 - (void)plurk:(ObjectivePlurk *)plurk didAddMessage:(NSDictionary *)result
 {
+	[loadingView stopAnimating];
+	loadingView.hidden = YES;
+	loadingLabel.hidden = YES;
+	
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 	[self cancelAction:self];
 }
 - (void)plurk:(ObjectivePlurk *)plurk didFailAddingMessage:(NSError *)error
 {
+	[loadingView stopAnimating];
+	loadingView.hidden = YES;
+	loadingLabel.hidden = YES;
+	
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 	textView.editable = YES;
 	UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Failed to post on Plurk", @"") message:[error localizedDescription] delegate:self cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:nil];
