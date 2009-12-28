@@ -98,7 +98,7 @@
 	NSString *feedTitle = [NSString stringWithFormat:@"%@ 三天潮汐", [self title]];
 	NSString *description = [self _feedDescription];
 	NSString *text = [NSString stringWithFormat:@"%@ %@", feedTitle, description];
-	[[TWPlurkComposer sharedComposer] showWithController:self text:text];
+	[[TWPlurkComposer sharedComposer] showWithText:text];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex

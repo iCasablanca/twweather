@@ -110,7 +110,7 @@
 	NSString *feedTitle = [self title];
 	NSString *description = [_text stringByReplacingOccurrencesOfString:@"\n" withString:@""];
 	NSString *text = [NSString stringWithFormat:@"%@ %@", feedTitle, description];
-	[[TWPlurkComposer sharedComposer] showWithController:self text:text];
+	[[TWPlurkComposer sharedComposer] showWithText:text];
 }
 
 - (IBAction)navBarAction:(id)sender

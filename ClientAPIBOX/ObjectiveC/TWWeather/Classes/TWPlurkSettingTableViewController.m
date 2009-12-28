@@ -216,8 +216,6 @@
 			break;
 	}
 
-    // Set up the cell...
-
     return cell;
 }
 
@@ -238,11 +236,21 @@
 	NSString *password = [passwordField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	[[NSUserDefaults standardUserDefaults] setObject:loginName forKey:TWPlurkLoginNamePreference];
 	[[NSUserDefaults standardUserDefaults] setObject:password forKey:TWPlurkPasswordPreference];
+	
 	[self refresh];
+	
+	if (self.navigationItem.leftBarButtonItem) {
+		SEL action = [self.navigationItem.leftBarButtonItem action];
+		[self performSelector:action withObject:self];
+	}
+
 }
 - (void)plurk:(ObjectivePlurk *)plurk didFailLoggingIn:(NSError *)error
 {
-	[self refresh];
+	UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Failed to login Plurk.", @"") message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:nil];
+	[alertView show];
+	[alertView release];	
+//	[self refresh];
 }
 	 
 

@@ -191,7 +191,7 @@
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
 {
 	if (section	== 1) {
-		return NSLocalizedString(@"You can share the forecasts with your friends via Facebook!", @"");
+		return NSLocalizedString(@"You can share the forecasts with your friends via Facebook and Plurk!", @"");
 	}
 	return nil;
 }

@@ -29,6 +29,8 @@
 
 #import "TWPlurkComposer.h"
 #import "TWPlurkBackgroudView.h"
+#import "TWWeatherAppDelegate.h"
+#import "TWPlurkSettingTableViewController.h"
 
 static TWPlurkComposer *sharedComposer;
 
@@ -46,10 +48,10 @@ static TWPlurkComposer *sharedComposer;
 	return sharedComposer;
 }
 
-- (void)showWithController:(UIViewController *)controller text:(NSString *)text
+- (void)showWithText:(NSString *)text
 {
 	if (![[ObjectivePlurk sharedInstance] isLoggedIn]) {
-		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Please login Plurk.", @"") message:@"" delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:nil];
+		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"You did not login Plurk.", @"") message:NSLocalizedString(@"Do you want to login now?", @"") delegate:self cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:NSLocalizedString(@"Login", @""), nil];
 		[alertView show];
 		[alertView release];
 		return;
@@ -57,11 +59,33 @@ static TWPlurkComposer *sharedComposer;
 
 	TWPlurkComposerViewController *composer = (TWPlurkComposerViewController *)[[self viewControllers] objectAtIndex:0];
 	[composer view];
-	[controller presentModalViewController:self animated:YES];
+	UINavigationController *rootNavController = [TWWeatherAppDelegate sharedDelegate].navigationController;
+	[rootNavController presentModalViewController:self animated:YES];
 
 	composer.textView.editable = YES;
 	composer.textView.text = text;
 	[composer updateWordCount];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+	if (buttonIndex) {
+		TWPlurkSettingTableViewController *plurkController = [[TWPlurkSettingTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+		UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:plurkController];
+		UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelLoginPlurk:)];
+		plurkController.navigationItem.leftBarButtonItem = item;
+		[item release];
+		[plurkController release];
+		UINavigationController *rootNavController = [TWWeatherAppDelegate sharedDelegate].navigationController;
+		[rootNavController presentModalViewController:navController animated:YES];
+		[navController release];		
+	}
+}
+
+- (IBAction)cancelLoginPlurk:(id)sender
+{
+	UINavigationController *rootNavController = [TWWeatherAppDelegate sharedDelegate].navigationController;	
+	[rootNavController dismissModalViewControllerAnimated:YES];
 }
 
 @end

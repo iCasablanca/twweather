@@ -99,7 +99,7 @@
 	NSString *feedTitle = [NSString stringWithFormat:@"%@ 三天漁業預報", [self title]];
 	NSString *description = [self _feedDescription];
 	NSString *text = [NSString stringWithFormat:@"%@ %@", feedTitle, description];
-	[[TWPlurkComposer sharedComposer] showWithController:self text:text];
+	[[TWPlurkComposer sharedComposer] showWithText:text];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex

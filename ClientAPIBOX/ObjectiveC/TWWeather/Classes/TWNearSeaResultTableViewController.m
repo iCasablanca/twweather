@@ -101,7 +101,7 @@
 	NSString *feedTitle = [NSString stringWithFormat:@"%@ 天氣預報", [self title]];
 	NSString *attachmentDescription = [self _feedDescription];
 	NSString *text = [NSString stringWithFormat:@"%@ %@", feedTitle, attachmentDescription];
-	[[TWPlurkComposer sharedComposer] showWithController:self text:text];
+	[[TWPlurkComposer sharedComposer] showWithText:text];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
