@@ -99,3 +99,5 @@
 "Do you want to login now?" = "Do you want to login now?";
 "Please input your Plurk login name." = "Please input your Plurk login name.";
 "Please input your Plurk password." = "Please input your Plurk password.";
+"Unable to upload image to Facebook." = "Unable to upload image to Facebook.";
+"Unable to upload image to Plurk." = "Unable to upload image to Plurk.";

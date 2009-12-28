@@ -144,15 +144,23 @@
 - (void)shareImageViaFacebook
 {
 	if ([[TWWeatherAppDelegate sharedDelegate] confirmFacebookLoggedIn]) {
-		FBStreamDialog *dialog = [[[FBStreamDialog alloc] init] autorelease];
-		dialog.delegate = [TWWeatherAppDelegate sharedDelegate];
-		dialog.userMessagePrompt = self.title;
-		NSLog(@"self.imageURL :%@", [self.imageURL  description]);
-		NSString *URLString = [self.imageURL absoluteString];
-		NSString *attachment = [NSString stringWithFormat:@"{\"name\":\"%@\",\"media\":[{\"type\":\"image\", \"src\":\"%@\", \"href\":\"%@\"}]}", self.title, URLString, URLString];
-		NSLog(@"attachment:%@", [attachment description]);
-		dialog.attachment = attachment;
-		[dialog show];
+		
+		NSMutableDictionary *args = [[[NSMutableDictionary alloc] init] autorelease];
+		[args setObject:self.title forKey:@"caption"];		
+		FBRequest *uploadPhotoRequest = [FBRequest requestWithDelegate:self];
+		NSData *data = UIImagePNGRepresentation(_image);
+		[uploadPhotoRequest call:@"photos.upload" params:args dataParam:data];
+		return;
+		
+//		FBStreamDialog *dialog = [[[FBStreamDialog alloc] init] autorelease];
+//		dialog.delegate = [TWWeatherAppDelegate sharedDelegate];
+//		dialog.userMessagePrompt = self.title;
+//		NSString *URLString = [self.imageURL absoluteString];
+//		NSString *attachment = [NSString stringWithFormat:@"{\"name\":\"%@\",\"media\":[{\"type\":\"image\", \"src\":\"%@\", \"href\":\"%@\"}]}", self.title, URLString, URLString];
+//		NSLog(@"attachment:%@", [attachment description]);
+//		dialog.attachment = attachment;
+//		[dialog show];
+		
 	}
 }
 - (void)shareImageViaPlurk
@@ -231,7 +239,40 @@
 	}
 }
 
+#pragma mark -
 
+- (void)requestLoading:(FBRequest*)request
+{
+	[self showLoadingView];
+}
+- (void)request:(FBRequest*)request didReceiveResponse:(NSURLResponse*)response
+{
+}
+- (void)request:(FBRequest*)request didLoad:(id)result
+{
+	[self hideLoadingView];	
+	NSLog(@"result:%@", [result description]);
+
+	FBStreamDialog *dialog = [[[FBStreamDialog alloc] init] autorelease];
+	dialog.delegate = [TWWeatherAppDelegate sharedDelegate];
+	dialog.userMessagePrompt = self.title;
+	
+	NSString *name = [result objectForKey:@"caption"];
+	NSString *src = [result objectForKey:@"src_big"];
+	NSString *href = [result objectForKey:@"link"];
+	
+	NSString *attachment = [NSString stringWithFormat:@"{\"name\":\"%@\",\"media\":[{\"type\":\"image\", \"src\":\"%@\", \"href\":\"%@\"}]}", name, src, href];
+	NSLog(@"attachment:%@", [attachment description]);
+	dialog.attachment = attachment;
+	[dialog show];	
+}
+- (void)request:(FBRequest*)request didFailWithError:(NSError*)error
+{
+	[self hideLoadingView];	
+	UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Unable to upload image to Facebook.", @"") message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:nil];
+	[alertView show];
+	[alertView release];	
+}
 
 #pragma mark -
 
