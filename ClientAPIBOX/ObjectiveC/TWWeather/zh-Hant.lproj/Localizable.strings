@@ -89,3 +89,9 @@
 "Password:" = "密碼:";
 "Login" = "登入";
 "Logout" = "登出";
+
+"Failed to login Plurk." = "登入 Plurk 失敗";
+"Failed to post on Plurk" = "在 Plurk 上發表文章失敗";
+"Posting your message..." = "正在發表您的訊息…";
+"You did not login Plurk." = "您還沒有登入 Plurk";
+"Do you want to login now?" = "請問您想要現在就登入 Plurk 嗎？";

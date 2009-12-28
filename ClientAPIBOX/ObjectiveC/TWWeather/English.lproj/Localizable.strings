@@ -91,3 +91,9 @@
 "Password:" = "Password:";
 "Login" = "Login";
 "Logout" = "Logout";
+
+"Failed to login Plurk." = "Failed to login Plurk.";
+"Failed to post on Plurk" = "Failed to post on Plurk";
+"Posting your message..." = "Posting your message...";
+"You did not login Plurk." = "You did not login Plurk.";
+"Do you want to login now?" = "Do you want to login now?";
