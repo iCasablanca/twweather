@@ -40,6 +40,8 @@
 	passwordField = nil;
 	[loginButton release];
 	loginButton = nil;
+	[loadingView release];
+	loadingView = nil;
 }
 
 - (void)dealloc 
@@ -89,11 +91,16 @@
 		passwordField.text = password;
 	}
 	
-	loginButton = [[UIButton buttonWithType:UIButtonTypeRoundedRect] retain];	
-	loginButton.frame = CGRectMake(10, 30, 300, 40);
+	loadingView = [[TWLoadingView alloc] initWithFrame:CGRectMake(100, 100, 120, 120)];	
+	
+	if (!loginButton)  {	
+		loginButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];	
+		loginButton.frame = CGRectMake(10, 30, 300, 40);
+		UIImage *blueButtonImage = [[UIImage imageNamed:@"BlueButton.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:0];
+		[loginButton setBackgroundImage:blueButtonImage forState:UIControlStateNormal];
+	}
 	self.tableView.tableFooterView = loginButton;
 	self.tableView.scrollEnabled = NO;
-	
 	[self refresh];
 }
 - (void)viewWillAppear:(BOOL)animated 
@@ -174,6 +181,7 @@
 		return;
 	}
 	
+	[self showLoadingView];
 	[[ObjectivePlurk sharedInstance] loginWithUsername:loginName password:password delegate:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:loginName, @"loginName", password, @"password", nil]];
 }
 
@@ -184,7 +192,24 @@
 	[loginNameField becomeFirstResponder];
 }
 
+- (void)showLoadingView
+{
+	[self.view addSubview:loadingView];
+	[loadingView startAnimating];
+	self.tableView.userInteractionEnabled = NO;
+	loginNameField.enabled = NO;
+	passwordField.enabled = NO;
+}
+- (void)hideLoadingView
+{
+	[loadingView removeFromSuperview];
+	[loadingView stopAnimating];
+	self.tableView.userInteractionEnabled = YES;
+	loginNameField.enabled = YES;
+	passwordField.enabled = YES;
+}
 
+#pragma mark -
 #pragma mark Table view methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -251,8 +276,12 @@
 	return YES;
 }
 
+#pragma mark Plurk Login delegate methods.
+
 - (void)plurk:(ObjectivePlurk *)plurk didLoggedIn:(NSDictionary *)result
 {
+	[self hideLoadingView];
+
 	NSString *loginName = [loginNameField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	NSString *password = [passwordField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	[[NSUserDefaults standardUserDefaults] setObject:loginName forKey:TWPlurkLoginNamePreference];
@@ -270,6 +299,8 @@
 }
 - (void)plurk:(ObjectivePlurk *)plurk didFailLoggingIn:(NSError *)error
 {
+	[self hideLoadingView];
+	[loginNameField becomeFirstResponder];
 	UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Failed to login Plurk.", @"") message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:nil];
 	[alertView show];
 	[alertView release];	

@@ -95,3 +95,6 @@
 "Posting your message..." = "正在發表您的訊息…";
 "You did not login Plurk." = "您還沒有登入 Plurk";
 "Do you want to login now?" = "請問您想要現在就登入 Plurk 嗎？";
+
+"Please input your Plurk login name." = "請輸入您的 Plurk 帳號";
+"Please input your Plurk password." = "請輸入您的 your Plurk 密碼";

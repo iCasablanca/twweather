@@ -28,15 +28,19 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import "ObjectivePlurk.h"
+#import "TWLoadingView.h"
 
 @interface TWPlurkSettingTableViewController : UITableViewController <UITextFieldDelegate>
 {
+	TWLoadingView *loadingView;
 	UITextField *loginNameField;
 	UITextField *passwordField;
 	UIButton *loginButton;
 }
 
 - (void)refresh;
+- (void)showLoadingView;
+- (void)hideLoadingView;
 - (IBAction)loginAciton:(id)sender;
 - (IBAction)logoutAction:(id)sender;
 
