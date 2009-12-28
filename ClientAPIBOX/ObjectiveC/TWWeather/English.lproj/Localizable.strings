@@ -1,5 +1,7 @@
 ﻿/* No comment provided by engineer. */
-"%@ is an open source project. please check the web site of the project(http://github.com/zonble/twweather) for furthor information.\n\nLFWebAPIKit\nCopyright (c) 2007-2009 Lithoglyph Inc. (http://lithoglyph.com)\nCopyright (c) 2007-2009 Lukhnos D. Liu (http://lukhnos.org)\n\nCocoaCryptoHashing\nCopyright (c) 2004-2009 Denis Defreyne\nCopyright (c) 2008 Chris Verwymeren\nCopyright (c) 2009 Mike Fischer\nAll rights reserved." = "%@ is an open source project. please check the web site of the project(http://github.com/zonble/twweather) for furthor information.\n\nLFWebAPIKit\nCopyright (c) 2007-2009 Lithoglyph Inc. (http://lithoglyph.com)\nCopyright (c) 2007-2009 Lukhnos D. Liu (http://lukhnos.org)\n\nCocoaCryptoHashing\nCopyright (c) 2004-2009 Denis Defreyne\nCopyright (c) 2008 Chris Verwymeren\nCopyright (c) 2009 Mike Fischer\nAll rights reserved.\n\nfacebook-iphone-sdk\nCopyright 2009 Facebook\nhttp://github.com/facebook/facebook-iphone-sdk";
+"%@ is an open source project. please check the web site of the project(http://github.com/
+/
+) for furthor information.\n\nLFWebAPIKit\nCopyright (c) 2007-2009 Lithoglyph Inc. (http://lithoglyph.com)\nCopyright (c) 2007-2009 Lukhnos D. Liu (http://lukhnos.org)\n\nCocoaCryptoHashing\nCopyright (c) 2004-2009 Denis Defreyne\nCopyright (c) 2008 Chris Verwymeren\nCopyright (c) 2009 Mike Fischer\nAll rights reserved." = "%@ is an open source project. please check the web site of the project(http://github.com/zonble/twweather) for furthor information.\n\nLFWebAPIKit\nCopyright (c) 2007-2009 Lithoglyph Inc. (http://lithoglyph.com)\nCopyright (c) 2007-2009 Lukhnos D. Liu (http://lukhnos.org)\n\nCocoaCryptoHashing\nCopyright (c) 2004-2009 Denis Defreyne\nCopyright (c) 2008 Chris Verwymeren\nCopyright (c) 2009 Mike Fischer\nAll rights reserved.\n\nfacebook-iphone-sdk\nCopyright 2009 Facebook\nhttp://github.com/facebook/facebook-iphone-sdk";
 
 /* No comment provided by engineer. */
 "About" = "About";
@@ -64,6 +66,7 @@
 "Social Network" = "Social Network";
 "You can share the forecasts with your friends via Facebook!" = "You can share the forecasts with your friends via Facebook!";
 "Share via Facebook" = "Share via Facebook";
+"Share via Plurk" = "Share via Plurk";
 
 "You did not connect to Facebook." = "You did not connect to Facebook.";
 "Please visit the \"Settings\" to connect to Facebook." = "Please visit the \"Settings\" to connect to Facebook.";
@@ -75,3 +78,16 @@
 "Save" = "Save";
 "The image is saved!" = "The image is saved!";
 "Add..." = "Add..."; 
+
+"Plurk Setting" = "Plurk Setting";
+"Your Login Name" = "Your Login Name";
+"Your Password" = "Your Password";
+"Logged In" = "Logged In";
+"Not Logged In" = "Not Logged In";
+
+"Please input your Plurk login name." = "Please input your Plurk login name.";
+"Please input your Plurk password." = "Please input your Plurk password.";
+"Login Name:" = "Login Name:";
+"Password:" = "Password:";
+"Login" = "Login";
+"Logout" = "Logout";

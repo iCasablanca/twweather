@@ -63,6 +63,7 @@
 "Social Network" = "社群網路";
 "You can share the forecasts with your friends via Facebook!" = "您可以將天氣資訊張貼到 Facebook 上，提醒您的好朋友！";
 "Share via Facebook" = "Facebook 分享";
+"Share via Plurk" = "Plurk 分享";
 
 "You did not connect to Facebook." = "您還沒有連線到 Facebook 上";
 "Please visit the \"Settings\" to connect to Facebook." = "請使用「設定」畫面中的功能登入。";
@@ -74,3 +75,17 @@
 "Save" = "儲存";
 "The image is saved!" = "天氣雲圖儲存完畢！";
 "Add..." = "新增…"; 
+
+"Plurk Setting" = "Plurk 設定";
+"Your Login Name" = "您的帳號";
+"Your Password" = "您的密碼";
+"Logged In" = "已登入";
+"Not Logged In" = "尚未登入";
+
+"Please input your 
+ login name." = "請輸入您的 Plurk 帳號";
+"Please input your Plurk password." = "請輸入您的 Plurk 密碼";
+"Login Name:" = "帳號:";
+"Password:" = "密碼:";
+"Login" = "登入";
+"Logout" = "登出";
