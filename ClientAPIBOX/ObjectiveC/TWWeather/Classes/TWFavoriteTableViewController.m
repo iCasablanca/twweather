@@ -182,14 +182,7 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 			[_filteredArray addObject:d];
 		}		
 	}
-	
-//	for (NSInteger i = 0; i < [_favArray count]; i++) {
-//		NSNumber *number = [NSNumber numberWithInt:i];
-//		if ([_filterArray containsObject:number]) {
-//			NSDictionary *dictionary = [_favArray objectAtIndex:i];
-//			[_filteredArray addObject:dictionary];
-//		}
-//	}
+
 }
 - (void)loadData
 {

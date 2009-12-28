@@ -27,6 +27,9 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+#import "FBconnect/FBConnect.h"
+#import "ObjectivePlurk.h"
+#import "TWPlurkComposer.h"
 #import "TWImageViewController.h"
 #import "TWWeatherAppDelegate.h"
 
@@ -36,6 +39,7 @@
 {
 	[_image release];
 	_image = nil;
+
 	[self viewDidUnload];
     [super dealloc];
 }
@@ -43,6 +47,8 @@
 {
 	self.imageView = nil;
 	self.view = nil;
+	[loadingView release];
+	loadingView = nil;
 }
 - (void)loadView 
 {
@@ -67,13 +73,15 @@
 	self.imageView = imageView;
 	[scrollView setContentSize:self.imageView.frame.size];
 	[scrollView addSubview:imageView];
+	
+	loadingView = [[TWLoadingView alloc] initWithFrame:CGRectMake(100, 100, 120, 120)];	
 }
 
 #pragma mark UIViewContoller Methods
 
 - (void)viewDidLoad 
-{
-    [super viewDidLoad];
+{	
+    [super viewDidLoad];	
 	self.imageView.image = self.image;
 	[(UIScrollView *)self.view setContentSize:_imageView.frame.size];
 	
@@ -86,7 +94,6 @@
     [super viewWillAppear:animated];
 	self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
 	[UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackOpaque;
-//	self.navigationController.navigationBar.translucent = YES;
 }
 - (void)viewDidAppear:(BOOL)animated 
 {
@@ -94,10 +101,15 @@
 }
 - (void)viewWillDisappear:(BOOL)animated 
 {
-	[super viewWillDisappear:animated];
-	self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
-	[UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
-//	self.navigationController.navigationBar.translucent = NO;
+	[[ObjectivePlurk sharedInstance] cancelAllRequest];
+	
+	if (!pushingPlurkComposer) {	
+		self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
+		[UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+	}
+	pushingPlurkComposer = NO;
+	
+	[super viewWillDisappear:animated];	
 }
 - (void)viewDidDisappear:(BOOL)animated 
 {
@@ -107,8 +119,6 @@
 - (void)didReceiveMemoryWarning 
 {
     [super didReceiveMemoryWarning]; 
-	// Releases the view if it doesn't have a superview
-    // Release anything that's not essential, such as cached data
 }
 
 - (void)setImage:(UIImage *)image
@@ -127,7 +137,7 @@
 
 - (IBAction)navBarAction:(id)sender
 {
-	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Copy", @""), NSLocalizedString(@"Share via Facebook", @""), NSLocalizedString(@"Save", @""), nil];
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Copy", @""), NSLocalizedString(@"Share via Facebook", @""), NSLocalizedString(@"Share via Plurk", @""), NSLocalizedString(@"Save", @""), nil];
 	[actionSheet showInView:[self view]];
 	[actionSheet release];
 }
@@ -144,6 +154,18 @@
 		dialog.attachment = attachment;
 		[dialog show];
 	}
+}
+- (void)shareImageViaPlurk
+{
+	if (![[ObjectivePlurk sharedInstance] isLoggedIn]) {
+		[[TWPlurkComposer sharedComposer] showLoginAlert];
+		return;
+	}	
+	NSString *tmpFile = [NSTemporaryDirectory() stringByAppendingPathComponent:@"tmp.png"];
+	[UIImagePNGRepresentation(_image) writeToFile:tmpFile atomically:YES];
+	[self showLoadingView];
+	[[ObjectivePlurk sharedInstance] uploadPicture:tmpFile delegate:self userInfo:nil];
+	
 }
 - (void)copy
 {
@@ -174,6 +196,21 @@
 	UIImageWriteToSavedPhotosAlbum(self.image, self, @selector(_image:didFinishSavingWithError:contextInfo:), NULL);
 }
 
+
+- (void)showLoadingView
+{
+	[self.view addSubview:loadingView];
+	[loadingView startAnimating];
+	self.view.userInteractionEnabled = NO;
+}
+- (void)hideLoadingView
+{
+	[loadingView removeFromSuperview];
+	[loadingView stopAnimating];
+	self.view.userInteractionEnabled = YES;
+}
+
+
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
 	switch (buttonIndex) {
@@ -184,12 +221,38 @@
 			[self shareImageViaFacebook];
 			break;			
 		case 2:
+			[self shareImageViaPlurk];
+			break;						
+		case 3:
 			[self save];
 			break;
 		default:
 			break;
 	}
 }
+
+
+
+#pragma mark -
+
+- (void)plurk:(ObjectivePlurk *)plurk didUploadPicture:(NSDictionary *)result
+{
+	[self hideLoadingView];	
+	NSString *full = [result valueForKey:@"full"];
+	if (full) {
+		NSString *text = [NSString stringWithFormat:@"%@ %@", full, self.title];
+		pushingPlurkComposer = YES;
+		[[TWPlurkComposer sharedComposer] showWithText:text];
+	}
+}
+- (void)plurk:(ObjectivePlurk *)plurk didFailUploadingPicture:(NSError *)error
+{
+	[self hideLoadingView];	
+	UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Unable to upload image to Plurk.", @"") message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:nil];
+	[alertView show];
+	[alertView release];
+}
+
 
 #pragma mark -
 

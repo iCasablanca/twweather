@@ -27,19 +27,24 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#import "FBconnect/FBConnect.h"
+#import "TWLoadingView.h"
 
 @interface TWImageViewController : UIViewController <UIScrollViewDelegate, UIActionSheetDelegate>
 {
 	UIImageView *_imageView;
 	UIImage *_image;
 	NSURL *_imageURL;
+
+	TWLoadingView *loadingView;
+	BOOL pushingPlurkComposer;
 }
 
 - (IBAction)navBarAction:(id)sender;
 - (void)shareImageViaFacebook;
 - (void)copy;
 - (void)save;
+- (void)showLoadingView;
+- (void)hideLoadingView;
 
 @property (retain, nonatomic) UIImageView *imageView;
 @property (assign, nonatomic) UIImage *image;

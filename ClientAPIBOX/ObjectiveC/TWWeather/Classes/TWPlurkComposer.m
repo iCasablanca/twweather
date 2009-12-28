@@ -48,12 +48,17 @@ static TWPlurkComposer *sharedComposer;
 	return sharedComposer;
 }
 
+- (void)showLoginAlert
+{
+	UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"You did not login Plurk.", @"") message:NSLocalizedString(@"Do you want to login now?", @"") delegate:self cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:NSLocalizedString(@"Login", @""), nil];
+	[alertView show];
+	[alertView release];	
+}
+
 - (void)showWithText:(NSString *)text
 {
 	if (![[ObjectivePlurk sharedInstance] isLoggedIn]) {
-		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"You did not login Plurk.", @"") message:NSLocalizedString(@"Do you want to login now?", @"") delegate:self cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:NSLocalizedString(@"Login", @""), nil];
-		[alertView show];
-		[alertView release];
+		[self showLoginAlert];
 		return;
 	}
 
@@ -179,6 +184,7 @@ static TWPlurkComposer *sharedComposer;
 	loadingView.hidden = YES;
 	loadingLabel.hidden = YES;	
 
+	originalBarStyle = [UIApplication sharedApplication].statusBarStyle;
 	[UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackOpaque;
 }
 - (void)viewDidAppear:(BOOL)animated 
@@ -187,9 +193,9 @@ static TWPlurkComposer *sharedComposer;
 }
 - (void)viewWillDisappear:(BOOL)animated 
 {
-	[super viewWillDisappear:animated];
 	[textView resignFirstResponder];
-	[UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+	[UIApplication sharedApplication].statusBarStyle = originalBarStyle;
+	[super viewWillDisappear:animated];
 }
 - (void)viewDidDisappear:(BOOL)animated 
 {

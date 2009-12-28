@@ -35,6 +35,8 @@
 	UILabel *wordCountLabel;
 	UIActivityIndicatorView	 *loadingView;
 	UILabel *loadingLabel;
+	
+	UIStatusBarStyle originalBarStyle;
 }
 
 - (void)updateWordCount;
@@ -48,6 +50,7 @@
 @interface TWPlurkComposer : UINavigationController
 
 + (TWPlurkComposer *)sharedComposer;
+- (void)showLoginAlert;
 - (void)showWithText:(NSString *)text;
 
 @end
