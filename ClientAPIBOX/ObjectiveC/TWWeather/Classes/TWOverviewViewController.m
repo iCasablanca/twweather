@@ -85,7 +85,7 @@
 
 	self.textView.text = text;
 }
-- (void)copy
+- (void)doCopy
 {
 	[[UIPasteboard generalPasteboard] setString:_text];
 }
@@ -123,7 +123,7 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
 	if (buttonIndex == 0) {
-		[self copy];
+		[self doCopy];
 	}
 	else if (buttonIndex == 1) {
 		[self shareViaFacebook];

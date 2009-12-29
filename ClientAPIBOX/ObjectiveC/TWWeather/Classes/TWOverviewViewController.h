@@ -34,7 +34,7 @@
 }
 
 - (void)setText:(NSString *)text;
-- (void)copy;
+- (void)doCopy;
 - (void)shareViaFacebook;
 - (IBAction)navBarAction:(id)sender;
 

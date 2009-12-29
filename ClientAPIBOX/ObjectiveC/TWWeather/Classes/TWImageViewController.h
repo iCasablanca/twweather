@@ -41,7 +41,7 @@
 
 - (IBAction)navBarAction:(id)sender;
 - (void)shareImageViaFacebook;
-- (void)copy;
+- (void)doCopy;
 - (void)save;
 - (void)showLoadingView;
 - (void)hideLoadingView;

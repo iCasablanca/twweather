@@ -175,7 +175,7 @@
 	[[ObjectivePlurk sharedInstance] uploadPicture:tmpFile delegate:self userInfo:nil];
 	
 }
-- (void)copy
+- (void)doCopy
 {
 	UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
 	pasteBoard.image = self.image;
@@ -223,7 +223,7 @@
 {
 	switch (buttonIndex) {
 		case 0:
-			[self copy];
+			[self doCopy];
 			break;
 		case 1:
 			[self shareImageViaFacebook];
