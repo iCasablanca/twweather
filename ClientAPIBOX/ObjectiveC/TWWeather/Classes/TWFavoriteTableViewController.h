@@ -42,7 +42,6 @@
 	UILabel *errorLabel;
 	
 	BOOL isLoading;
-//	NSUInteger retryCount;
 }
 
 - (void)updateFilteredArray;

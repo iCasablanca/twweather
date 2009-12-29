@@ -41,6 +41,7 @@
 
 + (TWWeatherAppDelegate*)sharedDelegate
 {
+	// Just a wrapper of [UIApplication sharedApplication].delegate.
 	return (TWWeatherAppDelegate *)[UIApplication sharedApplication].delegate;
 }
 
@@ -169,6 +170,9 @@
 	return string;
 }
 
+#pragma mark -
+#pragma mark Facebook dialog delegate methods
+
 - (BOOL)confirmFacebookLoggedIn
 {
 	if (!facebookSession.isConnected) {
@@ -213,7 +217,8 @@
 	}
 }
 
-#pragma mark facebookSession
+#pragma mark -
+#pragma mark FacebookSession delegate methods
 
 - (void)session:(FBSession*)session didLogin:(FBUID)uid
 {

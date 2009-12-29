@@ -41,6 +41,8 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 
 @implementation TWFavoriteTableViewController
 
+#pragma mark Routines
+
 - (void)dealloc 
 {
 	[self viewDidUnload];
@@ -146,11 +148,10 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 - (void)didReceiveMemoryWarning 
 {
     [super didReceiveMemoryWarning]; 
-	// Releases the view if it doesn't have a superview
-    // Release anything that's not essential, such as cached data
 }
 
 #pragma mark -
+#pragma mark Actions
 
 - (IBAction)changeSetting:(id)sender
 {
@@ -205,6 +206,7 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 	self.tableView.userInteractionEnabled = YES;
 }
 
+#pragma mark -
 #pragma mark UITableViewDataSource and UITableViewDelegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -343,6 +345,24 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 }
 
 #pragma mark -
+#pragma mark TWLocationSettingTableViewController delegate methods
+
+- (void)settingController:(TWLocationSettingTableViewController *)controller didUpdateFilter:(NSArray *)filterArray
+{
+	[self hideLoadingView];
+	[_filterArray setArray:filterArray];
+	[[NSUserDefaults standardUserDefaults] setObject:_filterArray forKey:favoitesPreferenceName];
+	if (_favArray) {
+		[self updateFilteredArray];
+		[self.tableView reloadData];
+	}
+	else if (!isLoading) {
+		[[TWAPIBox sharedBox] fetchAllForecastsWithDelegate:self userInfo:nil];
+	}
+}
+
+#pragma mark -
+#pragma mark TWWeatherAPI delegate methods
 
 - (void)APIBox:(TWAPIBox *)APIBox didFetchAllForecasts:(id)result userInfo:(id)userInfo
 {
@@ -365,20 +385,6 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 	[self hideLoadingView];
 	self.tableView.hidden = YES;
 	errorLabel.text = [error localizedDescription];
-}
-
-- (void)settingController:(TWLocationSettingTableViewController *)controller didUpdateFilter:(NSArray *)filterArray
-{
-	[self hideLoadingView];
-	[_filterArray setArray:filterArray];
-	[[NSUserDefaults standardUserDefaults] setObject:_filterArray forKey:favoitesPreferenceName];
-	if (_favArray) {
-		[self updateFilteredArray];
-		[self.tableView reloadData];
-	}
-	else if (!isLoading) {
-		[[TWAPIBox sharedBox] fetchAllForecastsWithDelegate:self userInfo:nil];
-	}
 }
 
 - (void)APIBox:(TWAPIBox *)APIBox didFetchWarnings:(id)result userInfo:(id)userInfo

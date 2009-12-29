@@ -83,7 +83,7 @@ static TWPlurkComposer *sharedComposer;
 		[plurkController release];
 		UINavigationController *rootNavController = [TWWeatherAppDelegate sharedDelegate].navigationController;
 		[rootNavController presentModalViewController:navController animated:YES];
-		[navController release];		
+		[navController release];
 	}
 }
 
@@ -95,8 +95,11 @@ static TWPlurkComposer *sharedComposer;
 
 @end
 
+#pragma mark -
 
 @implementation TWPlurkComposerViewController
+
+#pragma mark Routines
 
 - (void)removeOutletsAndControls_TWPlurkComposer
 {
@@ -118,7 +121,6 @@ static TWPlurkComposer *sharedComposer;
 	[super viewDidUnload];
 	[self removeOutletsAndControls_TWPlurkComposer];
 }
-
 
 #pragma mark -
 #pragma mark UIViewContoller Methods
@@ -198,15 +200,8 @@ static TWPlurkComposer *sharedComposer;
 	[UIApplication sharedApplication].statusBarStyle = originalBarStyle;
 	[super viewWillDisappear:animated];
 }
-- (void)viewDidDisappear:(BOOL)animated 
-{
-	[super viewDidDisappear:animated];
-}
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-}
+#pragma mark Actions
 
 - (void)updateWordCount
 {
@@ -234,10 +229,16 @@ static TWPlurkComposer *sharedComposer;
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 }
 
+#pragma mark -
+#pragma mark UITextView delegate methods
+
 - (void)textViewDidChange:(UITextView *)textView
 {
 	[self updateWordCount];
 }
+
+#pragma mark -
+#pragma mark ObjectivePlurk delegate methods
 
 - (void)plurk:(ObjectivePlurk *)plurk didAddMessage:(NSDictionary *)result
 {

@@ -76,6 +76,8 @@
 	CGPathRelease(path);
 }
 
+#pragma mark Actions
+
 - (void)startAnimating
 {
 	[activityIndicator startAnimating];

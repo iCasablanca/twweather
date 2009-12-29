@@ -29,8 +29,9 @@
 
 #import "TWErrorViewController.h"
 
-
 @implementation TWErrorViewController
+
+#pragma mark Routines
 
 - (void)dealloc
 {
@@ -45,6 +46,7 @@
 	self.view = nil;
 }
 
+#pragma mark -
 #pragma mark UIViewContoller Methods
 
 - (void)loadView 
@@ -79,13 +81,12 @@
 	}
 }
 
-
 - (void)didReceiveMemoryWarning 
 {
     [super didReceiveMemoryWarning]; 
-	// Releases the view if it doesn't have a superview
-    // Release anything that's not essential, such as cached data
 }
+
+#pragma mark Getters/Setters
 
 - (void)setError:(NSError *)error
 {

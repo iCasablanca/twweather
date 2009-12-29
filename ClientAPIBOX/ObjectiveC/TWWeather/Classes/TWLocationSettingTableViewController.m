@@ -34,6 +34,8 @@
 
 @implementation TWLocationSettingTableViewController
 
+#pragma mark Routines
+
 - (void)dealloc 
 {
 	[_filterArray release];
@@ -46,7 +48,6 @@
 - (void)viewDidLoad 
 {
     [super viewDidLoad];
-//	self.title = @"My Favorites";
 	
 	if (!_filterArray) {
 		_filterArray = [[NSMutableArray alloc] init];
@@ -67,9 +68,10 @@
 - (void)didReceiveMemoryWarning 
 {
     [super didReceiveMemoryWarning]; 
-	// Releases the view if it doesn't have a superview
-    // Release anything that's not essential, such as cached data
 }
+
+#pragma mark Actions
+
 - (void)setFilter:(NSArray *)filter
 {
 	if (!_filterArray) {
@@ -84,6 +86,7 @@
 	}
 }
 
+#pragma mark -
 #pragma mark UITableViewDataSource and UITableViewDelegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -198,6 +201,8 @@
 		[delegate settingController:self didUpdateFilter:_filterArray];		
 	}	
 }
+
+#pragma mark TWLocationAddTableViewController delegate methods
 
 - (void)locationAddTableViewController:(TWLocationAddTableViewController *)controller didSelectedLocationIdentifier:(NSUInteger)locationIdentifier;
 {

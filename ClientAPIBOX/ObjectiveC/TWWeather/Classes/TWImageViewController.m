@@ -27,13 +27,14 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#import "FBconnect/FBConnect.h"
 #import "ObjectivePlurk.h"
 #import "TWPlurkComposer.h"
 #import "TWImageViewController.h"
 #import "TWWeatherAppDelegate.h"
 
 @implementation TWImageViewController
+
+#pragma mark Routines
 
 - (void)dealloc
 {
@@ -50,6 +51,9 @@
 	[loadingView release];
 	loadingView = nil;
 }
+
+#pragma mark UIViewContoller Methods
+
 - (void)loadView 
 {
 	UIScrollView *scrollView = [[[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, 400)] autorelease];
@@ -76,9 +80,6 @@
 	
 	loadingView = [[TWLoadingView alloc] initWithFrame:CGRectMake(100, 100, 120, 120)];	
 }
-
-#pragma mark UIViewContoller Methods
-
 - (void)viewDidLoad 
 {	
     [super viewDidLoad];	
@@ -95,10 +96,6 @@
 	self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
 	[UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackOpaque;
 }
-- (void)viewDidAppear:(BOOL)animated 
-{
-    [super viewDidAppear:animated];
-}
 - (void)viewWillDisappear:(BOOL)animated 
 {
 	[[ObjectivePlurk sharedInstance] cancelAllRequest];
@@ -111,15 +108,9 @@
 	
 	[super viewWillDisappear:animated];	
 }
-- (void)viewDidDisappear:(BOOL)animated 
-{
-	[super viewDidDisappear:animated];
-}
 
-- (void)didReceiveMemoryWarning 
-{
-    [super didReceiveMemoryWarning]; 
-}
+#pragma mark -
+#pragma mark Getters/Setters
 
 - (void)setImage:(UIImage *)image
 {
@@ -134,6 +125,7 @@
 }
 
 #pragma mark -
+#pragma mark Actions
 
 - (IBAction)navBarAction:(id)sender
 {
@@ -150,17 +142,7 @@
 		FBRequest *uploadPhotoRequest = [FBRequest requestWithDelegate:self];
 		NSData *data = UIImagePNGRepresentation(_image);
 		[uploadPhotoRequest call:@"photos.upload" params:args dataParam:data];
-		return;
-		
-//		FBStreamDialog *dialog = [[[FBStreamDialog alloc] init] autorelease];
-//		dialog.delegate = [TWWeatherAppDelegate sharedDelegate];
-//		dialog.userMessagePrompt = self.title;
-//		NSString *URLString = [self.imageURL absoluteString];
-//		NSString *attachment = [NSString stringWithFormat:@"{\"name\":\"%@\",\"media\":[{\"type\":\"image\", \"src\":\"%@\", \"href\":\"%@\"}]}", self.title, URLString, URLString];
-//		NSLog(@"attachment:%@", [attachment description]);
-//		dialog.attachment = attachment;
-//		[dialog show];
-		
+		return;		
 	}
 }
 - (void)shareImageViaPlurk
@@ -218,6 +200,8 @@
 	self.view.userInteractionEnabled = YES;
 }
 
+#pragma mark -
+#pragma mark UIActionSheet delegate methods
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -239,7 +223,15 @@
 	}
 }
 
+#pragma mark UIScrollView delegate methods
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+	return _imageView;
+}
+
 #pragma mark -
+#pragma mark Facebook Connect Request delegate methods
 
 - (void)requestLoading:(FBRequest*)request
 {
@@ -273,6 +265,7 @@
 }
 
 #pragma mark -
+#pragma mark ObjectivePlurk delegate methods
 
 - (void)plurk:(ObjectivePlurk *)plurk didUploadPicture:(NSDictionary *)result
 {
@@ -290,14 +283,6 @@
 	UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Unable to upload image to Plurk.", @"") message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:nil];
 	[alertView show];
 	[alertView release];
-}
-
-
-#pragma mark -
-
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
-{
-	return _imageView;
 }
 
 @synthesize imageView = _imageView;

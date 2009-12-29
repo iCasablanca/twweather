@@ -29,12 +29,12 @@
 
 #import "TWWebController.h"
 
-
 @implementation TWWebController
+
+#pragma mark Routines
 
 - (void)removeOutletsAndControls_TWWebController
 {
-    // remove and clean outlets and controls here
 	[self.webView stopLoading];
 	self.webView = nil;
 	self.activityIndicatorView = nil;
@@ -54,33 +54,11 @@
 {
 	[super viewDidUnload];
 	[self removeOutletsAndControls_TWWebController];
-	// Release any retained subviews of the main view.
-	// e.g. self.myOutlet = nil;
 }
-
-
-/*
-// The designated initializer.  Override if you create the controller
-// programmatically and want to perform customization that is not appropriate 
-// for viewDidLoad.
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
-        // Custom initialization
-    }
-    return self;
-}
-*/
 
 #pragma mark -
 #pragma mark UIViewContoller Methods
 
-/*
-// Implement loadView to create a view hierarchy programmatically, without
-// using a nib.
-- (void)loadView 
-{
-}
-*/
 - (void)viewDidLoad 
 {
     [super viewDidLoad];
@@ -91,27 +69,8 @@
 	[webView setDelegate:self];
 	[self updateButtonState];
 }
-- (void)viewWillAppear:(BOOL)animated 
-{
-    [super viewWillAppear:animated];
-}
-- (void)viewDidAppear:(BOOL)animated 
-{
-    [super viewDidAppear:animated];
-}
-- (void)viewWillDisappear:(BOOL)animated 
-{
-	[super viewWillDisappear:animated];
-}
-- (void)viewDidDisappear:(BOOL)animated 
-{
-	[super viewDidDisappear:animated];
-}
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-}
+#pragma mark Actions
 
 - (void)openInExternalWebBrowser
 {
@@ -126,6 +85,9 @@
 	[actionSheet release];
 }
 
+#pragma mark -
+#pragma mark UIActionSheet delegate methods
+
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
 	if (buttonIndex == 0) {
@@ -134,6 +96,7 @@
 }
 
 #pragma mark -
+#pragma mark WebView delegate methods
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
@@ -176,4 +139,5 @@
 @synthesize goFowardItem;
 @synthesize stopItem;
 @synthesize reloadItem;
+
 @end

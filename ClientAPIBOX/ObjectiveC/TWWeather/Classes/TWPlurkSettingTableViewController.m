@@ -33,6 +33,8 @@
 
 @implementation TWPlurkSettingTableViewController
 
+#pragma mark Routines
+
 - (void)removeOutletsAndControls_TWPlurkSettingTableViewController
 {
 	[loginNameField release];
@@ -75,10 +77,6 @@
 		loginNameField.returnKeyType = UIReturnKeyNext;
 		loginNameField.placeholder = NSLocalizedString(@"Your Login Name", @"");
 		loginNameField.delegate = self;
-//		NSString *loginName = [[NSUserDefaults standardUserDefaults] stringForKey:TWPlurkLoginNamePreference];
-//		if (loginName) {
-//			loginNameField.text = loginName;
-//		}
 	}
 
 	if (!passwordField) {
@@ -90,8 +88,6 @@
 		passwordField.placeholder = NSLocalizedString(@"Your Password", @"");
 		passwordField.secureTextEntry = YES;
 		passwordField.delegate = self;
-//		NSString *password = [[NSUserDefaults standardUserDefaults] stringForKey:TWPlurkPasswordPreference];
-//		passwordField.text = password;
 	}
 	
 	loadingView = [[TWLoadingView alloc] initWithFrame:CGRectMake(100, 100, 120, 120)];	
@@ -114,23 +110,8 @@
 		[loginNameField becomeFirstResponder];
 	}
 }
-- (void)viewDidAppear:(BOOL)animated 
-{
-    [super viewDidAppear:animated];
-}
-- (void)viewWillDisappear:(BOOL)animated 
-{
-	[super viewWillDisappear:animated];
-}
-- (void)viewDidDisappear:(BOOL)animated 
-{
-	[super viewDidDisappear:animated];
-}
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-}
+#pragma mark Actions
 
 - (void)refresh
 {
@@ -254,7 +235,6 @@
 		case 0:
 			cell.textLabel.text = NSLocalizedString(@"Login Name:", @"");
 			if ([[ObjectivePlurk sharedInstance] isLoggedIn]) {
-//				NSString *loginName = [[NSUserDefaults standardUserDefaults] stringForKey:TWPlurkLoginNamePreference];
 				cell.detailTextLabel.text = loginName;
 			}
 			else {
@@ -264,7 +244,6 @@
 		case 1:
 			cell.textLabel.text = NSLocalizedString(@"Password:", @"");
 			if ([[ObjectivePlurk sharedInstance] isLoggedIn]) {
-//				NSString *password = [[NSUserDefaults standardUserDefaults] stringForKey:TWPlurkPasswordPreference];
 				NSMutableString *s = [NSMutableString string];
 				for (NSInteger i = 0; i < [password length]; i++) {
 					[s appendString:@"*"];
@@ -294,6 +273,7 @@
 	return YES;
 }
 
+#pragma mark -
 #pragma mark Plurk Login delegate methods.
 
 - (void)plurk:(ObjectivePlurk *)plurk didLoggedIn:(NSDictionary *)result
@@ -307,8 +287,8 @@
 		[[NSUserDefaults standardUserDefaults] setObject:password forKey:TWPlurkPasswordPreference];
 #else
 		KeychainItemWrapper *wrapper = [[KeychainItemWrapper alloc] initWithIdentifier:loginName accessGroup:nil];
-		[wrapper setObject:loginName forKey:kSecAttrAccount];
-		[wrapper setObject:password forKey:kSecValueData];
+		[wrapper setObject:loginName forKey:(id)kSecAttrAccount];
+		[wrapper setObject:password forKey:(id)kSecValueData];
 		[wrapper release];
 #endif
 	}
@@ -328,14 +308,10 @@
 	[loginNameField becomeFirstResponder];
 	UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Failed to login Plurk.", @"") message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:nil];
 	[alertView show];
-	[alertView release];	
-//	[self refresh];
+	[alertView release];
 }
 
 @synthesize loginName;
 @synthesize password;
 
 @end
-
-
-

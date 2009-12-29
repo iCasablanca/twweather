@@ -28,8 +28,12 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import "TWLoadingView.h"
+#import "FBconnect/FBConnect.h"
 
-@interface TWImageViewController : UIViewController <UIScrollViewDelegate, UIActionSheetDelegate>
+@interface TWImageViewController : UIViewController <
+	UIScrollViewDelegate, 
+	UIActionSheetDelegate,
+	FBRequestDelegate>
 {
 	UIImageView *_imageView;
 	UIImage *_image;

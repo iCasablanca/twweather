@@ -38,6 +38,10 @@
 	UIToolbar *toolbar;
 }
 
+- (void)openInExternalWebBrowser;
+- (IBAction)openInExternalWebBrowser:(id)sender;
+- (void)updateButtonState;
+
 @property (retain, nonatomic) IBOutlet UIWebView *webView;
 @property (retain, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorView;
 @property (retain, nonatomic) IBOutlet UIToolbar *toolbar;
@@ -46,8 +50,5 @@
 @property (retain, nonatomic) IBOutlet UIBarButtonItem *stopItem;
 @property (retain, nonatomic) IBOutlet UIBarButtonItem *reloadItem;
 
-- (void)openInExternalWebBrowser;
-- (IBAction)openInExternalWebBrowser:(id)sender;
-- (void)updateButtonState;
 
 @end

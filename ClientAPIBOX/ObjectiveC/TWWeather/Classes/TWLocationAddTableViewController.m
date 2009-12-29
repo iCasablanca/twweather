@@ -32,8 +32,9 @@
 #import "TWAPIBox.h"
 #import "TWAPIBox+Info.h"
 
-
 @implementation TWLocationAddTableViewController
+
+#pragma mark Routines
 
 - (void)dealloc 
 {
@@ -70,7 +71,8 @@
 	[self.tableView reloadData];
 }
 
-#pragma mark Table view methods
+#pragma mark -
+#pragma mark UITableView view methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
