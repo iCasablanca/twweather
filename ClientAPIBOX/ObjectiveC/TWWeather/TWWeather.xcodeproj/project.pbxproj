@@ -34,6 +34,8 @@
 		D426D6DD102D17D400BBBEB3 /* TWOBSCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D426D6DC102D17D400BBBEB3 /* TWOBSCell.m */; };
 		D426D8CF102D377600BBBEB3 /* TWLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = D426D8CE102D377600BBBEB3 /* TWLoadingView.m */; };
 		D42C7A091023CF59009C3C4E /* TWImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D42C7A081023CF59009C3C4E /* TWImageViewController.m */; };
+		D42DD9F810E932A000F24E16 /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = D42DD9F710E932A000F24E16 /* KeychainItemWrapper.m */; };
+		D42DDA0F10E932CF00F24E16 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D42DDA0E10E932CF00F24E16 /* Security.framework */; };
 		D44C172C10309942006B6698 /* CocoaCryptoHashing.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E509411023C17F002B39D7 /* CocoaCryptoHashing.m */; };
 		D44D36C710E520DC0022D163 /* ObjectivePlurk.m in Sources */ = {isa = PBXBuildFile; fileRef = D44D36C410E520DC0022D163 /* ObjectivePlurk.m */; };
 		D44D36C810E520DC0022D163 /* ObjectivePlurk+PrivateMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = D44D36C610E520DC0022D163 /* ObjectivePlurk+PrivateMethods.m */; };
@@ -178,6 +180,9 @@
 		D426D8CE102D377600BBBEB3 /* TWLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWLoadingView.m; sourceTree = "<group>"; };
 		D42C7A071023CF59009C3C4E /* TWImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWImageViewController.h; sourceTree = "<group>"; };
 		D42C7A081023CF59009C3C4E /* TWImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWImageViewController.m; sourceTree = "<group>"; };
+		D42DD9F610E932A000F24E16 /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeychainItemWrapper.h; path = ../External/AppleSampleCode/KeychainItemWrapper/KeychainItemWrapper.h; sourceTree = SOURCE_ROOT; };
+		D42DD9F710E932A000F24E16 /* KeychainItemWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KeychainItemWrapper.m; path = ../External/AppleSampleCode/KeychainItemWrapper/KeychainItemWrapper.m; sourceTree = SOURCE_ROOT; };
+		D42DDA0E10E932CF00F24E16 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		D44D36C310E520DC0022D163 /* ObjectivePlurk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ObjectivePlurk.h; path = ../External/ObjectivePlurk/ObjectivePlurk/ObjectivePlurk.h; sourceTree = SOURCE_ROOT; };
 		D44D36C410E520DC0022D163 /* ObjectivePlurk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ObjectivePlurk.m; path = ../External/ObjectivePlurk/ObjectivePlurk/ObjectivePlurk.m; sourceTree = SOURCE_ROOT; };
 		D44D36C510E520DC0022D163 /* ObjectivePlurk+PrivateMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "ObjectivePlurk+PrivateMethods.h"; path = "../External/ObjectivePlurk/ObjectivePlurk/ObjectivePlurk+PrivateMethods.h"; sourceTree = SOURCE_ROOT; };
@@ -323,6 +328,7 @@
 				D489E5DC1024EF6000189460 /* MessageUI.framework in Frameworks */,
 				D41E1D4E108428F600A6675D /* AVFoundation.framework in Frameworks */,
 				D4B3E9A510E521C800B6D5D3 /* MobileCoreServices.framework in Frameworks */,
+				D42DDA0F10E932CF00F24E16 /* Security.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -404,6 +410,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D42DDA0E10E932CF00F24E16 /* Security.framework */,
 				D4B3E9A410E521C800B6D5D3 /* MobileCoreServices.framework */,
 				D41E1D4D108428F600A6675D /* AVFoundation.framework */,
 				D489E5DB1024EF6000189460 /* MessageUI.framework */,
@@ -628,6 +635,15 @@
 			name = Sounds;
 			sourceTree = "<group>";
 		};
+		D42DD9F110E9328D00F24E16 /* KeychainItemWrapper */ = {
+			isa = PBXGroup;
+			children = (
+				D42DD9F610E932A000F24E16 /* KeychainItemWrapper.h */,
+				D42DD9F710E932A000F24E16 /* KeychainItemWrapper.m */,
+			);
+			name = KeychainItemWrapper;
+			sourceTree = "<group>";
+		};
 		D44D36C110E520C40022D163 /* ObjectivePlurk */ = {
 			isa = PBXGroup;
 			children = (
@@ -734,6 +750,7 @@
 		D4C3A0CA102235B800E7A430 /* External Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				D42DD9F110E9328D00F24E16 /* KeychainItemWrapper */,
 				D44D36CC10E521360022D163 /* bsjsonadditions */,
 				D44D36C110E520C40022D163 /* ObjectivePlurk */,
 				D400824010C34195007416F6 /* FBConnect */,
@@ -980,6 +997,7 @@
 				D4B3E9C410E52D0000B6D5D3 /* TWPlurkSettingTableViewController.m in Sources */,
 				D4B3EA8F10E545C600B6D5D3 /* TWPlurkComposer.m in Sources */,
 				D4B3EC3E10E5542D00B6D5D3 /* TWPlurkBackgroudView.m in Sources */,
+				D42DD9F810E932A000F24E16 /* KeychainItemWrapper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -29,6 +29,7 @@
 
 #import "TWPlurkSettingTableViewController.h"
 #import "TWCommonHeader.h"
+#import "KeychainItemWrapper.h"
 
 @implementation TWPlurkSettingTableViewController
 
@@ -47,6 +48,8 @@
 - (void)dealloc 
 {
 	[self removeOutletsAndControls_TWPlurkSettingTableViewController];
+	[loginName release];
+	[password release];
     [super dealloc];
 }
 - (void)viewDidUnload
@@ -72,10 +75,10 @@
 		loginNameField.returnKeyType = UIReturnKeyNext;
 		loginNameField.placeholder = NSLocalizedString(@"Your Login Name", @"");
 		loginNameField.delegate = self;
-		NSString *loginName = [[NSUserDefaults standardUserDefaults] stringForKey:TWPlurkLoginNamePreference];
-		if (loginName) {
-			loginNameField.text = loginName;
-		}
+//		NSString *loginName = [[NSUserDefaults standardUserDefaults] stringForKey:TWPlurkLoginNamePreference];
+//		if (loginName) {
+//			loginNameField.text = loginName;
+//		}
 	}
 
 	if (!passwordField) {
@@ -87,8 +90,8 @@
 		passwordField.placeholder = NSLocalizedString(@"Your Password", @"");
 		passwordField.secureTextEntry = YES;
 		passwordField.delegate = self;
-		NSString *password = [[NSUserDefaults standardUserDefaults] stringForKey:TWPlurkPasswordPreference];
-		passwordField.text = password;
+//		NSString *password = [[NSUserDefaults standardUserDefaults] stringForKey:TWPlurkPasswordPreference];
+//		passwordField.text = password;
 	}
 	
 	loadingView = [[TWLoadingView alloc] initWithFrame:CGRectMake(100, 100, 120, 120)];	
@@ -131,6 +134,21 @@
 
 - (void)refresh
 {
+	NSString *theLoginName = [[NSUserDefaults standardUserDefaults] stringForKey:TWPlurkLoginNamePreference];
+
+	if (theLoginName) {
+		self.loginName = theLoginName;	
+#if TARGET_IPHONE_SIMULATOR	
+		NSString *thePassword = [[NSUserDefaults standardUserDefaults] stringForKey:TWPlurkPasswordPreference];
+		self.password = thePassword;
+#else
+		KeychainItemWrapper *wrapper = [[KeychainItemWrapper alloc] initWithIdentifier:loginName accessGroup:nil];
+		NSString *thePassword = [wrapper objectForKey:(id)kSecValueData];
+		[wrapper release];
+		self.password  = thePassword;
+#endif
+	}
+	
 	NSString *loginText = NSLocalizedString(@"Login", @"");
 	[loginButton removeTarget:self action:NULL forControlEvents:UIControlEventTouchUpInside];
 
@@ -160,8 +178,8 @@
 
 - (IBAction)loginAciton:(id)sender
 {
-	NSString *loginName = [loginNameField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-	NSString *password = [passwordField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+	self.loginName = [loginNameField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+	self.password = [passwordField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	loginNameField.text = loginName;
 	passwordField.text = password;
 	
@@ -236,7 +254,7 @@
 		case 0:
 			cell.textLabel.text = NSLocalizedString(@"Login Name:", @"");
 			if ([[ObjectivePlurk sharedInstance] isLoggedIn]) {
-				NSString *loginName = [[NSUserDefaults standardUserDefaults] stringForKey:TWPlurkLoginNamePreference];
+//				NSString *loginName = [[NSUserDefaults standardUserDefaults] stringForKey:TWPlurkLoginNamePreference];
 				cell.detailTextLabel.text = loginName;
 			}
 			else {
@@ -246,7 +264,7 @@
 		case 1:
 			cell.textLabel.text = NSLocalizedString(@"Password:", @"");
 			if ([[ObjectivePlurk sharedInstance] isLoggedIn]) {
-				NSString *password = [[NSUserDefaults standardUserDefaults] stringForKey:TWPlurkPasswordPreference];
+//				NSString *password = [[NSUserDefaults standardUserDefaults] stringForKey:TWPlurkPasswordPreference];
 				NSMutableString *s = [NSMutableString string];
 				for (NSInteger i = 0; i < [password length]; i++) {
 					[s appendString:@"*"];
@@ -282,13 +300,20 @@
 {
 	[self hideLoadingView];
 
-	NSString *loginName = [loginNameField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-	NSString *password = [passwordField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-	[[NSUserDefaults standardUserDefaults] setObject:loginName forKey:TWPlurkLoginNamePreference];
-	[[NSUserDefaults standardUserDefaults] setObject:password forKey:TWPlurkPasswordPreference];
-	
+	if (loginName && password) { 
+		[[NSUserDefaults standardUserDefaults] setObject:loginName forKey:TWPlurkLoginNamePreference];
+
+#if TARGET_IPHONE_SIMULATOR	
+		[[NSUserDefaults standardUserDefaults] setObject:password forKey:TWPlurkPasswordPreference];
+#else
+		KeychainItemWrapper *wrapper = [[KeychainItemWrapper alloc] initWithIdentifier:loginName accessGroup:nil];
+		[wrapper setObject:loginName forKey:kSecAttrAccount];
+		[wrapper setObject:password forKey:kSecValueData];
+		[wrapper release];
+#endif
+	}
 	[self refresh];
-	
+
 	if (self.navigationItem.leftBarButtonItem) {
 		UIBarButtonItem *item = self.navigationItem.leftBarButtonItem;
 		SEL action = [item action];
@@ -306,7 +331,9 @@
 	[alertView release];	
 //	[self refresh];
 }
-	 
+
+@synthesize loginName;
+@synthesize password;
 
 @end
 

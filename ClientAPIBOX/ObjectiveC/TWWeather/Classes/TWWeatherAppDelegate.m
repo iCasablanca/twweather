@@ -35,6 +35,7 @@
 #import "TWAPIBox.h"
 #import "TWAPIBox+Info.h"
 #import "TWCommonHeader.h"
+#import "KeychainItemWrapper.h"
 
 @implementation TWWeatherAppDelegate
 
@@ -60,7 +61,21 @@
 - (void)applicationDidFinishLaunching:(UIApplication *)application 
 {  
 	[ObjectivePlurk sharedInstance].APIKey = PLURK_API_KEY;
-	[[ObjectivePlurk sharedInstance] resume];
+	if (![[ObjectivePlurk sharedInstance] resume]) {
+		NSString *loginName = [[NSUserDefaults standardUserDefaults] stringForKey:TWPlurkLoginNamePreference];
+		if (loginName) {
+#if TARGET_IPHONE_SIMULATOR	
+			NSString *password = [[NSUserDefaults standardUserDefaults] stringForKey:TWPlurkPasswordPreference];
+#else
+			KeychainItemWrapper *wrapper = [[KeychainItemWrapper alloc] initWithIdentifier:loginName accessGroup:nil];
+			NSString *password = [wrapper objectForKey:(id)kSecValueData];
+			[wrapper release];
+#endif
+			if (password) {
+				[[ObjectivePlurk sharedInstance] loginWithUsername:loginName password:password delegate:self userInfo:nil];
+			}
+		}
+	}
 	
 	facebookSession = [[FBSession sessionForApplication:API_KEY secret:SECRET delegate:self] retain];
 	[facebookSession resume];

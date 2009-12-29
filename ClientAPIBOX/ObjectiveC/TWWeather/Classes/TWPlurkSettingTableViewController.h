@@ -32,6 +32,9 @@
 
 @interface TWPlurkSettingTableViewController : UITableViewController <UITextFieldDelegate>
 {
+	NSString *loginName;
+	NSString *password;
+	
 	TWLoadingView *loadingView;
 	UITextField *loginNameField;
 	UITextField *passwordField;
@@ -43,5 +46,8 @@
 - (void)hideLoadingView;
 - (IBAction)loginAciton:(id)sender;
 - (IBAction)logoutAction:(id)sender;
+
+@property (retain, nonatomic) NSString *loginName;
+@property (retain, nonatomic) NSString *password;
 
 @end
