@@ -85,6 +85,8 @@
 		D489E5DC1024EF6000189460 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D489E5DB1024EF6000189460 /* MessageUI.framework */; };
 		D4A09D3410D95D6000013733 /* TWLocationAddTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A09D3310D95D6000013733 /* TWLocationAddTableViewController.m */; };
 		D4B3BA7F1104B6EA003E5E3D /* TWFavoriteSectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D4B3BA7E1104B6EA003E5E3D /* TWFavoriteSectionCell.m */; };
+		D4B3BE391104DF2F003E5E3D /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D4B3BE381104DF2F003E5E3D /* SFHFKeychainUtils.m */; };
+		D4B3BE6C1104E0C6003E5E3D /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D4B3BE6B1104E0C6003E5E3D /* libxml2.dylib */; };
 		D4B3E9A510E521C800B6D5D3 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4B3E9A410E521C800B6D5D3 /* MobileCoreServices.framework */; };
 		D4B3E9C410E52D0000B6D5D3 /* TWPlurkSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4B3E9C310E52D0000B6D5D3 /* TWPlurkSettingTableViewController.m */; };
 		D4B3EA8F10E545C600B6D5D3 /* TWPlurkComposer.m in Sources */ = {isa = PBXBuildFile; fileRef = D4B3EA8E10E545C600B6D5D3 /* TWPlurkComposer.m */; };
@@ -237,6 +239,9 @@
 		D4A09D3310D95D6000013733 /* TWLocationAddTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWLocationAddTableViewController.m; sourceTree = "<group>"; };
 		D4B3BA7D1104B6E9003E5E3D /* TWFavoriteSectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWFavoriteSectionCell.h; sourceTree = "<group>"; };
 		D4B3BA7E1104B6EA003E5E3D /* TWFavoriteSectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWFavoriteSectionCell.m; sourceTree = "<group>"; };
+		D4B3BE371104DF2F003E5E3D /* SFHFKeychainUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHFKeychainUtils.h; sourceTree = "<group>"; };
+		D4B3BE381104DF2F003E5E3D /* SFHFKeychainUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHFKeychainUtils.m; sourceTree = "<group>"; };
+		D4B3BE6B1104E0C6003E5E3D /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		D4B3E9A410E521C800B6D5D3 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		D4B3E9C210E52D0000B6D5D3 /* TWPlurkSettingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWPlurkSettingTableViewController.h; sourceTree = "<group>"; };
 		D4B3E9C310E52D0000B6D5D3 /* TWPlurkSettingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWPlurkSettingTableViewController.m; sourceTree = "<group>"; };
@@ -332,6 +337,7 @@
 				D41E1D4E108428F600A6675D /* AVFoundation.framework in Frameworks */,
 				D4B3E9A510E521C800B6D5D3 /* MobileCoreServices.framework in Frameworks */,
 				D42DDA0F10E932CF00F24E16 /* Security.framework in Frameworks */,
+				D4B3BE6C1104E0C6003E5E3D /* libxml2.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -413,6 +419,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D4B3BE6B1104E0C6003E5E3D /* libxml2.dylib */,
 				D42DDA0E10E932CF00F24E16 /* Security.framework */,
 				D4B3E9A410E521C800B6D5D3 /* MobileCoreServices.framework */,
 				D41E1D4D108428F600A6675D /* AVFoundation.framework */,
@@ -720,6 +727,16 @@
 			name = "Weather Images";
 			sourceTree = "<group>";
 		};
+		D4B3BE361104DF2F003E5E3D /* security */ = {
+			isa = PBXGroup;
+			children = (
+				D4B3BE371104DF2F003E5E3D /* SFHFKeychainUtils.h */,
+				D4B3BE381104DF2F003E5E3D /* SFHFKeychainUtils.m */,
+			);
+			name = security;
+			path = "../External/scifihifi-iphone/security";
+			sourceTree = SOURCE_ROOT;
+		};
 		D4C02C35102C03C300FD1D3B /* Forecast Table View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -755,6 +772,7 @@
 		D4C3A0CA102235B800E7A430 /* External Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				D4B3BE361104DF2F003E5E3D /* security */,
 				D42DD9F110E9328D00F24E16 /* KeychainItemWrapper */,
 				D44D36CC10E521360022D163 /* bsjsonadditions */,
 				D44D36C110E520C40022D163 /* ObjectivePlurk */,
@@ -1004,6 +1022,7 @@
 				D4B3EC3E10E5542D00B6D5D3 /* TWPlurkBackgroudView.m in Sources */,
 				D42DD9F810E932A000F24E16 /* KeychainItemWrapper.m in Sources */,
 				D4B3BA7F1104B6EA003E5E3D /* TWFavoriteSectionCell.m in Sources */,
+				D4B3BE391104DF2F003E5E3D /* SFHFKeychainUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1056,7 +1075,11 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = TWWeather_Prefix.pch;
-				HEADER_SEARCH_PATHS = "../External/facebook-iphone-sdk/src/";
+				HEADER_SEARCH_PATHS = (
+					/usr/include/libxml2,
+					"\"$(SRCROOT)/yajl/build/yajl-0.4.0/include\"",
+					"../External/facebook-iphone-sdk/src/",
+				);
 				INFOPLIST_FILE = "TWWeather-Info.plist";
 				PRODUCT_NAME = TWWeather;
 				SDKROOT = iphoneos3.0;

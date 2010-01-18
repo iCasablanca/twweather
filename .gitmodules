@@ -10,3 +10,9 @@
 [submodule "ClientAPIBOX/ObjectiveC/External/bsjsonadditions"]
 	path = ClientAPIBOX/ObjectiveC/External/bsjsonadditions
 	url = git://github.com/blakeseely/bsjsonadditions.git
+[submodule "ClientAPIBOX/ObjectiveC/External/scifihifi-iphone"]
+	path = ClientAPIBOX/ObjectiveC/External/scifihifi-iphone
+	url = git://github.com/ldandersen/scifihifi-iphone.git
+[submodule "ClientAPIBOX/ObjectiveC/External/MGTwitterEngine-1.0.8-OAuth"]
+	path = ClientAPIBOX/ObjectiveC/External/MGTwitterEngine-1.0.8-OAuth
+	url = git://github.com/kimptoc/MGTwitterEngine-1.0.8-OAuth.git
