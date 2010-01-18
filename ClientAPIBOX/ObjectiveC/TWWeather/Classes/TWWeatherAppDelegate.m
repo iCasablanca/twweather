@@ -52,6 +52,7 @@
 	[audioPlayer release];
 	[facebookSession.delegates removeObject:self];
 	[facebookSession release];
+	[twitterEngine release];
 	[super dealloc];
 }
 
@@ -77,7 +78,12 @@
 			}
 		}
 	}
-	[TWTwitterEngine sharedInstance];
+	
+	twitterEngine = [[TWTwitterEngine alloc] initWithDelegate:self];
+	NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+	NSString *clientName = [infoDictionary objectForKey:@"CFBundleName"];
+	NSString *version = [infoDictionary objectForKey:@"CFBundleVersion"];	
+	[twitterEngine setClientName:clientName version:version URL:@"http://zonble.net" token:@"twweather"];	
 	
 	facebookSession = [[FBSession sessionForApplication:API_KEY secret:SECRET delegate:self] retain];
 	[facebookSession resume];
@@ -239,5 +245,6 @@
 @synthesize tabBarController;
 @synthesize navigationController;
 @synthesize facebookSession;
+@synthesize twitterEngine;
 
 @end

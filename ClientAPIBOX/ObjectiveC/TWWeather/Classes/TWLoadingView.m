@@ -29,6 +29,7 @@
 
 #import "TWLoadingView.h"
 
+static NSString *TWLoadingViewAnimationID = @"TWLoadingViewAnimationID";
 
 @implementation TWLoadingView
 
@@ -80,13 +81,22 @@
 
 - (void)animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
 {
+	[super removeFromSuperview];
+	[activityIndicator stopAnimating];
 	self.frame = originalFrame;
 	self.opaque = 1.0;
-	[super removeFromSuperview];
 }
 
-- (void)removeFromSuperview
+- (void)startAnimating
 {
+	[activityIndicator startAnimating];
+}
+- (void)stopAnimating
+{
+	if (![self superview]) {
+		return;
+	}	
+	
 	originalFrame = self.frame;
 	CGRect newFrame = self.frame;
 	newFrame.origin.x += 50;
@@ -96,22 +106,13 @@
 	
 	self.opaque = 0.5;
 	
-	[UIView beginAnimations:nil context:NULL];
+	[UIView beginAnimations:TWLoadingViewAnimationID context:NULL];
 	[UIView setAnimationDelegate:self];
 	[UIView setAnimationDuration:0.1];
 	[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
 	self.frame = newFrame;
-
-	[UIView commitAnimations];
-}
-
-- (void)startAnimating
-{
-	[activityIndicator startAnimating];
-}
-- (void)stopAnimating
-{
-	[activityIndicator stopAnimating];
+	
+	[UIView commitAnimations];	
 }
 
 

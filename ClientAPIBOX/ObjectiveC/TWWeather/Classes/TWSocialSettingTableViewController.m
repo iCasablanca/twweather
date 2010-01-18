@@ -66,7 +66,6 @@
 - (void)viewDidLoad 
 {
     [super viewDidLoad];
-//	self.title = NSLocalizedString(@"Plurk Setting", @"");
 	
 	if (!loginNameField) {
 		loginNameField = [[UITextField alloc] initWithFrame:CGRectMake(120, 15, 180, 30)];
@@ -172,7 +171,7 @@
 }
 - (void)hideLoadingView
 {
-	[loadingView removeFromSuperview];
+//	[loadingView removeFromSuperview];
 	[loadingView stopAnimating];
 	self.tableView.userInteractionEnabled = YES;
 	loginNameField.enabled = YES;
@@ -244,43 +243,6 @@
 	return YES;
 }
 
-//#pragma mark -
-//#pragma mark Plurk Login delegate methods.
-//
-//- (void)plurk:(ObjectivePlurk *)plurk didLoggedIn:(NSDictionary *)result
-//{
-//	[self hideLoadingView];
-//
-//	if (loginName && password) { 
-//		[[NSUserDefaults standardUserDefaults] setObject:loginName forKey:TWPlurkLoginNamePreference];
-//
-//#if TARGET_IPHONE_SIMULATOR	
-//		[[NSUserDefaults standardUserDefaults] setObject:password forKey:TWPlurkPasswordPreference];
-//#else
-//		KeychainItemWrapper *wrapper = [[KeychainItemWrapper alloc] initWithIdentifier:loginName accessGroup:nil];
-//		[wrapper setObject:loginName forKey:(id)kSecAttrAccount];
-//		[wrapper setObject:password forKey:(id)kSecValueData];
-//		[wrapper release];
-//#endif
-//	}
-//	[self refresh];
-//
-//	if (self.navigationItem.leftBarButtonItem) {
-//		UIBarButtonItem *item = self.navigationItem.leftBarButtonItem;
-//		SEL action = [item action];
-//		id target = [item target];
-//		[target performSelector:action withObject:self];
-//	}
-//
-//}
-//- (void)plurk:(ObjectivePlurk *)plurk didFailLoggingIn:(NSError *)error
-//{
-//	[self hideLoadingView];
-//	[loginNameField becomeFirstResponder];
-//	UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Failed to login Plurk.", @"") message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:nil];
-//	[alertView show];
-//	[alertView release];
-//}
 
 @synthesize loginName;
 @synthesize password;

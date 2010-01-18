@@ -9,5 +9,10 @@
 #import "MGTwitterEngine.h"
 
 @interface TWTwitterEngine : MGTwitterEngine
-+ (TWTwitterEngine *)sharedInstance;
+{
+	BOOL isLoggedIn;
+}
+
+@property (assign, getter=isLoggedIn) BOOL loggedIn;
+
 @end

@@ -7,17 +7,19 @@
 //
 
 #import "TWTwitterEngine.h"
-
-static TWTwitterEngine *sharedInstance;
+#import "TWWeatherAppDelegate.h"
 
 @implementation TWTwitterEngine
 
-+ (TWTwitterEngine *)sharedInstance
+- (void)setLoggedIn:(BOOL)flag
 {
-	if (!sharedInstance) {
-		sharedInstance = [[TWTwitterEngine alloc] initWithDelegate:nil];
-	}
-	return sharedInstance;
+	isLoggedIn = flag;
 }
+- (BOOL)isLoggedIn
+{
+	return isLoggedIn;
+}
+
+@dynamic loggedIn;
 
 @end

@@ -33,7 +33,13 @@
 #import "TWTwitterEngine.h"
 #import "TWFacebookAPI.h"
 
-@interface TWWeatherAppDelegate : NSObject <UIApplicationDelegate, AVAudioPlayerDelegate,FBSessionDelegate, FBDialogDelegate, UIAlertViewDelegate> 
+@interface TWWeatherAppDelegate : NSObject <
+	UIApplicationDelegate,
+	AVAudioPlayerDelegate,
+	FBSessionDelegate,
+	FBDialogDelegate,
+	MGTwitterEngineDelegate,
+	UIAlertViewDelegate> 
 {
     UIWindow *window;
 	UINavigationController *navigationController;
@@ -41,6 +47,7 @@
 	
 	AVAudioPlayer *audioPlayer;
 	FBSession *facebookSession;
+	TWTwitterEngine *twitterEngine;
 }
 
 + (TWWeatherAppDelegate*)sharedDelegate;
@@ -55,7 +62,8 @@
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet UITabBarController *tabBarController;
 @property (nonatomic, retain) IBOutlet UINavigationController *navigationController;
-@property (nonatomic, readonly) FBSession *facebookSession;;
+@property (readonly) FBSession *facebookSession;
+@property (readonly) TWTwitterEngine *twitterEngine;
 
 @end
 

@@ -246,7 +246,7 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 }
 - (void)hideLoadingView
 {
-	[loadingView removeFromSuperview];
+//	[loadingView removeFromSuperview];
 	[loadingView stopAnimating];
 	isLoading = NO;
 	self.tableView.userInteractionEnabled = YES;
