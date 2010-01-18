@@ -84,6 +84,7 @@
 		D489E5A61024EB3F00189460 /* TWAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D489E5A51024EB3F00189460 /* TWAboutViewController.m */; };
 		D489E5DC1024EF6000189460 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D489E5DB1024EF6000189460 /* MessageUI.framework */; };
 		D4A09D3410D95D6000013733 /* TWLocationAddTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A09D3310D95D6000013733 /* TWLocationAddTableViewController.m */; };
+		D4B3BA7F1104B6EA003E5E3D /* TWFavoriteSectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D4B3BA7E1104B6EA003E5E3D /* TWFavoriteSectionCell.m */; };
 		D4B3E9A510E521C800B6D5D3 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4B3E9A410E521C800B6D5D3 /* MobileCoreServices.framework */; };
 		D4B3E9C410E52D0000B6D5D3 /* TWPlurkSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4B3E9C310E52D0000B6D5D3 /* TWPlurkSettingTableViewController.m */; };
 		D4B3EA8F10E545C600B6D5D3 /* TWPlurkComposer.m in Sources */ = {isa = PBXBuildFile; fileRef = D4B3EA8E10E545C600B6D5D3 /* TWPlurkComposer.m */; };
@@ -234,6 +235,8 @@
 		D489E5DB1024EF6000189460 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		D4A09D3210D95D6000013733 /* TWLocationAddTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWLocationAddTableViewController.h; sourceTree = "<group>"; };
 		D4A09D3310D95D6000013733 /* TWLocationAddTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWLocationAddTableViewController.m; sourceTree = "<group>"; };
+		D4B3BA7D1104B6E9003E5E3D /* TWFavoriteSectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWFavoriteSectionCell.h; sourceTree = "<group>"; };
+		D4B3BA7E1104B6EA003E5E3D /* TWFavoriteSectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWFavoriteSectionCell.m; sourceTree = "<group>"; };
 		D4B3E9A410E521C800B6D5D3 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		D4B3E9C210E52D0000B6D5D3 /* TWPlurkSettingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWPlurkSettingTableViewController.h; sourceTree = "<group>"; };
 		D4B3E9C310E52D0000B6D5D3 /* TWPlurkSettingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWPlurkSettingTableViewController.m; sourceTree = "<group>"; };
@@ -743,6 +746,8 @@
 				D489E4F91023F2A200189460 /* TWLocationSettingTableViewController.m */,
 				D4A09D3210D95D6000013733 /* TWLocationAddTableViewController.h */,
 				D4A09D3310D95D6000013733 /* TWLocationAddTableViewController.m */,
+				D4B3BA7D1104B6E9003E5E3D /* TWFavoriteSectionCell.h */,
+				D4B3BA7E1104B6EA003E5E3D /* TWFavoriteSectionCell.m */,
 			);
 			name = "Favorite Table View Controller";
 			sourceTree = "<group>";
@@ -998,6 +1003,7 @@
 				D4B3EA8F10E545C600B6D5D3 /* TWPlurkComposer.m in Sources */,
 				D4B3EC3E10E5542D00B6D5D3 /* TWPlurkBackgroudView.m in Sources */,
 				D42DD9F810E932A000F24E16 /* KeychainItemWrapper.m in Sources */,
+				D4B3BA7F1104B6EA003E5E3D /* TWFavoriteSectionCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

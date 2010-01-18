@@ -1,5 +1,5 @@
 //
-// TWFavoriteTableViewController.h
+// TWFavoriteSectionCell.h
 //
 // Copyright (c) 2009 Weizhong Yang (http://zonble.net)
 // All Rights Reserved
@@ -27,34 +27,15 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#import "TWLocationSettingTableViewController.h"
-#import "TWLoadingView.h"
 
-@interface TWFavoriteTableViewController : UITableViewController <TWLocationSettingTableViewControllerDelegate>
+// @class TWFavoriteSectionCellBackgroundView;
+
+@interface TWFavoriteSectionCell : UITableViewCell
 {
-	NSMutableArray *_filterArray;
-	NSMutableArray *_filteredArray;
-	NSMutableArray *_favArray;
-	NSMutableArray *warningArray;
-	NSMutableDictionary *weekDictionary;
-	
-	TWLoadingView *loadingView;
-	UITableView *_tableView;
-	UILabel *errorLabel;
-	
-	BOOL isLoading;
-	BOOL isLoadingWeek;
-	NSUInteger loadingWeekIndex;
+//	TWFavoriteSectionCellBackgroundView *_ourContentView;
+	BOOL loading;
 }
 
-- (void)updateFilteredArray;
-- (void)loadData;
-- (void)showLoadingView;
-- (void)hideLoadingView;
-
-- (IBAction)changeSetting:(id)sender;
-- (IBAction)reload:(id)sender;
-
-@property (retain, nonatomic) UITableView *tableView;
+@property (assign, getter=isLoading) BOOL loading;
 
 @end

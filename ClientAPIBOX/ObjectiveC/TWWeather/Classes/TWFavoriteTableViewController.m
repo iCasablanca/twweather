@@ -30,8 +30,11 @@
 #import "TWFavoriteTableViewController.h"
 #import "TWForecastResultTableViewController.h"
 #import "TWOverviewViewController.h"
+#import "TWErrorViewController.h"
+#import "TWWeekResultTableViewController.h"
 #import "TWWebController.h"
 #import "TWForecastResultCell.h"
+#import "TWFavoriteSectionCell.h"
 #import "TWWeatherAppDelegate.h"
 #import "TWAPIBox.h"
 #import "TWAPIBox+Info.h"
@@ -49,18 +52,20 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 	[_filteredArray release];
 	[_filterArray release];
 	[_favArray release];
+	[warningArray release];
+	[weekDictionary release];
     [super dealloc];
 }
 
 - (void)viewDidUnload
 {
+	[super viewDidLoad];
 	[loadingView release];	
 	loadingView = nil;
 	[errorLabel release];
 	errorLabel = nil;
 	self.tableView = nil;
 	self.view = nil;
-	[super viewDidLoad];
 }
 
 #pragma mark UIViewContoller Methods
@@ -92,34 +97,39 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 }
 
 - (void)viewDidLoad 
-{
-	[super viewDidLoad];
-	
+{	
 	if (!_favArray) {
 		_favArray = [[NSMutableArray alloc] init];
-		NSArray *savedResult = [[NSUserDefaults standardUserDefaults] objectForKey:lastAllForecastsPreferenceName];
-		if (savedResult) {
-			[_favArray setArray:savedResult];
-		}
 	}
+	NSArray *savedResult = [[NSUserDefaults standardUserDefaults] objectForKey:lastAllForecastsPreferenceName];
+	if (savedResult) {
+		[_favArray setArray:savedResult];
+	}
+	
 	if (!_filterArray) {
-		_filterArray = [[NSMutableArray alloc] init];
-		
-		NSArray *favoitesSetting = [[NSUserDefaults standardUserDefaults] objectForKey:favoitesPreferenceName];
-		if (!favoitesSetting) {
-			favoitesSetting = [NSArray arrayWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:1], nil];
-			[[NSUserDefaults standardUserDefaults] setObject:favoitesSetting forKey:favoitesPreferenceName];
-		}
-		[_filterArray setArray:favoitesSetting];
+		_filterArray = [[NSMutableArray alloc] init];		
 	}
+	NSArray *favoitesSetting = [[NSUserDefaults standardUserDefaults] objectForKey:favoitesPreferenceName];
+	if (!favoitesSetting) {
+		favoitesSetting = [NSArray arrayWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:1], nil];
+		[[NSUserDefaults standardUserDefaults] setObject:favoitesSetting forKey:favoitesPreferenceName];
+	}
+	[_filterArray setArray:favoitesSetting];
+	
 	if (!_filteredArray) {
 		_filteredArray = [[NSMutableArray alloc] init];
-		[self updateFilteredArray];
 	}
+	[self updateFilteredArray];
+
 	if (!warningArray) {
 		warningArray = [[NSMutableArray alloc] init];
-	}	
+	}
 	
+	if (!weekDictionary) {
+		weekDictionary = [[NSMutableDictionary alloc] init];
+	}
+	
+	[super viewDidLoad];	
 	[self loadData];
 }
 
@@ -147,14 +157,51 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 
 - (void)didReceiveMemoryWarning 
 {
-    [super didReceiveMemoryWarning]; 
+    [super didReceiveMemoryWarning];
+	if (!self.view) {
+		[_filterArray release];
+		_filterArray = nil;
+		[_filteredArray release];
+		_filteredArray = nil;
+		[_favArray release];
+		_favArray = nil;
+		[warningArray release];	
+		warningArray = nil;
+		[weekDictionary release];
+		weekDictionary = nil;
+	}	
 }
 
 #pragma mark -
+#pragma mark Provate Methods
+
+- (void)pushErrorViewWithError:(NSError *)error
+{
+	TWErrorViewController *controller = [[TWErrorViewController alloc] init];
+	controller.error = error;
+	[self.navigationController pushViewController:controller animated:YES];
+	[controller release];
+}
+- (void)pushWeekViewController:(NSDictionary *)result
+{
+	TWWeekResultTableViewController *controller = [[TWWeekResultTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+	controller.title = [result objectForKey:@"locationName"];
+	controller.forecastArray = [result objectForKey:@"items"];
+	NSString *dateString = [result objectForKey:@"publishTime"];
+	NSDate *date = [[TWAPIBox sharedBox] dateFromShortString:dateString];
+	controller.publishTime = [[TWAPIBox sharedBox] shortDateTimeStringFromDate:date];
+	[self.navigationController pushViewController:controller animated:YES];
+	[controller release];
+}
+
 #pragma mark Actions
 
 - (IBAction)changeSetting:(id)sender
 {
+	if (isLoading || isLoadingWeek) {
+		return;
+	}	
+	
 	self.tabBarController.selectedIndex = 0;	
 	TWLocationSettingTableViewController *controller = [[TWLocationSettingTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
 	controller.delegate = self;
@@ -167,7 +214,7 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 }
 - (IBAction)reload:(id)sender
 {
-	if (isLoading) {
+	if (isLoading || isLoadingWeek) {
 		return;
 	}
 	self.tabBarController.selectedIndex = 0;
@@ -183,7 +230,6 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 			[_filteredArray addObject:d];
 		}		
 	}
-
 }
 - (void)loadData
 {
@@ -230,7 +276,7 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 	}
 	
 	if ([_filteredArray count]) {
-		return 1;
+		return 2;
 	}
 	return 0;
 }
@@ -259,12 +305,29 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 	}
 	
     static NSString *CellIdentifier = @"Cell";
+	static NSString *SectionCellIdentifier = @"SectionCell";
+	
+	NSDictionary *item = [_filteredArray objectAtIndex:indexPath.section - 1];
+	
+	if (indexPath.row == 0) {
+		TWFavoriteSectionCell *cell = (TWFavoriteSectionCell *)[tableView dequeueReusableCellWithIdentifier:SectionCellIdentifier];
+		if (cell == nil) {
+			cell = [[[TWFavoriteSectionCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:SectionCellIdentifier] autorelease];
+		}
+		cell.textLabel.text = [item objectForKey:@"locationName"];
+		if (isLoadingWeek && loadingWeekIndex == indexPath.section - 1) {
+			cell.loading = YES;
+		}
+		else {
+			cell.loading = NO;
+		}
+		return cell;
+	}
     
     TWForecastResultCell *cell = (TWForecastResultCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[TWForecastResultCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
-	NSDictionary *item = [_filteredArray objectAtIndex:indexPath.section - 1];
 	
 	if ([item isKindOfClass:[NSDictionary class]]) {
 		NSDictionary *dictionary = [[item objectForKey:@"items"] objectAtIndex:0];
@@ -290,6 +353,7 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	[tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:NO];
+
 	if (indexPath.section == 0) {
 		if (indexPath.row >= [warningArray count]) {
 			TWWebController *webController = [[TWWebController alloc] initWithNibName:@"TWWebController" bundle:[NSBundle mainBundle]];
@@ -309,16 +373,42 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 	}
 	
 	NSDictionary *dictionary = [_filteredArray objectAtIndex:indexPath.section - 1];
+	
+	if (indexPath.row == 0) {
+		NSString *weekLocation = [dictionary objectForKey:@"weekLocation"];
+		
+		if ([weekDictionary valueForKey:weekLocation]) {
+			NSDictionary *result = [weekDictionary valueForKey:weekLocation];
+			[self pushWeekViewController:result];
+			return;
+		}
+		
+		isLoadingWeek = YES;
+		loadingWeekIndex = indexPath.section - 1;
+		[tableView reloadData];
+		[[TWAPIBox sharedBox] fetchWeekWithLocationIdentifier:weekLocation delegate:self userInfo:nil];
+		return;
+	}
+	
 	TWForecastResultTableViewController *controller = [[TWForecastResultTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
 	controller.title = [dictionary objectForKey:@"locationName"];
 	controller.forecastArray = [dictionary objectForKey:@"items"];
-	controller.weekLocation = [dictionary objectForKey:@"weekLocation"];
+	NSString *weekLocation = [dictionary objectForKey:@"weekLocation"];
+	controller.weekLocation = weekLocation;
+
+	if ([weekDictionary valueForKey:weekLocation]) {
+		NSDictionary *result = [weekDictionary valueForKey:weekLocation];
+		controller.weekDictionary = result;
+	}
+		
 	[self.navigationController pushViewController:controller animated:YES];
 	[controller release];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
+	return nil;
+	
 	if (section == 0) {
 		return nil;
 	}
@@ -329,17 +419,13 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 	}		
 	return nil;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-	if (section == 0) {
-		return 0.0;
-	}
-	return 35.0;	
-}
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	if (indexPath.section == 0) {
 		return 40.0;
+	}
+	if (indexPath.row == 0) {
+		return 30.0;
 	}
 	return 130.0;
 }
@@ -398,6 +484,24 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 - (void)APIBox:(TWAPIBox *)APIBox didFailedFetchWarningsWithError:(NSError *)error
 {
 	
+}
+
+- (void)APIBox:(TWAPIBox *)APIBox didFetchWeek:(id)result identifier:(NSString *)identifier userInfo:(id)userInfo
+{
+	isLoadingWeek = NO;
+	[self.tableView reloadData];
+	
+	if ([result isKindOfClass:[NSDictionary class]]) {
+		[weekDictionary setObject:result forKey:identifier];
+		[self pushWeekViewController:result];
+	}
+}
+- (void)APIBox:(TWAPIBox *)APIBox didFailedFetchWeekWithError:(NSError *)error identifier:(NSString *)identifier userInfo:(id)userInfo
+{
+	isLoadingWeek = NO;
+	[self.tableView reloadData];
+	
+	[self pushErrorViewWithError:error];
 }
 
 @synthesize tableView = _tableView;
