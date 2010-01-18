@@ -162,12 +162,12 @@
 				cell.textLabel.text = NSLocalizedString(@"Twitter", @"");
 				cell.selectionStyle = UITableViewCellSelectionStyleBlue;
 				cell.detailTextLabel.text = @"";
-//				if ([[ObjectivePlurk sharedInstance] isLoggedIn]) {
-//					cell.detailTextLabel.text = NSLocalizedString(@"Logged In", @"");
-//				}
-//				else {
-//					cell.detailTextLabel.text = NSLocalizedString(@"Not Logged In", @"");
-//				}
+				if ([[TWTwitterEngine sharedEngine] isLoggedIn]) {
+					cell.detailTextLabel.text = NSLocalizedString(@"Logged In", @"");
+				}
+				else {
+					cell.detailTextLabel.text = NSLocalizedString(@"Not Logged In", @"");
+				}
 				
 				cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 				break;

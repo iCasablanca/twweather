@@ -29,7 +29,8 @@
 
 #import "TWPlurkSettingTableViewController.h"
 #import "TWCommonHeader.h"
-#import "KeychainItemWrapper.h"
+#import "SFHFKeychainUtils.h"
+//#import "KeychainItemWrapper.h"
 
 @implementation TWPlurkSettingTableViewController
 
@@ -49,17 +50,26 @@
 	NSString *theLoginName = [[NSUserDefaults standardUserDefaults] stringForKey:TWPlurkLoginNamePreference];
 	
 	if (theLoginName) {
-		self.loginName = theLoginName;	
-#if TARGET_IPHONE_SIMULATOR	
-		NSString *thePassword = [[NSUserDefaults standardUserDefaults] stringForKey:TWPlurkPasswordPreference];
-		self.password = thePassword;
-#else
-		KeychainItemWrapper *wrapper = [[KeychainItemWrapper alloc] initWithIdentifier:loginName accessGroup:nil];
-		NSString *thePassword = [wrapper objectForKey:(id)kSecValueData];
-		[wrapper release];
-		self.password  = thePassword;
-#endif
+		NSError *error = nil;
+		NSString *thePassword = [SFHFKeychainUtils getPasswordForUsername:theLoginName andServiceName:TWPlurkService error:&error];
+		if (thePassword && !error) {
+			self.loginName = theLoginName;	
+			self.password  = thePassword;			
+		}
 	}
+	
+//	if (theLoginName) {
+//		self.loginName = theLoginName;	
+//#if TARGET_IPHONE_SIMULATOR	
+//		NSString *thePassword = [[NSUserDefaults standardUserDefaults] stringForKey:TWPlurkPasswordPreference];
+//		self.password = thePassword;
+//#else
+//		KeychainItemWrapper *wrapper = [[KeychainItemWrapper alloc] initWithIdentifier:loginName accessGroup:nil];
+//		NSString *thePassword = [wrapper objectForKey:(id)kSecValueData];
+//		[wrapper release];
+//		self.password  = thePassword;
+//#endif
+//	}
 }
 
 - (IBAction)loginAciton:(id)sender
@@ -91,7 +101,12 @@
 
 - (IBAction)logoutAction:(id)sender
 {
+	NSString *theLoginName = [[NSUserDefaults standardUserDefaults] stringForKey:TWPlurkLoginNamePreference];
+	NSError *error = nil;
+	[SFHFKeychainUtils deleteItemForUsername:theLoginName andServiceName:TWPlurkService error:&error];
+	
 	[[ObjectivePlurk sharedInstance] logout];
+
 	[self refresh];
 	[loginNameField becomeFirstResponder];
 }
@@ -104,16 +119,9 @@
 	[self hideLoadingView];
 	
 	if (loginName && password) { 
+		NSError *error = nil;
 		[[NSUserDefaults standardUserDefaults] setObject:loginName forKey:TWPlurkLoginNamePreference];
-		
-#if TARGET_IPHONE_SIMULATOR	
-		[[NSUserDefaults standardUserDefaults] setObject:password forKey:TWPlurkPasswordPreference];
-#else
-		KeychainItemWrapper *wrapper = [[KeychainItemWrapper alloc] initWithIdentifier:loginName accessGroup:nil];
-		[wrapper setObject:loginName forKey:(id)kSecAttrAccount];
-		[wrapper setObject:password forKey:(id)kSecValueData];
-		[wrapper release];
-#endif
+		[SFHFKeychainUtils storeUsername:loginName andPassword:password forServiceName:TWPlurkService updateExisting:YES error:&error];
 	}
 	[self refresh];
 	

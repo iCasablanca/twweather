@@ -28,7 +28,14 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import "TWSocialSettingTableViewController.h"
+#import "TWTwitterEngine.h"
 
 @interface TWTwitterSettingTableViewController : TWSocialSettingTableViewController
+{
+
+	NSString *connectionID;
+}
+
+@property (retain, nonatomic) NSString *connectionID;
 
 @end

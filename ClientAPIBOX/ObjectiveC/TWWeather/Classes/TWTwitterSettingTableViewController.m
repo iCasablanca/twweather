@@ -28,7 +28,8 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import "TWTwitterSettingTableViewController.h"
-#import "TWWeatherAppDelegate.h"
+#import "SFHFKeychainUtils.h"
+#import "TWCommonHeader.h"
 
 @implementation TWTwitterSettingTableViewController
 
@@ -40,24 +41,25 @@
 
 - (BOOL)isLoggedIn
 {
-//	return [[ObjectivePlurk sharedInstance] isLoggedIn];
-	return NO;
+	return [TWTwitterEngine sharedEngine].loggedIn;
 }
 - (void)updateLoginInfo
-{
-//	NSString *theLoginName = [[NSUserDefaults standardUserDefaults] stringForKey:TWPlurkLoginNamePreference];
+{	
+	if ([TWTwitterEngine sharedEngine].loggedIn) {
+		MGTwitterEngine *engine = [TWTwitterEngine sharedEngine].engine;
+		self.loginName = [engine username];
+		self.password = [engine password];
+	}
+	
+//	NSString *theLoginName = [[NSUserDefaults standardUserDefaults] stringForKey:TWTwitterLoginNamePreference];
 //	
 //	if (theLoginName) {
-//		self.loginName = theLoginName;	
-//#if TARGET_IPHONE_SIMULATOR	
-//		NSString *thePassword = [[NSUserDefaults standardUserDefaults] stringForKey:TWPlurkPasswordPreference];
-//		self.password = thePassword;
-//#else
-//		KeychainItemWrapper *wrapper = [[KeychainItemWrapper alloc] initWithIdentifier:loginName accessGroup:nil];
-//		NSString *thePassword = [wrapper objectForKey:(id)kSecValueData];
-//		[wrapper release];
-//		self.password  = thePassword;
-//#endif
+//		NSError *error = nil;
+//		NSString *thePassword = [SFHFKeychainUtils getPasswordForUsername:theLoginName andServiceName:TWTwitterLoginNamePreference error:&error];
+//		if (thePassword && !error) {
+//			self.loginName = theLoginName;	
+//			self.password  = thePassword;			
+//		}
 //	}
 }
 
@@ -85,19 +87,56 @@
 	}
 	
 	[self showLoadingView];
-	TWTwitterEngine *engine = [TWWeatherAppDelegate sharedDelegate].twitterEngine;
+	[TWTwitterEngine sharedEngine].delegate = self;
+	MGTwitterEngine *engine = [TWTwitterEngine sharedEngine].engine;
 	[engine setUsername:loginName password:password];
-	NSString *s = [engine checkUserCredentials];
-	NSLog(@"s:%@", s);
-	
-//	[[ObjectivePlurk sharedInstance] loginWithUsername:loginName password:password delegate:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:loginName, @"loginName", password, @"password", nil]];
+	self.connectionID = [engine checkUserCredentials];
 }
 
 - (IBAction)logoutAction:(id)sender
 {
-//	[[ObjectivePlurk sharedInstance] logout];
+	MGTwitterEngine *engine = [TWTwitterEngine sharedEngine].engine;
+	NSString *username = [engine username];
+	NSError *error = nil;
+	[SFHFKeychainUtils deleteItemForUsername:username andServiceName:TWTwitterService error:&error];
+	
+	[engine setUsername:@"" password:@""];
+	[TWTwitterEngine sharedEngine].loggedIn = NO;
+
 	[self refresh];
 	[loginNameField becomeFirstResponder];
 }
+
+#pragma mark -
+
+- (void)requestSucceeded:(NSString *)requestIdentifier
+{
+	[self hideLoadingView];
+	[TWTwitterEngine sharedEngine].loggedIn = YES;
+	
+	if (loginName && password) { 
+		NSError *error = nil;
+		[[NSUserDefaults standardUserDefaults] setObject:loginName forKey:TWTwitterLoginNamePreference];
+		[SFHFKeychainUtils storeUsername:loginName andPassword:password forServiceName:TWTwitterService updateExisting:YES error:&error];
+	}
+	[self refresh];
+	
+	if (self.navigationItem.leftBarButtonItem) {
+		UIBarButtonItem *item = self.navigationItem.leftBarButtonItem;
+		SEL action = [item action];
+		id target = [item target];
+		[target performSelector:action withObject:self];
+	}
+}
+- (void)requestFailed:(NSString *)requestIdentifier withError:(NSError *)error
+{
+	[self hideLoadingView];
+	[loginNameField becomeFirstResponder];
+	UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Failed to login Twitter.", @"") message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:nil];
+	[alertView show];
+	[alertView release];
+}
+
+@synthesize connectionID;
 
 @end

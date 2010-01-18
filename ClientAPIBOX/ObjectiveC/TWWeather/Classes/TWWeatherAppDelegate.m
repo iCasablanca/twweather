@@ -35,7 +35,8 @@
 #import "TWAPIBox.h"
 #import "TWAPIBox+Info.h"
 #import "TWCommonHeader.h"
-#import "KeychainItemWrapper.h"
+#import "SFHFKeychainUtils.h"
+//#import "KeychainItemWrapper.h"
 
 @implementation TWWeatherAppDelegate
 
@@ -52,7 +53,6 @@
 	[audioPlayer release];
 	[facebookSession.delegates removeObject:self];
 	[facebookSession release];
-	[twitterEngine release];
 	[super dealloc];
 }
 
@@ -62,32 +62,32 @@
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application 
 {  
+	facebookSession = [[FBSession sessionForApplication:API_KEY secret:SECRET delegate:self] retain];
+	[facebookSession resume];
+	
 	[ObjectivePlurk sharedInstance].APIKey = PLURK_API_KEY;
 	if (![[ObjectivePlurk sharedInstance] resume]) {
 		NSString *loginName = [[NSUserDefaults standardUserDefaults] stringForKey:TWPlurkLoginNamePreference];
 		if (loginName) {
-#if TARGET_IPHONE_SIMULATOR	
-			NSString *password = [[NSUserDefaults standardUserDefaults] stringForKey:TWPlurkPasswordPreference];
-#else
-			KeychainItemWrapper *wrapper = [[KeychainItemWrapper alloc] initWithIdentifier:loginName accessGroup:nil];
-			NSString *password = [wrapper objectForKey:(id)kSecValueData];
-			[wrapper release];
-#endif
-			if (password) {
+			NSError *error = nil;
+			NSString *password = [SFHFKeychainUtils getPasswordForUsername:loginName andServiceName:TWTwitterLoginNamePreference error:&error];
+			if (password && !error) {
 				[[ObjectivePlurk sharedInstance] loginWithUsername:loginName password:password delegate:self userInfo:nil];
 			}
 		}
 	}
 	
-	twitterEngine = [[TWTwitterEngine alloc] initWithDelegate:self];
-	NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-	NSString *clientName = [infoDictionary objectForKey:@"CFBundleName"];
-	NSString *version = [infoDictionary objectForKey:@"CFBundleVersion"];	
-	[twitterEngine setClientName:clientName version:version URL:@"http://zonble.net" token:@"twweather"];	
-	
-	facebookSession = [[FBSession sessionForApplication:API_KEY secret:SECRET delegate:self] retain];
-	[facebookSession resume];
-	 
+	NSString *theLoginName = [[NSUserDefaults standardUserDefaults] stringForKey:TWTwitterLoginNamePreference];
+	if (theLoginName) {
+		NSError *error = nil;
+		NSString *thePassword = [SFHFKeychainUtils getPasswordForUsername:theLoginName andServiceName:TWTwitterService error:&error];
+		if (thePassword && !error) {
+			MGTwitterEngine *engine = [TWTwitterEngine sharedEngine].engine;
+			[engine setUsername:theLoginName password:thePassword];
+			[TWTwitterEngine sharedEngine].loggedIn = YES;
+		}
+	}
+
 	audioPlayer = nil;
 	window.backgroundColor = [UIColor blackColor];
 
@@ -245,6 +245,5 @@
 @synthesize tabBarController;
 @synthesize navigationController;
 @synthesize facebookSession;
-@synthesize twitterEngine;
 
 @end

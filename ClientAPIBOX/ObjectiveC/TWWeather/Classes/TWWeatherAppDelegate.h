@@ -38,7 +38,6 @@
 	AVAudioPlayerDelegate,
 	FBSessionDelegate,
 	FBDialogDelegate,
-	MGTwitterEngineDelegate,
 	UIAlertViewDelegate> 
 {
     UIWindow *window;
@@ -47,7 +46,6 @@
 	
 	AVAudioPlayer *audioPlayer;
 	FBSession *facebookSession;
-	TWTwitterEngine *twitterEngine;
 }
 
 + (TWWeatherAppDelegate*)sharedDelegate;
@@ -63,7 +61,6 @@
 @property (nonatomic, retain) IBOutlet UITabBarController *tabBarController;
 @property (nonatomic, retain) IBOutlet UINavigationController *navigationController;
 @property (readonly) FBSession *facebookSession;
-@property (readonly) TWTwitterEngine *twitterEngine;
 
 @end
 
