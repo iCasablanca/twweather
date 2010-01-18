@@ -1,5 +1,5 @@
 //
-// TWPlurkComposer.h
+// TWSocialComposer.h
 //
 // Copyright (c) 2009 Weizhong Yang (http://zonble.net)
 // All Rights Reserved
@@ -47,10 +47,21 @@
 
 @end
 
+typedef enum {
+    TWSocialComposerPlurkMode = 0,
+    TWSocialComposerTwitterMode = 1
+} TWSocialComposerMode;
+
+
 @interface TWSocialComposer : UINavigationController
+{
+	TWSocialComposerMode mode;
+}
 
 + (TWSocialComposer *)sharedComposer;
 - (void)showLoginAlert;
 - (void)showWithText:(NSString *)text;
+
+@property (assign) TWSocialComposerMode mode;
 
 @end

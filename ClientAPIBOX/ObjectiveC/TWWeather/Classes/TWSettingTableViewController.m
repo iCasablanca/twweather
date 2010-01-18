@@ -30,7 +30,8 @@
 #import "TWSettingTableViewController.h"
 #import "TWWeatherAppDelegate.h"
 #import "TWWeatherAppDelegate+BGM.h"
-#import "TWSocialSettingTableViewController.h"
+#import "TWPlurkSettingTableViewController.h"
+#import "TWTwitterSettingTableViewController.h"
 #import "TWCommonHeader.h"
 
 @implementation TWSettingTableViewController
@@ -115,7 +116,7 @@
 			return 1;
 			break;
 		case 1:
-			return 2;
+			return 3;
 			break;			
 		default:
 			break;
@@ -157,6 +158,19 @@
 
 				cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 				break;
+			case 2:
+				cell.textLabel.text = NSLocalizedString(@"Twitter", @"");
+				cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+				cell.detailTextLabel.text = @"";
+//				if ([[ObjectivePlurk sharedInstance] isLoggedIn]) {
+//					cell.detailTextLabel.text = NSLocalizedString(@"Logged In", @"");
+//				}
+//				else {
+//					cell.detailTextLabel.text = NSLocalizedString(@"Not Logged In", @"");
+//				}
+				
+				cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+				break;
 			default:
 				break;
 		}
@@ -166,10 +180,18 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	if (indexPath.section == 1 && indexPath.row == 1) {
-		TWSocialSettingTableViewController *controller = [[TWSocialSettingTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
-		[self.navigationController pushViewController:controller animated:YES];
-		[controller release];
+	if (indexPath.section == 1) {
+		UIViewController *controller = nil;
+		if (indexPath.row == 1) {
+			controller = [[TWPlurkSettingTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+		}
+		else {
+			controller = [[TWTwitterSettingTableViewController alloc] initWithStyle:UITableViewStyleGrouped];			 
+		}
+		if (controller) {
+			[self.navigationController pushViewController:controller animated:YES];
+			[controller release];
+		}
 	}
 }
 

@@ -1,5 +1,5 @@
 //
-// TWPlurkComposer.m
+// TWSocialComposer.m
 //
 // Copyright (c) 2009 Weizhong Yang (http://zonble.net)
 // All Rights Reserved
@@ -30,7 +30,8 @@
 #import "TWSocialComposer.h"
 #import "TWSocialBackgroudView.h"
 #import "TWWeatherAppDelegate.h"
-#import "TWSocialSettingTableViewController.h"
+//#import "TWSocialSettingTableViewController.h"
+#import "TWPlurkSettingTableViewController.h"
 
 static TWSocialComposer *sharedComposer;
 
@@ -75,7 +76,7 @@ static TWSocialComposer *sharedComposer;
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
 	if (buttonIndex) {
-		TWSocialSettingTableViewController *plurkController = [[TWSocialSettingTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+		TWPlurkSettingTableViewController *plurkController = [[TWPlurkSettingTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
 		UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:plurkController];
 		UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelLoginPlurk:)];
 		plurkController.navigationItem.leftBarButtonItem = item;
@@ -92,6 +93,8 @@ static TWSocialComposer *sharedComposer;
 	UINavigationController *rootNavController = [TWWeatherAppDelegate sharedDelegate].navigationController;	
 	[rootNavController dismissModalViewControllerAnimated:YES];
 }
+
+@synthesize mode;
 
 @end
 

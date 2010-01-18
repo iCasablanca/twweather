@@ -66,7 +66,7 @@
 - (void)viewDidLoad 
 {
     [super viewDidLoad];
-	self.title = NSLocalizedString(@"Plurk Setting", @"");
+//	self.title = NSLocalizedString(@"Plurk Setting", @"");
 	
 	if (!loginNameField) {
 		loginNameField = [[UITextField alloc] initWithFrame:CGRectMake(120, 15, 180, 30)];
@@ -95,8 +95,9 @@
 	if (!loginButton)  {	
 		loginButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];	
 		loginButton.frame = CGRectMake(10, 30, 300, 40);
+		loginButton.titleLabel.font = [UIFont boldSystemFontOfSize:16.0];
 		UIImage *blueButtonImage = [[UIImage imageNamed:@"BlueButton.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:0];
-		[loginButton setBackgroundImage:blueButtonImage forState:UIControlStateNormal];
+		[loginButton setBackgroundImage:blueButtonImage forState:UIControlStateNormal];		
 	}
 	self.tableView.tableFooterView = loginButton;
 	self.tableView.scrollEnabled = NO;
@@ -111,29 +112,25 @@
 	}
 }
 
+
 #pragma mark Actions
+
+- (BOOL)isLoggedIn
+{
+	return NO;
+}
+- (void)updateLoginInfo
+{
+}
 
 - (void)refresh
 {
-	NSString *theLoginName = [[NSUserDefaults standardUserDefaults] stringForKey:TWPlurkLoginNamePreference];
-
-	if (theLoginName) {
-		self.loginName = theLoginName;	
-#if TARGET_IPHONE_SIMULATOR	
-		NSString *thePassword = [[NSUserDefaults standardUserDefaults] stringForKey:TWPlurkPasswordPreference];
-		self.password = thePassword;
-#else
-		KeychainItemWrapper *wrapper = [[KeychainItemWrapper alloc] initWithIdentifier:loginName accessGroup:nil];
-		NSString *thePassword = [wrapper objectForKey:(id)kSecValueData];
-		[wrapper release];
-		self.password  = thePassword;
-#endif
-	}
+	[self updateLoginInfo];
 	
 	NSString *loginText = NSLocalizedString(@"Login", @"");
 	[loginButton removeTarget:self action:NULL forControlEvents:UIControlEventTouchUpInside];
 
-	if ([[ObjectivePlurk sharedInstance] isLoggedIn]) {
+	if ([self isLoggedIn]) {
 		loginText =  NSLocalizedString(@"Logout", @"");
 		[loginButton addTarget:self action:@selector(logoutAction:) forControlEvents:UIControlEventTouchUpInside];
 		loginNameField.enabled = NO;
@@ -159,36 +156,10 @@
 
 - (IBAction)loginAciton:(id)sender
 {
-	self.loginName = [loginNameField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-	self.password = [passwordField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-	loginNameField.text = loginName;
-	passwordField.text = password;
-	
-	if (![loginName length]) {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Please input your Plurk login name.", @"") message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:nil];
-		[alert show];
-		[alert release];
-		[loginNameField becomeFirstResponder];
-		return;
-	}
-	
-	if (![password length]) {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Please input your Plurk password.", @"") message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:nil];
-		[alert show];
-		[alert release];
-		[passwordField becomeFirstResponder];
-		return;
-	}
-	
-	[self showLoadingView];
-	[[ObjectivePlurk sharedInstance] loginWithUsername:loginName password:password delegate:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:loginName, @"loginName", password, @"password", nil]];
 }
 
 - (IBAction)logoutAction:(id)sender
 {
-	[[ObjectivePlurk sharedInstance] logout];
-	[self refresh];
-	[loginNameField becomeFirstResponder];
 }
 
 - (void)showLoadingView
@@ -234,7 +205,7 @@
 	switch (indexPath.row) {
 		case 0:
 			cell.textLabel.text = NSLocalizedString(@"Login Name:", @"");
-			if ([[ObjectivePlurk sharedInstance] isLoggedIn]) {
+			if ([self isLoggedIn]) {
 				cell.detailTextLabel.text = loginName;
 			}
 			else {
@@ -243,7 +214,7 @@
 			break;
 		case 1:
 			cell.textLabel.text = NSLocalizedString(@"Password:", @"");
-			if ([[ObjectivePlurk sharedInstance] isLoggedIn]) {
+			if ([self isLoggedIn]) {
 				NSMutableString *s = [NSMutableString string];
 				for (NSInteger i = 0; i < [password length]; i++) {
 					[s appendString:@"*"];
@@ -273,43 +244,43 @@
 	return YES;
 }
 
-#pragma mark -
-#pragma mark Plurk Login delegate methods.
-
-- (void)plurk:(ObjectivePlurk *)plurk didLoggedIn:(NSDictionary *)result
-{
-	[self hideLoadingView];
-
-	if (loginName && password) { 
-		[[NSUserDefaults standardUserDefaults] setObject:loginName forKey:TWPlurkLoginNamePreference];
-
-#if TARGET_IPHONE_SIMULATOR	
-		[[NSUserDefaults standardUserDefaults] setObject:password forKey:TWPlurkPasswordPreference];
-#else
-		KeychainItemWrapper *wrapper = [[KeychainItemWrapper alloc] initWithIdentifier:loginName accessGroup:nil];
-		[wrapper setObject:loginName forKey:(id)kSecAttrAccount];
-		[wrapper setObject:password forKey:(id)kSecValueData];
-		[wrapper release];
-#endif
-	}
-	[self refresh];
-
-	if (self.navigationItem.leftBarButtonItem) {
-		UIBarButtonItem *item = self.navigationItem.leftBarButtonItem;
-		SEL action = [item action];
-		id target = [item target];
-		[target performSelector:action withObject:self];
-	}
-
-}
-- (void)plurk:(ObjectivePlurk *)plurk didFailLoggingIn:(NSError *)error
-{
-	[self hideLoadingView];
-	[loginNameField becomeFirstResponder];
-	UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Failed to login Plurk.", @"") message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:nil];
-	[alertView show];
-	[alertView release];
-}
+//#pragma mark -
+//#pragma mark Plurk Login delegate methods.
+//
+//- (void)plurk:(ObjectivePlurk *)plurk didLoggedIn:(NSDictionary *)result
+//{
+//	[self hideLoadingView];
+//
+//	if (loginName && password) { 
+//		[[NSUserDefaults standardUserDefaults] setObject:loginName forKey:TWPlurkLoginNamePreference];
+//
+//#if TARGET_IPHONE_SIMULATOR	
+//		[[NSUserDefaults standardUserDefaults] setObject:password forKey:TWPlurkPasswordPreference];
+//#else
+//		KeychainItemWrapper *wrapper = [[KeychainItemWrapper alloc] initWithIdentifier:loginName accessGroup:nil];
+//		[wrapper setObject:loginName forKey:(id)kSecAttrAccount];
+//		[wrapper setObject:password forKey:(id)kSecValueData];
+//		[wrapper release];
+//#endif
+//	}
+//	[self refresh];
+//
+//	if (self.navigationItem.leftBarButtonItem) {
+//		UIBarButtonItem *item = self.navigationItem.leftBarButtonItem;
+//		SEL action = [item action];
+//		id target = [item target];
+//		[target performSelector:action withObject:self];
+//	}
+//
+//}
+//- (void)plurk:(ObjectivePlurk *)plurk didFailLoggingIn:(NSError *)error
+//{
+//	[self hideLoadingView];
+//	[loginNameField becomeFirstResponder];
+//	UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Failed to login Plurk.", @"") message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:nil];
+//	[alertView show];
+//	[alertView release];
+//}
 
 @synthesize loginName;
 @synthesize password;

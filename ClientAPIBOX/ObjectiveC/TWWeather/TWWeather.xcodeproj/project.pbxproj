@@ -75,6 +75,9 @@
 		D47B4EA91104E7160008FE6B /* MGTwitterMiscParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D47B4E981104E7160008FE6B /* MGTwitterMiscParser.m */; };
 		D47B4EAA1104E7160008FE6B /* NSString+UUID.m in Sources */ = {isa = PBXBuildFile; fileRef = D47B4E9B1104E7160008FE6B /* NSString+UUID.m */; };
 		D47B4EAB1104E7160008FE6B /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = D47B4E9D1104E7160008FE6B /* NSData+Base64.m */; };
+		D47B4F761104EDC60008FE6B /* TWPlurkSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D47B4F751104EDC60008FE6B /* TWPlurkSettingTableViewController.m */; };
+		D47B4FEA1104F3560008FE6B /* TWTwitterEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = D47B4FE91104F3560008FE6B /* TWTwitterEngine.m */; };
+		D47B50331104FAFE0008FE6B /* TWTwitterSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D47B50321104FAFE0008FE6B /* TWTwitterSettingTableViewController.m */; };
 		D489E3851023DF2500189460 /* TWAPIBox+Cache.m in Sources */ = {isa = PBXBuildFile; fileRef = D489E3831023DF2500189460 /* TWAPIBox+Cache.m */; };
 		D489E3AC1023E00100189460 /* DayCloudy.png in Resources */ = {isa = PBXBuildFile; fileRef = D489E3991023E00100189460 /* DayCloudy.png */; };
 		D489E3AD1023E00100189460 /* DayCloudyGlommy.png in Resources */ = {isa = PBXBuildFile; fileRef = D489E39A1023E00100189460 /* DayCloudyGlommy.png */; };
@@ -256,6 +259,12 @@
 		D47B4E9B1104E7160008FE6B /* NSString+UUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+UUID.m"; path = "../External/MGTwitterEngine-1.0.8/NSString+UUID.m"; sourceTree = SOURCE_ROOT; };
 		D47B4E9C1104E7160008FE6B /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+Base64.h"; path = "../External/MGTwitterEngine-1.0.8/NSData+Base64.h"; sourceTree = SOURCE_ROOT; };
 		D47B4E9D1104E7160008FE6B /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+Base64.m"; path = "../External/MGTwitterEngine-1.0.8/NSData+Base64.m"; sourceTree = SOURCE_ROOT; };
+		D47B4F741104EDC60008FE6B /* TWPlurkSettingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWPlurkSettingTableViewController.h; sourceTree = "<group>"; };
+		D47B4F751104EDC60008FE6B /* TWPlurkSettingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWPlurkSettingTableViewController.m; sourceTree = "<group>"; };
+		D47B4FE81104F3560008FE6B /* TWTwitterEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWTwitterEngine.h; sourceTree = "<group>"; };
+		D47B4FE91104F3560008FE6B /* TWTwitterEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWTwitterEngine.m; sourceTree = "<group>"; };
+		D47B50311104FAFE0008FE6B /* TWTwitterSettingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWTwitterSettingTableViewController.h; sourceTree = "<group>"; };
+		D47B50321104FAFE0008FE6B /* TWTwitterSettingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWTwitterSettingTableViewController.m; sourceTree = "<group>"; };
 		D489E3831023DF2500189460 /* TWAPIBox+Cache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TWAPIBox+Cache.m"; path = "../TWAPIBox/TWAPIBox+Cache.m"; sourceTree = SOURCE_ROOT; };
 		D489E3841023DF2500189460 /* TWAPIBox+Cache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TWAPIBox+Cache.h"; path = "../TWAPIBox/TWAPIBox+Cache.h"; sourceTree = SOURCE_ROOT; };
 		D489E3991023E00100189460 /* DayCloudy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DayCloudy.png; path = Images/DayCloudy.png; sourceTree = "<group>"; };
@@ -657,6 +666,8 @@
 				D4B3EA8E10E545C600B6D5D3 /* TWSocialComposer.m */,
 				D4B3EC3C10E5542D00B6D5D3 /* TWSocialBackgroudView.h */,
 				D4B3EC3D10E5542D00B6D5D3 /* TWSocialBackgroudView.m */,
+				D47B4FE81104F3560008FE6B /* TWTwitterEngine.h */,
+				D47B4FE91104F3560008FE6B /* TWTwitterEngine.m */,
 			);
 			name = "App Delegate";
 			sourceTree = "<group>";
@@ -670,6 +681,10 @@
 				D41E1D8E10842B6600A6675D /* TWSettingTableViewController.m */,
 				D4B3E9C210E52D0000B6D5D3 /* TWSocialSettingTableViewController.h */,
 				D4B3E9C310E52D0000B6D5D3 /* TWSocialSettingTableViewController.m */,
+				D47B4F741104EDC60008FE6B /* TWPlurkSettingTableViewController.h */,
+				D47B4F751104EDC60008FE6B /* TWPlurkSettingTableViewController.m */,
+				D47B50311104FAFE0008FE6B /* TWTwitterSettingTableViewController.h */,
+				D47B50321104FAFE0008FE6B /* TWTwitterSettingTableViewController.m */,
 			);
 			name = "Other Controllers";
 			sourceTree = "<group>";
@@ -1147,6 +1162,9 @@
 				D47B4EA91104E7160008FE6B /* MGTwitterMiscParser.m in Sources */,
 				D47B4EAA1104E7160008FE6B /* NSString+UUID.m in Sources */,
 				D47B4EAB1104E7160008FE6B /* NSData+Base64.m in Sources */,
+				D47B4F761104EDC60008FE6B /* TWPlurkSettingTableViewController.m in Sources */,
+				D47B4FEA1104F3560008FE6B /* TWTwitterEngine.m in Sources */,
+				D47B50331104FAFE0008FE6B /* TWTwitterSettingTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

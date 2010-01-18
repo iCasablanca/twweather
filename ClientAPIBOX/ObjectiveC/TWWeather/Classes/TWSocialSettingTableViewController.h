@@ -41,9 +41,12 @@
 	UIButton *loginButton;
 }
 
+- (BOOL)isLoggedIn;
+- (void)updateLoginInfo;
 - (void)refresh;
 - (void)showLoadingView;
 - (void)hideLoadingView;
+
 - (IBAction)loginAciton:(id)sender;
 - (IBAction)logoutAction:(id)sender;
 

@@ -77,6 +77,7 @@
 			}
 		}
 	}
+	[TWTwitterEngine sharedInstance];
 	
 	facebookSession = [[FBSession sessionForApplication:API_KEY secret:SECRET delegate:self] retain];
 	[facebookSession resume];
