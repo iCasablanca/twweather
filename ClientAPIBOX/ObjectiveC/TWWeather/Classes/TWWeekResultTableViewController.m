@@ -31,7 +31,7 @@
 #import "TWWeatherAppDelegate.h"
 #import "TWWeekResultCell.h"
 #import "TWAPIBox.h"
-#import "TWPlurkComposer.h"
+#import "TWSocialComposer.h"
 
 @implementation TWWeekResultTableViewController
 
@@ -95,7 +95,7 @@
 	NSString *description = [self _feedDescription];
 	
 	NSString *text = [NSString stringWithFormat:@"%@ %@", feedTitle, description];
-	[[TWPlurkComposer sharedComposer] showWithText:text];
+	[[TWSocialComposer sharedComposer] showWithText:text];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex

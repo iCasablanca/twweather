@@ -1,5 +1,5 @@
 //
-// TWPlurkSettingTableViewController.m
+// TWSocialSettingTableViewController.m
 //
 // Copyright (c) 2009 Weizhong Yang (http://zonble.net)
 // All Rights Reserved
@@ -27,11 +27,11 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#import "TWPlurkSettingTableViewController.h"
+#import "TWSocialSettingTableViewController.h"
 #import "TWCommonHeader.h"
 #import "KeychainItemWrapper.h"
 
-@implementation TWPlurkSettingTableViewController
+@implementation TWSocialSettingTableViewController
 
 #pragma mark Routines
 

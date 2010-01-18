@@ -70,13 +70,40 @@
 	CGPathCloseSubpath(path);
 	CGContextAddPath(context, path);
 	
-	CGFloat black[] = {0.0, 0.0, 0.0, 0.7};
+	CGFloat black[] = {0.0, 0.0, 0.0, 0.7 * self.opaque};
 	CGContextSetFillColor(context, black);
 	CGContextFillPath(context);
 	CGPathRelease(path);
 }
 
 #pragma mark Actions
+
+- (void)animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
+{
+	self.frame = originalFrame;
+	self.opaque = 1.0;
+	[super removeFromSuperview];
+}
+
+- (void)removeFromSuperview
+{
+	originalFrame = self.frame;
+	CGRect newFrame = self.frame;
+	newFrame.origin.x += 50;
+	newFrame.origin.y += 50;
+	newFrame.size.width -= 100;
+	newFrame.size.height -= 100;
+	
+	self.opaque = 0.5;
+	
+	[UIView beginAnimations:nil context:NULL];
+	[UIView setAnimationDelegate:self];
+	[UIView setAnimationDuration:0.1];
+	[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
+	self.frame = newFrame;
+
+	[UIView commitAnimations];
+}
 
 - (void)startAnimating
 {

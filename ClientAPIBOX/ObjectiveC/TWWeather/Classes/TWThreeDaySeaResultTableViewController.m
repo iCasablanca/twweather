@@ -31,7 +31,7 @@
 #import "TWWeatherAppDelegate.h"
 #import "TWThreeDaySeaCell.h"
 #import "TWAPIBox.h"
-#import "TWPlurkComposer.h"
+#import "TWSocialComposer.h"
 
 @implementation TWThreeDaySeaResultTableViewController
 
@@ -100,7 +100,7 @@
 	NSString *feedTitle = [NSString stringWithFormat:@"%@ 三天漁業預報", [self title]];
 	NSString *description = [self _feedDescription];
 	NSString *text = [NSString stringWithFormat:@"%@ %@", feedTitle, description];
-	[[TWPlurkComposer sharedComposer] showWithText:text];
+	[[TWSocialComposer sharedComposer] showWithText:text];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex

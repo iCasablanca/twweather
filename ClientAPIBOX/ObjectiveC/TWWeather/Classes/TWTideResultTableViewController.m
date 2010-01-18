@@ -31,7 +31,7 @@
 #import "TWWeatherAppDelegate.h"
 #import "TWTideCell.h"
 #import "TWAPIBox.h"
-#import "TWPlurkComposer.h"
+#import "TWSocialComposer.h"
 
 @implementation TWTideResultTableViewController
 
@@ -98,7 +98,7 @@
 	NSString *feedTitle = [NSString stringWithFormat:@"%@ 三天潮汐", [self title]];
 	NSString *description = [self _feedDescription];
 	NSString *text = [NSString stringWithFormat:@"%@ %@", feedTitle, description];
-	[[TWPlurkComposer sharedComposer] showWithText:text];
+	[[TWSocialComposer sharedComposer] showWithText:text];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex

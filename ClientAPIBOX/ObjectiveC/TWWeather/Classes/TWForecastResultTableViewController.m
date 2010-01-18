@@ -34,7 +34,7 @@
 #import "TWWeatherAppDelegate.h"
 #import "TWLoadingCell.h"
 #import "TWAPIBox.h"
-#import "TWPlurkComposer.h"
+#import "TWSocialComposer.h"
 
 @implementation TWForecastResultTableViewController
 
@@ -105,7 +105,7 @@
 	NSString *description = [self _feedDescription];
 	NSString *text = [NSString stringWithFormat:@"%@ %@", feedTitle, description];
 
-	[[TWPlurkComposer sharedComposer] showWithText:text];
+	[[TWSocialComposer sharedComposer] showWithText:text];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex

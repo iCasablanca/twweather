@@ -28,7 +28,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import "ObjectivePlurk.h"
-#import "TWPlurkComposer.h"
+#import "TWSocialComposer.h"
 #import "TWImageViewController.h"
 #import "TWWeatherAppDelegate.h"
 
@@ -148,7 +148,7 @@
 - (void)shareImageViaPlurk
 {
 	if (![[ObjectivePlurk sharedInstance] isLoggedIn]) {
-		[[TWPlurkComposer sharedComposer] showLoginAlert];
+		[[TWSocialComposer sharedComposer] showLoginAlert];
 		return;
 	}	
 	NSString *tmpFile = [NSTemporaryDirectory() stringByAppendingPathComponent:@"tmp.png"];
@@ -274,7 +274,7 @@
 	if (full) {
 		NSString *text = [NSString stringWithFormat:@"%@ %@", full, self.title];
 		pushingPlurkComposer = YES;
-		[[TWPlurkComposer sharedComposer] showWithText:text];
+		[[TWSocialComposer sharedComposer] showWithText:text];
 	}
 }
 - (void)plurk:(ObjectivePlurk *)plurk didFailUploadingPicture:(NSError *)error

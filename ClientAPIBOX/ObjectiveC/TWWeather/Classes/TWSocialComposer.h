@@ -29,7 +29,7 @@
 
 #import "ObjectivePlurk.h"
 
-@interface TWPlurkComposerViewController : UIViewController <UITextViewDelegate, UIAlertViewDelegate>
+@interface TWSocialComposerViewController : UIViewController <UITextViewDelegate, UIAlertViewDelegate>
 {
 	UITextView *textView;
 	UILabel *wordCountLabel;
@@ -47,9 +47,9 @@
 
 @end
 
-@interface TWPlurkComposer : UINavigationController
+@interface TWSocialComposer : UINavigationController
 
-+ (TWPlurkComposer *)sharedComposer;
++ (TWSocialComposer *)sharedComposer;
 - (void)showLoginAlert;
 - (void)showWithText:(NSString *)text;
 

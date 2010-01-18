@@ -29,7 +29,7 @@
 
 #import "TWOverviewViewController.h"
 #import "TWWeatherAppDelegate.h"
-#import "TWPlurkComposer.h"
+#import "TWSocialComposer.h"
 
 @implementation TWOverviewViewController
 
@@ -110,7 +110,7 @@
 	NSString *feedTitle = [self title];
 	NSString *description = [_text stringByReplacingOccurrencesOfString:@"\n" withString:@""];
 	NSString *text = [NSString stringWithFormat:@"%@ %@", feedTitle, description];
-	[[TWPlurkComposer sharedComposer] showWithText:text];
+	[[TWSocialComposer sharedComposer] showWithText:text];
 }
 
 - (IBAction)navBarAction:(id)sender

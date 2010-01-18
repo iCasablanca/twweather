@@ -1,5 +1,5 @@
 //
-// TWPlurkBackgroudView.h
+// TWSocialSettingTableViewController.h
 //
 // Copyright (c) 2009 Weizhong Yang (http://zonble.net)
 // All Rights Reserved
@@ -27,6 +27,27 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-@interface TWPlurkBackgroudView : UIView 
+#import "ObjectivePlurk.h"
+#import "TWLoadingView.h"
+
+@interface TWSocialSettingTableViewController : UITableViewController <UITextFieldDelegate>
+{
+	NSString *loginName;
+	NSString *password;
+	
+	TWLoadingView *loadingView;
+	UITextField *loginNameField;
+	UITextField *passwordField;
+	UIButton *loginButton;
+}
+
+- (void)refresh;
+- (void)showLoadingView;
+- (void)hideLoadingView;
+- (IBAction)loginAciton:(id)sender;
+- (IBAction)logoutAction:(id)sender;
+
+@property (retain, nonatomic) NSString *loginName;
+@property (retain, nonatomic) NSString *password;
 
 @end

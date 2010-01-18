@@ -30,7 +30,7 @@
 #import "TWNearSeaResultTableViewController.h"
 #import "TWWeatherAppDelegate.h"
 #import "TWNearSeaCell.h"
-#import "TWPlurkComposer.h"
+#import "TWSocialComposer.h"
 
 @implementation TWNearSeaResultTableViewController
 
@@ -101,7 +101,7 @@
 	NSString *feedTitle = [NSString stringWithFormat:@"%@ 天氣預報", [self title]];
 	NSString *attachmentDescription = [self _feedDescription];
 	NSString *text = [NSString stringWithFormat:@"%@ %@", feedTitle, attachmentDescription];
-	[[TWPlurkComposer sharedComposer] showWithText:text];
+	[[TWSocialComposer sharedComposer] showWithText:text];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex

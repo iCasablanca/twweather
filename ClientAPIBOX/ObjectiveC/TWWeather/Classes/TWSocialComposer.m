@@ -27,20 +27,20 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#import "TWPlurkComposer.h"
-#import "TWPlurkBackgroudView.h"
+#import "TWSocialComposer.h"
+#import "TWSocialBackgroudView.h"
 #import "TWWeatherAppDelegate.h"
-#import "TWPlurkSettingTableViewController.h"
+#import "TWSocialSettingTableViewController.h"
 
-static TWPlurkComposer *sharedComposer;
+static TWSocialComposer *sharedComposer;
 
-@implementation TWPlurkComposer
+@implementation TWSocialComposer
 
-+ (TWPlurkComposer *)sharedComposer
++ (TWSocialComposer *)sharedComposer
 {
 	if (!sharedComposer) {
-		TWPlurkComposerViewController *viewController = [[TWPlurkComposerViewController alloc] init];
-		sharedComposer = [[TWPlurkComposer alloc] initWithRootViewController:viewController];
+		TWSocialComposerViewController *viewController = [[TWSocialComposerViewController alloc] init];
+		sharedComposer = [[TWSocialComposer alloc] initWithRootViewController:viewController];
 		sharedComposer.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
 		sharedComposer.navigationBar.barStyle = UIBarStyleBlack;
 		[viewController release];
@@ -62,7 +62,7 @@ static TWPlurkComposer *sharedComposer;
 		return;
 	}
 
-	TWPlurkComposerViewController *composer = (TWPlurkComposerViewController *)[[self viewControllers] objectAtIndex:0];
+	TWSocialComposerViewController *composer = (TWSocialComposerViewController *)[[self viewControllers] objectAtIndex:0];
 	[composer view];
 	UINavigationController *rootNavController = [TWWeatherAppDelegate sharedDelegate].navigationController;
 	[rootNavController presentModalViewController:self animated:YES];
@@ -75,7 +75,7 @@ static TWPlurkComposer *sharedComposer;
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
 	if (buttonIndex) {
-		TWPlurkSettingTableViewController *plurkController = [[TWPlurkSettingTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+		TWSocialSettingTableViewController *plurkController = [[TWSocialSettingTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
 		UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:plurkController];
 		UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelLoginPlurk:)];
 		plurkController.navigationItem.leftBarButtonItem = item;
@@ -97,7 +97,7 @@ static TWPlurkComposer *sharedComposer;
 
 #pragma mark -
 
-@implementation TWPlurkComposerViewController
+@implementation TWSocialComposerViewController
 
 #pragma mark Routines
 
@@ -127,7 +127,7 @@ static TWPlurkComposer *sharedComposer;
 
 - (void)loadView 
 {
-	TWPlurkBackgroudView *aView = [[[TWPlurkBackgroudView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)] autorelease];
+	TWSocialBackgroudView *aView = [[[TWSocialBackgroudView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)] autorelease];
 	aView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
 	aView.backgroundColor = [UIColor whiteColor];
 	self.view = aView;

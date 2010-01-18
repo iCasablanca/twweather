@@ -30,6 +30,7 @@
 @interface TWLoadingView : UIView
 {
 	UIActivityIndicatorView *activityIndicator;
+	CGRect originalFrame;
 }
 
 - (void)startAnimating;

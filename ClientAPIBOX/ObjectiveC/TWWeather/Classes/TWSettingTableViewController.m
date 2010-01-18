@@ -30,7 +30,7 @@
 #import "TWSettingTableViewController.h"
 #import "TWWeatherAppDelegate.h"
 #import "TWWeatherAppDelegate+BGM.h"
-#import "TWPlurkSettingTableViewController.h"
+#import "TWSocialSettingTableViewController.h"
 #import "TWCommonHeader.h"
 
 @implementation TWSettingTableViewController
@@ -167,7 +167,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	if (indexPath.section == 1 && indexPath.row == 1) {
-		TWPlurkSettingTableViewController *controller = [[TWPlurkSettingTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+		TWSocialSettingTableViewController *controller = [[TWSocialSettingTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
 		[self.navigationController pushViewController:controller animated:YES];
 		[controller release];
 	}
