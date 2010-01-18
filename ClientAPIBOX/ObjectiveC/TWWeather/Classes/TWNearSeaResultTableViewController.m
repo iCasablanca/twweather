@@ -65,7 +65,7 @@
 
 - (IBAction)navBarAction:(id)sender
 {
-	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Share via Facebook", @""), NSLocalizedString(@"Share via Plurk", @""), nil];
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Share via Facebook", @""), NSLocalizedString(@"Share via Plurk", @""), NSLocalizedString(@"Share via Twitter", @""), nil];
 	[actionSheet showInView:[self view]];
 	[actionSheet release];
 }
@@ -96,7 +96,7 @@
 		[dialog show];
 	}
 }
-- (void)shareViaPlurk
+- (void)shareViaSocialComposer
 {
 	NSString *feedTitle = [NSString stringWithFormat:@"%@ 天氣預報", [self title]];
 	NSString *attachmentDescription = [self _feedDescription];
@@ -110,9 +110,13 @@
 		[self shareViaFacebook];
 	}
 	else if (buttonIndex == 1) {
-		[self shareViaPlurk];
+		[TWSocialComposer sharedComposer].mode = TWSocialComposerPlurkMode;
+		[self shareViaSocialComposer];
 	}
-	
+	else if (buttonIndex == 2) {
+		[TWSocialComposer sharedComposer].mode = TWSocialComposerTwitterMode;
+		[self shareViaSocialComposer];
+	}	
 }
 
 #pragma mark UITableViewDataSource and UITableViewDelegate

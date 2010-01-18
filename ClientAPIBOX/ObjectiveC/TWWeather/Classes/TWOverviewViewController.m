@@ -105,7 +105,7 @@
 	}
 }
 
-- (void)shareViaPlurk
+- (void)shareViaSocialComposer
 {
 	NSString *feedTitle = [self title];
 	NSString *description = [_text stringByReplacingOccurrencesOfString:@"\n" withString:@""];
@@ -115,7 +115,7 @@
 
 - (IBAction)navBarAction:(id)sender
 {
-	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Copy", @""), NSLocalizedString(@"Share via Facebook", @""), NSLocalizedString(@"Share via Plurk", @""), nil];
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Copy", @""), NSLocalizedString(@"Share via Facebook", @""), NSLocalizedString(@"Share via Plurk", @""), NSLocalizedString(@"Share via Twitter", @""), nil];
 	[actionSheet showInView:[self view]];
 	[actionSheet release];
 }
@@ -129,9 +129,13 @@
 		[self shareViaFacebook];
 	}
 	else if (buttonIndex == 2) {
-		[self shareViaPlurk];
+		[TWSocialComposer sharedComposer].mode = TWSocialComposerPlurkMode;
+		[self shareViaSocialComposer];
 	}
-	
+	else if (buttonIndex == 3) {
+		[TWSocialComposer sharedComposer].mode = TWSocialComposerTwitterMode;
+		[self shareViaSocialComposer];
+	}	
 }
 
 

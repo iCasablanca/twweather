@@ -30,8 +30,8 @@
 #import "TWSocialComposer.h"
 #import "TWSocialBackgroudView.h"
 #import "TWWeatherAppDelegate.h"
-//#import "TWSocialSettingTableViewController.h"
 #import "TWPlurkSettingTableViewController.h"
+#import "TWTwitterSettingTableViewController.h"
 
 static TWSocialComposer *sharedComposer;
 
@@ -51,18 +51,32 @@ static TWSocialComposer *sharedComposer;
 
 - (void)showLoginAlert
 {
-	UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"You did not login Plurk.", @"") message:NSLocalizedString(@"Do you want to login now?", @"") delegate:self cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:NSLocalizedString(@"Login", @""), nil];
-	[alertView show];
-	[alertView release];	
+	NSString *msg = nil;
+	if (self.mode == TWSocialComposerPlurkMode) {
+		NSLocalizedString(@"You did not login Plurk.", @"");
+	}
+	else if (self.mode == TWSocialComposerTwitterMode) {
+		NSLocalizedString(@"You did not login Twitter.", @"");
+	}
+
+	if (msg) {
+		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:msg message:NSLocalizedString(@"Do you want to login now?", @"") delegate:self cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:NSLocalizedString(@"Login", @""), nil];
+		[alertView show];
+		[alertView release];
+	}
 }
 
 - (void)showWithText:(NSString *)text
 {
-	if (![[ObjectivePlurk sharedInstance] isLoggedIn]) {
+	if (self.mode == TWSocialComposerPlurkMode && ![[ObjectivePlurk sharedInstance] isLoggedIn]) {
 		[self showLoginAlert];
 		return;
 	}
-
+	else if (self.mode == TWSocialComposerTwitterMode && ![[TWTwitterEngine sharedEngine] isLoggedIn]) {
+		[self showLoginAlert];
+		return;
+	}
+		
 	TWSocialComposerViewController *composer = (TWSocialComposerViewController *)[[self viewControllers] objectAtIndex:0];
 	[composer view];
 	UINavigationController *rootNavController = [TWWeatherAppDelegate sharedDelegate].navigationController;
@@ -71,17 +85,31 @@ static TWSocialComposer *sharedComposer;
 	composer.textView.editable = YES;
 	composer.textView.text = text;
 	[composer updateWordCount];
+	
+	if (self.mode == TWSocialComposerPlurkMode) {
+		composer.title = NSLocalizedString(@"Post to Plurk", @"");
+	}
+	else if (self.mode == TWSocialComposerTwitterMode) {
+		composer.title = NSLocalizedString(@"Post to Twitter", @"");
+	}
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
 	if (buttonIndex) {
-		TWPlurkSettingTableViewController *plurkController = [[TWPlurkSettingTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
-		UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:plurkController];
+		UIViewController *controller = nil;
+		if (self.mode == TWSocialComposerPlurkMode && ![[ObjectivePlurk sharedInstance] isLoggedIn]) {
+			controller = [[TWPlurkSettingTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+		}
+		else if (self.mode == TWSocialComposerTwitterMode && ![[TWTwitterEngine sharedEngine] isLoggedIn]) {
+			controller = [[TWTwitterSettingTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+		}
+		
+		UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
 		UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelLoginPlurk:)];
-		plurkController.navigationItem.leftBarButtonItem = item;
+		controller.navigationItem.leftBarButtonItem = item;
 		[item release];
-		[plurkController release];
+		[controller release];
 		UINavigationController *rootNavController = [TWWeatherAppDelegate sharedDelegate].navigationController;
 		[rootNavController presentModalViewController:navController animated:YES];
 		[navController release];
@@ -117,6 +145,7 @@ static TWSocialComposer *sharedComposer;
 - (void)dealloc 
 {
 	[self removeOutletsAndControls_TWPlurkComposer];
+	[currentConnectionID release];
     [super dealloc];
 }
 - (void)viewDidUnload
@@ -169,7 +198,7 @@ static TWSocialComposer *sharedComposer;
 - (void)viewDidLoad 
 {
     [super viewDidLoad];
-	self.title = NSLocalizedString(@"Post to Plurk", @"");
+//	self.title = NSLocalizedString(@"Post to Plurk", @"");
 	
 	UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelAction:)];
 	self.navigationItem.leftBarButtonItem = cancelItem;
@@ -221,6 +250,11 @@ static TWSocialComposer *sharedComposer;
 }
 - (IBAction)doneAction:(id)sender
 {
+	TWSocialComposer *composer = (TWSocialComposer *)self.navigationController;
+	if (!composer) {
+		return;
+	}
+
 	NSString *content = textView.text;
 	textView.editable = NO;
 
@@ -228,8 +262,16 @@ static TWSocialComposer *sharedComposer;
 	loadingView.hidden = NO;
 	loadingLabel.hidden = NO;
 	
-	[[ObjectivePlurk sharedInstance] addNewMessageWithContent:content qualifier:@"shares" othersCanComment:YES lang:@"tr_ch" limitToUsers:nil delegate:self userInfo:nil];
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+	if (composer.mode == TWSocialComposerPlurkMode) {
+		[[ObjectivePlurk sharedInstance] addNewMessageWithContent:content qualifier:@"shares" othersCanComment:YES lang:@"tr_ch" limitToUsers:nil delegate:self userInfo:nil];
+		[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+	}
+	else if (composer.mode == TWSocialComposerTwitterMode) {
+		[TWTwitterEngine sharedEngine].delegate = self;
+		MGTwitterEngine *engine = [TWTwitterEngine sharedEngine].engine;
+		self.currentConnectionID = [engine sendUpdate:content];
+		[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+	}	
 }
 
 #pragma mark -
@@ -243,28 +285,54 @@ static TWSocialComposer *sharedComposer;
 #pragma mark -
 #pragma mark ObjectivePlurk delegate methods
 
-- (void)plurk:(ObjectivePlurk *)plurk didAddMessage:(NSDictionary *)result
+- (void)endPosting
 {
 	[loadingView stopAnimating];
 	loadingView.hidden = YES;
 	loadingLabel.hidden = YES;
 	
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-	[self cancelAction:self];
+
+}
+- (void)plurk:(ObjectivePlurk *)plurk didAddMessage:(NSDictionary *)result
+{
+	[self endPosting];
+	[self cancelAction:self];	
 }
 - (void)plurk:(ObjectivePlurk *)plurk didFailAddingMessage:(NSError *)error
 {
-	[loadingView stopAnimating];
-	loadingView.hidden = YES;
-	loadingLabel.hidden = YES;
-	
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+	[self endPosting];
 	textView.editable = YES;
 	UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Failed to post on Plurk", @"") message:[error localizedDescription] delegate:self cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:nil];
 	[alertView show];
 	[alertView release];
 }
 
+
+#pragma mark MGTwiiterEngine delegate methods
+
+- (void)requestSucceeded:(NSString *)requestIdentifier
+{
+	if (![requestIdentifier isEqualToString:currentConnectionID]) {
+		return;
+	}
+	self.currentConnectionID = nil;
+	[self endPosting];
+	[self cancelAction:self];
+}
+- (void)requestFailed:(NSString *)requestIdentifier withError:(NSError *)error
+{
+	if (![requestIdentifier isEqualToString:currentConnectionID]) {
+		return;
+	}	
+	self.currentConnectionID = nil;
+	[self endPosting];
+	UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Failed to post on Twitter", @"") message:[error localizedDescription] delegate:self cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:nil];
+	[alertView show];
+	[alertView release];	
+}
+
 @synthesize textView;
+@synthesize currentConnectionID;
 
 @end

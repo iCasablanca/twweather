@@ -28,6 +28,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import "ObjectivePlurk.h"
+#import "TWTwitterEngine.h"
 
 @interface TWSocialComposerViewController : UIViewController <UITextViewDelegate, UIAlertViewDelegate>
 {
@@ -37,6 +38,7 @@
 	UILabel *loadingLabel;
 	
 	UIStatusBarStyle originalBarStyle;
+	NSString *currentConnectionID;
 }
 
 - (void)updateWordCount;
@@ -44,6 +46,7 @@
 - (IBAction)doneAction:(id)sender;
 
 @property (readonly) UITextView *textView;
+@property (retain, nonatomic) NSString *currentConnectionID;
 
 @end
 

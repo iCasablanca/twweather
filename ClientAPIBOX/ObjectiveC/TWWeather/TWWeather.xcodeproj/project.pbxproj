@@ -34,7 +34,6 @@
 		D426D6DD102D17D400BBBEB3 /* TWOBSCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D426D6DC102D17D400BBBEB3 /* TWOBSCell.m */; };
 		D426D8CF102D377600BBBEB3 /* TWLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = D426D8CE102D377600BBBEB3 /* TWLoadingView.m */; };
 		D42C7A091023CF59009C3C4E /* TWImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D42C7A081023CF59009C3C4E /* TWImageViewController.m */; };
-		D42DD9F810E932A000F24E16 /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = D42DD9F710E932A000F24E16 /* KeychainItemWrapper.m */; };
 		D42DDA0F10E932CF00F24E16 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D42DDA0E10E932CF00F24E16 /* Security.framework */; };
 		D44C172C10309942006B6698 /* CocoaCryptoHashing.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E509411023C17F002B39D7 /* CocoaCryptoHashing.m */; };
 		D44D36C710E520DC0022D163 /* ObjectivePlurk.m in Sources */ = {isa = PBXBuildFile; fileRef = D44D36C410E520DC0022D163 /* ObjectivePlurk.m */; };
@@ -200,8 +199,6 @@
 		D426D8CE102D377600BBBEB3 /* TWLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWLoadingView.m; sourceTree = "<group>"; };
 		D42C7A071023CF59009C3C4E /* TWImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWImageViewController.h; sourceTree = "<group>"; };
 		D42C7A081023CF59009C3C4E /* TWImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWImageViewController.m; sourceTree = "<group>"; };
-		D42DD9F610E932A000F24E16 /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeychainItemWrapper.h; path = ../External/AppleSampleCode/KeychainItemWrapper/KeychainItemWrapper.h; sourceTree = SOURCE_ROOT; };
-		D42DD9F710E932A000F24E16 /* KeychainItemWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KeychainItemWrapper.m; path = ../External/AppleSampleCode/KeychainItemWrapper/KeychainItemWrapper.m; sourceTree = SOURCE_ROOT; };
 		D42DDA0E10E932CF00F24E16 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		D44D36C310E520DC0022D163 /* ObjectivePlurk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ObjectivePlurk.h; path = ../External/ObjectivePlurk/ObjectivePlurk/ObjectivePlurk.h; sourceTree = SOURCE_ROOT; };
 		D44D36C410E520DC0022D163 /* ObjectivePlurk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ObjectivePlurk.m; path = ../External/ObjectivePlurk/ObjectivePlurk/ObjectivePlurk.m; sourceTree = SOURCE_ROOT; };
@@ -706,15 +703,6 @@
 			name = Sounds;
 			sourceTree = "<group>";
 		};
-		D42DD9F110E9328D00F24E16 /* KeychainItemWrapper */ = {
-			isa = PBXGroup;
-			children = (
-				D42DD9F610E932A000F24E16 /* KeychainItemWrapper.h */,
-				D42DD9F710E932A000F24E16 /* KeychainItemWrapper.m */,
-			);
-			name = KeychainItemWrapper;
-			sourceTree = "<group>";
-		};
 		D44D36C110E520C40022D163 /* ObjectivePlurk */ = {
 			isa = PBXGroup;
 			children = (
@@ -898,7 +886,6 @@
 			children = (
 				D47B4E7A1104E7160008FE6B /* MATwitterEngine */,
 				D4B3BE361104DF2F003E5E3D /* security */,
-				D42DD9F110E9328D00F24E16 /* KeychainItemWrapper */,
 				D44D36CC10E521360022D163 /* bsjsonadditions */,
 				D44D36C110E520C40022D163 /* ObjectivePlurk */,
 				D400824010C34195007416F6 /* FBConnect */,
@@ -1145,7 +1132,6 @@
 				D4B3E9C410E52D0000B6D5D3 /* TWSocialSettingTableViewController.m in Sources */,
 				D4B3EA8F10E545C600B6D5D3 /* TWSocialComposer.m in Sources */,
 				D4B3EC3E10E5542D00B6D5D3 /* TWSocialBackgroudView.m in Sources */,
-				D42DD9F810E932A000F24E16 /* KeychainItemWrapper.m in Sources */,
 				D4B3BA7F1104B6EA003E5E3D /* TWFavoriteSectionCell.m in Sources */,
 				D4B3BE391104DF2F003E5E3D /* SFHFKeychainUtils.m in Sources */,
 				D47B4E9E1104E7160008FE6B /* MGTwitterEngine.m in Sources */,

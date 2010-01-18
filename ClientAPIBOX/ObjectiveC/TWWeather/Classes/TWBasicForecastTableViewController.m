@@ -100,7 +100,13 @@
 	if (!_searchBar) {
 		_searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 40)];
 		_searchBar.delegate = self;
-		_searchBar.tintColor = [UIColor grayColor];
+		// _searchBar.tintColor = [UIColor grayColor];
+		if ([[_searchBar subviews] count]) {
+			UIView *bgView = [[_searchBar subviews] objectAtIndex:0];
+			if (bgView) {
+				[bgView setValue:[UIColor colorWithHue:1.0 saturation:0.0 brightness:0.9 alpha:1.0] forKey:@"tintColor"];
+			}
+		}
 	}
 	if (!_searchController) {
 		_searchController = [[UISearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
