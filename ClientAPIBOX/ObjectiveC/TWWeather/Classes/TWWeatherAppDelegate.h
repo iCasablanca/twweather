@@ -32,6 +32,7 @@
 #import "ObjectivePlurk.h"
 #import "TWTwitterEngine.h"
 #import "TWFacebookAPI.h"
+#import "TWNavigationController.h"
 
 @interface TWWeatherAppDelegate : NSObject <
 	UIApplicationDelegate,
@@ -41,7 +42,7 @@
 	UIAlertViewDelegate> 
 {
     UIWindow *window;
-	UINavigationController *navigationController;
+	TWNavigationController *navigationController;
     UITabBarController *tabBarController;
 	
 	AVAudioPlayer *audioPlayer;

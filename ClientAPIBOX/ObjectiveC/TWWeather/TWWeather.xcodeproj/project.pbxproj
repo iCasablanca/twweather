@@ -77,6 +77,7 @@
 		D47B4F761104EDC60008FE6B /* TWPlurkSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D47B4F751104EDC60008FE6B /* TWPlurkSettingTableViewController.m */; };
 		D47B4FEA1104F3560008FE6B /* TWTwitterEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = D47B4FE91104F3560008FE6B /* TWTwitterEngine.m */; };
 		D47B50331104FAFE0008FE6B /* TWTwitterSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D47B50321104FAFE0008FE6B /* TWTwitterSettingTableViewController.m */; };
+		D47B55AA11054D830008FE6B /* TWNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D47B55A911054D830008FE6B /* TWNavigationController.m */; };
 		D489E3851023DF2500189460 /* TWAPIBox+Cache.m in Sources */ = {isa = PBXBuildFile; fileRef = D489E3831023DF2500189460 /* TWAPIBox+Cache.m */; };
 		D489E3AC1023E00100189460 /* DayCloudy.png in Resources */ = {isa = PBXBuildFile; fileRef = D489E3991023E00100189460 /* DayCloudy.png */; };
 		D489E3AD1023E00100189460 /* DayCloudyGlommy.png in Resources */ = {isa = PBXBuildFile; fileRef = D489E39A1023E00100189460 /* DayCloudyGlommy.png */; };
@@ -262,6 +263,8 @@
 		D47B4FE91104F3560008FE6B /* TWTwitterEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWTwitterEngine.m; sourceTree = "<group>"; };
 		D47B50311104FAFE0008FE6B /* TWTwitterSettingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWTwitterSettingTableViewController.h; sourceTree = "<group>"; };
 		D47B50321104FAFE0008FE6B /* TWTwitterSettingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWTwitterSettingTableViewController.m; sourceTree = "<group>"; };
+		D47B55A811054D830008FE6B /* TWNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWNavigationController.h; sourceTree = "<group>"; };
+		D47B55A911054D830008FE6B /* TWNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWNavigationController.m; sourceTree = "<group>"; };
 		D489E3831023DF2500189460 /* TWAPIBox+Cache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TWAPIBox+Cache.m"; path = "../TWAPIBox/TWAPIBox+Cache.m"; sourceTree = SOURCE_ROOT; };
 		D489E3841023DF2500189460 /* TWAPIBox+Cache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TWAPIBox+Cache.h"; path = "../TWAPIBox/TWAPIBox+Cache.h"; sourceTree = SOURCE_ROOT; };
 		D489E3991023E00100189460 /* DayCloudy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DayCloudy.png; path = Images/DayCloudy.png; sourceTree = "<group>"; };
@@ -654,6 +657,8 @@
 			isa = PBXGroup;
 			children = (
 				D400828F10C34714007416F6 /* TWFacebookAPI.h */,
+				D47B55A811054D830008FE6B /* TWNavigationController.h */,
+				D47B55A911054D830008FE6B /* TWNavigationController.m */,
 				D41E1DD110842E2600A6675D /* TWCommonHeader.h */,
 				1D3623240D0F684500981E51 /* TWWeatherAppDelegate.h */,
 				1D3623250D0F684500981E51 /* TWWeatherAppDelegate.m */,
@@ -1151,6 +1156,7 @@
 				D47B4F761104EDC60008FE6B /* TWPlurkSettingTableViewController.m in Sources */,
 				D47B4FEA1104F3560008FE6B /* TWTwitterEngine.m in Sources */,
 				D47B50331104FAFE0008FE6B /* TWTwitterSettingTableViewController.m in Sources */,
+				D47B55AA11054D830008FE6B /* TWNavigationController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

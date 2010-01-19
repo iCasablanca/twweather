@@ -36,7 +36,6 @@
 #import "TWAPIBox+Info.h"
 #import "TWCommonHeader.h"
 #import "SFHFKeychainUtils.h"
-//#import "KeychainItemWrapper.h"
 
 @implementation TWWeatherAppDelegate
 
@@ -96,7 +95,7 @@
 	
 	self.tabBarController.viewControllers = controllerArray;
 	
-	UINavigationController *ourNavigationController = [[UINavigationController alloc] initWithRootViewController:self.tabBarController];
+	TWNavigationController *ourNavigationController = [[TWNavigationController alloc] initWithRootViewController:self.tabBarController];
 	self.navigationController = ourNavigationController;
 	[ourNavigationController release];
 	

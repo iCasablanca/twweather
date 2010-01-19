@@ -35,6 +35,23 @@
 
 @implementation TWMoreViewController
 
+- (void)sendEmailAction:(id)sender
+{
+	if ([MFMailComposeViewController canSendMail]) {
+		MFMailComposeViewController *controller = [[MFMailComposeViewController alloc] init];
+		controller.mailComposeDelegate = self;
+		[controller setSubject:NSLocalizedString(@"TW Weather Questions/Inquiry", @"")];
+		[controller setToRecipients:[NSArray arrayWithObject:@"Weizhong Yang<service@zonble.net>"]];
+		[self presentModalViewController:controller animated:YES];
+		[controller release];
+	}
+	else {
+		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"You cannot send email now",@"") message:@"" delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:nil];
+		[alertView show];
+		[alertView release];
+	}
+}
+
 #pragma mark Table view methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView 
@@ -47,7 +64,7 @@
 		return 4;
 	}		
 	else if (section == 1) {
-		return 2;
+		return 3;
 	}	
 //	else if (section == 1) {
 //		return 1;
@@ -102,10 +119,13 @@
 			case 1:
 				cell.textLabel.text = NSLocalizedString(@"About", @"");
 				break;				
+			case 2:
+				cell.accessoryType = UITableViewCellAccessoryNone;
+				cell.textLabel.text = NSLocalizedString(@"Feedback", @"");
+				break;				
 			default:
 				break;
 		}
-//		cell.textLabel.text = NSLocalizedString(@"About", @"");
 		return cell;
 	}
 	
@@ -155,6 +175,11 @@
 		
 	}
 	else if (indexPath.section == 1) {
+		if (indexPath.row == 2) {
+			[self sendEmailAction:self];
+			return;
+		}
+		
 		UITableViewController *controller = nil;
 		if (indexPath.row == 0) {
 			controller = [[TWSettingTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
@@ -179,6 +204,19 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
 	return nil;
+}
+
+#pragma mark -
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+	UIViewController *parentController = controller.parentViewController;
+	[parentController dismissModalViewControllerAnimated:YES];
+	if (result == MFMailComposeResultSent) {
+		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Your mail is sent!", @"") message:NSLocalizedString(@"Thanks for your feedback.", @"") delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:nil];
+		[alertView show];
+		[alertView release];
+	}
 }
 
 @end

@@ -50,17 +50,6 @@
 		self.loginName = [engine username];
 		self.password = [engine password];
 	}
-	
-//	NSString *theLoginName = [[NSUserDefaults standardUserDefaults] stringForKey:TWTwitterLoginNamePreference];
-//	
-//	if (theLoginName) {
-//		NSError *error = nil;
-//		NSString *thePassword = [SFHFKeychainUtils getPasswordForUsername:theLoginName andServiceName:TWTwitterLoginNamePreference error:&error];
-//		if (thePassword && !error) {
-//			self.loginName = theLoginName;	
-//			self.password  = thePassword;			
-//		}
-//	}
 }
 
 - (IBAction)loginAciton:(id)sender

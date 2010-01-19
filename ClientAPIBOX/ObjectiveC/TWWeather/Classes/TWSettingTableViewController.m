@@ -38,7 +38,6 @@
 
 - (void)removeOutletsAndControls_TWSettingTableViewController
 {
-    // remove and clean outlets and controls here
 	[BGMSwitch release];
 	BGMSwitch = nil;
 	[loginButton release];
@@ -85,24 +84,27 @@
     [super viewDidAppear:animated];
 	[self.tableView reloadData];
 }
-//- (void)viewWillDisappear:(BOOL)animated 
-//{
-//	[super viewWillDisappear:animated];
-//}
-//- (void)viewDidDisappear:(BOOL)animated 
-//{
-//	[super viewDidDisappear:animated];
-//}
-
 
 - (void)didReceiveMemoryWarning
 {
-	// Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-
-	// Release any cached data, images, etc that aren't in use.
 }
 
+#pragma mark Actions
+
+- (IBAction)toggleBGMSettingAction:(id)sender
+{
+	UISwitch *aSwitch = (UISwitch *)sender;
+	if (aSwitch.on) {
+		[[TWWeatherAppDelegate sharedDelegate] startPlayingBGM];
+	}
+	else {
+		[[TWWeatherAppDelegate sharedDelegate] stopPlayingBGM];
+	}
+	[[NSUserDefaults standardUserDefaults] setBool:aSwitch.on forKey:TWBGMPreferencen];
+}
+
+#pragma mark -
 #pragma mark Table view methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -217,19 +219,6 @@
 	}
 	return nil;
 }
-
-- (IBAction)toggleBGMSettingAction:(id)sender
-{
-	UISwitch *aSwitch = (UISwitch *)sender;
-	if (aSwitch.on) {
-		[[TWWeatherAppDelegate sharedDelegate] startPlayingBGM];
-	}
-	else {
-		[[TWWeatherAppDelegate sharedDelegate] stopPlayingBGM];
-	}
-	[[NSUserDefaults standardUserDefaults] setBool:aSwitch.on forKey:TWBGMPreferencen];
-}
-
 
 @end
 

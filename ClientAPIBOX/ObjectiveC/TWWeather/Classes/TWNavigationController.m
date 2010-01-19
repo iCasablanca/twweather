@@ -1,5 +1,5 @@
 //
-// TWMoreViewController.h
+// TWNavigationController.m
 //
 // Copyright (c) 2009 - 2010 Weizhong Yang (http://zonble.net)
 // All Rights Reserved
@@ -27,13 +27,15 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#import <MessageUI/MessageUI.h>
+#import "TWNavigationController.h"
 
-@interface TWMoreViewController : UITableViewController <MFMailComposeViewControllerDelegate>
+@implementation TWNavigationController
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-
+	return NO;
+//    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (IBAction)sendEmailAction:(id)sender;
 
 @end

@@ -27,16 +27,12 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#import <MessageUI/MessageUI.h>
-
-@interface TWAboutViewController : UIViewController <MFMailComposeViewControllerDelegate>
+@interface TWAboutViewController : UIViewController
 {
 	UILabel *titleLabel;
 	UILabel *copyrightLabel;
 	UILabel *externalLibraryLabel;
 }
-
-- (void)sendEmailAction:(id)sender;
 
 @property (retain, nonatomic) UILabel *titleLabel;
 @property (retain, nonatomic) UILabel *copyrightLabel;

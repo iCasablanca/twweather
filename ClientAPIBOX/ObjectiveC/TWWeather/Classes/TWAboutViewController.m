@@ -62,11 +62,7 @@
 	scrollView.contentSize = contentView.frame.size;
 
 	self.title = NSLocalizedString(@"About", @"");
-	
-	UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Feedback",@"") style:UIBarButtonItemStyleBordered target:self action:@selector(sendEmailAction:)];
-	self.navigationItem.rightBarButtonItem = item;
-	[item release];
-	
+		
 	NSBundle *bundle = [NSBundle mainBundle];
 	NSDictionary *loaclizedDictionary = [bundle localizedInfoDictionary];
 	NSDictionary *infoDictionary = [bundle infoDictionary];
@@ -99,35 +95,9 @@
     [super didReceiveMemoryWarning]; 
 }
 
-- (void)sendEmailAction:(id)sender
-{
-	if ([MFMailComposeViewController canSendMail]) {
-		MFMailComposeViewController *controller = [[MFMailComposeViewController alloc] init];
-		controller.mailComposeDelegate = self;
-		[controller setSubject:NSLocalizedString(@"TW Weather Questions/Inquiry", @"")];
-		[controller setToRecipients:[NSArray arrayWithObject:@"Weizhong Yang<service@zonble.net>"]];
-		[self presentModalViewController:controller animated:YES];
-		[controller release];
-	}
-	else {
-		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"You cannot send email now",@"") message:@"" delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:nil];
-		[alertView show];
-		[alertView release];
-	}
-}
 
-#pragma mark -
 
-- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
-{
-	UIViewController *parentController = controller.parentViewController;
-	[parentController dismissModalViewControllerAnimated:YES];
-	if (result == MFMailComposeResultSent) {
-		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Your mail is sent!", @"") message:NSLocalizedString(@"Thanks for your feedback.", @"") delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:nil];
-		[alertView show];
-		[alertView release];
-	}
-}
+
 
 @synthesize titleLabel;
 @synthesize copyrightLabel;

@@ -282,33 +282,31 @@ static TWAPIBox *apibox;
 }
 - (NSString *)shortDateTimeStringFromDate:(NSDate *)date
 {
-	if (!date) {
-		return nil;
-	}	
 	if (!_formatter) {
 		_formatter = [[NSDateFormatter alloc] init];
 	}
 	[_formatter setDateStyle:kCFDateFormatterShortStyle];
 	[_formatter setTimeStyle:kCFDateFormatterShortStyle];
-	return [_formatter stringFromDate:date];	
-}
-- (NSString *)shortDateStringFromDate:(NSDate *)date
-{
 	if (!date) {
 		return nil;
 	}	
+	return [_formatter stringFromDate:[[date retain] autorelease]];	
+}
+- (NSString *)shortDateStringFromDate:(NSDate *)date
+{
 	if (!_formatter) {
 		_formatter = [[NSDateFormatter alloc] init];
 	}
 	[_formatter setDateStyle:kCFDateFormatterShortStyle];
 	[_formatter setTimeStyle:kCFDateFormatterNoStyle];
 	
-	NSMutableString *s = [NSMutableString stringWithString:[_formatter stringFromDate:date]];
+	if (!date) {
+		return nil;
+	}	
+	NSMutableString *s = [NSMutableString stringWithString:[_formatter stringFromDate:[[date retain] autorelease]]];
 	[_formatter setDateFormat:@"EEE"];
 	[s appendFormat:@" %@", [_formatter stringFromDate:date]];
 	return s;
-//	
-//	return [_formatter stringFromDate:date];	
 }
 
 #pragma mark -
