@@ -102,6 +102,8 @@
 	
 	[engine setUsername:@"" password:@""];
 	[TWTwitterEngine sharedEngine].loggedIn = NO;
+	
+	[[NSUserDefaults standardUserDefaults] removeObjectForKey:TWTwitterLoginNamePreference];
 
 	[self refresh];
 	[loginNameField becomeFirstResponder];

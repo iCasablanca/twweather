@@ -38,15 +38,24 @@ static NSString *TWLoadingViewAnimationID = @"TWLoadingViewAnimationID";
 	[activityIndicator release];
     [super dealloc];
 }
+
+- (void)resetActivityIndicator
+{
+	CGRect frame = self.frame;
+	CGFloat x = (frame.size.width - 40) / 2;
+	CGFloat y = (frame.size.height - 40) / 2;
+	CGRect rect = CGRectMake(x, y, 40, 40);
+	activityIndicator.frame = rect;	
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
+		originalFrame = frame;
 		self.backgroundColor = [UIColor clearColor];
 		activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-		CGFloat x = (frame.size.width - 40) / 2;
-		CGFloat y = (frame.size.height - 40) / 2;
-		CGRect rect = CGRectMake(x, y, 40, 40);
-		activityIndicator.frame = rect;
+		activityIndicator.hidesWhenStopped = YES;
+		[self resetActivityIndicator];
 		[self addSubview:activityIndicator];
     }
     return self;
@@ -81,8 +90,8 @@ static NSString *TWLoadingViewAnimationID = @"TWLoadingViewAnimationID";
 
 - (void)animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
 {
-	[activityIndicator stopAnimating];
 	self.frame = originalFrame;
+	[self resetActivityIndicator];
 	[super removeFromSuperview];
 }
 
@@ -94,9 +103,10 @@ static NSString *TWLoadingViewAnimationID = @"TWLoadingViewAnimationID";
 {
 	if (![self superview]) {
 		return;
-	}	
+	}
 	
-	originalFrame = self.frame;
+	[activityIndicator stopAnimating];
+	
 	CGRect newFrame = self.frame;
 	newFrame.origin.x += 50;
 	newFrame.origin.y += 50;

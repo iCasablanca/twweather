@@ -100,3 +100,18 @@
 "Please input your Plurk password." = "請輸入您的 your Plurk 密碼";
 "Unable to upload image to Facebook." = "無法將圖片上傳至 Facebook";
 "Unable to upload image to Plurk." = "無法將圖片上傳至 Plurk.";
+
+"Twitter Setting" = "Twitter 設定";
+
+"Please input your Twitter login name." = "請輸入您的 Twitter 帳號";
+"Please input your Twitter password." = "請輸入您的 Twitter 密碼";
+
+"Failed to login Twitter." = "登入 Twitter 失敗";
+"Failed to post on Twitter" = "在 Twitter 上發表文章失敗";
+"You did not login Twitter." = "您還沒有登入 Twitter";
+"Please input your Twitter login name." = "請輸入您的 Twitter 帳號";
+"Please input your Twitter password." = "請輸入您的 Twitter 密碼";
+"Share via Twitter" = "Twitter 分享";
+
+"Post to Plurk" = "Plurk 分享";
+"Post to Twitter" = "Twitter 分享";

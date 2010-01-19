@@ -62,10 +62,9 @@
 #pragma mark -
 #pragma mark UIViewContoller Methods
 
-- (void)viewDidLoad 
+- (void)loadView
 {
-    [super viewDidLoad];
-	
+	[super loadView];
 	UIColor *color = [UIColor colorWithHue:0.58 saturation:0.81 brightness:0.46 alpha:1.00];
 	
 	if (!loginNameField) {
@@ -79,7 +78,7 @@
 		loginNameField.textColor = color;
 		loginNameField.delegate = self;
 	}
-
+	
 	if (!passwordField) {
 		passwordField = [[UITextField alloc] initWithFrame:CGRectMake(120, 15, 180, 30)];
 		passwordField.font = [UIFont systemFontOfSize:14.0];
@@ -103,6 +102,11 @@
 	}
 	self.tableView.tableFooterView = loginButton;
 	self.tableView.scrollEnabled = NO;
+}
+
+- (void)viewDidLoad 
+{
+    [super viewDidLoad];
 }
 - (void)viewWillAppear:(BOOL)animated 
 {
@@ -148,14 +152,11 @@
 		passwordField.text = @"";
 	}
 	
-	[UIView beginAnimations:nil context:NULL];
-	loginButton.frame = CGRectMake(10, 30, 300, 40);
 	[loginButton setTitle:loginText forState:UIControlStateNormal];
 	[loginButton setTitle:loginText forState:UIControlStateHighlighted];
 	[loginButton setTitle:loginText forState:UIControlStateDisabled];
-	[loginButton setTitle:loginText forState:UIControlStateSelected];
-	[UIView commitAnimations];
-	
+	[loginButton setTitle:loginText forState:UIControlStateSelected];	
+	self.tableView.tableFooterView = loginButton;
 	[self.tableView reloadData];
 }
 

@@ -46,12 +46,11 @@
 - (void)updateLoginInfo
 {
 	NSString *theLoginName = [[NSUserDefaults standardUserDefaults] stringForKey:TWPlurkLoginNamePreference];
-	
 	if (theLoginName) {
+		self.loginName = theLoginName;	
 		NSError *error = nil;
 		NSString *thePassword = [SFHFKeychainUtils getPasswordForUsername:theLoginName andServiceName:TWPlurkService error:&error];
-		if (thePassword && !error) {
-			self.loginName = theLoginName;	
+		if (thePassword) {
 			self.password  = thePassword;			
 		}
 	}
@@ -89,10 +88,11 @@
 	NSString *theLoginName = [[NSUserDefaults standardUserDefaults] stringForKey:TWPlurkLoginNamePreference];
 	NSError *error = nil;
 	[SFHFKeychainUtils deleteItemForUsername:theLoginName andServiceName:TWPlurkService error:&error];
-	
 	[[ObjectivePlurk sharedInstance] logout];
+	[[NSUserDefaults standardUserDefaults] removeObjectForKey:TWPlurkLoginNamePreference];
 
 	[self refresh];
+
 	[loginNameField becomeFirstResponder];
 }
 

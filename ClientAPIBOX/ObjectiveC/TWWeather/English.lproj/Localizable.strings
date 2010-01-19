@@ -99,3 +99,18 @@
 "Please input your Plurk password." = "Please input your Plurk password.";
 "Unable to upload image to Facebook." = "Unable to upload image to Facebook.";
 "Unable to upload image to Plurk." = "Unable to upload image to Plurk.";
+
+"Twitter Setting" = "Twitter Setting";
+
+"Please input your Twitter login name." = "Please input your Twitter login name.";
+"Please input your Twitter password." = "Please input your Twitter password.";
+
+"Failed to login Twitter." = "Failed to login Twitter.";
+"Failed to post on Twitter" = "Failed to post on Twitter";
+"You did not login Twitter." = "You did not login Twitter.";
+"Please input your Twitter login name." = "Please input your Twitter login name.";
+"Please input your Twitter password." = "Please input your Twitter password.";
+"Share via Twitter" = "Share via Twitter";
+
+"Post to Plurk" = "Post to Plurk";
+"Post to Twitter" = "Post to Twitter";
