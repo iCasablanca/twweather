@@ -1,7 +1,7 @@
 //
 // TWAboutViewController.m
 //
-// Copyright (c) 2009 Weizhong Yang (http://zonble.net)
+// Copyright (c) 2009 - 2010 Weizhong Yang (http://zonble.net)
 // All Rights Reserved
 //
 // Redistribution and use in source and binary forms, with or without
@@ -56,7 +56,7 @@
 	scrollView.scrollEnabled = YES;
 	self.view = scrollView;
 	
-	UIView *contentView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 600)] autorelease];
+	UIView *contentView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 800)] autorelease];
 	contentView.backgroundColor = [UIColor whiteColor];
 	[self.view addSubview:contentView];
 	scrollView.contentSize = contentView.frame.size;
@@ -84,11 +84,11 @@
 	self.copyrightLabel = label;
 	[contentView addSubview:self.copyrightLabel];
 	
-	label = [[[UILabel alloc] initWithFrame:CGRectMake(20, 100, 280, 500)] autorelease];
+	label = [[[UILabel alloc] initWithFrame:CGRectMake(20, 120, 280, 600)] autorelease];
 	label.font = [UIFont systemFontOfSize:12.0];
 	label.numberOfLines = 100;
 	NSMutableString *text = [NSMutableString stringWithString:NSLocalizedString(@"Data comes from Central Weather Bureau\n\n", @"")];	
-	[text appendString:[NSString stringWithFormat:NSLocalizedString(@"%@ is an open source project. please check the web site of the project(http://github.com/zonble/twweather) for furthor information.\n\nLFWebAPIKit\nCopyright (c) 2007-2009 Lithoglyph Inc. (http://lithoglyph.com)\nCopyright (c) 2007-2009 Lukhnos D. Liu (http://lukhnos.org)\n\nCocoaCryptoHashing\nCopyright (c) 2004-2009 Denis Defreyne\nCopyright (c) 2008 Chris Verwymeren\nCopyright (c) 2009 Mike Fischer\nAll rights reserved.", @""), [loaclizedDictionary objectForKey:@"CFBundleDisplayName"]]];
+	[text appendString:[NSString stringWithFormat:NSLocalizedString(@"%@ copyright ifno" , @""), [loaclizedDictionary objectForKey:@"CFBundleDisplayName"]]];
 	label.text = text;
 	self.externalLibraryLabel = label;
 	[contentView addSubview:self.externalLibraryLabel];

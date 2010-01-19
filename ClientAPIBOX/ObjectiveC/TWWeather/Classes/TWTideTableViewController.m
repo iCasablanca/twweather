@@ -1,7 +1,7 @@
 //
 // TWTideTableViewController.m
 //
-// Copyright (c) 2009 Weizhong Yang (http://zonble.net)
+// Copyright (c) 2009 - 2010 Weizhong Yang (http://zonble.net)
 // All Rights Reserved
 //
 // Redistribution and use in source and binary forms, with or without

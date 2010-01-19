@@ -1,7 +1,7 @@
 //
 // TWWeatherAppDelegate.m
 //
-// Copyright (c) 2009 Weizhong Yang (http://zonble.net)
+// Copyright (c) 2009 - 2010 Weizhong Yang (http://zonble.net)
 // All Rights Reserved
 //
 // Redistribution and use in source and binary forms, with or without
@@ -62,8 +62,6 @@
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application 
 {  
-
-
 	audioPlayer = nil;
 	window.backgroundColor = [UIColor blackColor];
 
@@ -113,7 +111,7 @@
 		NSString *loginName = [[NSUserDefaults standardUserDefaults] stringForKey:TWPlurkLoginNamePreference];
 		if (loginName) {
 			NSError *error = nil;
-			NSString *password = [SFHFKeychainUtils getPasswordForUsername:loginName andServiceName:TWTwitterLoginNamePreference error:&error];
+			NSString *password = [SFHFKeychainUtils getPasswordForUsername:loginName andServiceName:TWPlurkService error:&error];
 			if (password && !error) {
 				[[ObjectivePlurk sharedInstance] loginWithUsername:loginName password:password delegate:self userInfo:nil];
 			}
