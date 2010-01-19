@@ -30,7 +30,6 @@
 #import "TWPlurkSettingTableViewController.h"
 #import "TWCommonHeader.h"
 #import "SFHFKeychainUtils.h"
-//#import "KeychainItemWrapper.h"
 
 @implementation TWPlurkSettingTableViewController
 
@@ -43,7 +42,6 @@
 - (BOOL)isLoggedIn
 {
 	return [[ObjectivePlurk sharedInstance] isLoggedIn];
-//	return NO;
 }
 - (void)updateLoginInfo
 {
@@ -57,19 +55,6 @@
 			self.password  = thePassword;			
 		}
 	}
-	
-//	if (theLoginName) {
-//		self.loginName = theLoginName;	
-//#if TARGET_IPHONE_SIMULATOR	
-//		NSString *thePassword = [[NSUserDefaults standardUserDefaults] stringForKey:TWPlurkPasswordPreference];
-//		self.password = thePassword;
-//#else
-//		KeychainItemWrapper *wrapper = [[KeychainItemWrapper alloc] initWithIdentifier:loginName accessGroup:nil];
-//		NSString *thePassword = [wrapper objectForKey:(id)kSecValueData];
-//		[wrapper release];
-//		self.password  = thePassword;
-//#endif
-//	}
 }
 
 - (IBAction)loginAciton:(id)sender
@@ -122,6 +107,7 @@
 		NSError *error = nil;
 		[[NSUserDefaults standardUserDefaults] setObject:loginName forKey:TWPlurkLoginNamePreference];
 		[SFHFKeychainUtils storeUsername:loginName andPassword:password forServiceName:TWPlurkService updateExisting:YES error:&error];
+		[[NSUserDefaults standardUserDefaults] synchronize];
 	}
 	[self refresh];
 	
@@ -142,7 +128,4 @@
 	[alertView release];
 }
 
-
-
 @end
-

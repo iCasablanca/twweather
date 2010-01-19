@@ -29,7 +29,6 @@
 
 #import "TWSocialSettingTableViewController.h"
 #import "TWCommonHeader.h"
-#import "KeychainItemWrapper.h"
 
 @implementation TWSocialSettingTableViewController
 
@@ -67,6 +66,8 @@
 {
     [super viewDidLoad];
 	
+	UIColor *color = [UIColor colorWithHue:0.58 saturation:0.81 brightness:0.46 alpha:1.00];
+	
 	if (!loginNameField) {
 		loginNameField = [[UITextField alloc] initWithFrame:CGRectMake(120, 15, 180, 30)];
 		loginNameField.font = [UIFont systemFontOfSize:14.0];
@@ -75,6 +76,7 @@
 		loginNameField.autocapitalizationType = UITextAutocapitalizationTypeNone;
 		loginNameField.returnKeyType = UIReturnKeyNext;
 		loginNameField.placeholder = NSLocalizedString(@"Your Login Name", @"");
+		loginNameField.textColor = color;
 		loginNameField.delegate = self;
 	}
 
@@ -86,6 +88,7 @@
 		passwordField.returnKeyType = UIReturnKeyDone;
 		passwordField.placeholder = NSLocalizedString(@"Your Password", @"");
 		passwordField.secureTextEntry = YES;
+		passwordField.textColor = color;
 		passwordField.delegate = self;
 	}
 	
@@ -100,13 +103,13 @@
 	}
 	self.tableView.tableFooterView = loginButton;
 	self.tableView.scrollEnabled = NO;
-	[self refresh];
 }
 - (void)viewWillAppear:(BOOL)animated 
 {
     [super viewWillAppear:animated];
 	
-	if (![[ObjectivePlurk sharedInstance] isLoggedIn]) {
+	[self refresh];
+	if (![self isLoggedIn]) {
 		[loginNameField becomeFirstResponder];
 	}
 }
@@ -145,10 +148,13 @@
 		passwordField.text = @"";
 	}
 	
+	[UIView beginAnimations:nil context:NULL];
+	loginButton.frame = CGRectMake(10, 30, 300, 40);
 	[loginButton setTitle:loginText forState:UIControlStateNormal];
 	[loginButton setTitle:loginText forState:UIControlStateHighlighted];
 	[loginButton setTitle:loginText forState:UIControlStateDisabled];
 	[loginButton setTitle:loginText forState:UIControlStateSelected];
+	[UIView commitAnimations];
 	
 	[self.tableView reloadData];
 }

@@ -118,6 +118,7 @@
 		NSError *error = nil;
 		[[NSUserDefaults standardUserDefaults] setObject:loginName forKey:TWTwitterLoginNamePreference];
 		[SFHFKeychainUtils storeUsername:loginName andPassword:password forServiceName:TWTwitterService updateExisting:YES error:&error];
+		[[NSUserDefaults standardUserDefaults] synchronize];
 	}
 	[self refresh];
 	

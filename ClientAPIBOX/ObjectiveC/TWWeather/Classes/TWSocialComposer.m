@@ -53,10 +53,10 @@ static TWSocialComposer *sharedComposer;
 {
 	NSString *msg = nil;
 	if (self.mode == TWSocialComposerPlurkMode) {
-		NSLocalizedString(@"You did not login Plurk.", @"");
+		msg = NSLocalizedString(@"You did not login Plurk.", @"");
 	}
 	else if (self.mode == TWSocialComposerTwitterMode) {
-		NSLocalizedString(@"You did not login Twitter.", @"");
+		msg = NSLocalizedString(@"You did not login Twitter.", @"");
 	}
 
 	if (msg) {
@@ -94,7 +94,7 @@ static TWSocialComposer *sharedComposer;
 	}
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
 	if (buttonIndex) {
 		UIViewController *controller = nil;
