@@ -62,31 +62,7 @@
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application 
 {  
-	facebookSession = [[FBSession sessionForApplication:API_KEY secret:SECRET delegate:self] retain];
-	[facebookSession resume];
-	
-	[ObjectivePlurk sharedInstance].APIKey = PLURK_API_KEY;
-	if (![[ObjectivePlurk sharedInstance] resume]) {
-		NSString *loginName = [[NSUserDefaults standardUserDefaults] stringForKey:TWPlurkLoginNamePreference];
-		if (loginName) {
-			NSError *error = nil;
-			NSString *password = [SFHFKeychainUtils getPasswordForUsername:loginName andServiceName:TWTwitterLoginNamePreference error:&error];
-			if (password && !error) {
-				[[ObjectivePlurk sharedInstance] loginWithUsername:loginName password:password delegate:self userInfo:nil];
-			}
-		}
-	}
-	
-	NSString *theLoginName = [[NSUserDefaults standardUserDefaults] stringForKey:TWTwitterLoginNamePreference];
-	if (theLoginName) {
-		NSError *error = nil;
-		NSString *thePassword = [SFHFKeychainUtils getPasswordForUsername:theLoginName andServiceName:TWTwitterService error:&error];
-		if (thePassword && !error) {
-			MGTwitterEngine *engine = [TWTwitterEngine sharedEngine].engine;
-			[engine setUsername:theLoginName password:thePassword];
-			[TWTwitterEngine sharedEngine].loggedIn = YES;
-		}
-	}
+
 
 	audioPlayer = nil;
 	window.backgroundColor = [UIColor blackColor];
@@ -128,6 +104,32 @@
 	
 	[window addSubview:[self.navigationController view]];
     [window makeKeyAndVisible];
+	
+	facebookSession = [[FBSession sessionForApplication:API_KEY secret:SECRET delegate:self] retain];
+	[facebookSession resume];
+	
+	[ObjectivePlurk sharedInstance].APIKey = PLURK_API_KEY;
+	if (![[ObjectivePlurk sharedInstance] resume]) {
+		NSString *loginName = [[NSUserDefaults standardUserDefaults] stringForKey:TWPlurkLoginNamePreference];
+		if (loginName) {
+			NSError *error = nil;
+			NSString *password = [SFHFKeychainUtils getPasswordForUsername:loginName andServiceName:TWTwitterLoginNamePreference error:&error];
+			if (password && !error) {
+				[[ObjectivePlurk sharedInstance] loginWithUsername:loginName password:password delegate:self userInfo:nil];
+			}
+		}
+	}
+	
+	NSString *theLoginName = [[NSUserDefaults standardUserDefaults] stringForKey:TWTwitterLoginNamePreference];
+	if (theLoginName) {
+		NSError *error = nil;
+		NSString *thePassword = [SFHFKeychainUtils getPasswordForUsername:theLoginName andServiceName:TWTwitterService error:&error];
+		if (thePassword && !error) {
+			MGTwitterEngine *engine = [TWTwitterEngine sharedEngine].engine;
+			[engine setUsername:theLoginName password:thePassword];
+			[TWTwitterEngine sharedEngine].loggedIn = YES;
+		}
+	}
 	
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:TWBGMPreferencen]) {
 		[self startPlayingBGM];
