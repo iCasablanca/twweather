@@ -183,7 +183,9 @@
 
 - (void)save
 {
+	[self showLoadingView];
 	UIImageWriteToSavedPhotosAlbum(self.image, self, @selector(_image:didFinishSavingWithError:contextInfo:), NULL);
+	[self hideLoadingView];
 }
 
 
@@ -274,6 +276,7 @@
 	if (full) {
 		NSString *text = [NSString stringWithFormat:@"%@ %@", full, self.title];
 		pushingPlurkComposer = YES;
+		[TWSocialComposer sharedComposer].mode = TWSocialComposerPlurkMode;
 		[[TWSocialComposer sharedComposer] showWithText:text];
 	}
 }

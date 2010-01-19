@@ -81,10 +81,9 @@ static NSString *TWLoadingViewAnimationID = @"TWLoadingViewAnimationID";
 
 - (void)animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
 {
-	[super removeFromSuperview];
 	[activityIndicator stopAnimating];
 	self.frame = originalFrame;
-	self.opaque = 1.0;
+	[super removeFromSuperview];
 }
 
 - (void)startAnimating
@@ -103,8 +102,6 @@ static NSString *TWLoadingViewAnimationID = @"TWLoadingViewAnimationID";
 	newFrame.origin.y += 50;
 	newFrame.size.width -= 100;
 	newFrame.size.height -= 100;
-	
-	self.opaque = 0.5;
 	
 	[UIView beginAnimations:TWLoadingViewAnimationID context:NULL];
 	[UIView setAnimationDelegate:self];
