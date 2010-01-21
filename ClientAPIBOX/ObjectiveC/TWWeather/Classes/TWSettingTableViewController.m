@@ -132,23 +132,26 @@
 
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
 	cell.textLabel.font = [UIFont boldSystemFontOfSize:18.0];
 	cell.detailTextLabel.font = [UIFont systemFontOfSize:12.0];
 	cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	cell.accessoryType = UITableViewCellAccessoryNone;
 	if (indexPath.section == 0) {
+		cell.imageView.image = nil;
 		cell.textLabel.text = NSLocalizedString(@"BGM", @"");
 		[cell.contentView addSubview:BGMSwitch];
 	}
 	else if (indexPath.section == 1) {
 		switch (indexPath.row) {
 			case 0:
+				cell.imageView.image = [UIImage imageNamed:@"SocialFacebook.png"];
 				cell.textLabel.text = NSLocalizedString(@"Facebook", @"");
 				[cell.contentView addSubview:loginButton];
 				break;
 			case 1:
+				cell.imageView.image = [UIImage imageNamed:@"SocialPlurk.png"];
 				cell.textLabel.text = NSLocalizedString(@"Plurk", @"");
 				cell.selectionStyle = UITableViewCellSelectionStyleBlue;
 				if ([[ObjectivePlurk sharedInstance] isLoggedIn]) {
@@ -161,6 +164,7 @@
 				cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 				break;
 			case 2:
+				cell.imageView.image = [UIImage imageNamed:@"SocialTwitter.png"];
 				cell.textLabel.text = NSLocalizedString(@"Twitter", @"");
 				cell.selectionStyle = UITableViewCellSelectionStyleBlue;
 				cell.detailTextLabel.text = @"";

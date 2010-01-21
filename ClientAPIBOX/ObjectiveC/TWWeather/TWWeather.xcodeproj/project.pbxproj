@@ -15,6 +15,9 @@
 		28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD735F0D9D9599002E5188 /* MainWindow.xib */; };
 		28C286E10D94DF7D0034E888 /* TWRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C286E00D94DF7D0034E888 /* TWRootViewController.m */; };
 		D41B04361031F212000AA604 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = D41B04351031F212000AA604 /* Entitlements.plist */; };
+		D41B17231107F39600D78B27 /* SocialFacebook.png in Resources */ = {isa = PBXBuildFile; fileRef = D41B17201107F39600D78B27 /* SocialFacebook.png */; };
+		D41B17241107F39600D78B27 /* SocialPlurk.png in Resources */ = {isa = PBXBuildFile; fileRef = D41B17211107F39600D78B27 /* SocialPlurk.png */; };
+		D41B17251107F39600D78B27 /* SocialTwitter.png in Resources */ = {isa = PBXBuildFile; fileRef = D41B17221107F39600D78B27 /* SocialTwitter.png */; };
 		D41E1D391084288400A6675D /* bgm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D41E1D381084288400A6675D /* bgm.mp3 */; };
 		D41E1D3E1084289D00A6675D /* TWWeatherAppDelegate+BGM.m in Sources */ = {isa = PBXBuildFile; fileRef = D41E1D3D1084289D00A6675D /* TWWeatherAppDelegate+BGM.m */; };
 		D41E1D4E108428F600A6675D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D41E1D4D108428F600A6675D /* AVFoundation.framework */; };
@@ -162,6 +165,9 @@
 		8D1107310486CEB800E47090 /* TWWeather-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "TWWeather-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		D400828F10C34714007416F6 /* TWFacebookAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TWFacebookAPI.h; path = ../TWFacebookAPI.h; sourceTree = "<group>"; };
 		D41B04351031F212000AA604 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
+		D41B17201107F39600D78B27 /* SocialFacebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialFacebook.png; sourceTree = "<group>"; };
+		D41B17211107F39600D78B27 /* SocialPlurk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialPlurk.png; sourceTree = "<group>"; };
+		D41B17221107F39600D78B27 /* SocialTwitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialTwitter.png; sourceTree = "<group>"; };
 		D41E1D381084288400A6675D /* bgm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = bgm.mp3; path = AudioClip/bgm.mp3; sourceTree = "<group>"; };
 		D41E1D3C1084289D00A6675D /* TWWeatherAppDelegate+BGM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TWWeatherAppDelegate+BGM.h"; sourceTree = "<group>"; };
 		D41E1D3D1084289D00A6675D /* TWWeatherAppDelegate+BGM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TWWeatherAppDelegate+BGM.m"; sourceTree = "<group>"; };
@@ -455,6 +461,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D41B171F1107F39600D78B27 /* Social */,
 				D46AE29610E8863200B9E152 /* Other Images */,
 				D40082D110C34C9D007416F6 /* Sounds */,
 				D40082D010C34C95007416F6 /* App Images */,
@@ -674,6 +681,17 @@
 				D41E1D381084288400A6675D /* bgm.mp3 */,
 			);
 			name = Sounds;
+			sourceTree = "<group>";
+		};
+		D41B171F1107F39600D78B27 /* Social */ = {
+			isa = PBXGroup;
+			children = (
+				D41B17201107F39600D78B27 /* SocialFacebook.png */,
+				D41B17211107F39600D78B27 /* SocialPlurk.png */,
+				D41B17221107F39600D78B27 /* SocialTwitter.png */,
+			);
+			name = Social;
+			path = Images/Social;
 			sourceTree = "<group>";
 		};
 		D44D36C110E520C40022D163 /* ObjectivePlurk */ = {
@@ -1034,6 +1052,9 @@
 				D41E1D391084288400A6675D /* bgm.mp3 in Resources */,
 				D46AE29A10E8863900B9E152 /* BlueButton.png in Resources */,
 				D4C693D4110674F400C302A4 /* FBConnect.bundle in Resources */,
+				D41B17231107F39600D78B27 /* SocialFacebook.png in Resources */,
+				D41B17241107F39600D78B27 /* SocialPlurk.png in Resources */,
+				D41B17251107F39600D78B27 /* SocialTwitter.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1204,8 +1225,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = TWWeather_Prefix.pch;
 				HEADER_SEARCH_PATHS = (
-					/usr/include/libxml2,
 					"\"$(SRCROOT)/yajl/build/yajl-0.4.0/include\"",
+					"\"${SDKROOT}/usr/include/libxml2\"",
 					"../External/facebook-iphone-sdk/src/",
 				);
 				INFOPLIST_FILE = "TWWeather-Info.plist";
@@ -1222,7 +1243,11 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = TWWeather_Prefix.pch;
-				HEADER_SEARCH_PATHS = "../External/facebook-iphone-sdk/src/";
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/yajl/build/yajl-0.4.0/include\"",
+					"\"${SDKROOT}/usr/include/libxml2\"",
+					"../External/facebook-iphone-sdk/src/",
+				);
 				INFOPLIST_FILE = "TWWeather-Info.plist";
 				PRODUCT_NAME = TWWeather;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
@@ -1278,7 +1303,11 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = TWWeather_Prefix.pch;
-				HEADER_SEARCH_PATHS = "../External/facebook-iphone-sdk/src/";
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/yajl/build/yajl-0.4.0/include\"",
+					"\"${SDKROOT}/usr/include/libxml2\"",
+					"../External/facebook-iphone-sdk/src/",
+				);
 				INFOPLIST_FILE = "TWWeather-Info.plist";
 				PRODUCT_NAME = TWWeather;
 				PROVISIONING_PROFILE = "";
