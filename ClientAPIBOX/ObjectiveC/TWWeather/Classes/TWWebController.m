@@ -118,8 +118,10 @@
 	[alertView release];
 }
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView
+- (void)webViewDidFinishLoad:(UIWebView *)aWebView
 {
+	self.title = [aWebView stringByEvaluatingJavaScriptFromString:@"document.title"];
+	
 	[activityIndicatorView stopAnimating];
 	[self updateButtonState];
 	[reloadItem setEnabled:YES];

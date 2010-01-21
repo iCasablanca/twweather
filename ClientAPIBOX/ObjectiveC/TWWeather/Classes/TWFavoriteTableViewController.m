@@ -431,7 +431,7 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 	if (indexPath.row == 0) {
 		return 30.0;
 	}
-	return 130.0;
+	return 112.0;
 }
 
 #pragma mark -

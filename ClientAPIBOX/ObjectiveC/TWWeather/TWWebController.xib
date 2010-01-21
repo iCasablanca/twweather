@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="7.10">
 	<data>
-		<int key="IBDocument.SystemTarget">768</int>
-		<string key="IBDocument.SystemVersion">10B504</string>
+		<int key="IBDocument.SystemTarget">784</int>
+		<string key="IBDocument.SystemVersion">10C540</string>
 		<string key="IBDocument.InterfaceBuilderVersion">740</string>
-		<string key="IBDocument.AppKitVersion">1038.2</string>
-		<string key="IBDocument.HIToolboxVersion">437.00</string>
+		<string key="IBDocument.AppKitVersion">1038.25</string>
+		<string key="IBDocument.HIToolboxVersion">458.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">62</string>
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
+			<integer value="4"/>
 			<integer value="22"/>
-			<integer value="34"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -76,10 +76,9 @@
 								</object>
 								<reference key="IBUIToolbar" ref="717817556"/>
 							</object>
-							<object class="IBUIBarButtonItem" id="579431341">
-								<float key="IBUIWidth">20</float>
+							<object class="IBUIBarButtonItem" id="811246336">
 								<reference key="IBUIToolbar" ref="717817556"/>
-								<int key="IBUISystemItemIdentifier">6</int>
+								<int key="IBUISystemItemIdentifier">5</int>
 							</object>
 							<object class="IBUIBarButtonItem" id="499504603">
 								<object class="NSCustomResource" key="IBUIImage">
@@ -97,15 +96,6 @@
 								<reference key="IBUIToolbar" ref="717817556"/>
 								<int key="IBUISystemItemIdentifier">13</int>
 							</object>
-							<object class="IBUIBarButtonItem" id="334642554">
-								<float key="IBUIWidth">20</float>
-								<reference key="IBUIToolbar" ref="717817556"/>
-								<int key="IBUISystemItemIdentifier">6</int>
-							</object>
-							<object class="IBUIBarButtonItem" id="703095950">
-								<reference key="IBUIToolbar" ref="717817556"/>
-								<int key="IBUISystemItemIdentifier">14</int>
-							</object>
 							<object class="IBUIBarButtonItem" id="1054917577">
 								<reference key="IBUIToolbar" ref="717817556"/>
 								<int key="IBUISystemItemIdentifier">5</int>
@@ -113,6 +103,10 @@
 							<object class="IBUIBarButtonItem" id="498157644">
 								<reference key="IBUIToolbar" ref="717817556"/>
 								<int key="IBUISystemItemIdentifier">9</int>
+							</object>
+							<object class="IBUIBarButtonItem" id="545548238">
+								<reference key="IBUIToolbar" ref="717817556"/>
+								<int key="IBUISystemItemIdentifier">5</int>
 							</object>
 						</object>
 					</object>
@@ -176,14 +170,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">stopLoading</string>
-						<reference key="source" ref="703095950"/>
-						<reference key="destination" ref="74742473"/>
-					</object>
-					<int key="connectionID">15</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">goForward</string>
 						<reference key="source" ref="499504603"/>
 						<reference key="destination" ref="74742473"/>
@@ -239,14 +225,6 @@
 					<int key="connectionID">28</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">stopItem</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="703095950"/>
-					</object>
-					<int key="connectionID">29</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">openInExternalWebBrowser:</string>
 						<reference key="source" ref="498157644"/>
@@ -298,14 +276,13 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="981535076"/>
 							<reference ref="499504603"/>
-							<reference ref="703095950"/>
 							<reference ref="649098620"/>
 							<reference ref="1054917577"/>
 							<reference ref="442249673"/>
 							<reference ref="321028202"/>
 							<reference ref="498157644"/>
-							<reference ref="579431341"/>
-							<reference ref="334642554"/>
+							<reference ref="545548238"/>
+							<reference ref="811246336"/>
 						</object>
 						<reference key="parent" ref="191373211"/>
 					</object>
@@ -317,11 +294,6 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">6</int>
 						<reference key="object" ref="499504603"/>
-						<reference key="parent" ref="717817556"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">7</int>
-						<reference key="object" ref="703095950"/>
 						<reference key="parent" ref="717817556"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -360,13 +332,13 @@
 						<reference key="parent" ref="717817556"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">33</int>
-						<reference key="object" ref="579431341"/>
+						<int key="objectID">35</int>
+						<reference key="object" ref="545548238"/>
 						<reference key="parent" ref="717817556"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">34</int>
-						<reference key="object" ref="334642554"/>
+						<int key="objectID">36</int>
+						<reference key="object" ref="811246336"/>
 						<reference key="parent" ref="717817556"/>
 					</object>
 				</object>
@@ -386,12 +358,11 @@
 					<string>22.IBPluginDependency</string>
 					<string>3.IBPluginDependency</string>
 					<string>30.IBPluginDependency</string>
-					<string>33.IBPluginDependency</string>
-					<string>34.IBPluginDependency</string>
+					<string>35.IBPluginDependency</string>
+					<string>36.IBPluginDependency</string>
 					<string>4.IBPluginDependency</string>
 					<string>5.IBPluginDependency</string>
 					<string>6.IBPluginDependency</string>
-					<string>7.IBPluginDependency</string>
 					<string>8.IBPluginDependency</string>
 					<string>9.IBPluginDependency</string>
 				</object>
@@ -405,7 +376,6 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>{{0, 958}, {20, 20}}</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -434,7 +404,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">34</int>
+			<int key="maxID">36</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -713,7 +683,7 @@
 		<int key="IBDocument.localizationMode">0</int>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.iPhoneOS</string>
-			<integer value="768" key="NS.object.0"/>
+			<integer value="784" key="NS.object.0"/>
 		</object>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDevelopmentDependencies">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.InterfaceBuilder3</string>

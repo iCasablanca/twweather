@@ -129,7 +129,7 @@
 - (void)_init
 {
 	if (!_ourContentView) {
-		CGRect cellFrame = CGRectMake(10, 5, 280.0, 120.0);
+		CGRect cellFrame = CGRectMake(10, 5, 280.0, 100.0);
 		_ourContentView = [[TWForecastResultCellContentView alloc] initWithFrame:cellFrame];
 		_ourContentView.backgroundColor = [UIColor whiteColor];
 		_ourContentView.delegate = self;
@@ -158,13 +158,13 @@
 		
 	[title drawInRect:CGRectMake(140, 5, 100, 20) withFont:[UIFont boldSystemFontOfSize:14.0] lineBreakMode:UILineBreakModeClip alignment:UITextAlignmentLeft];
 	NSString *timeString = [NSString stringWithFormat:@"%@\n%@", beginTime, endTime];
-	[timeString drawInRect:CGRectMake(140, 30, 160, 40) withFont:[UIFont systemFontOfSize:10.0] lineBreakMode:UILineBreakModeClip alignment:UITextAlignmentLeft];
+	[timeString drawInRect:CGRectMake(140, 26, 160, 40) withFont:[UIFont systemFontOfSize:10.0] lineBreakMode:UILineBreakModeClip alignment:UITextAlignmentLeft];
 
-	[description drawInRect:CGRectMake(10, 82, 100, 60) withFont:[UIFont systemFontOfSize:12.0] lineBreakMode:UILineBreakModeCharacterWrap alignment:UITextAlignmentCenter];	
+	[description drawInRect:CGRectMake(10, 80, 100, 60) withFont:[UIFont systemFontOfSize:12.0] lineBreakMode:UILineBreakModeCharacterWrap alignment:UITextAlignmentCenter];	
 	NSString *temperatureString = [NSString stringWithFormat:@"%@ ℃", temperature];
-	[temperatureString drawInRect:CGRectMake(140, 64, 100, 20) withFont:[UIFont boldSystemFontOfSize:18.0] lineBreakMode:UILineBreakModeClip alignment:UITextAlignmentLeft];
+	[temperatureString drawInRect:CGRectMake(140, 56, 100, 20) withFont:[UIFont boldSystemFontOfSize:18.0] lineBreakMode:UILineBreakModeClip alignment:UITextAlignmentLeft];
 	NSString *rainString = [NSString stringWithFormat:@"降雨機率： %@ %%", rain];
-	[rainString drawInRect:CGRectMake(140, 94, 100, 20) withFont:[UIFont systemFontOfSize:12.0] lineBreakMode:UILineBreakModeClip alignment:UITextAlignmentLeft];
+	[rainString drawInRect:CGRectMake(140, 80, 100, 20) withFont:[UIFont systemFontOfSize:12.0] lineBreakMode:UILineBreakModeClip alignment:UITextAlignmentLeft];
 	
 }
 - (IBAction)copy:(id)sender
