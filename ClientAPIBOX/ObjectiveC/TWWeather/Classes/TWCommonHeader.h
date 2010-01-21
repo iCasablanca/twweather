@@ -25,12 +25,11 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#define TWBGMPreferencen @"TWBGMPreferencen"
+#define TWBGMPreference @"TWBGMPreference"
+#define TWSFXPreference @"TWSFXPreference"
 
 #define TWTwitterService @"TWTwitterService"
 #define TWTwitterLoginNamePreference @"TWTwitterLoginNamePreference"
-#define TWTwitterPasswordPreference @"TWTwitterPasswordPreference"
-
 #define TWPlurkService @"TWPlurkService"
 #define TWPlurkLoginNamePreference @"TWPlurkLoginNamePreference"
-#define TWPlurkPasswordPreference @"TWPlurkPasswordPreference"
+

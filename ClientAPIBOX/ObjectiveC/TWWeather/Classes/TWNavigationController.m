@@ -28,14 +28,49 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import "TWNavigationController.h"
+#import "TWCommonHeader.h"
+
+static SystemSoundID TWSFXFileObject = 0;
+
+void TWSFX()
+{
+	if (!TWSFXFileObject) {
+		CFBundleRef mainBundle = CFBundleGetMainBundle();
+		CFURLRef soundFileURLRef = CFBundleCopyResourceURL(mainBundle, CFSTR ("sfx"),CFSTR ("wav"), FALSE);		
+		AudioServicesCreateSystemSoundID(soundFileURLRef, &TWSFXFileObject);    
+		CFRelease(soundFileURLRef);
+	}	
+	AudioServicesPlaySystemSound(TWSFXFileObject);	
+}
 
 @implementation TWNavigationController
 
+- (id)initWithRootViewController:(UIViewController *)rootViewController
+{
+	self = [super initWithRootViewController:rootViewController];
+	if (self != nil) {
+	}
+	return self;
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-//	return NO;
 	return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+#pragma mark -
+
+- (void)navigationBar:(UINavigationBar *)navigationBar didPushItem:(UINavigationItem *)item
+{
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:TWSFXPreference]) {
+		TWSFX();
+	}
+}
+- (void)navigationBar:(UINavigationBar *)navigationBar didPopItem:(UINavigationItem *)item
+{
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:TWSFXPreference]) {
+		TWSFX();
+	}	
+}
 
 @end

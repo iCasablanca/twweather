@@ -32,9 +32,11 @@
 @interface TWSettingTableViewController : UITableViewController
 {
 	UISwitch *BGMSwitch;
+	UISwitch *SFXSwitch;
 	FBLoginButton *loginButton;	
 }
 
 - (IBAction)toggleBGMSettingAction:(id)sender;
+- (IBAction)toggleSFXSettingAction:(id)sender;
 
 @end

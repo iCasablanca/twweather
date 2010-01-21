@@ -128,7 +128,7 @@
 		}
 	}
 	
-	if ([[NSUserDefaults standardUserDefaults] boolForKey:TWBGMPreferencen]) {
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:TWBGMPreference]) {
 		[self startPlayingBGM];
 	}
 }

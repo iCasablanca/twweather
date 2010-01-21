@@ -40,6 +40,8 @@
 {
 	[BGMSwitch release];
 	BGMSwitch = nil;
+	[SFXSwitch release];
+	SFXSwitch = nil;
 	[loginButton release];
 	loginButton = nil;
 }
@@ -65,8 +67,13 @@
 	if (!BGMSwitch) {
 		BGMSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(190, 8, 80, 40)];
 		[BGMSwitch addTarget:self action:@selector(toggleBGMSettingAction:) forControlEvents:UIControlEventValueChanged];
-		BGMSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:TWBGMPreferencen];
+		BGMSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:TWBGMPreference];
 	}
+	if (!SFXSwitch) {
+		SFXSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(190, 8, 80, 40)];
+		[SFXSwitch addTarget:self action:@selector(toggleSFXSettingAction:) forControlEvents:UIControlEventValueChanged];
+		SFXSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:TWSFXPreference];
+	}	
 	if (!loginButton) {
 		loginButton = [[FBLoginButton alloc] init];
 		loginButton.session = [TWWeatherAppDelegate sharedDelegate].facebookSession;
@@ -101,7 +108,12 @@
 	else {
 		[[TWWeatherAppDelegate sharedDelegate] stopPlayingBGM];
 	}
-	[[NSUserDefaults standardUserDefaults] setBool:aSwitch.on forKey:TWBGMPreferencen];
+	[[NSUserDefaults standardUserDefaults] setBool:aSwitch.on forKey:TWBGMPreference];
+}
+- (IBAction)toggleSFXSettingAction:(id)sender
+{
+	UISwitch *aSwitch = (UISwitch *)sender;
+	[[NSUserDefaults standardUserDefaults] setBool:aSwitch.on forKey:TWSFXPreference];
 }
 
 #pragma mark -
@@ -115,7 +127,7 @@
 {
 	switch (section) {
 		case 0:
-			return 1;
+			return 2;
 			break;
 		case 1:
 			return 3;
@@ -140,8 +152,18 @@
 	cell.accessoryType = UITableViewCellAccessoryNone;
 	if (indexPath.section == 0) {
 		cell.imageView.image = nil;
-		cell.textLabel.text = NSLocalizedString(@"BGM", @"");
-		[cell.contentView addSubview:BGMSwitch];
+		switch (indexPath.row) {
+			case 0:
+				cell.textLabel.text = NSLocalizedString(@"BGM", @"");
+				[cell.contentView addSubview:BGMSwitch];
+				break;
+			case 1:
+				cell.textLabel.text = NSLocalizedString(@"SFX", @"");
+				[cell.contentView addSubview:SFXSwitch];
+				break;
+			default:
+				break;
+		}
 	}
 	else if (indexPath.section == 1) {
 		switch (indexPath.row) {

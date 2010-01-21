@@ -18,6 +18,8 @@
 		D41B17231107F39600D78B27 /* SocialFacebook.png in Resources */ = {isa = PBXBuildFile; fileRef = D41B17201107F39600D78B27 /* SocialFacebook.png */; };
 		D41B17241107F39600D78B27 /* SocialPlurk.png in Resources */ = {isa = PBXBuildFile; fileRef = D41B17211107F39600D78B27 /* SocialPlurk.png */; };
 		D41B17251107F39600D78B27 /* SocialTwitter.png in Resources */ = {isa = PBXBuildFile; fileRef = D41B17221107F39600D78B27 /* SocialTwitter.png */; };
+		D41B18221107FD2600D78B27 /* sfx.wav in Resources */ = {isa = PBXBuildFile; fileRef = D41B18211107FD2600D78B27 /* sfx.wav */; };
+		D41B18301107FE0200D78B27 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D41B182F1107FE0200D78B27 /* AudioToolbox.framework */; };
 		D41E1D391084288400A6675D /* bgm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D41E1D381084288400A6675D /* bgm.mp3 */; };
 		D41E1D3E1084289D00A6675D /* TWWeatherAppDelegate+BGM.m in Sources */ = {isa = PBXBuildFile; fileRef = D41E1D3D1084289D00A6675D /* TWWeatherAppDelegate+BGM.m */; };
 		D41E1D4E108428F600A6675D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D41E1D4D108428F600A6675D /* AVFoundation.framework */; };
@@ -168,6 +170,8 @@
 		D41B17201107F39600D78B27 /* SocialFacebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialFacebook.png; sourceTree = "<group>"; };
 		D41B17211107F39600D78B27 /* SocialPlurk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialPlurk.png; sourceTree = "<group>"; };
 		D41B17221107F39600D78B27 /* SocialTwitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialTwitter.png; sourceTree = "<group>"; };
+		D41B18211107FD2600D78B27 /* sfx.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = sfx.wav; path = AudioClip/sfx.wav; sourceTree = "<group>"; };
+		D41B182F1107FE0200D78B27 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D41E1D381084288400A6675D /* bgm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = bgm.mp3; path = AudioClip/bgm.mp3; sourceTree = "<group>"; };
 		D41E1D3C1084289D00A6675D /* TWWeatherAppDelegate+BGM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TWWeatherAppDelegate+BGM.h"; sourceTree = "<group>"; };
 		D41E1D3D1084289D00A6675D /* TWWeatherAppDelegate+BGM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TWWeatherAppDelegate+BGM.m"; sourceTree = "<group>"; };
@@ -396,6 +400,7 @@
 				D4B3E9A510E521C800B6D5D3 /* MobileCoreServices.framework in Frameworks */,
 				D42DDA0F10E932CF00F24E16 /* Security.framework in Frameworks */,
 				D4B3BE6C1104E0C6003E5E3D /* libxml2.dylib in Frameworks */,
+				D41B18301107FE0200D78B27 /* AudioToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -479,6 +484,7 @@
 			isa = PBXGroup;
 			children = (
 				D4B3BE6B1104E0C6003E5E3D /* libxml2.dylib */,
+				D41B182F1107FE0200D78B27 /* AudioToolbox.framework */,
 				D42DDA0E10E932CF00F24E16 /* Security.framework */,
 				D4B3E9A410E521C800B6D5D3 /* MobileCoreServices.framework */,
 				D41E1D4D108428F600A6675D /* AVFoundation.framework */,
@@ -678,6 +684,7 @@
 		D40082D110C34C9D007416F6 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				D41B18211107FD2600D78B27 /* sfx.wav */,
 				D41E1D381084288400A6675D /* bgm.mp3 */,
 			);
 			name = Sounds;
@@ -1055,6 +1062,7 @@
 				D41B17231107F39600D78B27 /* SocialFacebook.png in Resources */,
 				D41B17241107F39600D78B27 /* SocialPlurk.png in Resources */,
 				D41B17251107F39600D78B27 /* SocialTwitter.png in Resources */,
+				D41B18221107FD2600D78B27 /* sfx.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
