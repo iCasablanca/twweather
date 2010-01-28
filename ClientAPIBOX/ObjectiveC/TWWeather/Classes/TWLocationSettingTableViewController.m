@@ -208,7 +208,8 @@
 {
 	NSNumber *number = [NSNumber numberWithInt:locationIdentifier];
 	[_filterArray addObject:number];
-	[self.tableView reloadData];
+	[self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:[_filterArray count] - 1 inSection:1]] withRowAnimation:YES];
+//	[self.tableView reloadData];
 	
 	if (delegate && [delegate respondsToSelector:@selector(settingController:didUpdateFilter:)]) {
 		[delegate settingController:self didUpdateFilter:_filterArray];		

@@ -183,11 +183,8 @@
 
 - (void)save
 {
-	[self showLoadingView];
 	UIImageWriteToSavedPhotosAlbum(self.image, self, @selector(_image:didFinishSavingWithError:contextInfo:), NULL);
-	[self hideLoadingView];
 }
-
 
 - (void)showLoadingView
 {
