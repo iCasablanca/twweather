@@ -52,7 +52,7 @@
 	CGContextFillRect(context, [self bounds]);
 	CGFloat white[] = {1.0, 1.0, 1.0, 1.0};	
 	
-	CGFloat left = 10.0, top = 5.0, width = 300.0, height = 180.0;
+	CGFloat left = 10.0, top = 5.0, width = self.bounds.size.width - 20.0, height = 180.0;
 	CGFloat radius = 10.0;
 	
 	CGMutablePathRef path = CGPathCreateMutable();

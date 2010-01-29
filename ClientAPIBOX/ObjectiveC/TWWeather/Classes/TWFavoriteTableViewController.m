@@ -54,6 +54,7 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 	[_favArray release];
 	[warningArray release];
 	[weekDictionary release];
+	[updateDate release];
     [super dealloc];
 }
 
@@ -409,18 +410,17 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 	[controller release];
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-	return nil;
-	
-	if (section == 0) {
-		return nil;
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
+{	
+	if (section == [_filteredArray count] && self.updateDate) {
+		NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+		[formatter setDateStyle:kCFDateFormatterMediumStyle];
+		[formatter setTimeStyle:kCFDateFormatterMediumStyle];
+		NSString *s = [formatter stringFromDate:self.updateDate];
+		NSString *footerTitle = [NSString stringWithFormat:NSLocalizedString(@"Updated at %@", @""), s];
+		[formatter release];
+		return footerTitle;
 	}
-	
-	if ([_filteredArray count])  {
-		NSDictionary *item = [_filteredArray objectAtIndex:section - 1];
-		return [item objectForKey:@"locationName"];
-	}		
 	return nil;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -430,7 +430,7 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 	}
 	if (indexPath.row == 0) {
 		return 30.0;
-	}
+	}	
 	return 112.0;
 }
 
@@ -462,6 +462,7 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 		NSArray *array = (NSArray *)result;
 		[_favArray setArray:array];
 		[self updateFilteredArray];
+		self.updateDate = userInfo;
 		[[NSUserDefaults standardUserDefaults] setObject:_favArray forKey:lastAllForecastsPreferenceName];
 	}
 	else if (![_favArray count]) {
@@ -508,6 +509,8 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 	[self pushErrorViewWithError:error];
 }
 
+
+@synthesize updateDate;
 @synthesize tableView = _tableView;
 
 @end

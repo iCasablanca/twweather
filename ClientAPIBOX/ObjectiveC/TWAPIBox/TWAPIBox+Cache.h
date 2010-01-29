@@ -34,6 +34,7 @@
 
 - (BOOL)shouldUseCachedDataForURL:(NSURL *)URL;
 - (NSData *)dataInCacheForURL:(NSURL *)URL;
+- (NSDate *)dateOfCacheForURL:(NSURL *)URL;
 - (void)writeDataToCache:(NSData *)data fromURL:(NSURL *)URL;
 
 @end

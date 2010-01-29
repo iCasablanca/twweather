@@ -159,12 +159,12 @@ static TWSocialComposer *sharedComposer;
 
 - (void)loadView 
 {
-	TWSocialBackgroudView *aView = [[[TWSocialBackgroudView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)] autorelease];
+	TWSocialBackgroudView *aView = [[[TWSocialBackgroudView alloc] initWithFrame:[UIScreen mainScreen].bounds] autorelease];
 	aView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
 	aView.backgroundColor = [UIColor whiteColor];
 	self.view = aView;
 	
-	textView = [[UITextView alloc] initWithFrame:CGRectMake(10, 10, 300, 170)];
+	textView = [[UITextView alloc] initWithFrame:CGRectMake(10, 10, [UIScreen mainScreen].bounds.size.width - 20, 170)];
 	textView.backgroundColor = [UIColor clearColor];
 	textView.editable = YES;
 	textView.contentOffset = CGPointMake(10, 10);
@@ -173,7 +173,7 @@ static TWSocialComposer *sharedComposer;
 	textView.delegate = self;
 	[self.view addSubview:textView];
 	
-	wordCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 190, 300, 10)];
+	wordCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 190, [UIScreen mainScreen].bounds.size.width - 20, 10)];
 	wordCountLabel.textColor = [UIColor whiteColor];
 	wordCountLabel.font = [UIFont systemFontOfSize:10.0];
 	wordCountLabel.textAlignment = UITextAlignmentCenter;

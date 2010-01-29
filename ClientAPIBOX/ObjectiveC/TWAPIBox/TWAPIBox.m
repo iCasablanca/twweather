@@ -325,6 +325,9 @@ static TWAPIBox *apibox;
 	}
 	[_retryCountDictionary removeObjectForKey:[URL absoluteString]];
 	
+	NSMutableDictionary *sessionInfo = request.sessionInfo;
+	[sessionInfo setObject:[NSDate date] forKey:@"date"];
+	 
 	NSString *actionString = [[request sessionInfo] objectForKey:@"action"];
 	SEL action = NSSelectorFromString(actionString);
 
@@ -358,6 +361,10 @@ static TWAPIBox *apibox;
 
 	if (URL) {
 		NSData *data = [self dataInCacheForURL:URL];
+		NSMutableDictionary *sessionInfo = request.sessionInfo;
+		NSDate *date = [self dateOfCacheForURL:URL];
+		[sessionInfo setObject:date forKey:@"date"];
+
 		if (data) {
 			NSString *actionString = [[request sessionInfo] objectForKey:@"action"];
 			SEL action = NSSelectorFromString(actionString);

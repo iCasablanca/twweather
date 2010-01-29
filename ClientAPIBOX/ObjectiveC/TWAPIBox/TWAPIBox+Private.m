@@ -60,11 +60,16 @@
 	NSDictionary *sessionInfo = [request sessionInfo];
 	NSString *identifier = [sessionInfo objectForKey:@"identifier"];
 	id delegate = [sessionInfo objectForKey:@"delegate"];
+	NSDictionary *info = [sessionInfo objectForKey:@"userInfo"];
+	if (!info) {
+		info = [sessionInfo objectForKey:@"date"];
+	}	
+	
 	if ([identifier isEqualToString:@"warning"] && delegate && [delegate respondsToSelector:@selector(APIBox:didFetchWarnings:userInfo:)]) {
-		[delegate APIBox:self didFetchWarnings:result userInfo:[sessionInfo objectForKey:@"userInfo"]];
+		[delegate APIBox:self didFetchWarnings:result userInfo:info];
 	}
 	else if ([identifier isEqualToString:@"forecastAll"] && delegate && [delegate respondsToSelector:@selector(APIBox:didFetchAllForecasts:userInfo:)]) {
-		[delegate APIBox:self didFetchAllForecasts:result userInfo:[sessionInfo objectForKey:@"userInfo"]];
+		[delegate APIBox:self didFetchAllForecasts:result userInfo:info];
 	}
 	
 }
@@ -79,7 +84,8 @@
 	}
 	NSError *theError = [NSError errorWithDomain:TWAPIErrorDomain code:code userInfo:[self _errorDictionaryWithCode:code]];
 	NSDictionary *sessionInfo = [request sessionInfo];
-	id delegate = [sessionInfo objectForKey:@"delegate"];
+	id delegate = [sessionInfo objectForKey:@"delegate"];		
+	
 	NSString *identifier = [sessionInfo objectForKey:@"identifier"];	
 	if ([identifier isEqualToString:@"warning"] && delegate && [delegate respondsToSelector:@selector(APIBox:didFailedFetchWarningsWithError:)]) {
 		[delegate APIBox:self didFailedFetchWarningsWithError:theError];
@@ -126,6 +132,9 @@
 	id delegate = [sessionInfo objectForKey:@"delegate"];
 	NSString *identifier = [sessionInfo objectForKey:@"identifier"];
 	NSDictionary *info = [sessionInfo objectForKey:@"userInfo"];
+	if (!info) {
+		info = [sessionInfo objectForKey:@"date"];
+	}
 	NSString *inIdentifier = [info objectForKey:@"identifier"];
 	id userInfo = [info objectForKey:@"userInfo"];
 	

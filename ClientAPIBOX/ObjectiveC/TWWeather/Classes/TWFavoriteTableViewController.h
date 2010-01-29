@@ -37,6 +37,7 @@
 	NSMutableArray *_favArray;
 	NSMutableArray *warningArray;
 	NSMutableDictionary *weekDictionary;
+	NSDate *updateDate;
 	
 	TWLoadingView *loadingView;
 	UITableView *_tableView;
@@ -55,6 +56,7 @@
 - (IBAction)changeSetting:(id)sender;
 - (IBAction)reload:(id)sender;
 
+@property (retain, nonatomic) NSDate *updateDate;
 @property (retain, nonatomic) UITableView *tableView;
 
 @end

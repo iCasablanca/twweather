@@ -102,6 +102,16 @@
 	}
 	return nil;
 }
+- (NSDate *)dateOfCacheForURL:(NSURL *)URL
+{
+	NSString *string = [URL absoluteString];
+	NSString *path = [self md5HashPathForURLString:string];
+	NSDate *date = nil;
+	if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+		date = [[[NSFileManager defaultManager] attributesOfItemAtPath:path error:nil] valueForKey:NSFileModificationDate];
+	}	
+	return date;
+}
 - (void)writeDataToCache:(NSData *)data fromURL:(NSURL *)URL
 {
 	NSString *string = [URL absoluteString];
