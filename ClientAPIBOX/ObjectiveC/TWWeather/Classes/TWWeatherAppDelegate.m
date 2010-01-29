@@ -48,6 +48,7 @@
 - (void)dealloc 
 {
 	[tabBarController release];
+	[navigationController release];
 	[window release];
 	[audioPlayer release];
 	[facebookSession.delegates removeObject:self];
@@ -61,6 +62,8 @@
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application 
 {  
+	self.window = [[[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds] autorelease];
+	
 	audioPlayer = nil;
 	window.backgroundColor = [UIColor blackColor];
 
