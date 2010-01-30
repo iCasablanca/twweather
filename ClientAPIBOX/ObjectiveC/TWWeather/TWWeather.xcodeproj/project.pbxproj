@@ -246,6 +246,7 @@
 		D4C693D2110674F400C302A4 /* FBPermissionDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C693C7110674F400C302A4 /* FBPermissionDialog.m */; };
 		D4C693D3110674F400C302A4 /* FBStreamDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C693C9110674F400C302A4 /* FBStreamDialog.m */; };
 		D4C693D4110674F400C302A4 /* FBConnect.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D4C693CA110674F400C302A4 /* FBConnect.bundle */; };
+		D4CE0EF01113DF1A00043EDE /* TWFacebookController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4CE0EEF1113DF1A00043EDE /* TWFacebookController.m */; };
 		D4E5025810233338002B39D7 /* TWAPIBox+Info.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E5025710233338002B39D7 /* TWAPIBox+Info.m */; };
 		D4E5029A10234126002B39D7 /* TWBasicForecastTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E5029910234126002B39D7 /* TWBasicForecastTableViewController.m */; };
 		D4E502A8102343C6002B39D7 /* TWForecastTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E502A7102343C6002B39D7 /* TWForecastTableViewController.m */; };
@@ -453,6 +454,8 @@
 		D4C693C8110674F400C302A4 /* FBStreamDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FBStreamDialog.h; path = "../External/facebook-iphone-sdk/src/FBConnect/FBStreamDialog.h"; sourceTree = SOURCE_ROOT; };
 		D4C693C9110674F400C302A4 /* FBStreamDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FBStreamDialog.m; path = "../External/facebook-iphone-sdk/src/FBStreamDialog.m"; sourceTree = SOURCE_ROOT; };
 		D4C693CA110674F400C302A4 /* FBConnect.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = FBConnect.bundle; path = "../External/facebook-iphone-sdk/src/FBConnect.bundle"; sourceTree = SOURCE_ROOT; };
+		D4CE0EEE1113DF1A00043EDE /* TWFacebookController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWFacebookController.h; sourceTree = "<group>"; };
+		D4CE0EEF1113DF1A00043EDE /* TWFacebookController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWFacebookController.m; sourceTree = "<group>"; };
 		D4E5025610233338002B39D7 /* TWAPIBox+Info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TWAPIBox+Info.h"; path = "../TWAPIBox/TWAPIBox+Info.h"; sourceTree = SOURCE_ROOT; };
 		D4E5025710233338002B39D7 /* TWAPIBox+Info.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TWAPIBox+Info.m"; path = "../TWAPIBox/TWAPIBox+Info.m"; sourceTree = SOURCE_ROOT; };
 		D4E5029810234126002B39D7 /* TWBasicForecastTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWBasicForecastTableViewController.h; sourceTree = "<group>"; };
@@ -1013,6 +1016,7 @@
 				D40082BF10C34BDA007416F6 /* OBS */,
 				D40082C110C34BEE007416F6 /* Forecast Images */,
 				D40082CC10C34C6A007416F6 /* Other Controllers */,
+				D4CE0EEB1113DEE400043EDE /* Facebook */,
 			);
 			name = "Forecast Table View Controllers";
 			sourceTree = "<group>";
@@ -1101,6 +1105,15 @@
 				D4C693CA110674F400C302A4 /* FBConnect.bundle */,
 			);
 			name = FBConnect;
+			sourceTree = "<group>";
+		};
+		D4CE0EEB1113DEE400043EDE /* Facebook */ = {
+			isa = PBXGroup;
+			children = (
+				D4CE0EEE1113DF1A00043EDE /* TWFacebookController.h */,
+				D4CE0EEF1113DF1A00043EDE /* TWFacebookController.m */,
+			);
+			name = Facebook;
 			sourceTree = "<group>";
 		};
 		D4E509401023C171002B39D7 /* cocoa_crypto_hashing */ = {
@@ -1390,6 +1403,7 @@
 				D4C693D1110674F400C302A4 /* FBLoginDialog.m in Sources */,
 				D4C693D2110674F400C302A4 /* FBPermissionDialog.m in Sources */,
 				D4C693D3110674F400C302A4 /* FBStreamDialog.m in Sources */,
+				D4CE0EF01113DF1A00043EDE /* TWFacebookController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

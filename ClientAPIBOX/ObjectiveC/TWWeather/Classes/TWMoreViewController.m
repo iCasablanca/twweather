@@ -31,6 +31,7 @@
 #import "TWSettingTableViewController.h"
 #import "TWAboutViewController.h"
 #import "TWWebController.h"
+#import "TWFacebookController.h"
 #import "TWWeatherAppDelegate.h"
 
 @implementation TWMoreViewController
@@ -64,7 +65,7 @@
 		return 4;
 	}		
 	else if (section == 1) {
-		return 3;
+		return 4;
 	}	
 //	else if (section == 1) {
 //		return 1;
@@ -114,12 +115,15 @@
 		cell.imageView.image = nil;
 		switch (indexPath.row) {
 			case 0:
-				cell.textLabel.text = NSLocalizedString(@"Settings", @"");
+				cell.textLabel.text = NSLocalizedString(@"TWWeather on Facebook", @"");
 				break;
 			case 1:
+				cell.textLabel.text = NSLocalizedString(@"Settings", @"");
+				break;
+			case 2:
 				cell.textLabel.text = NSLocalizedString(@"About", @"");
 				break;				
-			case 2:
+			case 3:
 				cell.accessoryType = UITableViewCellAccessoryNone;
 				cell.textLabel.text = NSLocalizedString(@"Feedback", @"");
 				break;				
@@ -175,16 +179,19 @@
 		
 	}
 	else if (indexPath.section == 1) {
-		if (indexPath.row == 2) {
+		if (indexPath.row == 3) {
 			[self sendEmailAction:self];
 			return;
 		}
 		
 		UITableViewController *controller = nil;
 		if (indexPath.row == 0) {
-			controller = [[TWSettingTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
-		}		
+			controller = [[TWFacebookController alloc] initWithStyle:UITableViewStyleGrouped];
+		}
 		else if (indexPath.row == 1) {
+			controller = [[TWSettingTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+		}
+		else if (indexPath.row == 2) {
 			controller = [[TWAboutViewController alloc] init];
 		}
 		if (controller) {
