@@ -136,8 +136,24 @@
     }
     return self;
 }
+- (NSString *)_description
+{
+	NSMutableString *s = [NSMutableString string];
+	[s appendFormat:@"%@\n", dateString];
+	[s appendFormat:@"%@\n", lunarDateString];
+	for (NSDictionary *tide in tides) {
+		NSString *name = [tide objectForKey:@"name"];
+		NSString *shortTime = [tide objectForKey:@"shortTime"];
+		NSString *height = [tide objectForKey:@"height"];
+		[s appendFormat:@"%@ %@ %@\n", name, shortTime, height];
+	}
+	return s;
+}
 - (void)draw:(CGRect)bounds
 {
+	[_ourContentView setIsAccessibilityElement:YES];
+	[_ourContentView setAccessibilityLabel:[self _description]];
+	[_ourContentView setAccessibilityTraits:UIAccessibilityTraitStaticText];
 	[dateString drawInRect:CGRectMake(10, 0, 260, 30) withFont:[UIFont boldSystemFontOfSize:20.0]];
 	[lunarDateString drawInRect:CGRectMake(10, 6, 260, 30) withFont:[UIFont systemFontOfSize:14.0] lineBreakMode:UILineBreakModeClip alignment:UITextAlignmentRight];
 	NSUInteger i = 0;
@@ -153,17 +169,8 @@
 }
 - (IBAction)copy:(id)sender
 {
-	NSMutableString *s = [NSMutableString string];
-	[s appendFormat:@"%@\n", dateString];
-	[s appendFormat:@"%@\n", lunarDateString];
-	for (NSDictionary *tide in tides) {
-		NSString *name = [tide objectForKey:@"name"];
-		NSString *shortTime = [tide objectForKey:@"shortTime"];
-		NSString *height = [tide objectForKey:@"height"];
-		[s appendFormat:@"%@ %@ %@\n", name, shortTime, height];
-	}
 	UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
-	[pasteBoard setString:s];
+	[pasteBoard setString:[self _description]];
 }
 - (void)setNeedsDisplay
 {

@@ -144,8 +144,21 @@
     return self;
 	
 }
+- (NSString *)_description
+{
+	NSMutableString *s = [NSMutableString string];
+	[s appendFormat:@"%@\n", title];
+	[s appendFormat:@"%@ - %@\n", beginTime, endTime];
+	[s appendFormat:@"%@\n", description];
+	[s appendFormat:@"溫度： %@ ℃\n", temperature];
+	[s appendFormat:@"降雨機率： %@ %%", rain];
+	return s;
+}
 - (void)draw:(CGRect)bounds
 {
+	[_ourContentView setIsAccessibilityElement:YES];
+	[_ourContentView setAccessibilityLabel:[self _description]];
+	
 	CGSize size = weatherImage.size;
 	[weatherImage drawInRect:CGRectMake(0, -5, size.width * 0.75, size.height * 0.75)];
 	
@@ -169,14 +182,8 @@
 }
 - (IBAction)copy:(id)sender
 {
-	NSMutableString *s = [NSMutableString string];
-	[s appendFormat:@"%@\n", title];
-	[s appendFormat:@"%@ - %@\n", beginTime, endTime];
-	[s appendFormat:@"%@\n", description];
-	[s appendFormat:@"溫度： %@ ℃\n", temperature];
-	[s appendFormat:@"降雨機率： %@ %%", rain];
 	UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
-	[pasteBoard setString:s];
+	[pasteBoard setString:[self _description]];
 }
 
 - (void)setNeedsDisplay

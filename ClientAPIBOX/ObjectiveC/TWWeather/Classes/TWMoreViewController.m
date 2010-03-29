@@ -65,7 +65,7 @@
 		return 4;
 	}		
 	else if (section == 1) {
-		return 4;
+		return 3;
 	}	
 //	else if (section == 1) {
 //		return 1;
@@ -115,15 +115,12 @@
 		cell.imageView.image = nil;
 		switch (indexPath.row) {
 			case 0:
-				cell.textLabel.text = NSLocalizedString(@"TWWeather on Facebook", @"");
-				break;
-			case 1:
 				cell.textLabel.text = NSLocalizedString(@"Settings", @"");
 				break;
-			case 2:
+			case 1:
 				cell.textLabel.text = NSLocalizedString(@"About", @"");
 				break;				
-			case 3:
+			case 2:
 				cell.accessoryType = UITableViewCellAccessoryNone;
 				cell.textLabel.text = NSLocalizedString(@"Feedback", @"");
 				break;				
@@ -179,19 +176,16 @@
 		
 	}
 	else if (indexPath.section == 1) {
-		if (indexPath.row == 3) {
+		if (indexPath.row == 2) {
 			[self sendEmailAction:self];
 			return;
 		}
 		
 		UITableViewController *controller = nil;
 		if (indexPath.row == 0) {
-			controller = [[TWFacebookController alloc] initWithStyle:UITableViewStyleGrouped];
-		}
-		else if (indexPath.row == 1) {
 			controller = [[TWSettingTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
 		}
-		else if (indexPath.row == 2) {
+		else if (indexPath.row == 1) {
 			controller = [[TWAboutViewController alloc] init];
 		}
 		if (controller) {

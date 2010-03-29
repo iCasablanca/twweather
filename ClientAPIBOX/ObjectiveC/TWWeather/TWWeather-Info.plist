@@ -21,12 +21,10 @@
 	<key>CFBundleSignature</key>
 	<string>ZNBL</string>
 	<key>CFBundleVersion</key>
-	<string>2.60</string>
+	<string>2.80</string>
 	<key>LSHasLocalizedDisplayName</key>
 	<true/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<!-- <key>NSMainNibFile</key>
-	<string>MainWindow</string> -->
 </dict>
 </plist>
