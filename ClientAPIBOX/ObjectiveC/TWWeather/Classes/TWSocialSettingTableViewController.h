@@ -39,6 +39,7 @@
 	UITextField *loginNameField;
 	UITextField *passwordField;
 	UIButton *loginButton;
+	UIView *footerView;
 }
 
 - (BOOL)isLoggedIn;

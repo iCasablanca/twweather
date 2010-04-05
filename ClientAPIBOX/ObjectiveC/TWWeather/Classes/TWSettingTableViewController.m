@@ -150,16 +150,17 @@
 	cell.detailTextLabel.font = [UIFont systemFontOfSize:12.0];
 	cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	cell.accessoryType = UITableViewCellAccessoryNone;
+	cell.accessoryView = nil;
 	if (indexPath.section == 0) {
 		cell.imageView.image = nil;
 		switch (indexPath.row) {
 			case 0:
 				cell.textLabel.text = NSLocalizedString(@"BGM", @"");
-				[cell.contentView addSubview:BGMSwitch];
+				cell.accessoryView = BGMSwitch;
 				break;
 			case 1:
 				cell.textLabel.text = NSLocalizedString(@"SFX", @"");
-				[cell.contentView addSubview:SFXSwitch];
+				cell.accessoryView = SFXSwitch;
 				break;
 			default:
 				break;
@@ -170,7 +171,9 @@
 			case 0:
 				cell.imageView.image = [UIImage imageNamed:@"SocialFacebook.png"];
 				cell.textLabel.text = NSLocalizedString(@"Facebook", @"");
+				loginButton.frame = CGRectMake(cell.bounds.size.width - 120 , 3, 80, 40);
 				[cell.contentView addSubview:loginButton];
+//				cell.accessoryView = loginButton;
 				break;
 			case 1:
 				cell.imageView.image = [UIImage imageNamed:@"SocialPlurk.png"];

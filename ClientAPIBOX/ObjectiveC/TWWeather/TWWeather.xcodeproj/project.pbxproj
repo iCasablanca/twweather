@@ -1553,9 +1553,10 @@
 					"../External/facebook-iphone-sdk/src/",
 				);
 				INFOPLIST_FILE = "TWWeather-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = TWWeather;
 				SDKROOT = iphoneos3.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1573,9 +1574,11 @@
 					"../External/facebook-iphone-sdk/src/",
 				);
 				INFOPLIST_FILE = "TWWeather-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = TWWeather;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				TARGETED_DEVICE_FAMILY = 1;
+				SDKROOT = iphoneos3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -1700,10 +1703,12 @@
 					"../External/facebook-iphone-sdk/src/",
 				);
 				INFOPLIST_FILE = "TWWeather-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = TWWeather;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				TARGETED_DEVICE_FAMILY = 1;
+				SDKROOT = iphoneos3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Distribution;
 		};

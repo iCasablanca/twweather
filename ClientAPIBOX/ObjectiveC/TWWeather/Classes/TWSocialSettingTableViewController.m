@@ -42,6 +42,8 @@
 	passwordField = nil;
 	[loginButton release];
 	loginButton = nil;
+	[footerView release];
+	footerView = nil;
 	[loadingView release];
 	loadingView = nil;
 }
@@ -92,15 +94,22 @@
 	}
 	
 	loadingView = [[TWLoadingView alloc] initWithFrame:CGRectMake(100, 100, 120, 120)];	
+		
+	if (!footerView) {
+		footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
+		footerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+	}
 	
 	if (!loginButton)  {	
-		loginButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];	
-		loginButton.frame = CGRectMake(10, 30, 300, 40);
+		loginButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+		loginButton.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+		loginButton.frame = CGRectMake(20, 10, 280, 40);
 		loginButton.titleLabel.font = [UIFont boldSystemFontOfSize:16.0];
 		UIImage *blueButtonImage = [[UIImage imageNamed:@"BlueButton.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:0];
 		[loginButton setBackgroundImage:blueButtonImage forState:UIControlStateNormal];		
 	}
-	self.tableView.tableFooterView = loginButton;
+	[footerView addSubview:loginButton];
+	self.tableView.tableFooterView = footerView;
 	self.tableView.scrollEnabled = NO;
 }
 
@@ -155,8 +164,9 @@
 	[loginButton setTitle:loginText forState:UIControlStateNormal];
 	[loginButton setTitle:loginText forState:UIControlStateHighlighted];
 	[loginButton setTitle:loginText forState:UIControlStateDisabled];
-	[loginButton setTitle:loginText forState:UIControlStateSelected];	
-	self.tableView.tableFooterView = loginButton;
+	[loginButton setTitle:loginText forState:UIControlStateSelected];
+	[footerView addSubview:loginButton];
+	self.tableView.tableFooterView = footerView;
 	[self.tableView reloadData];
 }
 
