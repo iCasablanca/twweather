@@ -49,13 +49,14 @@ Weather3DaySeaURL = "http://www.cwb.gov.tw/mobile/3sea/3sea%(#)d.wml"
 WeatherNearSeaURL = "http://www.cwb.gov.tw/mobile/nearsea/nearsea%(#)d.wml"
 WeatherTideURL = "http://www.cwb.gov.tw/mobile/tide/area%(#)d.wml"
 WeatherOBSURL = "http://www.cwb.gov.tw/mobile/obs/%(location)s.wml"
+WeatherGloabalURL = "http://www.cwb.gov.tw/pda/city/%(area)s/%(location)s.htm"
 
 class WeatherWarning(object):
 	def __init__(self):
 		pass
 	def fetch(self):
 		try:
-			url = urllib.urlopen(WeatherRootURL)
+			url = urllib.urlopen(WeatherRootURL, proxies={})
 		except:
 			return
 		warnings = []
@@ -70,7 +71,7 @@ class WeatherWarning(object):
 		for item in warnings:
 			URLString = WeatherWarningURL % {"id": item['id']}
 			try:
-				url = urllib.urlopen(URLString)
+				url = urllib.urlopen(URLString, proxies={})
 			except:
 				continue
 				pass
@@ -107,7 +108,7 @@ class WeatherOverview(object):
 		pass
 	def fetch(self):
 		try:
-			url = urllib.urlopen(WeatherOverViewURL)
+			url = urllib.urlopen(WeatherOverViewURL, proxies={})
 		except:
 			return
 		lines = url.readlines()
@@ -184,7 +185,7 @@ class WeatherForecast(Forecast):
 
 		URLString = WeatherForecastURL % {"#": int(id)}
 		try:
-			url = urllib.urlopen(URLString)
+			url = urllib.urlopen(URLString, proxies={})
 		except:
 			return None
 
@@ -276,7 +277,7 @@ class WeatherWeek(Forecast):
 		return WeatherWeekLocations
 	def handleLines(self, URLString, locationName, name):
 		try:
-			url = urllib.urlopen(URLString)
+			url = urllib.urlopen(URLString, proxies={})
 		except:
 			return None
 		lines = url.readlines()
@@ -405,7 +406,7 @@ class Weather3DaySea(Forecast):
 
 		URLString = Weather3DaySeaURL % {"#": int(id)}
 		try:
-			url = urllib.urlopen(URLString)
+			url = urllib.urlopen(URLString, proxies={})
 		except:
 			return None
 		lines = url.readlines()
@@ -506,7 +507,7 @@ class WeatherNearSea(Forecast):
 
 		URLString = WeatherNearSeaURL % {"#": int(id)}
 		try:
-			url = urllib.urlopen(URLString)
+			url = urllib.urlopen(URLString, proxies={})
 		except:
 			return None
 		
@@ -630,7 +631,7 @@ class WeatherTide(Forecast):
 
 		URLString = WeatherTideURL % {"#": int(id)}
 		try:
-			url = urllib.urlopen(URLString)
+			url = urllib.urlopen(URLString, proxies={})
 		except:
 			return None
 		lines = url.readlines()
@@ -757,7 +758,7 @@ class WeatherOBS(Forecast):
 
 		URLString = WeatherOBSURL % {"location": id}
 		try:
-			url = urllib.urlopen(URLString)
+			url = urllib.urlopen(URLString, proxies={})
 		except:
 			return None
 
@@ -928,27 +929,27 @@ WeatherGlobalLocations = [
 	{"location": u"華盛頓特區", "id": "WASHINGTON-DC", "area":u"美洲", "areaID":"america"},
 	{"location": u"布宜諾斯艾利斯", "id": "BUENOS-AIRES", "area":u"美洲", "areaID":"america"},
 
-	{"location": u"奧斯陸", "id": "OSLO", "area":u"歐非", "areaID":"europe-africa"},
-	{"location": u"馬德里", "id": "MADRID", "area":u"歐非", "areaID":"europe-africa"},
-	{"location": u"哥本哈根", "id": "COPENHAGEN", "area":u"歐非", "areaID":"europe-africa"},
-	{"location": u"赫爾辛基", "id": "HELSINKI", "area":u"歐非", "areaID":"europe-africa"},
-	{"location": u"法蘭克福", "id": "FRANKFURT", "area":u"歐非", "areaID":"europe-africa"},
-	{"location": u"柏林", "id": "BERLIN", "area":u"歐非", "areaID":"europe-africa"},
-	{"location": u"日內瓦", "id": "GENEVA", "area":u"歐非", "areaID":"europe-africa"},
-	{"location": u"布魯塞爾", "id": "BRUXELLES", "area":u"歐非", "areaID":"europe-africa"},
-	{"location": u"倫敦", "id": "LONDON", "area":u"歐非", "areaID":"europe-africa"},
-	{"location": u"巴黎", "id": "PARIS", "area":u"歐非", "areaID":"europe-africa"},
-	{"location": u"維也納", "id": "VIENNA", "area":u"歐非", "areaID":"europe-africa"},
-	{"location": u"羅馬", "id": "ROME", "area":u"歐非", "areaID":"europe-africa"},
-	{"location": u"威尼斯", "id": "VENEZIA", "area":u"歐非", "areaID":"europe-africa"},
-	{"location": u"布達佩斯", "id": "BUDAPEST", "area":u"歐非", "areaID":"europe-africa"},
-	{"location": u"雅典", "id": "ATHENS", "area":u"歐非", "areaID":"europe-africa"},
-	{"location": u"華沙", "id": "WARSZAWA", "area":u"歐非", "areaID":"europe-africa"},
-	{"location": u"布拉格", "id": "PRAHA", "area":u"歐非", "areaID":"europe-africa"},
-	{"location": u"開羅", "id": "CAIRO", "area":u"歐非", "areaID":"europe-africa"},
-	{"location": u"阿姆斯特丹", "id": "AMSTERDAM", "area":u"歐非", "areaID":"europe-africa"},
-	{"location": u"約翰尼斯堡", "id": "JOHANNESBURG", "area":u"歐非", "areaID":"europe-africa"},
-	{"location": u"斯德哥爾摩", "id": "STOCKHOLM", "area":u"歐非", "areaID":"europe-africa"},
+	{"location": u"奧斯陸", "id": "OSLO", "area":u"歐非", "areaID":"europe_africa"},
+	{"location": u"馬德里", "id": "MADRID", "area":u"歐非", "areaID":"europe_africa"},
+	{"location": u"哥本哈根", "id": "COPENHAGEN", "area":u"歐非", "areaID":"europe_africa"},
+	{"location": u"赫爾辛基", "id": "HELSINKI", "area":u"歐非", "areaID":"europe_africa"},
+	{"location": u"法蘭克福", "id": "FRANKFURT", "area":u"歐非", "areaID":"europe_africa"},
+	{"location": u"柏林", "id": "BERLIN", "area":u"歐非", "areaID":"europe_africa"},
+	{"location": u"日內瓦", "id": "GENEVA", "area":u"歐非", "areaID":"europe_africa"},
+	{"location": u"布魯塞爾", "id": "BRUXELLES", "area":u"歐非", "areaID":"europe_africa"},
+	{"location": u"倫敦", "id": "LONDON", "area":u"歐非", "areaID":"europe_africa"},
+	{"location": u"巴黎", "id": "PARIS", "area":u"歐非", "areaID":"europe_africa"},
+	{"location": u"維也納", "id": "VIENNA", "area":u"歐非", "areaID":"europe_africa"},
+	{"location": u"羅馬", "id": "ROME", "area":u"歐非", "areaID":"europe_africa"},
+	{"location": u"威尼斯", "id": "VENEZIA", "area":u"歐非", "areaID":"europe_africa"},
+	{"location": u"布達佩斯", "id": "BUDAPEST", "area":u"歐非", "areaID":"europe_africa"},
+	{"location": u"雅典", "id": "ATHENS", "area":u"歐非", "areaID":"europe_africa"},
+	{"location": u"華沙", "id": "WARSZAWA", "area":u"歐非", "areaID":"europe_africa"},
+	{"location": u"布拉格", "id": "PRAHA", "area":u"歐非", "areaID":"europe_africa"},
+	{"location": u"開羅", "id": "CAIRO", "area":u"歐非", "areaID":"europe_africa"},
+	{"location": u"阿姆斯特丹", "id": "AMSTERDAM", "area":u"歐非", "areaID":"europe_africa"},
+	{"location": u"約翰尼斯堡", "id": "JOHANNESBURG", "area":u"歐非", "areaID":"europe_africa"},
+	{"location": u"斯德哥爾摩", "id": "STOCKHOLM", "area":u"歐非", "areaID":"europe_africa"},
 
 	{"location": u"廣州", "id": "GUANGZHOU", "area":u"中國大陸", "areaID":"china"},
 	{"location": u"香港", "id": "HONGKONG", "area":u"中國大陸", "areaID":"china"},
@@ -968,6 +969,135 @@ WeatherGlobalLocations = [
 	{"location": u"蘭州", "id": "LANZHOU", "area":u"中國大陸", "areaID":"china"},
 	{"location": u"海口", "id": "HAIKOU", "area":u"中國大陸", "areaID":"china"}
 ]
+
+class WeatherGlobal(Forecast):
+	def locations(self):
+		return WeatherGlobalLocations
+	def fetchWithID(self, id):
+		locationItem = None
+		for item in  self.locations():
+			if item['id'] == id:
+				locationItem = item
+				break
+		if locationItem is None:
+			return
+		
+		if locationItem["areaID"] is "asia":
+			area = "aa"
+		elif locationItem["areaID"] is "america":
+			area = "ma"
+		elif locationItem["areaID"] is "europe_africa":
+			area = "of"
+		elif locationItem["areaID"] is "china":
+			area = "ch"
+		
+		URLString = WeatherGloabalURL % {"location": id, "area": area}
+		try:
+			url = urllib.urlopen(URLString, proxies={})
+		except:
+			return
+		lines = url.readlines()
+
+		locationName = locationItem["location"]
+		area = locationItem["area"]
+
+		forecastDate = ""
+		validDate = ""
+		forecast = ""
+		temperature = ""
+		avgTemperature = ""
+		avgRain = ""
+		parseForecast = False
+		parseTemperature = False
+		parseAvgTemperature = False
+		parseAvgRain = False
+	
+		for line in lines:
+			line = line.decode("big5hkscs").encode("utf8")
+			if line.startswith("<span class=\"fontstyle2\">&nbsp;"):
+				aDate = self.parseDate(line)
+				if len(forecastDate):
+					validDate = aDate
+				else:
+					forecastDate = aDate
+			if parseForecast is True:
+				forecast = self.parseData(line)
+				parseForecast = False
+			elif line.find("<th><div>天氣預報</div></th>") > -1:
+				parseForecast = True
+
+			if parseTemperature is True:
+				temperature = self.parseData(line)
+				parseTemperature = False
+			elif line.find("<th><div align=\"center\">溫度</div></th>") > -1:
+				parseTemperature = True
+
+			if parseAvgTemperature is True:
+				avgTemperature = self.parseData(line)
+				parseAvgTemperature = False
+			elif line.find("<th><div align=\"center\">月平均溫度</div></th>") > -1:
+				parseAvgTemperature = True
+
+			if parseAvgRain is True:
+				avgRain = self.parseData(line)
+				parseAvgRain = False
+			elif line.find("<th><div align=\"center\">月平均降雨量</div></th>") > -1:
+				parseAvgRain = True
+		result = {"locationName": locationName, "id": id, "area": area, "forecastDate": forecastDate, "validDate": validDate, "forecast": forecast,  "temperature": temperature, "avgTemperature": avgTemperature, "avgRain": avgRain}
+		return result
+
+
+	def parseData(self, line):
+		data  = ""
+		line = line.replace("&nbsp;", " ")
+		line = line.replace("&deg;", "°")
+		hasQuote = False
+		for aChar in line:
+			if aChar is "<":
+				hasQuote = True
+			if hasQuote is False:
+				data = data + aChar
+			if aChar is ">":
+				hasQuote = False
+		data = data.strip()
+		try:
+			data = data.decode("ascii")
+		except:
+			data = data.decode("utf-8")
+		return data
+
+	def parseDate(self, dateString):
+		date  = ""
+		dateString = dateString.replace("&nbsp;", " ")
+		hasQuote = False
+		for aChar in dateString:
+			if aChar is "<":
+				hasQuote = True
+			if (aChar.isdigit() or aChar.isspace() or aChar is "/" or aChar is "~") and hasQuote is False:
+				date = date + aChar
+			if aChar is ">":
+				hasQuote = False
+		date = date.strip()
+		try:
+			date = date.decode("ascii")
+		except:
+			date = date.decode("utf-8")
+		return date
+
+class TestWeatherGlobal(unittest.TestCase):
+	def setUp(self):
+		self.model = WeatherGlobal()
+	def testForecast(self):
+		for item in self.model.locations():
+			result = self.model.fetchWithID(item['id'])
+			self.assertTrue(result)
+			self.assertTrue(result["locationName"])
+			self.assertTrue(result["id"])
+			self.assertTrue(result["forecastDate"])
+			self.assertTrue(result["validDate"])
+			self.assertTrue(result["forecast"])
+			self.assertTrue(result["temperature"])
+
 
 def main():
 	unittest.main()

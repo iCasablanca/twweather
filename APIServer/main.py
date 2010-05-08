@@ -219,7 +219,7 @@ class ImageHandler(webapp.RequestHandler):
 		key = self.key_prefix + str(imageID)
 		imageData = memcache.get(key)
 		if imageData is None:
-			url = urllib.urlopen(URL)
+			url = urllib.urlopen(URL, proxies={})
 			imageData = url.read()
 			if imageData is None:
 				self.error(404)
@@ -251,8 +251,8 @@ def main():
 			('/warning', WarningController),
 			],
  			debug=True)
-	# wsgiref.handlers.CGIHandler().run(application)
-	run_wsgi_app(application)
+ 	wsgiref.handlers.CGIHandler().run(application)
+	# run_wsgi_app(application)
 
 if __name__ is '__main__':
 	main()
