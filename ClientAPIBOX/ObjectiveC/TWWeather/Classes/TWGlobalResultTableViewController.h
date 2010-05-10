@@ -1,5 +1,5 @@
 //
-// TWFetchOperation.h
+// TWGlobalResultTableViewController.h
 //
 // Copyright (c) 2009 - 2010 Weizhong Yang (http://zonble.net)
 // All Rights Reserved
@@ -27,25 +27,25 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#import <Foundation/Foundation.h>
-#import "LFHTTPRequest.h"
-#import "LFSiteReachability.h"
+#import <UIKit/UIKit.h>
 
-#define BASE_URL_STRING @"http://4.latest.twweatherapi.appspot.com/"
-
-@interface TWFetchOperation : NSOperation <LFSiteReachabilityDelegate>
+@interface TWGlobalResultTableViewController : UITableViewController 
 {
-	id delegate;
-	LFHTTPRequest *_request;
-	LFSiteReachability *_reachability;
-	id sessionInfo;
-	NSUInteger _retryCount;	
-	
-	BOOL runloopRunning;
+	UIImage *image;
+	NSString *description;
+	NSString *temperature;
+	NSString *avgTemperature;
+	NSString *avgRain;
+	NSString *pubDate;
+	NSString *validDate;
 }
 
-- (id)initWithDelegate:(id)delegate sessionInfo:(id)sessionInfo;
-
-@property (readonly, nonatomic) id sessionInfo;
+@property (retain, nonatomic) UIImage *image;
+@property (retain, nonatomic) NSString *description;
+@property (retain, nonatomic) NSString *temperature;
+@property (retain, nonatomic) NSString *avgTemperature;
+@property (retain, nonatomic) NSString *avgRain;
+@property (retain, nonatomic) NSString *pubDate;
+@property (retain, nonatomic) NSString *validDate;
 
 @end

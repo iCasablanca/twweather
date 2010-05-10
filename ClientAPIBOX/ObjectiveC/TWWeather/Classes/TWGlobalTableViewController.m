@@ -1,5 +1,5 @@
 //
-// TWOBSTableViewController.m
+// TWGlobalTableViewController.m
 //
 // Copyright (c) 2009 - 2010 Weizhong Yang (http://zonble.net)
 // All Rights Reserved
@@ -27,13 +27,14 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#import "TWOBSTableViewController.h"
-#import "TWOBSResultTableViewController.h"
+#import "TWGlobalTableViewController.h"
+#import "TWWeatherAppDelegate.h"
+#import "TWGlobalResultTableViewController.h"
 #import "TWErrorViewController.h"
 #import "TWLoadingCell.h"
 #import "TWAPIBox+Info.h"
 
-@implementation TWOBSTableViewController
+@implementation TWGlobalTableViewController
 
 - (void)dealloc 
 {
@@ -45,7 +46,7 @@
 {
 	if (!_array) {
 		_array = [[NSMutableArray alloc] init];
-		NSArray *allLocations = [[TWAPIBox sharedBox] OBSLocations];
+		NSArray *allLocations = [[TWAPIBox sharedBox] globalCityLocations];
 		for (NSDictionary *d in allLocations) {
 			NSArray *items = [d objectForKey:@"items"];
 			for (NSDictionary *item in items) {
@@ -61,7 +62,7 @@
 	
 	if (!_locations) {
 		_locations = [[NSMutableArray alloc] init];
-		NSArray *allLocations = [[TWAPIBox sharedBox] OBSLocations];
+		NSArray *allLocations = [[TWAPIBox sharedBox] globalCityLocations];
 		for (NSDictionary *d in allLocations) {
 			NSMutableDictionary *category = [NSMutableDictionary dictionary];
 			[category setObject:[d objectForKey:@"AreaID"] forKey:@"AreaID"];
@@ -105,7 +106,7 @@
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
-	self.title = @"目前天氣";
+	self.title = @"全球都市";
 }
 - (void)didReceiveMemoryWarning 
 {
@@ -200,7 +201,8 @@
 		[dictionary setObject:[NSNumber numberWithBool:YES] forKey:@"isLoading"];
 		self.tableView.userInteractionEnabled = NO;
 		[self.tableView reloadData];		
-		[[TWAPIBox sharedBox] fetchOBSWithLocationIdentifier:identifier delegate:self userInfo:nil];		
+//		[[TWAPIBox sharedBox] fetchOBSWithLocationIdentifier:identifier delegate:self userInfo:nil];		
+		[[TWAPIBox sharedBox] fetchGlobalCityWithLocationIdentifier:identifier delegate:self userInfo:nil];
 	}
 }
 
@@ -225,31 +227,31 @@
 
 #pragma mark -
 
-- (void)APIBox:(TWAPIBox *)APIBox didFetchOBS:(id)result identifier:(NSString *)identifier userInfo:(id)userInfo
+- (void)APIBox:(TWAPIBox *)APIBox didFetchGlobalCity:(id)result identifier:(NSString *)identifier userInfo:(id)userInfo
 {
 	[self resetLoading];
-	
 	if ([result isKindOfClass:[NSDictionary class]]) {
-		TWOBSResultTableViewController *controller = [[TWOBSResultTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+		TWGlobalResultTableViewController *controller = [[TWGlobalResultTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
 		controller.title = [result objectForKey:@"locationName"];
-		controller.description = [result objectForKey:@"description"];
-		controller.rain = [result objectForKey:@"rain"];
+		
+		NSString *imageName = [[TWWeatherAppDelegate sharedDelegate] imageNameWithTimeTitle:@"" description:[result objectForKey:@"forecast"]];
+		UIImage *image = [UIImage imageNamed:imageName];
+		controller.image = image;		
+		controller.description = [result objectForKey:@"forecast"];
 		controller.temperature = [result objectForKey:@"temperature"];
-		controller.time = [result objectForKey:@"time"];
-		controller.windDirection = [result objectForKey:@"windDirection"];
-		controller.windScale = [result objectForKey:@"windScale"];
-		controller.gustWindScale = [result objectForKey:@"gustWindScale"];		
+		controller.avgTemperature = [result objectForKey:@"avgTemperature"];
+		controller.avgRain = [result objectForKey:@"avgRain"];
+		controller.pubDate = [result objectForKey:@"forecastDate"];
+		controller.validDate = [result objectForKey:@"validDate"];
 		[self.navigationController pushViewController:controller animated:YES];
 		[controller release];
 	}
 }
-- (void)APIBox:(TWAPIBox *)APIBox didFailedFetchOBSWithError:(NSError *)error identifier:(NSString *)identifier userInfo:(id)userInfo
+- (void)APIBox:(TWAPIBox *)APIBox didFailedFetchGlobalCityWithError:(NSError *)error identifier:(NSString *)identifier userInfo:(id)userInfo
 {
 	[self resetLoading];
 	[self pushErrorViewWithError:error];
 }
-
-
 
 @end
 

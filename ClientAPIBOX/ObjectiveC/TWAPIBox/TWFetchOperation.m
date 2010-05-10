@@ -28,7 +28,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import "TWFetchOperation.h"
-
+#import "TWAPIBox.h"
 
 @implementation TWFetchOperation
 
@@ -76,7 +76,21 @@
 	@try {
 		NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
 		runloopRunning = YES;
-		[_reachability startChecking];
+
+		BOOL shouldWaitUntilDone = NO;
+		if ([delegate respondsToSelector:@selector(shouldWaitUntilDone)]) {
+			shouldWaitUntilDone = [(TWAPIBox *)delegate shouldWaitUntilDone];
+		}
+		
+		if (!shouldWaitUntilDone) {
+			[_reachability startChecking];
+		}
+		else {
+			_request.shouldWaitUntilDone = YES;
+			NSURL *URL = [sessionInfo objectForKey:@"URL"];
+			[_request performMethod:LFHTTPRequestGETMethod onURL:URL withData:nil];	
+		}		
+
 		while (runloopRunning) {
 			[[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
 		}
@@ -123,14 +137,14 @@
 
 - (void)reachability:(LFSiteReachability *)inReachability site:(NSURL *)inURL isAvailableOverConnectionType:(NSString *)inConnectionType
 {
-	NSLog(@"cmd:%s", _cmd);
+//	NSLog(@"cmd:%s", _cmd);
 	[inReachability stopChecking];
 	NSURL *URL = [sessionInfo objectForKey:@"URL"];
 	[_request performMethod:LFHTTPRequestGETMethod onURL:URL withData:nil];	
 }
 - (void)reachability:(LFSiteReachability *)inReachability siteIsNotAvailable:(NSURL *)inURL
 {
-	NSLog(@"cmd:%s", _cmd);
+//	NSLog(@"cmd:%s", _cmd);
 	[inReachability stopChecking];
 	[delegate httpRequest:_request didFailWithError:LFHTTPRequestConnectionError];
     runloopRunning = NO;

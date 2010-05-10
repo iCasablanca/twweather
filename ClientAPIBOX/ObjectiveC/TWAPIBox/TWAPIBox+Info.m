@@ -359,7 +359,7 @@
 	[self addToArray:china name:"蘭州" identifier:@"LANZHOU"];	
 	[self addToArray:china name:"海口" identifier:@"HAIKOU"];
 	
-	d = [NSDictionary dictionaryWithObjectsAndKeys:europeAfrica, @"china", @"china", @"AreaID", [NSString stringWithUTF8String:"中國"], @"areaName", nil];
+	d = [NSDictionary dictionaryWithObjectsAndKeys:china, @"items", @"china", @"AreaID", [NSString stringWithUTF8String:"中國"], @"areaName", nil];
 	[_globalCityLocations addObject:d];
 }
 

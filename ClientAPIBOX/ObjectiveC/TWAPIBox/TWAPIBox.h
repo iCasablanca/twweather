@@ -118,6 +118,7 @@ typedef enum {
 - (void)fetchTideWithLocationIdentifier:(NSString *)identifier delegate:(id)delegate userInfo:(id)userInfo;
 - (void)fetchImageWithIdentifier:(NSString *)identifier delegate:(id)delegate userInfo:(id)userInfo;
 - (void)fetchOBSWithLocationIdentifier:(NSString *)identifier delegate:(id)delegate userInfo:(id)userInfo;
+- (void)fetchGlobalCityWithLocationIdentifier:(NSString *)identifier delegate:(id)delegate userInfo:(id)userInfo;
 - (void)setShouldWaitUntilDone:(BOOL)flag;
 - (BOOL)shouldWaitUntilDone;
 

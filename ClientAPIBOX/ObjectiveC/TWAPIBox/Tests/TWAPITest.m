@@ -4,6 +4,8 @@
 
 - (void)testAPI
 {
+//	STFail(@"%s", __PRETTY_FUNCTION__);
+	
 	TWAPIBox *box = [TWAPIBox sharedBox];
 	[box setShouldWaitUntilDone:YES];
 	[box fetchWarningsWithDelegate:self	userInfo:nil];
@@ -17,6 +19,7 @@
 	NSEnumerator *e = [locations objectEnumerator];
 	while (d = [e nextObject]) {		
 		NSString *identifier = [d objectForKey:@"identifier"];
+//		STFail(@"%s %@", __PRETTY_FUNCTION__, identifier);
 		[[TWAPIBox sharedBox] fetchForecastWithLocationIdentifier:identifier delegate:self userInfo:identifier];
 	}
 }
@@ -27,6 +30,7 @@
 	NSEnumerator *e = [locations objectEnumerator];
 	while (d = [e nextObject]) {		
 		NSString *identifier = [d objectForKey:@"identifier"];
+//		STFail(@"%s %@", __PRETTY_FUNCTION__, identifier);
 		[[TWAPIBox sharedBox] fetchWeekWithLocationIdentifier:identifier delegate:self userInfo:identifier];
 	}
 }
@@ -37,36 +41,42 @@
 	NSEnumerator *e = [locations objectEnumerator];
 	while (d = [e nextObject]) {		
 		NSString *identifier = [d objectForKey:@"identifier"];
+//		STFail(@"%s %@", __PRETTY_FUNCTION__, identifier);
 		[[TWAPIBox sharedBox] fetchWeekTravelWithLocationIdentifier:identifier delegate:self userInfo:identifier];
 	}
 }
-- (void)testThreeDaySee
-{
+- (void)testThreeDaySea
+{	
 	NSArray *locations = [[TWAPIBox sharedBox] threeDaySeaLocations];
 	NSDictionary *d = nil;
 	NSEnumerator *e = [locations objectEnumerator];
 	while (d = [e nextObject]) {		
 		NSString *identifier = [d objectForKey:@"identifier"];
+//		STFail(@"%s %@", __PRETTY_FUNCTION__, identifier);
 		[[TWAPIBox sharedBox] fetchThreeDaySeaWithLocationIdentifier:identifier delegate:self userInfo:identifier];
 	}
 }
-- (void)testNearSee
+- (void)testNearSea
 {
 	NSArray *locations = [[TWAPIBox sharedBox] nearSeaLocations];
 	NSDictionary *d = nil;
 	NSEnumerator *e = [locations objectEnumerator];
 	while (d = [e nextObject]) {		
 		NSString *identifier = [d objectForKey:@"identifier"];
+//		STFail(@"%s %@", __PRETTY_FUNCTION__, identifier);
 		[[TWAPIBox sharedBox] fetchNearSeaWithLocationIdentifier:identifier delegate:self userInfo:identifier];
 	}
 }
 - (void)testTide
 {
+	STFail(@"%s", __PRETTY_FUNCTION__);
+	
 	NSArray *locations = [[TWAPIBox sharedBox] tideLocations];
 	NSDictionary *d = nil;
 	NSEnumerator *e = [locations objectEnumerator];
 	while (d = [e nextObject]) {		
 		NSString *identifier = [d objectForKey:@"identifier"];
+//		STFail(@"%s %@", __PRETTY_FUNCTION__, identifier);
 		[[TWAPIBox sharedBox] fetchTideWithLocationIdentifier:identifier delegate:self userInfo:identifier];
 	}
 }

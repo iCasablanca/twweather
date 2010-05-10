@@ -13,6 +13,8 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */; };
 		28C286E10D94DF7D0034E888 /* TWRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C286E00D94DF7D0034E888 /* TWRootViewController.m */; };
+		D40803AF1198BDA40042091E /* TWGlobalTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D40803AE1198BDA40042091E /* TWGlobalTableViewController.m */; };
+		D40803D71198C1730042091E /* TWGlobalResultTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D40803D61198C1730042091E /* TWGlobalResultTableViewController.m */; };
 		D41B04361031F212000AA604 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = D41B04351031F212000AA604 /* Entitlements.plist */; };
 		D41B17231107F39600D78B27 /* SocialFacebook.png in Resources */ = {isa = PBXBuildFile; fileRef = D41B17201107F39600D78B27 /* SocialFacebook.png */; };
 		D41B17241107F39600D78B27 /* SocialPlurk.png in Resources */ = {isa = PBXBuildFile; fileRef = D41B17211107F39600D78B27 /* SocialPlurk.png */; };
@@ -180,6 +182,10 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* TWWeather-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "TWWeather-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		D400828F10C34714007416F6 /* TWFacebookAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TWFacebookAPI.h; path = ../TWFacebookAPI.h; sourceTree = "<group>"; };
+		D40803AD1198BDA40042091E /* TWGlobalTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWGlobalTableViewController.h; sourceTree = "<group>"; };
+		D40803AE1198BDA40042091E /* TWGlobalTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWGlobalTableViewController.m; sourceTree = "<group>"; };
+		D40803D51198C1730042091E /* TWGlobalResultTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWGlobalResultTableViewController.h; sourceTree = "<group>"; };
+		D40803D61198C1730042091E /* TWGlobalResultTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWGlobalResultTableViewController.m; sourceTree = "<group>"; };
 		D41B04351031F212000AA604 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		D41B17201107F39600D78B27 /* SocialFacebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialFacebook.png; sourceTree = "<group>"; };
 		D41B17211107F39600D78B27 /* SocialPlurk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialPlurk.png; sourceTree = "<group>"; };
@@ -736,6 +742,17 @@
 			name = Sounds;
 			sourceTree = "<group>";
 		};
+		D40803A21198BCA80042091E /* Global Cities */ = {
+			isa = PBXGroup;
+			children = (
+				D40803AD1198BDA40042091E /* TWGlobalTableViewController.h */,
+				D40803AE1198BDA40042091E /* TWGlobalTableViewController.m */,
+				D40803D51198C1730042091E /* TWGlobalResultTableViewController.h */,
+				D40803D61198C1730042091E /* TWGlobalResultTableViewController.m */,
+			);
+			name = "Global Cities";
+			sourceTree = "<group>";
+		};
 		D40948E31111EEEF008A17D6 /* Resources-iPad */ = {
 			isa = PBXGroup;
 			children = (
@@ -955,6 +972,7 @@
 				D40082BA10C34BA9007416F6 /* Near Sea Forecast */,
 				D40082BD10C34BBC007416F6 /* Tide forecast */,
 				D40082BF10C34BDA007416F6 /* OBS */,
+				D40803A21198BCA80042091E /* Global Cities */,
 				D40082C110C34BEE007416F6 /* Forecast Images */,
 				D40082CC10C34C6A007416F6 /* Other Controllers */,
 				D4CE0EEB1113DEE400043EDE /* Facebook */,
@@ -1304,6 +1322,8 @@
 				D49F820F11986AF400051439 /* OAToken.m in Sources */,
 				D49F821011986AF400051439 /* OATokenManager.m in Sources */,
 				D49F82CF1198962600051439 /* TWFetchOperation.m in Sources */,
+				D40803AF1198BDA40042091E /* TWGlobalTableViewController.m in Sources */,
+				D40803D71198C1730042091E /* TWGlobalResultTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

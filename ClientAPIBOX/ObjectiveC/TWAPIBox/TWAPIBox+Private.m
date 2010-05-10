@@ -164,6 +164,9 @@
 		else if ([identifier isEqualToString:@"obs"] && delegate && [delegate respondsToSelector:@selector(APIBox:didFetchOBS:identifier:userInfo:)]) {
 			[delegate APIBox:self didFetchOBS:result identifier:inIdentifier userInfo:userInfo];
 		}		
+		else if ([identifier isEqualToString:@"global"] && delegate && [delegate respondsToSelector:@selector(APIBox:didFetchGlobalCity:identifier:userInfo:)]) {
+			[delegate APIBox:self didFetchGlobalCity:result identifier:inIdentifier userInfo:userInfo];
+		}		
 	}
 	else {
 		NSInteger code = TWAPIDataError;
@@ -188,6 +191,9 @@
 		}
 		else if ([identifier isEqualToString:@"obs"] && delegate && [delegate respondsToSelector:@selector(APIBox:didFailedFetchOBSWithError:identifier:userInfo:)]) {
 			[delegate APIBox:self didFailedFetchOBSWithError:theError identifier:inIdentifier userInfo:userInfo];
+		}		
+		else if ([identifier isEqualToString:@"global"] && delegate && [delegate respondsToSelector:@selector(APIBox:didFailedFetchGlobalCityWithError:identifier:userInfo:)]) {
+			[delegate APIBox:self didFailedFetchGlobalCityWithError:theError identifier:inIdentifier userInfo:userInfo];
 		}		
 	}
 	

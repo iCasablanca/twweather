@@ -185,6 +185,13 @@ static TWAPIBox *apibox;
 	NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:identifier, @"identifier", userInfo, @"userInfo", nil];
 	[self sendRequestWithPath:path identifier:@"obs" action:@selector(didFetchForecast:data:) failedAction:@selector(didFailedFetchForecast:error:) delegate:delegate userInfo:info];	
 }
+- (void)fetchGlobalCityWithLocationIdentifier:(NSString *)identifier delegate:(id)delegate userInfo:(id)userInfo
+{
+	NSString *path = [NSString stringWithFormat:@"global?location=%@", identifier];
+	NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:identifier, @"identifier", userInfo, @"userInfo", nil];
+	[self sendRequestWithPath:path identifier:@"global" action:@selector(didFetchForecast:data:) failedAction:@selector(didFailedFetchForecast:error:) delegate:delegate userInfo:info];		
+}
+
 - (void)setShouldWaitUntilDone:(BOOL)flag
 {
 	shouldWaitUntilDone = flag;
