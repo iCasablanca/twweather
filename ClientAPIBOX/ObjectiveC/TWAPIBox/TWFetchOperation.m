@@ -53,7 +53,7 @@
 		_reachability.delegate = self;
 
 		_request = [[LFHTTPRequest alloc] init];
-		_request.timeoutInterval = 5.0;
+		_request.timeoutInterval = 1.0;
 		_request.sessionInfo = sessionInfo;
 		_request.delegate = self;
 	}
@@ -75,10 +75,10 @@
 {
 	@try {
 		NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-		[_reachability startChecking];
 		runloopRunning = YES;
+		[_reachability startChecking];
 		while (runloopRunning) {
-			[[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:5.0]];
+			[[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
 		}
 		[pool release];
 	}
@@ -123,15 +123,16 @@
 
 - (void)reachability:(LFSiteReachability *)inReachability site:(NSURL *)inURL isAvailableOverConnectionType:(NSString *)inConnectionType
 {
+	NSLog(@"cmd:%s", _cmd);
+	[inReachability stopChecking];
 	NSURL *URL = [sessionInfo objectForKey:@"URL"];
 	[_request performMethod:LFHTTPRequestGETMethod onURL:URL withData:nil];	
-	[inReachability stopChecking];
-	
 }
 - (void)reachability:(LFSiteReachability *)inReachability siteIsNotAvailable:(NSURL *)inURL
 {
-	[delegate httpRequest:_request didFailWithError:LFHTTPRequestConnectionError];
+	NSLog(@"cmd:%s", _cmd);
 	[inReachability stopChecking];
+	[delegate httpRequest:_request didFailWithError:LFHTTPRequestConnectionError];
     runloopRunning = NO;
 }
 

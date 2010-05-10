@@ -140,10 +140,10 @@
 		controller = [[TWOBSTableViewController alloc] initWithStyle:UITableViewStylePlain];
 	}		
 	else if (indexPath.row == 1) {
-		[[TWAPIBox sharedBox] fetchOverviewWithFormat:TWOverviewPlainFormat delegate:self userInfo:nil];
 		isLoadingOverview = YES;
 		[self.tableView reloadData];
 		self.tableView.userInteractionEnabled = NO;
+		[[TWAPIBox sharedBox] fetchOverviewWithFormat:TWOverviewPlainFormat delegate:self userInfo:nil];
 	}
 	else if (indexPath.row == 2) {
 		controller = [[TWForecastTableViewController alloc] initWithStyle:UITableViewStylePlain];

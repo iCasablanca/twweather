@@ -99,6 +99,8 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 
 - (void)viewDidLoad 
 {	
+	[super viewDidLoad];
+	
 	if (!_favArray) {
 		_favArray = [[NSMutableArray alloc] init];
 	}
@@ -130,13 +132,18 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 		weekDictionary = [[NSMutableDictionary alloc] init];
 	}
 	
-	[super viewDidLoad];	
-	[self loadData];
+	dataLoaded = NO;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
+	
+	if (!dataLoaded) {
+		[self loadData];
+		dataLoaded = YES;
+	}	
+	
 	UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(changeSetting:)];
 	self.tabBarController.navigationItem.rightBarButtonItem = item;
 	[item release];

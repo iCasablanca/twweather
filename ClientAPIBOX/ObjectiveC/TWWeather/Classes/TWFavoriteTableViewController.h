@@ -43,6 +43,7 @@
 	UITableView *_tableView;
 	UILabel *errorLabel;
 	
+	BOOL dataLoaded;
 	BOOL isLoading;
 	BOOL isLoadingWeek;
 	NSUInteger loadingWeekIndex;

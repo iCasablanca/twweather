@@ -288,10 +288,11 @@ static TWAPIBox *apibox;
 	if (URL) {
 		NSData *data = [self dataInCacheForURL:URL];
 		NSMutableDictionary *sessionInfo = request.sessionInfo;
-		NSDate *date = [self dateOfCacheForURL:URL];
-		[sessionInfo setObject:date forKey:@"date"];
 
-		if (data) {
+		if (data) {			
+			NSDate *date = [self dateOfCacheForURL:URL];
+			[sessionInfo setObject:date forKey:@"date"];
+
 			NSString *actionString = [[request sessionInfo] objectForKey:@"action"];
 			SEL action = NSSelectorFromString(actionString);
 			[self performSelector:action withObject:request withObject:data];
