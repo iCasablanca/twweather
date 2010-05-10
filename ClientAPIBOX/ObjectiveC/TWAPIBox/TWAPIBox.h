@@ -28,8 +28,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import <Foundation/Foundation.h>
-#import "LFHTTPRequest.h"
-#import "LFSiteReachability.h"
+#import "TWFetchOperation.h"
 
 typedef enum {
 	TWOverviewHTMLFormat = 0,
@@ -82,13 +81,17 @@ typedef enum {
 - (void)APIBox:(TWAPIBox *)APIBox didFetchOBS:(id)result identifier:(NSString *)identifier userInfo:(id)userInfo;
 - (void)APIBox:(TWAPIBox *)APIBox didFailedFetchOBSWithError:(NSError *)error identifier:(NSString *)identifier userInfo:(id)userInfo;
 
+- (void)APIBox:(TWAPIBox *)APIBox didFetchGlobalCity:(id)result identifier:(NSString *)identifier userInfo:(id)userInfo;
+- (void)APIBox:(TWAPIBox *)APIBox didFailedFetchGlobalCityWithError:(NSError *)error identifier:(NSString *)identifier userInfo:(id)userInfo;
+
 
 @end
 
-@interface TWAPIBox : NSObject <LFSiteReachabilityDelegate>
+@interface TWAPIBox : NSObject
 {
-	LFHTTPRequest *_request;
-	NSMutableArray *_queue;
+	BOOL shouldWaitUntilDone;
+	NSOperationQueue *_operationQueue;
+	
 	NSMutableArray *_forecastLocations;
 	NSMutableArray *_weekLocations;
 	NSMutableArray *_weekTravelLocations;
@@ -99,21 +102,11 @@ typedef enum {
 	NSMutableArray *_OBSLocations;
 	NSMutableArray *_globalCityLocations;
 	NSDateFormatter *_formatter;
-	
-	NSUInteger _retryCount;
-	NSMutableDictionary *_retryCountDictionary;
-	
-	LFSiteReachability *_reachability;
-	
-	
-	id _currentSessionInfo;
-	NSURL *_currentURL;
 }
 
 + (TWAPIBox *)sharedBox;
 - (void)cancelAllRequest;
 - (void)cancelAllRequestWithDelegate:(id)delegate;
-- (void)runQueue;
 - (void)fetchWarningsWithDelegate:(id)delegate userInfo:(id)userInfo;
 - (void)fetchOverviewWithFormat:(TWOverviewFormat)format delegate:(id)delegate userInfo:(id)userInfo;
 - (void)fetchAllForecastsWithDelegate:(id)delegate userInfo:(id)userInfo;

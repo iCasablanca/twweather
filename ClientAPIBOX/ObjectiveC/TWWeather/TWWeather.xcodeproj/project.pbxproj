@@ -106,6 +106,8 @@
 		D49F820D11986AF400051439 /* OAServiceTicket.m in Sources */ = {isa = PBXBuildFile; fileRef = D49F819311986AF400051439 /* OAServiceTicket.m */; };
 		D49F820F11986AF400051439 /* OAToken.m in Sources */ = {isa = PBXBuildFile; fileRef = D49F819711986AF400051439 /* OAToken.m */; };
 		D49F821011986AF400051439 /* OATokenManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D49F819911986AF400051439 /* OATokenManager.m */; };
+		D49F82CF1198962600051439 /* TWFetchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D49F82CE1198962600051439 /* TWFetchOperation.m */; };
+		D49F82D01198962600051439 /* TWFetchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D49F82CE1198962600051439 /* TWFetchOperation.m */; };
 		D4A09D3410D95D6000013733 /* TWLocationAddTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A09D3310D95D6000013733 /* TWLocationAddTableViewController.m */; };
 		D4B3BA7F1104B6EA003E5E3D /* TWFavoriteSectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D4B3BA7E1104B6EA003E5E3D /* TWFavoriteSectionCell.m */; };
 		D4B3BE391104DF2F003E5E3D /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D4B3BE381104DF2F003E5E3D /* SFHFKeychainUtils.m */; };
@@ -317,6 +319,8 @@
 		D49F819811986AF400051439 /* OATokenManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OATokenManager.h; sourceTree = "<group>"; };
 		D49F819911986AF400051439 /* OATokenManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OATokenManager.m; sourceTree = "<group>"; };
 		D49F819A11986AF400051439 /* OAuthConsumer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAuthConsumer.h; sourceTree = "<group>"; };
+		D49F82CD1198962600051439 /* TWFetchOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TWFetchOperation.h; path = ../TWAPIBox/TWFetchOperation.h; sourceTree = SOURCE_ROOT; };
+		D49F82CE1198962600051439 /* TWFetchOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TWFetchOperation.m; path = ../TWAPIBox/TWFetchOperation.m; sourceTree = SOURCE_ROOT; };
 		D4A09D3210D95D6000013733 /* TWLocationAddTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWLocationAddTableViewController.h; sourceTree = "<group>"; };
 		D4A09D3310D95D6000013733 /* TWLocationAddTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWLocationAddTableViewController.m; sourceTree = "<group>"; };
 		D4B3BA7D1104B6E9003E5E3D /* TWFavoriteSectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWFavoriteSectionCell.h; sourceTree = "<group>"; };
@@ -1014,6 +1018,8 @@
 				D489E3831023DF2500189460 /* TWAPIBox+Cache.m */,
 				D4C02AAC102BD47000FD1D3B /* TWAPIBox+Private.h */,
 				D4C02AAD102BD47000FD1D3B /* TWAPIBox+Private.m */,
+				D49F82CD1198962600051439 /* TWFetchOperation.h */,
+				D49F82CE1198962600051439 /* TWFetchOperation.m */,
 			);
 			name = TWAPIBOX;
 			sourceTree = "<group>";
@@ -1297,6 +1303,7 @@
 				D49F820D11986AF400051439 /* OAServiceTicket.m in Sources */,
 				D49F820F11986AF400051439 /* OAToken.m in Sources */,
 				D49F821011986AF400051439 /* OATokenManager.m in Sources */,
+				D49F82CF1198962600051439 /* TWFetchOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1313,6 +1320,7 @@
 				D471EAE4102F471B00768C5B /* TWAPIBox+Private.m in Sources */,
 				D471EBD8102F47D400768C5B /* TWAPITest.m in Sources */,
 				D44C172C10309942006B6698 /* CocoaCryptoHashing.m in Sources */,
+				D49F82D01198962600051439 /* TWFetchOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

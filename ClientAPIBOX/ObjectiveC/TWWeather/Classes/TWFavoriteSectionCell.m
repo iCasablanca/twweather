@@ -131,6 +131,7 @@
 	[[UIColor grayColor] setStroke];	
 	CGContextStrokePath(context);
 	CGPathRelease(path);
+	CGColorSpaceRelease(space);
 	
 }
 - (void)setNeedsDisplay
