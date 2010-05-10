@@ -25,6 +25,7 @@ class TestAPI(unittest.TestCase):
 				('/image', ImageHandler),
 				('/obs', OBSController),
 				('/warning', WarningController),
+				('/global', GlobalController),
 				],
 	 			debug=True)
 		self.app = TestApp(self.application)
@@ -184,3 +185,18 @@ class TestAPI(unittest.TestCase):
 			id = str(item['id'])
 			response = self.app.get("/image?id=" + id)
 			self.assertEqual(response.headers['Content-Type'], "image/jpg")
+
+	def _testGlobalItem(self, result):
+		self.assertTrue(result)
+		self.assertTrue(result["locationName"])
+		self.assertTrue(result["id"])
+		self.assertTrue(result["forecastDate"])
+		self.assertTrue(result["validDate"])
+		self.assertTrue(result["forecast"])
+		self.assertTrue(result["temperature"])
+
+	def testGlobal(self):
+		l = lambda result: self._testGlobalItem(result)
+		self._handleForecasts("global", weather.WeatherGlobalLocations, l)
+	
+	pass
