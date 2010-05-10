@@ -16,3 +16,9 @@
 [submodule "ClientAPIBOX/ObjectiveC/External/MGTwitterEngine-1.0.8-OAuth"]
 	path = ClientAPIBOX/ObjectiveC/External/MGTwitterEngine-1.0.8-OAuth
 	url = git://github.com/kimptoc/MGTwitterEngine-1.0.8-OAuth.git
+[submodule "ClientAPIBOX/ObjectiveC/External/MGTwitterEngine"]
+	path = ClientAPIBOX/ObjectiveC/External/MGTwitterEngine
+	url = http://github.com/mattgemmell/MGTwitterEngine.git
+[submodule "ClientAPIBOX/ObjectiveC/External/oauthconsumer"]
+	path = ClientAPIBOX/ObjectiveC/External/oauthconsumer
+	url = http://github.com/jdg/oauthconsumer.git

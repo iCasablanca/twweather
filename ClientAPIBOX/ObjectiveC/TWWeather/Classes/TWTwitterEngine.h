@@ -28,12 +28,15 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import "MGTwitterEngine.h"
+#import "TWCommonHeader.h"
 
 @interface TWTwitterEngine : NSObject <MGTwitterEngineDelegate> 
 {
 	NSObject *delegate;	
 	MGTwitterEngine *engine;
 	BOOL isLoggedIn;
+	NSString *username;
+	NSString *password;
 }
 
 + (TWTwitterEngine *)sharedEngine;
@@ -42,5 +45,7 @@
 @property (readonly) MGTwitterEngine *engine;
 @property (assign, getter=isLoggedIn) BOOL loggedIn;
 
+@property (retain, nonatomic) NSString *username;
+@property (retain, nonatomic) NSString *password;
 
 @end

@@ -46,6 +46,8 @@ static TWTwitterEngine* sharedEngine;
 {
 	delegate = nil;
 	[engine release];
+	[username release];
+	[password release];
 	[super dealloc];
 }
 
@@ -58,6 +60,7 @@ static TWTwitterEngine* sharedEngine;
 		NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
 		NSString *clientName = [infoDictionary objectForKey:@"CFBundleName"];
 		NSString *version = [infoDictionary objectForKey:@"CFBundleVersion"];	
+		[engine setConsumerKey:TWITTER_CONSUMER_KEY secret:TWITTER_CONSUMER_SECRET];
 		[engine setClientName:clientName version:version URL:@"http://zonble.net" token:@"twweather"];			
 	}
 	return self;
@@ -109,7 +112,16 @@ static TWTwitterEngine* sharedEngine;
 		[(NSObject<MGTwitterEngineDelegate> *)delegate imageReceived:image forRequest:identifier];
 	}	
 }
+- (void)accessTokenReceived:(OAToken *)token forRequest:(NSString *)identifier
+{
+//	[engine setAccessToken:token];
+	[[TWTwitterEngine sharedEngine].engine setAccessToken:token];
+	[token storeInUserDefaultsWithServiceProviderName:TWTwitterTokenPreference prefix:@""];
 
+	if (delegate && [delegate respondsToSelector:@selector(accessTokenReceived:forRequest:)]) {
+		[(NSObject<MGTwitterEngineDelegate> *)delegate accessTokenReceived:token forRequest:identifier];
+	}	
+}
 
 #pragma mark -
 
@@ -125,5 +137,7 @@ static TWTwitterEngine* sharedEngine;
 @synthesize delegate;
 @synthesize engine;
 @dynamic loggedIn;
+@synthesize username;
+@synthesize password;
 
 @end

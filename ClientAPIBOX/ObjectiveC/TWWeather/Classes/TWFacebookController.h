@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "FBConnect.h"
 
-@interface TWFacebookController : UITableViewController
+@interface TWFacebookController : UITableViewController <FBRequestDelegate>
 {
 	NSMutableArray *posts;
 }

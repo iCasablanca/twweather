@@ -125,9 +125,19 @@
 		NSError *error = nil;
 		NSString *thePassword = [SFHFKeychainUtils getPasswordForUsername:theLoginName andServiceName:TWTwitterService error:&error];
 		if (thePassword && !error) {
-			MGTwitterEngine *engine = [TWTwitterEngine sharedEngine].engine;
-			[engine setUsername:theLoginName password:thePassword];
-			[TWTwitterEngine sharedEngine].loggedIn = YES;
+			OAToken *token = [[OAToken alloc] initWithUserDefaultsUsingServiceProviderName:TWTwitterTokenPreference prefix:@""];			
+//			MGTwitterEngine *engine = [TWTwitterEngine sharedEngine].engine;
+//			[engine setUsername:theLoginName password:thePassword];
+			TWTwitterEngine *engine = [TWTwitterEngine sharedEngine];
+			[engine.engine setAccessToken:token];
+			engine.username = theLoginName;
+			engine.password = thePassword;
+			if (![token hasExpired]) {
+				[TWTwitterEngine sharedEngine].loggedIn = YES;
+			}
+			else {
+				[[TWTwitterEngine sharedEngine].engine getXAuthAccessTokenForUsername:theLoginName password:thePassword];
+			}
 		}
 	}
 	
