@@ -196,6 +196,11 @@ class OBSController(ForecastController):
 		self.model = weather.WeatherOBS()
 		self.key_prefix = "obs_"
 
+class GlobalController(ForecastController):
+	def __init__(self):
+		self.model = weather.WeatherGlobal()
+		self.key_prefix = "global_"
+
 class ImageHandler(webapp.RequestHandler):
 	def __init__(self):
 		self.imageURL = weather.WeatherImageURL
@@ -249,6 +254,7 @@ def main():
 			('/image', ImageHandler),
 			('/obs', OBSController),
 			('/warning', WarningController),
+			('/global', GlobalController),
 			],
  			debug=True)
  	wsgiref.handlers.CGIHandler().run(application)
