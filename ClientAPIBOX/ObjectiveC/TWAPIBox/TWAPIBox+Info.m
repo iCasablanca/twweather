@@ -260,6 +260,108 @@
 	d = [NSDictionary dictionaryWithObjectsAndKeys:island, @"items", @"island", @"AreaID", [NSString stringWithUTF8String:"外島"], @"areaName", nil];
 	[_OBSLocations addObject:d];
 }
+- (void)initGlobalCityLocations
+{
+	_globalCityLocations = [[NSMutableArray alloc] init];
+
+	NSMutableArray *asia = [NSMutableArray array];
+	[self addToArray:asia name:"東京" identifier:@"TOKYO"];
+	[self addToArray:asia name:"大阪" identifier:@"OSAKA"];
+	[self addToArray:asia name:"首爾" identifier:@"SEOUL"];
+	[self addToArray:asia name:"曼谷" identifier:@"BANGKOK"];
+	[self addToArray:asia name:"雅加達" identifier:@"JAKARTA"];
+	[self addToArray:asia name:"吉隆坡" identifier:@"KUALALUMPUR"];
+	[self addToArray:asia name:"新加坡" identifier:@"SINGAPORE"];
+	[self addToArray:asia name:"馬尼拉" identifier:@"MANILA"];
+	[self addToArray:asia name:"加德滿都" identifier:@"KATMANDU"];
+	[self addToArray:asia name:"胡志明市" identifier:@"HO-CHI-MINH"];
+	[self addToArray:asia name:"河內" identifier:@"HA-NOI"];
+	[self addToArray:asia name:"新德里" identifier:@"NEW-DELHI"];
+	[self addToArray:asia name:"伊斯坦堡" identifier:@"ISTANBUL"];
+	[self addToArray:asia name:"莫斯科" identifier:@"MOSCOW"];
+	[self addToArray:asia name:"海參威" identifier:@"VLADIVOSTOK"];
+	[self addToArray:asia name:"伯力" identifier:@"HABAROVSK"];
+	[self addToArray:asia name:"威靈頓" identifier:@"WELLINGTON"];
+	[self addToArray:asia name:"奧克蘭" identifier:@"AUCKLAND"];
+	[self addToArray:asia name:"墨爾本" identifier:@"MELBOURNE"];
+	[self addToArray:asia name:"雪梨" identifier:@"SYDNEY"];
+	[self addToArray:asia name:"伯斯" identifier:@"PERTH"];
+	[self addToArray:asia name:"布里斯班" identifier:@"BRISBANE"];
+
+	NSDictionary *d = [NSDictionary dictionaryWithObjectsAndKeys:asia, @"items", @"asia", @"AreaID", [NSString stringWithUTF8String:"亞洲"], @"areaName", nil];
+	[_globalCityLocations addObject:d];
+
+	NSMutableArray *america = [NSMutableArray array];
+	[self addToArray:america name:"關島" identifier:@"GUAM"];
+	[self addToArray:america name:"檀香山" identifier:@"HONOLULU"];	
+	[self addToArray:america name:"洛杉磯" identifier:@"LOSANGELES"];
+	[self addToArray:america name:"舊金山" identifier:@"SANFRANCISCO"];	
+	[self addToArray:america name:"西雅圖" identifier:@"SEATTLE"];
+	[self addToArray:america name:"紐約" identifier:@"NEWYORK"];	
+	[self addToArray:america name:"芝加哥" identifier:@"CHICAGO"];
+	[self addToArray:america name:"邁阿密" identifier:@"MIAMI"];	
+	[self addToArray:america name:"多倫多" identifier:@"TORONTO"];
+	[self addToArray:america name:"溫哥華" identifier:@"VANCOUVER"];	
+	[self addToArray:america name:"蒙特婁" identifier:@"MONTREAL"];
+	[self addToArray:america name:"墨西哥城" identifier:@"MEXICO-CITY"];	
+	[self addToArray:america name:"里約熱內盧" identifier:@"RIO-DE-JANEIRO"];
+	[self addToArray:america name:"聖地牙哥（智利）" identifier:@"SANTIAGO"];	
+	[self addToArray:america name:"利瑪" identifier:@"LIMA"];
+	[self addToArray:america name:"拉斯維加斯" identifier:@"LASVEGAS"];	
+	[self addToArray:america name:"華盛頓特區" identifier:@"WASHINGTON-DC"];
+	[self addToArray:america name:"布宜諾斯艾利斯" identifier:@"BUENOS-AIRES"];	
+
+	d = [NSDictionary dictionaryWithObjectsAndKeys:america, @"items", @"america", @"AreaID", [NSString stringWithUTF8String:"美洲"], @"areaName", nil];
+	[_globalCityLocations addObject:d];
+
+	NSMutableArray *europeAfrica = [NSMutableArray array];
+	[self addToArray:europeAfrica name:"奧斯陸" identifier:@"OSLO"];
+	[self addToArray:europeAfrica name:"馬德里" identifier:@"MADRID"];	
+	[self addToArray:europeAfrica name:"哥本哈根" identifier:@"COPENHAGEN"];
+	[self addToArray:europeAfrica name:"赫爾辛基" identifier:@"HELSINKI"];	
+	[self addToArray:europeAfrica name:"法蘭克福" identifier:@"FRANKFURT"];
+	[self addToArray:europeAfrica name:"柏林" identifier:@"BERLIN"];	
+	[self addToArray:europeAfrica name:"日內瓦" identifier:@"GENEVA"];
+	[self addToArray:europeAfrica name:"布魯塞爾" identifier:@"BRUXELLES"];	
+	[self addToArray:europeAfrica name:"倫敦" identifier:@"LONDON"];
+	[self addToArray:europeAfrica name:"巴黎" identifier:@"PARIS"];	
+	[self addToArray:europeAfrica name:"維也納" identifier:@"VIENNA"];
+	[self addToArray:europeAfrica name:"羅馬" identifier:@"ROME"];	
+	[self addToArray:europeAfrica name:"威尼斯" identifier:@"VENEZIA"];
+	[self addToArray:europeAfrica name:"布達佩斯" identifier:@"BUDAPEST"];	
+	[self addToArray:europeAfrica name:"雅典" identifier:@"ATHENS"];
+	[self addToArray:europeAfrica name:"華沙" identifier:@"WARSZAWA"];	
+	[self addToArray:europeAfrica name:"布拉格" identifier:@"PRAHA"];
+	[self addToArray:europeAfrica name:"開羅" identifier:@"CAIRO"];	
+	[self addToArray:europeAfrica name:"阿姆斯特丹" identifier:@"AMSTERDAM"];
+	[self addToArray:europeAfrica name:"約翰尼斯堡" identifier:@"JOHANNESBURG"];	
+	[self addToArray:europeAfrica name:"斯德哥爾摩" identifier:@"STOCKHOLM"];	
+
+	d = [NSDictionary dictionaryWithObjectsAndKeys:europeAfrica, @"items", @"europeAfrica", @"AreaID", [NSString stringWithUTF8String:"歐非"], @"areaName", nil];
+	[_globalCityLocations addObject:d];
+	
+	NSMutableArray *china = [NSMutableArray array];
+	[self addToArray:china name:"廣州" identifier:@"GUANGZHOU"];
+	[self addToArray:china name:"香港" identifier:@"HONGKONG"];	
+	[self addToArray:china name:"福州" identifier:@"FUZHOU"];
+	[self addToArray:china name:"昆明" identifier:@"KUNMING"];	
+	[self addToArray:china name:"重慶" identifier:@"CHONGQING"];
+	[self addToArray:china name:"武漢" identifier:@"WUHAN"];	
+	[self addToArray:china name:"南昌" identifier:@"NANCHANG"];
+	[self addToArray:china name:"杭州" identifier:@"HANGZHOU"];	
+	[self addToArray:china name:"上海" identifier:@"SHANGHAI"];
+	[self addToArray:china name:"南京" identifier:@"NANJING"];	
+	[self addToArray:china name:"青島" identifier:@"QINGDAO"];
+	[self addToArray:china name:"北京" identifier:@"BEIJING"];	
+	[self addToArray:china name:"開封" identifier:@"KAIFENG"];
+	[self addToArray:china name:"西安" identifier:@"XIAN"];	
+	[self addToArray:china name:"瀋陽" identifier:@"SHENINAG"];
+	[self addToArray:china name:"蘭州" identifier:@"LANZHOU"];	
+	[self addToArray:china name:"海口" identifier:@"HAIKOU"];
+	
+	d = [NSDictionary dictionaryWithObjectsAndKeys:europeAfrica, @"china", @"china", @"AreaID", [NSString stringWithUTF8String:"中國"], @"areaName", nil];
+	[_globalCityLocations addObject:d];
+}
 
 @end
 
@@ -275,6 +377,7 @@
 	[self initTideLocations];
 	[self initImageIdentifiers];
 	[self initOBSLocations];
+	[self initGlobalCityLocations];
 }
 - (void)releaseInfoArrays
 {
@@ -286,6 +389,7 @@
 	[_tideLocations release];
 	[_imageIdentifiers release];
 	[_OBSLocations release];
+	[_globalCityLocations release];
 }
 - (NSArray *)forecastLocations
 {
@@ -318,6 +422,10 @@
 - (NSArray *)OBSLocations
 {
 	return _OBSLocations;
+}
+- (NSArray *)globalCityLocations
+{
+	return _globalCityLocations;
 }
 
 @end

@@ -97,6 +97,7 @@ typedef enum {
 	NSMutableArray *_tideLocations;
 	NSMutableArray *_imageIdentifiers;
 	NSMutableArray *_OBSLocations;
+	NSMutableArray *_globalCityLocations;
 	NSDateFormatter *_formatter;
 	
 	NSUInteger _retryCount;

@@ -43,5 +43,6 @@
 - (NSArray *)tideLocations;
 - (NSArray *)imageIdentifiers;
 - (NSArray *)OBSLocations;
+- (NSArray *)globalCityLocations;
 
 @end

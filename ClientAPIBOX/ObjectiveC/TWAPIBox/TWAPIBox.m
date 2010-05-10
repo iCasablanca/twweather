@@ -61,6 +61,7 @@ static TWAPIBox *apibox;
 	[_formatter release];
 	[_reachability release];
 	[_retryCountDictionary release];
+	[_forecastLocations release];
 	[super dealloc];
 }
 
