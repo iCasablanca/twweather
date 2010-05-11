@@ -60,7 +60,7 @@ static TWAPIBox *apibox;
     if (self) {
 		[self initInfoArrays];
 		_operationQueue = [[NSOperationQueue alloc] init];
-		[_operationQueue setMaxConcurrentOperationCount:3];
+		[_operationQueue setMaxConcurrentOperationCount:10];
     }
     return self;
 }

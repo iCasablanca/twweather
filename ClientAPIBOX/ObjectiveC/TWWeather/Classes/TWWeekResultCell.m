@@ -140,19 +140,39 @@
 	NSString *temperatureString = [NSString stringWithFormat:@"%@ ℃", temperature];
 	[temperatureString drawInRect:CGRectMake(40, 23, 240, 15) withFont:[UIFont systemFontOfSize:12.0] lineBreakMode:UILineBreakModeClip alignment:UITextAlignmentRight];
 }
-- (IBAction)copy:(id)sender
+- (NSString *)_description
 {
 	NSMutableString *s = [NSMutableString string];
 	[s appendFormat:@"%@\n", date];
 	[s appendFormat:@"%@\n", description];
 	[s appendFormat:@"%@ ℃", temperature];
+	return s;
+}
+
+- (IBAction)copy:(id)sender
+{
 	UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
-	[pasteBoard setString:s];
+	[pasteBoard setString:[self _description]];
 }
 - (void)setNeedsDisplay
 {
 	[_ourContentView setNeedsDisplay];
 	[super setNeedsDisplay];
+}
+
+- (BOOL)isAccessibilityElement
+{
+	return YES;
+}
+
+- (NSString *)accessibilityLabel
+{
+	return [self _description];
+}
+
+- (UIAccessibilityTraits)accessibilityTraits
+{
+	return UIAccessibilityTraitUpdatesFrequently;
 }
 
 @synthesize date;

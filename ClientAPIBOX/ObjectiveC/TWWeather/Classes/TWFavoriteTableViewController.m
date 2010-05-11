@@ -135,15 +135,19 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 	dataLoaded = NO;
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
-	[super viewWillAppear:animated];
-	
+	[super viewDidAppear:animated];
 	if (!dataLoaded) {
 		[self loadData];
 		dataLoaded = YES;
 	}	
-	
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
+		
 	UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(changeSetting:)];
 	self.tabBarController.navigationItem.rightBarButtonItem = item;
 	[item release];

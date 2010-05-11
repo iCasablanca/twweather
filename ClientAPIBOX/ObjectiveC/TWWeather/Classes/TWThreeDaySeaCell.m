@@ -142,7 +142,7 @@
 	CGSize size = weatherImage.size;
 	[weatherImage drawInRect:CGRectMake(180, 20, size.width * 0.6, size.height * 0.6)];
 }
-- (IBAction)copy:(id)sender
+- (NSString *)_desciption
 {
 	NSMutableString *s = [NSMutableString string];
 	[s appendFormat:@"%@\n", date];
@@ -150,13 +150,32 @@
 	[s appendFormat:@"%@\n", wind];
 	[s appendFormat:@"%@\n", windScale];
 	[s appendFormat:@"%@", wave];
+	return s;
+}
+- (IBAction)copy:(id)sender
+{
 	UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
-	[pasteBoard setString:s];
+	[pasteBoard setString:[self _desciption]];
 }
 - (void)setNeedsDisplay
 {
 	[_ourContentView setNeedsDisplay];
 	[super setNeedsDisplay];
+}
+
+- (BOOL)isAccessibilityElement
+{
+	return YES;
+}
+
+- (NSString *)accessibilityLabel
+{
+	return [self _description];
+}
+
+- (UIAccessibilityTraits)accessibilityTraits
+{
+	return UIAccessibilityTraitUpdatesFrequently;
 }
 
 

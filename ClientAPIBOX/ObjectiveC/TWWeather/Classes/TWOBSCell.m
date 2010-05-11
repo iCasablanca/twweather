@@ -135,6 +135,18 @@
     }
     return self;
 }
+- (NSString *)_description
+{
+	NSMutableString *s = [NSMutableString string];
+	[s appendFormat:@"%@\n", @"天氣現象"];
+	[s appendFormat:@"%@\n", description];
+	[s appendFormat:@"溫度: %@\n", temperature];
+	[s appendFormat:@"累積雨量: %@ 毫米\n", rain];
+	[s appendFormat:@"風向: %@\n", windDirection];
+	[s appendFormat:@"風力: %@ 級\n", windScale];
+	[s appendFormat:@"陣風: %@ 級\n", gustWindScale];
+	return s;
+}
 - (void)draw:(CGRect)bounds
 {
 	CGSize size = weatherImage.size;
@@ -151,22 +163,28 @@
 }
 - (IBAction)copy:(id)sender
 {
-	NSMutableString *s = [NSMutableString string];
-	[s appendFormat:@"%@\n", @"天氣現象"];
-	[s appendFormat:@"%@\n", description];
-	[s appendFormat:@"溫度: %@\n", temperature];
-	[s appendFormat:@"累積雨量: %@ 毫米\n", rain];
-	[s appendFormat:@"風向: %@\n", windDirection];
-	[s appendFormat:@"風力: %@ 級\n", windScale];
-	[s appendFormat:@"陣風: %@ 級\n", gustWindScale];
-	
 	UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
-	[pasteBoard setString:s];
+	[pasteBoard setString:[self _description]];
 }
 - (void)setNeedsDisplay
 {
 	[_ourContentView setNeedsDisplay];
 	[super setNeedsDisplay];
+}
+
+- (BOOL)isAccessibilityElement
+{
+	return YES;
+}
+
+- (NSString *)accessibilityLabel
+{
+	return [self _description];
+}
+
+- (UIAccessibilityTraits)accessibilityTraits
+{
+	return UIAccessibilityTraitUpdatesFrequently;
 }
 
 @synthesize description;

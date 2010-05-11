@@ -151,9 +151,6 @@
 }
 - (void)draw:(CGRect)bounds
 {
-	[_ourContentView setIsAccessibilityElement:YES];
-	[_ourContentView setAccessibilityLabel:[self _description]];
-	[_ourContentView setAccessibilityTraits:UIAccessibilityTraitStaticText];
 	[dateString drawInRect:CGRectMake(10, 0, 260, 30) withFont:[UIFont boldSystemFontOfSize:20.0]];
 	[lunarDateString drawInRect:CGRectMake(10, 6, 260, 30) withFont:[UIFont systemFontOfSize:14.0] lineBreakMode:UILineBreakModeClip alignment:UITextAlignmentRight];
 	NSUInteger i = 0;
@@ -176,6 +173,21 @@
 {
 	[_ourContentView setNeedsDisplay];
 	[super setNeedsDisplay];
+}
+
+- (BOOL)isAccessibilityElement
+{
+	return YES;
+}
+
+- (NSString *)accessibilityLabel
+{
+	return [self _description];
+}
+
+- (UIAccessibilityTraits)accessibilityTraits
+{
+	return UIAccessibilityTraitUpdatesFrequently;
 }
 
 

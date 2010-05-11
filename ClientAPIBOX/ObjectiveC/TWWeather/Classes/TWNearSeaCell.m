@@ -137,6 +137,20 @@
     }
     return self;
 }
+- (NSString *)_description
+{
+	NSMutableString *s = [NSMutableString string];
+	[s appendFormat:@"%@\n", @"有效時間"];
+	NSString *valid = [NSString stringWithFormat:@"%@ - %@", validBeginTime, validEndTime];
+	[s appendFormat:@"%@\n", valid];
+	[s appendFormat:@"%@\n", description];
+	[s appendFormat:@"%@\n", wind];
+	[s appendFormat:@"%@\n", windScale];
+	[s appendFormat:@"%@\n", wave];
+	[s appendFormat:@"%@", waveLevel];
+	return s;
+}
+
 - (void)draw:(CGRect)bounds
 {
 	[@"有效時間" drawInRect:CGRectMake(10, 10, 260, 30) withFont:[UIFont boldSystemFontOfSize:16.0]];
@@ -150,22 +164,28 @@
 }
 - (IBAction)copy:(id)sender
 {
-	NSMutableString *s = [NSMutableString string];
-	[s appendFormat:@"%@\n", @"有效時間"];
-	NSString *valid = [NSString stringWithFormat:@"%@ - %@", validBeginTime, validEndTime];
-	[s appendFormat:@"%@\n", valid];
-	[s appendFormat:@"%@\n", description];
-	[s appendFormat:@"%@\n", wind];
-	[s appendFormat:@"%@\n", windScale];
-	[s appendFormat:@"%@\n", wave];
-	[s appendFormat:@"%@", waveLevel];
 	UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
-	[pasteBoard setString:s];
+	[pasteBoard setString:[self _description]];
 }
 - (void)setNeedsDisplay
 {
 	[_ourContentView setNeedsDisplay];
 	[super setNeedsDisplay];
+}
+
+- (BOOL)isAccessibilityElement
+{
+	return YES;
+}
+
+- (NSString *)accessibilityLabel
+{
+	return [self _description];
+}
+
+- (UIAccessibilityTraits)accessibilityTraits
+{
+	return UIAccessibilityTraitUpdatesFrequently;
 }
 
 @synthesize description;
