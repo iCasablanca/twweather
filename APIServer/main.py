@@ -3,7 +3,7 @@
 
 """
 
-Copyright (c) 2009 Weizhong Yang (http://zonble.net)
+Copyright (c) 2009-2010 Weizhong Yang (http://zonble.net)
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation
@@ -29,6 +29,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 import os
 import wsgiref.handlers
+import datetime
 import weather
 import plistlib
 import json
@@ -38,6 +39,30 @@ from google.appengine.ext import webapp
 from google.appengine.api import memcache
 from google.appengine.ext.webapp import template
 from google.appengine.ext.webapp.util import run_wsgi_app
+
+import device
+
+def add_record(request):
+	device_id = request.get("device_id")	
+	if len(device_id) == 0:
+		return
+	device_name = request.get("device_name")
+	device_model = request.get("device_model")
+	app_name = request.get("app_name")
+	app_version = request.get("app_version")
+	os_name = request.get("os_name")
+	os_version = request.get("os_version")
+	access_date = datetime.datetime.now()
+	current_device = device.Device.get_or_insert(device_id, device_id=device_id)
+	current_device.device_name = device_name
+	current_device.device_model = device_model
+	current_device.app_name = app_name
+	current_device.app_version = app_version
+	current_device.os_name = os_name
+	current_device.os_version = os_version
+	current_device.access_date = access_date
+	current_device.put()
+	pass
 
 siteURL = "http://twweatherapi.appspot.com/"
 
@@ -62,7 +87,7 @@ class WarningController(webapp.RequestHandler):
 			output = plistlib.writePlistToString(pl)
 			self.response.headers['Content-Type'] = 'text/plist; charset=utf-8'
 			self.response.out.write(output)
-		
+		add_record(self.request)
 
 class OverviewController(webapp.RequestHandler):
 	def __init__(self):
@@ -86,7 +111,7 @@ class OverviewController(webapp.RequestHandler):
 			memcache.add("overview_html", html, 30 * 60)
 			self.response.headers['Content-Type'] = 'text/html; charset=utf-8'
 			self.response.out.write(html)
-
+		add_record(self.request)
 
 class ForecastController(webapp.RequestHandler):
 	def __init__(self):
@@ -118,6 +143,7 @@ class ForecastController(webapp.RequestHandler):
 			output = plistlib.writePlistToString(pl)
 			self.response.headers['Content-Type'] = 'text/plist; charset=utf-8'
 			self.response.out.write(output)
+		add_record(self.request)
 	def get(self):
 		location = self.request.get("location")
 		outputtype = self.request.get("output")
@@ -164,7 +190,7 @@ class ForecastController(webapp.RequestHandler):
 			output = plistlib.writePlistToString(pl)
 			self.response.headers['Content-Type'] = 'text/plist; charset=utf-8'
 			self.response.out.write(output)
-
+		add_record(self.request)
 
 class WeekController(ForecastController):
 	def __init__(self):
@@ -234,6 +260,7 @@ class ImageHandler(webapp.RequestHandler):
 
 		self.response.headers["Content-Type"] = "image/jpg"
 		self.response.out.write(imageData)
+		add_record(self.request)
 
 class MainHandler(webapp.RequestHandler):
 	def get(self):

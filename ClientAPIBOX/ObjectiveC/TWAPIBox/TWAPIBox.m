@@ -49,6 +49,7 @@ static TWAPIBox *apibox;
 - (void)dealloc
 {
 	[self releaseInfoArrays];
+	[_operationQueue release];
 	[_formatter release];
 	[super dealloc];
 }

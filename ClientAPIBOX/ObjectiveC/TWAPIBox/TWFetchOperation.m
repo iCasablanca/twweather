@@ -115,6 +115,41 @@
 	}
 }
 
+- (void)doFetch
+{
+	NSURL *URL = [_request.sessionInfo objectForKey:@"URL"];	
+	NSLog(@"doFetch");
+	
+	NSMutableDictionary *deviceInfo = [NSMutableDictionary dictionary];
+	
+	NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+	NSDictionary *infoDictionary = [bundle infoDictionary];
+	[deviceInfo setObject:[infoDictionary objectForKey:@"CFBundleDisplayName"] forKey:@"app_name"];
+	[deviceInfo setObject:[infoDictionary objectForKey:@"CFBundleVersion"] forKey:@"app_version"];
+	
+#ifdef TARGET_OS_IPHONE
+	UIDevice *device = [UIDevice currentDevice];
+	[deviceInfo setObject:device.uniqueIdentifier forKey:@"device_id"];
+	[deviceInfo setObject:device.name forKey:@"device_name"];
+	[deviceInfo setObject:device.model forKey:@"device_model"];
+	[deviceInfo setObject:device.systemName forKey:@"os_name"];
+	[deviceInfo setObject:device.systemVersion forKey:@"os_version"];
+#endif
+	
+	NSMutableString *URLString = [NSMutableString stringWithString:[URL absoluteString]];
+	NSRange range = [URLString rangeOfString:@"?"];
+	if (range.location != NSNotFound && range.location > -1) {
+		[URLString appendString:@"?"];
+	}
+	for (NSString *key in [deviceInfo allKeys]) {
+		NSString *v = [[deviceInfo objectForKey:key] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+		[URLString appendFormat:@"&%@=%@", key, v];
+	}
+	URL =  [NSURL URLWithString:URLString];
+	NSLog(@"URLString:%@", URLString);
+	[_request performMethod:LFHTTPRequestGETMethod onURL:URL withData:nil];
+}
+
 #pragma mark -
 
 - (void)httpRequestDidComplete:(LFHTTPRequest *)request
@@ -122,8 +157,9 @@
 	NSData *data = [request receivedData];
 	if (![data length] && !_retryCount) {
 		_retryCount++;
-		NSURL *URL = [request.sessionInfo objectForKey:@"URL"];	
-		[_request performMethod:LFHTTPRequestGETMethod onURL:URL withData:nil];		
+//		NSURL *URL = [request.sessionInfo objectForKey:@"URL"];	
+//		[_request performMethod:LFHTTPRequestGETMethod onURL:URL withData:nil];	
+		[self doFetch];
 		return;
 	}
 	[delegate httpRequestDidComplete:request];
@@ -153,8 +189,9 @@
 {
 //	NSLog(@"cmd:%s", _cmd);
 	[inReachability stopChecking];
-	NSURL *URL = [sessionInfo objectForKey:@"URL"];
-	[_request performMethod:LFHTTPRequestGETMethod onURL:URL withData:nil];	
+//	NSURL *URL = [sessionInfo objectForKey:@"URL"];
+//	[_request performMethod:LFHTTPRequestGETMethod onURL:URL withData:nil];	
+	[self doFetch];
 }
 - (void)reachability:(LFSiteReachability *)inReachability siteIsNotAvailable:(NSURL *)inURL
 {
