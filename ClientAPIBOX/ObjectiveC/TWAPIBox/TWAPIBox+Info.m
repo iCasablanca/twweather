@@ -178,6 +178,8 @@
 - (void)initImageIdentifiers
 {
 	_imageIdentifiers = [[NSMutableArray alloc] init];
+	[self addToArray:_imageIdentifiers name:"最新天氣圖" identifier:@"weather"];
+	[self addToArray:_imageIdentifiers name:"24小時預測圖" identifier:@"weather_24"];	
 	[self addToArray:_imageIdentifiers name:"日雨量累積圖" identifier:@"rain"];
 	[self addToArray:_imageIdentifiers name:"定量降水預報 12 小時" identifier:@"rain_12"];
 	[self addToArray:_imageIdentifiers name:"定量降水預報 24 小時" identifier:@"rain_24"];	
@@ -195,6 +197,12 @@
 	[self addToArray:_imageIdentifiers name:"台灣黑白雲圖" identifier:@"bw_taiwan"];
 	[self addToArray:_imageIdentifiers name:"亞洲黑白雲圖" identifier:@"bw_asia"];
 	[self addToArray:_imageIdentifiers name:"全球黑白雲圖" identifier:@"bw_world"];	
+
+	[self addToArray:_imageIdentifiers name:"波浪分析圖" identifier:@"wave"];	
+	[self addToArray:_imageIdentifiers name:"24 小時波浪預報圖" identifier:@"wave_24"];
+	[self addToArray:_imageIdentifiers name:"36 小時波浪預報圖" identifier:@"wave_36"];
+	[self addToArray:_imageIdentifiers name:"48 小時波浪預報圖" identifier:@"wave_48"];	
+	
 }
 - (void)initOBSLocations
 {

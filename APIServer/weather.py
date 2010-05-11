@@ -687,10 +687,14 @@ class TestWeatherTide(unittest.TestCase):
 				self.assertTrue(item['low'])
 
 WeatherImageURL = [
+
+	{"id": "weather", "URL":"http://www.cwb.gov.tw/V6/forecast/fcst/Data/I04_small.jpg"},
+	{"id": "weather_24", "URL":"http://www.cwb.gov.tw/V6/forecast/fcst/Data/SFC24.jpg"},
+
 	{"id": "rain", "URL":"http://www.cwb.gov.tw/V6/observe/rainfall/Data/hk.jpg"},
 	{"id": "rain_12", "URL":"http://www.cwb.gov.tw/V6/forecast/fcst/Data/QPF_ChFcstPrecip12.jpg"},
 	{"id": "rain_24", "URL":"http://www.cwb.gov.tw/V6/forecast/fcst/Data/QPF_ChFcstPrecip24.jpg"},
-
+	
 	{"id": "radar", "URL":"http://www.cwb.gov.tw/V6/observe/radar/Data/MOS_1024/MOS.jpg"},
 	{"id": "radar2", "URL":"http://www.cwb.gov.tw/V6/observe/radar/Data/MOS2_1024/MOS2.jpg"},
 
@@ -710,6 +714,10 @@ WeatherImageURL = [
 	{"id": "light_asia", "URL":"http://www.cwb.gov.tw/V6/observe/satellite/Data/sao/sao.jpg"},
 	{"id": "light_world", "URL":"http://www.cwb.gov.tw/V6/observe/satellite/Data/sco/sco.jpg"},
 
+	{"id": "wave", "URL":"http://www.cwb.gov.tw/V6/forecast/fcst/Data/I12_small.jpg"},
+	{"id": "wave_24", "URL":"http://www.cwb.gov.tw/V6/forecast/fcst/Data/WFC24.jpg"},
+	{"id": "wave_36", "URL":"http://www.cwb.gov.tw/V6/forecast/fcst/Data/WFC36.jpg"},
+	{"id": "wave_48", "URL":"http://www.cwb.gov.tw/V6/forecast/fcst/Data/WFC48.jpg"},
 ]
 
 WeatherOBSLocations = [
