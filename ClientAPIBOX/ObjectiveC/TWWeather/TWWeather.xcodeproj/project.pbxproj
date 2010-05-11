@@ -265,6 +265,8 @@
 		D489E5A41024EB3F00189460 /* TWAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWAboutViewController.h; sourceTree = "<group>"; };
 		D489E5A51024EB3F00189460 /* TWAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWAboutViewController.m; sourceTree = "<group>"; };
 		D489E5DB1024EF6000189460 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		D49E91DB1199C22B00793FCA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		D49E91DC1199C23300793FCA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		D49F805011986A8000051439 /* MGTwitterEngineGlobalHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGTwitterEngineGlobalHeader.h; path = ../External/MGTwitterEngine/MGTwitterEngineGlobalHeader.h; sourceTree = SOURCE_ROOT; };
 		D49F805111986A8000051439 /* MGTwitterEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGTwitterEngine.h; path = ../External/MGTwitterEngine/MGTwitterEngine.h; sourceTree = SOURCE_ROOT; };
 		D49F805211986A8000051439 /* MGTwitterEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGTwitterEngine.m; path = ../External/MGTwitterEngine/MGTwitterEngine.m; sourceTree = SOURCE_ROOT; };
@@ -1140,6 +1142,7 @@
 				German,
 				en,
 				"zh-Hant",
+				"zh-Hans",
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
@@ -1352,6 +1355,7 @@
 			children = (
 				D489E59B1024EA4300189460 /* English */,
 				D4E84FAA102D4A5200A80676 /* zh-Hant */,
+				D49E91DC1199C23300793FCA /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1361,6 +1365,7 @@
 			children = (
 				D4E84FB0102D4BEC00A80676 /* English */,
 				D4E84FB3102D4C0500A80676 /* zh-Hant */,
+				D49E91DB1199C22B00793FCA /* zh-Hans */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

@@ -1,0 +1,119 @@
+﻿/* No comment provided by engineer. */
+"%@ copyright ifno" = "%@是一套開放原始碼的自由軟體，您可以在專案網站上 (http://github.com/zonble/twweather)，取得更多相關資訊。\n\nLFWebAPIKit\nCopyright (c) 2007-2009 Lithoglyph Inc. (http://lithoglyph.com)\nCopyright (c) 2007-2009 Lukhnos D. Liu (http://lukhnos.org)\n\nCocoaCryptoHashing\nCopyright (c) 2004-2009 Denis Defreyne\nCopyright (c) 2008 Chris Verwymeren\nCopyright (c) 2009 Mike Fischer\nAll rights reserved.\n\nfacebook-iphone-sdk\nCopyright 2009 Facebook\nhttp://github.com/facebook/facebook-iphone-sdk\n\nObjectivePlurk\nCopyright (c) 2009 Weizhong Yang. (http://zonble.net)\n\nBSJSONAdditions\nCopyright (c) 2006 Blake Seely (http://www.blakeseely.com)\n\nSFHFKeychainUtils\nby Buzz Andersen\nCopyright 2008 Sci-Fi Hi-Fi.\nAll rights reserved.\n\nMGTwitterEngine\nby Matt Gemmell on 10/02/2008.\nCopyright (c) 2008 Instinctive Code.";
+
+/* No comment provided by engineer. */
+"About" = "關於";
+
+/* No comment provided by engineer. */
+"Connection Error. Unable to connect to the remote server, please try again." = "連線錯誤。無法連線至遠端伺服器，請稍後重試看看。";
+
+/* No comment provided by engineer. */
+"Connection Time Out. Unable to connect to the remote server, please try again." = "連線逾時。無法連線至遠端伺服器，請稍後重試看看。";
+
+/* No comment provided by engineer. */
+"Copy" = "拷貝";
+
+/* No comment provided by engineer. */
+"Data Error. Unable to parse the data from the remote server, please contact me to fix the server." = "資料錯誤。無法解譯來自伺服器的資料，請聯絡作者修正。";
+
+/* No comment provided by engineer. */
+"Dismiss" = "關閉";
+
+/* No comment provided by engineer. */
+"Error!" = "錯誤！";
+
+/* No comment provided by engineer. */
+"Failed to load data!" = "載入資料失敗！";
+
+/* No comment provided by engineer. */
+"Feedback" = "意見反應";
+
+/* No comment provided by engineer. */
+"Thanks for your feedback." = "感謝您的來信";
+
+/* No comment provided by engineer. */
+"TW Weather Questions/Inquiry" = "台灣天氣意見反應";
+
+/* No comment provided by engineer. */
+"Version: %@\n%@" = "版本: %1$@\n%2$@";
+
+/* No comment provided by engineer. */
+"You can not make a phone call with an %@" = "您無法使用 %@ 撥打電話！";
+
+/* No comment provided by engineer. */
+"You cannot send email now" = "您現在無法寄送郵件";
+
+/* No comment provided by engineer. */
+"Your device does not supprt to make a phone call, please use a telephone or cellphone to dial the number." = "請另外使用市內電話或是行動電話撥打氣象查詢號碼。";
+
+/* No comment provided by engineer. */
+"Your mail is sent!" = "郵件已寄出！";
+
+"Back" = "返回";
+
+"Data comes from Central Weather Bureau\n\n" = "資料來源：中央氣象局\n\n";
+"Failed to open web page." = "無法開啟網頁";
+"Forecasts" = "天氣預報";
+"Settings" = "設定";
+"BGM" = "背景音樂";
+"Cancel" = "取消";
+"Open in Safari" = "使用 Safari 開啟";
+
+"Basic Settings" = "基本設定";
+"Social Network" = "社群網路";
+"You can share the forecasts with your friends via Facebook and Plurk!" = "您可以將天氣資訊張貼到 Facebook 與 Plurk 上，提醒您的好朋友注意天氣！";
+"Share via Facebook" = "Facebook 分享";
+"Share via Plurk" = "Plurk 分享";
+
+"You did not connect to Facebook." = "您還沒有連線到 Facebook 上";
+"Please visit the \"Settings\" to connect to Facebook." = "請使用「設定」畫面中的功能登入。";
+"Failed to post on Facebook!" = "與 Facebook 連線失敗！";
+"Do you want to connect now?" = "請問您想要連線到 Facebook 上嗎？"; 
+"Connect" = "連線";
+"Successfully connected on Facebook!" = "與 Facebook 連線成功！";
+"Failed to save your image." = "天氣雲圖儲存失敗";
+"Save" = "儲存";
+"The image is saved!" = "天氣雲圖儲存完畢！";
+"Add..." = "新增…"; 
+
+"Plurk Setting" = "Plurk 設定";
+"Your Login Name" = "您的帳號";
+"Your Password" = "您的密碼";
+"Logged In" = "已登入";
+"Not Logged In" = "尚未登入";
+
+"Please input your 
+ login name." = "請輸入您的 Plurk 帳號";
+"Please input your Plurk password." = "請輸入您的 Plurk 密碼";
+"Login Name:" = "帳號:";
+"Password:" = "密碼:";
+"Login" = "登入";
+"Logout" = "登出";
+
+"Failed to login Plurk." = "登入 Plurk 失敗";
+"Failed to post on Plurk" = "在 Plurk 上發表文章失敗";
+"Posting your message..." = "正在發表您的訊息…";
+"You did not login Plurk." = "您還沒有登入 Plurk";
+"Do you want to login now?" = "請問您想要現在就登入 Plurk 嗎？";
+
+"Please input your Plurk login name." = "請輸入您的 Plurk 帳號";
+"Please input your Plurk password." = "請輸入您的 your Plurk 密碼";
+"Unable to upload image to Facebook." = "無法將圖片上傳至 Facebook";
+"Unable to upload image to Plurk." = "無法將圖片上傳至 Plurk.";
+
+"Twitter Setting" = "Twitter 設定";
+
+"Please input your Twitter login name." = "請輸入您的 Twitter 帳號";
+"Please input your Twitter password." = "請輸入您的 Twitter 密碼";
+
+"Failed to login Twitter." = "登入 Twitter 失敗";
+"Failed to post on Twitter" = "在 Twitter 上發表文章失敗";
+"You did not login Twitter." = "您還沒有登入 Twitter";
+"Please input your Twitter login name." = "請輸入您的 Twitter 帳號";
+"Please input your Twitter password." = "請輸入您的 Twitter 密碼";
+"Share via Twitter" = "Twitter 分享";
+
+"Post to Plurk" = "Plurk 分享";
+"Post to Twitter" = "Twitter 分享";
+"SFX" = "音效";
+"Updated at %@" = "更新時間 %@";
