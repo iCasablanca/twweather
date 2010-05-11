@@ -27,11 +27,15 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+#import <iAd/iAd.h>
+
 #import "TWLocationSettingTableViewController.h"
 #import "TWLoadingView.h"
 
 @interface TWFavoriteTableViewController : UITableViewController <TWLocationSettingTableViewControllerDelegate>
 {
+	ADBannerView *bannerView;
+	
 	NSMutableArray *_filterArray;
 	NSMutableArray *_filteredArray;
 	NSMutableArray *_favArray;

@@ -61,6 +61,8 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 - (void)viewDidUnload
 {
 	[super viewDidLoad];
+	[bannerView release];
+	bannerView = nil;
 	[loadingView release];	
 	loadingView = nil;
 	[errorLabel release];
@@ -95,6 +97,10 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 	[self.view addSubview:self.tableView];
 	
 	loadingView = [[TWLoadingView alloc] initWithFrame:CGRectMake(100, 100, 120, 120)];	
+	
+	bannerView = [[ADBannerView alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
+	bannerView.currentContentSizeIdentifier = ADBannerContentSizeIdentifier320x50;
+	bannerView.delegate = self;
 }
 
 - (void)viewDidLoad 
@@ -522,6 +528,11 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 	[self pushErrorViewWithError:error];
 }
 
+
+- (void)bannerViewDidLoadAd:(ADBannerView *)banner
+{
+	self.tableView.tableHeaderView = bannerView;	
+}
 
 @synthesize updateDate;
 @synthesize tableView = _tableView;
