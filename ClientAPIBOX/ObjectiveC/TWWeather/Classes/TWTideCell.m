@@ -187,7 +187,7 @@
 
 - (UIAccessibilityTraits)accessibilityTraits
 {
-	return UIAccessibilityTraitUpdatesFrequently;
+	return UIAccessibilityTraitNone;
 }
 
 

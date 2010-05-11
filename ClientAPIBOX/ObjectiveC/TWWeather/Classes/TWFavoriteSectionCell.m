@@ -31,8 +31,37 @@
 #import "TWFavoriteSectionCell.h"
 
 @interface TWFavoriteSectionCell (ProtectedMethods)
+- (void)draw:(CGRect)bounds;
 - (void)drawBackground:(CGRect)bounds;
 @end
+
+@interface TWFavoriteSectionCellContentView : UIView
+{
+	TWFavoriteSectionCell *_delegate;
+}
+@property (assign, nonatomic) TWFavoriteSectionCell *delegate;
+@end
+
+@implementation TWFavoriteSectionCellContentView
+
+- (id)initWithFrame:(CGRect)frame
+{
+	if (self = [super initWithFrame:frame]) {
+		self.opaque = YES;
+		self.backgroundColor = [UIColor clearColor];
+	}
+	return self;
+}
+- (void)drawRect:(CGRect)rect
+{
+	[super drawRect:rect];
+	[_delegate draw:self.bounds];
+}
+
+@synthesize delegate = _delegate;
+@end
+
+#pragma mark -
 
 @interface TWFavoriteSectionCellBackgroundView : UIView
 {
@@ -53,6 +82,7 @@
 }
 - (void)drawRect:(CGRect)rect
 {
+	[super drawRect:rect];
 	[_delegate drawBackground:self.bounds];
 }
 
@@ -63,16 +93,18 @@
 
 - (void)dealloc
 {
+	[_ourContentView release];
+	[locationName release];
 	[super dealloc];
 }
 - (void)_init
 {
-	self.textLabel.backgroundColor = [UIColor clearColor];
-	self.textLabel.textColor = [UIColor whiteColor];
-	self.textLabel.shadowColor = [UIColor darkGrayColor];
-	self.textLabel.shadowOffset = CGSizeMake(0, -1);
-	
 	CGRect cellFrame = self.contentView.bounds;
+	_ourContentView = [[TWFavoriteSectionCellContentView alloc] initWithFrame:cellFrame];
+	_ourContentView.delegate = self;
+	_ourContentView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+	[self.contentView addSubview:_ourContentView];
+	
 	TWFavoriteSectionCellBackgroundView *ourBackgroundView = [[TWFavoriteSectionCellBackgroundView alloc] initWithFrame:cellFrame];
 	ourBackgroundView.delegate = self;
 	ourBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
@@ -80,17 +112,26 @@
 }
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
-	if (self = [super initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier]) {
+	if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
 		[self _init];
-		self.detailTextLabel.text = [NSString stringWithUTF8String:"一週預報 "];
-		self.detailTextLabel.backgroundColor = [UIColor clearColor];
-		self.detailTextLabel.shadowColor = [UIColor darkGrayColor];
-		self.detailTextLabel.shadowOffset = CGSizeMake(0, -1);
-		self.detailTextLabel.font = [UIFont boldSystemFontOfSize:16.0];
-		self.detailTextLabel.textColor = [UIColor whiteColor];
 		self.loading = NO;
 	}
 	return self;
+}
+- (void)draw:(CGRect)rect
+{
+	[super drawRect:rect];
+	CGRect textRect = CGRectMake(10, (rect.size.height - 16.0) / 2.0 , rect.size.width - 26.0, 16.0);
+	
+	[[UIColor whiteColor] set];
+	CGContextRef context = UIGraphicsGetCurrentContext();
+	CGContextSaveGState(context);
+	CGContextSetShadowWithColor(context, CGSizeMake(0, 0), 2.0, [UIColor blackColor].CGColor);	
+	[@"一週預報" drawInRect:textRect withFont:[UIFont boldSystemFontOfSize:16.0] lineBreakMode:UILineBreakModeClip alignment:UITextAlignmentRight];
+	textRect = CGRectMake(10, (rect.size.height - 18.0) / 2.0 , rect.size.width - 26.0, 18.0);
+	[locationName drawInRect:textRect withFont:[UIFont boldSystemFontOfSize:18.0] lineBreakMode:UILineBreakModeClip alignment:UITextAlignmentLeft];
+	
+	CGContextRestoreGState(context);
 }
 - (void)drawBackground:(CGRect)bounds
 {	
@@ -137,7 +178,31 @@
 - (void)setNeedsDisplay
 {
 	[super setNeedsDisplay];
+	[_ourContentView setNeedsDisplay];
 	[self.backgroundView setNeedsDisplay];
+}
+
+- (NSString *)_description
+{
+	if (![locationName length]) {
+		return nil;
+	}
+	return [NSString stringWithFormat:@"%@ 一週預報", locationName];
+}
+
+- (BOOL)isAccessibilityElement
+{
+	return YES;
+}
+
+- (NSString *)accessibilityLabel
+{
+	return [self _description];
+}
+
+- (UIAccessibilityTraits)accessibilityTraits
+{
+	return UIAccessibilityTraitNone;
 }
 
 
@@ -170,5 +235,6 @@
 }
 
 @dynamic loading;
+@synthesize locationName;
 
 @end

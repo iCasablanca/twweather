@@ -172,7 +172,7 @@
 
 - (UIAccessibilityTraits)accessibilityTraits
 {
-	return UIAccessibilityTraitUpdatesFrequently;
+	return UIAccessibilityTraitNone;
 }
 
 @synthesize date;

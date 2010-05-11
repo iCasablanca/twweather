@@ -154,11 +154,18 @@
 	[s appendFormat:@"降雨機率： %@ %%", rain];
 	return s;
 }
-- (void)draw:(CGRect)bounds
+- (NSString *)_shortDescription
 {
-	[_ourContentView setIsAccessibilityElement:YES];
-	[_ourContentView setAccessibilityLabel:[self _description]];
-	
+	NSMutableString *s = [NSMutableString string];
+	[s appendFormat:@"%@\n", title];
+	[s appendFormat:@"%@\n", description];
+	[s appendFormat:@"溫度： %@ ℃\n", temperature];
+	[s appendFormat:@"降雨機率： %@ %%", rain];
+	return s;
+}
+
+- (void)draw:(CGRect)bounds
+{	
 	CGSize size = weatherImage.size;
 	[weatherImage drawInRect:CGRectMake(0, -5, size.width * 0.75, size.height * 0.75)];
 	
@@ -191,6 +198,27 @@
 	[_ourContentView setNeedsDisplay];
 	[super setNeedsDisplay];
 }
+
+- (BOOL)isAccessibilityElement
+{
+	return YES;
+}
+
+- (NSString *)accessibilityLabel
+{
+	return [self _shortDescription];
+}
+
+- (NSString *)accessibilityValue
+{
+	return [NSString stringWithFormat:@"%@ - %@\n", beginTime, endTime];
+}
+
+- (UIAccessibilityTraits)accessibilityTraits
+{
+	return UIAccessibilityTraitNone;
+}
+
 
 @synthesize title;
 @synthesize description;

@@ -184,7 +184,7 @@
 
 - (UIAccessibilityTraits)accessibilityTraits
 {
-	return UIAccessibilityTraitUpdatesFrequently;
+	return UIAccessibilityTraitButton;
 }
 
 @synthesize description;

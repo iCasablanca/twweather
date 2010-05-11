@@ -326,13 +326,15 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 		if (cell == nil) {
 			cell = [[[TWFavoriteSectionCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:SectionCellIdentifier] autorelease];
 		}
-		cell.textLabel.text = [item objectForKey:@"locationName"];
+//		cell.textLabel.text = [item objectForKey:@"locationName"];
+		cell.locationName = [item objectForKey:@"locationName"];
 		if (isLoadingWeek && loadingWeekIndex == indexPath.section - 1) {
 			cell.loading = YES;
 		}
 		else {
 			cell.loading = NO;
 		}
+		[cell setNeedsDisplay];
 		return cell;
 	}
     

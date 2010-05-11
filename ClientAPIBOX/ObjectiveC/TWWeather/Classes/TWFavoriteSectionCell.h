@@ -28,14 +28,16 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-// @class TWFavoriteSectionCellBackgroundView;
+@class TWFavoriteSectionCellContentView;
 
 @interface TWFavoriteSectionCell : UITableViewCell
 {
-//	TWFavoriteSectionCellBackgroundView *_ourContentView;
+	TWFavoriteSectionCellContentView *_ourContentView;
 	BOOL loading;
+	NSString *locationName;
 }
 
 @property (assign, getter=isLoading) BOOL loading;
+@property (retain, nonatomic) NSString *locationName;
 
 @end
