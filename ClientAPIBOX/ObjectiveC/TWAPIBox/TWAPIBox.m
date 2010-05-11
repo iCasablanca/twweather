@@ -176,7 +176,7 @@ static TWAPIBox *apibox;
 }
 - (void)fetchImageWithIdentifier:(NSString *)identifier delegate:(id)delegate userInfo:(id)userInfo
 {
-	NSString *path = [NSString stringWithFormat:@"image?id=%@&redirect=0", identifier];
+	NSString *path = [NSString stringWithFormat:@"image?id=%@&redirect=1", identifier];
 	NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:identifier, @"identifier", userInfo, @"userInfo", nil];
 	[self sendRequestWithPath:path identifier:@"image" action:@selector(didFetchImage:data:) failedAction:@selector(didFailedFetchImage:error:) delegate:delegate userInfo:info];		
 }

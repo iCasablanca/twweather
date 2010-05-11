@@ -233,6 +233,15 @@ class ImageHandler(webapp.RequestHandler):
 		self.key_prefix = "image_"
 	def get(self):
 		imageID = self.request.get("id")
+		
+		if len(imageID) == 0:
+			self.response.headers["Content-Type"] = "text/html"
+			self.response.out.write("<h1>Images:</h1>")
+			for item in self.imageURL:
+				line = "<p><img src=\"" + item['URL']  + "\" /></p>"
+				self.response.out.write(line)
+			return
+		
 		URL = None
 		for item in self.imageURL:
 			if str(imageID) == str(item['id']):

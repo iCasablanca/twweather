@@ -53,7 +53,7 @@
 		_reachability.delegate = self;
 
 		_request = [[LFHTTPRequest alloc] init];
-		_request.timeoutInterval = 1.0;
+		_request.timeoutInterval = 5.0;
 		_request.sessionInfo = sessionInfo;
 		_request.delegate = self;
 		
@@ -118,7 +118,7 @@
 - (void)doFetch
 {
 	NSURL *URL = [_request.sessionInfo objectForKey:@"URL"];	
-	NSLog(@"doFetch");
+//	NSLog(@"doFetch");
 	
 	NSMutableDictionary *deviceInfo = [NSMutableDictionary dictionary];
 	
@@ -146,7 +146,7 @@
 		[URLString appendFormat:@"&%@=%@", key, v];
 	}
 	URL =  [NSURL URLWithString:URLString];
-	NSLog(@"URLString:%@", URLString);
+//	NSLog(@"URLString:%@", URLString);
 	[_request performMethod:LFHTTPRequestGETMethod onURL:URL withData:nil];
 }
 
@@ -155,13 +155,18 @@
 - (void)httpRequestDidComplete:(LFHTTPRequest *)request
 {
 	NSData *data = [request receivedData];
-	if (![data length] && !_retryCount) {
-		_retryCount++;
-//		NSURL *URL = [request.sessionInfo objectForKey:@"URL"];	
-//		[_request performMethod:LFHTTPRequestGETMethod onURL:URL withData:nil];	
-		[self doFetch];
+	if (![data length]) {
+		if (!_retryCount) {
+			_retryCount++;
+			[self doFetch];
+		}
+		else {
+			[delegate httpRequest:request didFailWithError:LFHTTPRequestTimeoutError];
+			runloopRunning = NO;
+		}		
 		return;
 	}
+	
 	[delegate httpRequestDidComplete:request];
     runloopRunning = NO;
 }

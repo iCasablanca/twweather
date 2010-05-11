@@ -178,12 +178,24 @@
 - (void)initImageIdentifiers
 {
 	_imageIdentifiers = [[NSMutableArray alloc] init];
-	[self addToArray:_imageIdentifiers name:"雨量累積圖" identifier:@"rain"];
-	[self addToArray:_imageIdentifiers name:"雷達示波圖" identifier:@"radar"];
+	[self addToArray:_imageIdentifiers name:"日雨量累積圖" identifier:@"rain"];
+	[self addToArray:_imageIdentifiers name:"定量降水預報 12 小時" identifier:@"rain_12"];
+	[self addToArray:_imageIdentifiers name:"定量降水預報 24 小時" identifier:@"rain_24"];	
+	[self addToArray:_imageIdentifiers name:"雷達示波圖（有地形）" identifier:@"radar"];
+	[self addToArray:_imageIdentifiers name:"雷達示波圖（無地形）" identifier:@"radar2"];
 	[self addToArray:_imageIdentifiers name:"台灣彩色天氣雲圖" identifier:@"color_taiwan"];
 	[self addToArray:_imageIdentifiers name:"亞洲彩色天氣雲圖" identifier:@"color_asia"];
+	[self addToArray:_imageIdentifiers name:"全球彩色天氣雲圖" identifier:@"color_world"];
 	[self addToArray:_imageIdentifiers name:"台灣色彩強化天氣雲圖" identifier:@"hilight_taiwan"];
 	[self addToArray:_imageIdentifiers name:"亞洲色彩強化天氣雲圖" identifier:@"hilight_asia"];
+	[self addToArray:_imageIdentifiers name:"全球色彩強化天氣雲圖" identifier:@"hilight_world"];
+	[self addToArray:_imageIdentifiers name:"台灣可見光天氣雲圖" identifier:@"light_taiwan"];
+	[self addToArray:_imageIdentifiers name:"亞洲可見光天氣雲圖" identifier:@"light_asia"];
+	[self addToArray:_imageIdentifiers name:"全球可見光天氣雲圖" identifier:@"light_world"];
+	[self addToArray:_imageIdentifiers name:"台灣黑白天氣雲圖" identifier:@"bw_taiwan"];
+	[self addToArray:_imageIdentifiers name:"亞洲黑白天氣雲圖" identifier:@"bw_asia"];
+	[self addToArray:_imageIdentifiers name:"全球黑白天氣雲圖" identifier:@"bw_world"];
+	
 }
 - (void)initOBSLocations
 {
