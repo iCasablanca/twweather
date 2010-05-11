@@ -9,3 +9,19 @@ indexes:
 # manually, move them above the marker line.  The index.yaml file is
 # automatically uploaded to the admin console when you next deploy
 # your application using appcfg.py.
+
+- kind: Device
+  properties:
+  - name: app_version
+    direction: desc
+  - name: app_name
+    direction: asc
+
+- kind: Device
+  properties:
+  - name: device_model
+    direction: asc
+  - name: os_name
+    direction: desc
+  - name: os_version
+    direction: asc
