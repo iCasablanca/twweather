@@ -10,13 +10,48 @@ cron:
   schedule: every 10 minutes
   timezone: Asia/Taipei
 
-- description: All forecasts
+- description: Overview
   url: /overview?output=plain
   schedule: every 10 minutes
   timezone: Asia/Taipei
 
-- description: All forecasts
+- description: Overview
   url: /overview?output=html
+  schedule: every 10 minutes
+  timezone: Asia/Taipei
+
+- description: All weekly forecasts
+  url: /week?location=all
+  schedule: every 10 minutes
+  timezone: Asia/Taipei
+
+- description: All weekly forecasts
+  url: /week_travel?location=all
+  schedule: every 10 minutes
+  timezone: Asia/Taipei
+
+- description: All 3 day sea forecasts
+  url: /3sea?location=all
+  schedule: every 10 minutes
+  timezone: Asia/Taipei
+
+- description: All near sea forecasts
+  url: /nearsea?location=all
+  schedule: every 10 minutes
+  timezone: Asia/Taipei
+
+- description: All tide forecasts
+  url: /tide?location=all
+  schedule: every 10 minutes
+  timezone: Asia/Taipei
+
+- description: All tide forecasts
+  url: /obs?location=all
+  schedule: every 10 minutes
+  timezone: Asia/Taipei
+
+- description: All tide forecasts
+  url: /global?location=all
   schedule: every 10 minutes
   timezone: Asia/Taipei
 

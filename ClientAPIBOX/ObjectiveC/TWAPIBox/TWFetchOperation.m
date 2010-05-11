@@ -56,6 +56,20 @@
 		_request.timeoutInterval = 1.0;
 		_request.sessionInfo = sessionInfo;
 		_request.delegate = self;
+		
+		NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+		NSDictionary *infoDictionary = [bundle infoDictionary];
+		NSString *clientName = [infoDictionary objectForKey:@"CFBundleDisplayName"];
+		NSString *version = [infoDictionary objectForKey:@"CFBundleVersion"];		
+		NSString *userAgent = [NSString stringWithFormat:@"%@ %@", clientName, version];
+
+#ifdef TARGET_OS_IPHONE
+		UIDevice *d = [UIDevice currentDevice];
+		NSString *deviceInfo = [NSString stringWithFormat:@" (%@/%@ %@)", d.model, d.systemName, d.systemVersion];
+		userAgent = [userAgent stringByAppendingString:deviceInfo];
+#endif
+		
+		[_request setUserAgent:userAgent];
 	}
 	return self;
 }

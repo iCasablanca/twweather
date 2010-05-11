@@ -257,8 +257,8 @@ def main():
 			('/global', GlobalController),
 			],
  			debug=True)
- 	wsgiref.handlers.CGIHandler().run(application)
-	# run_wsgi_app(application)
+ 	# wsgiref.handlers.CGIHandler().run(application)
+	run_wsgi_app(application)
 
 if __name__ is '__main__':
 	main()
