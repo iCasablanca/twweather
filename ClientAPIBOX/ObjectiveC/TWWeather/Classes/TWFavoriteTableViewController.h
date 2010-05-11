@@ -32,7 +32,7 @@
 #import "TWLocationSettingTableViewController.h"
 #import "TWLoadingView.h"
 
-@interface TWFavoriteTableViewController : UITableViewController <TWLocationSettingTableViewControllerDelegate>
+@interface TWFavoriteTableViewController : UITableViewController <TWLocationSettingTableViewControllerDelegate, ADBannerViewDelegate>
 {
 	ADBannerView *bannerView;
 	
@@ -51,6 +51,8 @@
 	BOOL isLoading;
 	BOOL isLoadingWeek;
 	NSUInteger loadingWeekIndex;
+	
+	NSDate *lastCheckDate;
 }
 
 - (void)updateFilteredArray;
@@ -63,5 +65,6 @@
 
 @property (retain, nonatomic) NSDate *updateDate;
 @property (retain, nonatomic) UITableView *tableView;
+@property (retain, nonatomic) NSDate *lastCheckDate;
 
 @end

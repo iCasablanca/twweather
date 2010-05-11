@@ -39,6 +39,8 @@
 #import "TWAPIBox.h"
 #import "TWAPIBox+Info.h"
 
+#include <complex.h>
+
 static NSString *lastAllForecastsPreferenceName = @"lastAllForecastsPreferenceName";
 static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 
@@ -55,6 +57,7 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 	[warningArray release];
 	[weekDictionary release];
 	[updateDate release];
+	[lastCheckDate release];
     [super dealloc];
 }
 
@@ -144,6 +147,11 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 - (void)viewDidAppear:(BOOL)animated
 {
 	[super viewDidAppear:animated];
+
+	if (cabs([lastCheckDate timeIntervalSinceDate:[NSDate date]]) > 60 * 60) {
+		dataLoaded = NO;
+	}
+	
 	if (!dataLoaded) {
 		[self loadData];
 		dataLoaded = YES;
@@ -489,12 +497,14 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 		errorLabel.text = NSLocalizedString(@"Failed to load data!", @"");
 	}
 	[self.tableView reloadData];
+	self.lastCheckDate = [NSDate date];
 }
 - (void)APIBox:(TWAPIBox *)APIBox didFailedFetchAllForecastsWithError:(NSError *)error
 {
 	[self hideLoadingView];
 	self.tableView.hidden = YES;
 	errorLabel.text = [error localizedDescription];
+	self.lastCheckDate = [NSDate date];
 }
 
 - (void)APIBox:(TWAPIBox *)APIBox didFetchWarnings:(id)result userInfo:(id)userInfo
@@ -529,13 +539,28 @@ static NSString *favoitesPreferenceName = @"favoitesPreferenceName";
 }
 
 
+- (void)adjustView
+{
+	CGRect tableFrame = self.view.bounds;
+	tableFrame.origin.y = 50;
+	tableFrame.size.height -= 50;
+	self.tableView.frame = tableFrame;
+	
+	CGRect adFrame = self.view.bounds;
+	adFrame.size.height = 50;
+	bannerView.frame = adFrame;
+	[self.view addSubview:bannerView];
+}
+
 - (void)bannerViewDidLoadAd:(ADBannerView *)banner
 {
+//	[self adjustView];
 	self.tableView.tableHeaderView = bannerView;	
 }
 
 @synthesize updateDate;
 @synthesize tableView = _tableView;
+@synthesize lastCheckDate;
 
 @end
 
