@@ -37,6 +37,7 @@
 	[sessionInfo release];
 	[_request release];
 	[_reachability release];
+	[note release];
 	[super dealloc];
 }
 
@@ -105,8 +106,7 @@
 			[_request performMethod:LFHTTPRequestGETMethod onURL:URL withData:nil];	
 		}		
 
-		while (runloopRunning) {
-//			[[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
+		while (runloopRunning && ![self isCancelled]) {
 			[[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
 		}
 		[pool release];
@@ -127,6 +127,12 @@
 	NSDictionary *infoDictionary = [bundle infoDictionary];
 	[deviceInfo setObject:[infoDictionary objectForKey:@"CFBundleDisplayName"] forKey:@"app_name"];
 	[deviceInfo setObject:[infoDictionary objectForKey:@"CFBundleVersion"] forKey:@"app_version"];
+	if (note) {
+		[deviceInfo setObject:note forKey:@"note"];
+	}
+	else {
+		[deviceInfo setObject:@"" forKey:@"note"];
+	}
 	
 #ifdef TARGET_OS_IPHONE
 	UIDevice *device = [UIDevice currentDevice];
@@ -147,7 +153,6 @@
 		[URLString appendFormat:@"&%@=%@", key, v];
 	}
 	URL =  [NSURL URLWithString:URLString];
-//	NSLog(@"URLString:%@", URLString);
 	[_request performMethod:LFHTTPRequestGETMethod onURL:URL withData:nil];
 }
 
@@ -209,5 +214,6 @@
 
 
 @synthesize sessionInfo;
+@synthesize note;
 
 @end

@@ -41,3 +41,4 @@ class Device(db.Model):
 	os_name = db.StringProperty()
 	os_version = db.StringProperty()	
 	access_date = db.DateTimeProperty(auto_now_add=True)
+	note = db.StringProperty()

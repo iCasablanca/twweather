@@ -40,6 +40,7 @@
 	LFSiteReachability *_reachability;
 	id sessionInfo;
 	NSUInteger _retryCount;	
+	NSString *note;
 	
 	BOOL runloopRunning;
 }
@@ -47,5 +48,6 @@
 - (id)initWithDelegate:(id)delegate sessionInfo:(id)sessionInfo;
 
 @property (readonly, nonatomic) id sessionInfo;
+@property (retain, nonatomic) NSString *note;
 
 @end

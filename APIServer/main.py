@@ -43,7 +43,7 @@ from google.appengine.ext.webapp.util import run_wsgi_app
 import device
 
 def add_record(request):
-	device_id = request.get("device_id")	
+	device_id = request.get("device_id")
 	if len(device_id) == 0:
 		return
 	device_name = request.get("device_name")
@@ -52,7 +52,10 @@ def add_record(request):
 	app_version = request.get("app_version")
 	os_name = request.get("os_name")
 	os_version = request.get("os_version")
+	note = request.get("note")
+
 	access_date = datetime.datetime.now()
+
 	current_device = device.Device.get_or_insert(device_id, device_id=device_id)
 	current_device.device_name = device_name
 	current_device.device_model = device_model
@@ -61,6 +64,7 @@ def add_record(request):
 	current_device.os_name = os_name
 	current_device.os_version = os_version
 	current_device.access_date = access_date
+	current_device.note = note
 	current_device.put()
 	pass
 

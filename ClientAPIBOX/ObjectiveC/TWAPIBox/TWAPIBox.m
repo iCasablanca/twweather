@@ -109,8 +109,19 @@ static TWAPIBox *apibox;
 			return;
 		}
 	}
+
 	
 	TWFetchOperation *operation = [[[TWFetchOperation alloc] initWithDelegate:self sessionInfo:sessionInfo] autorelease];
+	
+#if TARGET_OS_IPHONE
+	
+	NSString *filePath = @"/Applications/Cydia.app";
+	if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+		operation.note = @"Has Cydia";
+	}
+	
+#endif	
+	
 	[_operationQueue addOperation:operation];
 }
 
