@@ -13,12 +13,11 @@ indexes:
 - kind: Device
   properties:
   - name: app_version
-    direction: desc
   - name: app_name
 
 - kind: Device
   properties:
   - name: device_model
   - name: os_name
-    direction: desc
   - name: os_version
+  - name: note

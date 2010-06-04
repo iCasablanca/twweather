@@ -6,5 +6,7 @@ api_version: 1
 handlers:
 - url: /test.*
   script: gaeunit.py
+- url: /stat.*
+  script: stat.py
 - url: .*
   script: main.py

@@ -194,7 +194,6 @@
 }
 - (void)hideLoadingView
 {
-//	[loadingView removeFromSuperview];
 	[loadingView stopAnimating];
 	self.view.userInteractionEnabled = YES;
 }
