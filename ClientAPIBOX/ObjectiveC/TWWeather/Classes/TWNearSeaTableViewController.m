@@ -63,11 +63,11 @@
 		controller.publishTime = [[TWAPIBox sharedBox] shortDateTimeStringFromDate:date];
 
 		dateString = [result objectForKey:@"validBeginTime"];
-		date = [[TWAPIBox sharedBox] dateFromShortString:dateString];
+		date = [[TWAPIBox sharedBox] dateFromString:dateString];
 		controller.validBeginTime = [[TWAPIBox sharedBox] shortDateTimeStringFromDate:date];
 
 		dateString = [result objectForKey:@"validEndTime"];
-		date = [[TWAPIBox sharedBox] dateFromShortString:dateString];
+		date = [[TWAPIBox sharedBox] dateFromString:dateString];
 		controller.validEndTime = [[TWAPIBox sharedBox] shortDateTimeStringFromDate:date];
 		
 		controller.description = [result objectForKey:@"description"];

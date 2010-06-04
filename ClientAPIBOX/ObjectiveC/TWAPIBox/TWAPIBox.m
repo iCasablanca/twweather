@@ -230,6 +230,7 @@ static TWAPIBox *apibox;
 	}	
 	if (!_formatter) {
 		_formatter = [[NSDateFormatter alloc] init];
+		[_formatter setLocale:[[[NSLocale alloc] initWithLocaleIdentifier:@"en"] autorelease]];
 	}
 	[_formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
 	NSDate *date = [_formatter dateFromString:string];
@@ -242,6 +243,7 @@ static TWAPIBox *apibox;
 	}
 	if (!_formatter) {
 		_formatter = [[NSDateFormatter alloc] init];
+		[_formatter setLocale:[[[NSLocale alloc] initWithLocaleIdentifier:@"en"] autorelease]];
 	}
 	[_formatter setDateFormat:@"yyyy-MM-dd"];
 	NSDate *date = [_formatter dateFromString:string];
