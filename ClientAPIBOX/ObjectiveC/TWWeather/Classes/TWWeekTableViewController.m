@@ -62,7 +62,7 @@
 		controller.title = [result objectForKey:@"locationName"];
 		controller.forecastArray = [result objectForKey:@"items"];
 		NSString *dateString = [result objectForKey:@"publishTime"];
-		NSDate *date = [[TWAPIBox sharedBox] dateFromShortString:dateString];
+		NSDate *date = [[TWAPIBox sharedBox] dateFromString:dateString];
 		controller.publishTime = [[TWAPIBox sharedBox] shortDateTimeStringFromDate:date];
 		[self.navigationController pushViewController:controller animated:YES];
 		[controller release];

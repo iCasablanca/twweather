@@ -126,8 +126,6 @@
 		NSString *thePassword = [SFHFKeychainUtils getPasswordForUsername:theLoginName andServiceName:TWTwitterService error:&error];
 		if (thePassword && !error) {
 			OAToken *token = [[[OAToken alloc] initWithUserDefaultsUsingServiceProviderName:TWTwitterTokenPreference prefix:@""] autorelease];
-//			MGTwitterEngine *engine = [TWTwitterEngine sharedEngine].engine;
-//			[engine setUsername:theLoginName password:thePassword];
 			TWTwitterEngine *engine = [TWTwitterEngine sharedEngine];
 			[engine.engine setAccessToken:token];
 			engine.username = theLoginName;

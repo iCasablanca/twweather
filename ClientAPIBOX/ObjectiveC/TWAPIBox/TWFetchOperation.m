@@ -198,15 +198,11 @@
 
 - (void)reachability:(LFSiteReachability *)inReachability site:(NSURL *)inURL isAvailableOverConnectionType:(NSString *)inConnectionType
 {
-//	NSLog(@"cmd:%s", _cmd);
 	[inReachability stopChecking];
-//	NSURL *URL = [sessionInfo objectForKey:@"URL"];
-//	[_request performMethod:LFHTTPRequestGETMethod onURL:URL withData:nil];	
 	[self doFetch];
 }
 - (void)reachability:(LFSiteReachability *)inReachability siteIsNotAvailable:(NSURL *)inURL
 {
-//	NSLog(@"cmd:%s", _cmd);
 	[inReachability stopChecking];
 	[delegate httpRequest:_request didFailWithError:LFHTTPRequestConnectionError];
     runloopRunning = NO;

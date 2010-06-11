@@ -221,7 +221,7 @@
 	controller.title = [self.weekDictionary objectForKey:@"locationName"];
 	controller.forecastArray = [self.weekDictionary objectForKey:@"items"];
 	NSString *dateString = [self.weekDictionary objectForKey:@"publishTime"];
-	NSDate *date = [[TWAPIBox sharedBox] dateFromShortString:dateString];
+	NSDate *date = [[TWAPIBox sharedBox] dateFromString:dateString];
 	controller.publishTime = [[TWAPIBox sharedBox] shortDateTimeStringFromDate:date];
 	[self.navigationController pushViewController:controller animated:YES];
 	[controller release];

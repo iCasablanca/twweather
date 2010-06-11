@@ -275,6 +275,11 @@ class ImageHandler(webapp.RequestHandler):
 		self.response.out.write(imageData)
 		add_record(self.request)
 
+class RedirectController(webapp.RequestHandler):
+	def get(self, args):
+		self.redirect("/warning")
+		pass
+
 class MainHandler(webapp.RequestHandler):
 	def get(self):
 		path = os.path.join(os.path.dirname(__file__), 'html', 'main.html')
@@ -294,6 +299,7 @@ def main():
 			('/image', ImageHandler),
 			('/obs', OBSController),
 			('/warning', WarningController),
+			('/warning(.*)', RedirectController),
 			('/global', GlobalController),
 			],
  			debug=True)

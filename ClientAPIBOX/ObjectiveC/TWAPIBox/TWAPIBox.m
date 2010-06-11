@@ -60,7 +60,7 @@ static TWAPIBox *apibox;
     if (self) {
 		[self initInfoArrays];
 		_operationQueue = [[NSOperationQueue alloc] init];
-		[_operationQueue setMaxConcurrentOperationCount:10];
+		[_operationQueue setMaxConcurrentOperationCount:1];
     }
     return self;
 }
@@ -230,6 +230,7 @@ static TWAPIBox *apibox;
 	}	
 	if (!_formatter) {
 		_formatter = [[NSDateFormatter alloc] init];
+		[_formatter setLocale:[[[NSLocale alloc] initWithLocaleIdentifier:@"en"] autorelease]];
 	}
 	[_formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
 	NSDate *date = [_formatter dateFromString:string];
@@ -242,6 +243,7 @@ static TWAPIBox *apibox;
 	}
 	if (!_formatter) {
 		_formatter = [[NSDateFormatter alloc] init];
+		[_formatter setLocale:[[[NSLocale alloc] initWithLocaleIdentifier:@"en"] autorelease]];
 	}
 	[_formatter setDateFormat:@"yyyy-MM-dd"];
 	NSDate *date = [_formatter dateFromString:string];
@@ -278,6 +280,24 @@ static TWAPIBox *apibox;
 
 #pragma mark -
 
+- (void)performAction:(NSDictionary *)actionDictionary
+{
+	NSString *actionString = [actionDictionary objectForKey:@"action"];
+	SEL action = NSSelectorFromString(actionString);
+	LFHTTPRequest *request = [actionDictionary objectForKey:@"request"];
+	NSData *data = [actionDictionary objectForKey:@"data"];
+	[self performSelector:action withObject:request withObject:data];
+}
+
+- (void)performFailedAction:(NSDictionary *)actionDictionary
+{
+	NSString *actionString = [actionDictionary objectForKey:@"action"];
+	SEL action = NSSelectorFromString(actionString);
+	LFHTTPRequest *request = [actionDictionary objectForKey:@"request"];
+	NSString *error = [actionDictionary objectForKey:@"error"];
+	[self performSelector:action withObject:request withObject:error];
+}
+
 - (void)httpRequestDidComplete:(LFHTTPRequest *)request
 {
 	NSData *data = [request receivedData];
@@ -292,13 +312,17 @@ static TWAPIBox *apibox;
 	if (URL) {
 		[self writeDataToCache:data fromURL:URL];
 	}
-	[self performSelector:action withObject:request withObject:data];
+	NSDictionary *d = [NSDictionary dictionaryWithObjectsAndKeys:actionString, @"action", request, @"request", data, @"data", nil];
+	[self performSelectorOnMainThread:@selector(performAction:) withObject:d waitUntilDone:NO];
+//	[self performSelector:action withObject:request withObject:data];
 }
 - (void)httpRequestDidCancel:(LFHTTPRequest *)request
 {
 	NSString *actionString = [[request sessionInfo] objectForKey:@"action"];
-	SEL action = NSSelectorFromString(actionString);
-	[self performSelector:action withObject:request withObject:nil];
+//	SEL action = NSSelectorFromString(actionString);
+//	[self performSelector:action withObject:request withObject:nil];
+	NSDictionary *d = [NSDictionary dictionaryWithObjectsAndKeys:actionString, @"action", request, nil];
+	[self performSelectorOnMainThread:@selector(performAction:) withObject:d waitUntilDone:NO];
 }
 - (void)httpRequest:(LFHTTPRequest *)request didFailWithError:(NSString *)error
 {
@@ -313,15 +337,20 @@ static TWAPIBox *apibox;
 			[sessionInfo setObject:date forKey:@"date"];
 
 			NSString *actionString = [[request sessionInfo] objectForKey:@"action"];
-			SEL action = NSSelectorFromString(actionString);
-			[self performSelector:action withObject:request withObject:data];
+//			SEL action = NSSelectorFromString(actionString);
+//			[self performSelector:action withObject:request withObject:data];
+			NSDictionary *d = [NSDictionary dictionaryWithObjectsAndKeys:actionString, @"action", request, @"request", data, @"data", nil];
+			[self performSelectorOnMainThread:@selector(performAction:) withObject:d waitUntilDone:NO];
 			return;
 		}
 	}
 	
 	NSString *failedActionString = [[request sessionInfo] objectForKey:@"failedAction"];
-	SEL failedAction = NSSelectorFromString(failedActionString);
-	[self performSelector:failedAction withObject:request withObject:error];
+//	SEL failedAction = NSSelectorFromString(failedActionString);
+//	[self performSelector:failedAction withObject:request withObject:error];
+	NSDictionary *d = [NSDictionary dictionaryWithObjectsAndKeys:failedActionString, @"action", request, @"request", error, @"error", nil];
+	[self performSelectorOnMainThread:@selector(performFailedAction:) withObject:d waitUntilDone:NO];
+
 }
 
 	
