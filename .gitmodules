@@ -1,9 +1,6 @@
 [submodule "ClientAPIBOX/ObjectiveC/External/LFWebAPIKit"]
 	path = ClientAPIBOX/ObjectiveC/External/LFWebAPIKit
 	url = git://github.com/lukhnos/LFWebAPIKit.git
-[submodule "ClientAPIBOX/ObjectiveC/External/facebook-iphone-sdk"]
-	path = ClientAPIBOX/ObjectiveC/External/facebook-iphone-sdk
-	url = http://github.com/facebook/facebook-iphone-sdk.git
 [submodule "ClientAPIBOX/ObjectiveC/External/ObjectivePlurk"]
 	path = ClientAPIBOX/ObjectiveC/External/ObjectivePlurk
 	url = git://github.com/zonble/ObjectivePlurk.git
@@ -22,3 +19,6 @@
 [submodule "ClientAPIBOX/ObjectiveC/External/oauthconsumer"]
 	path = ClientAPIBOX/ObjectiveC/External/oauthconsumer
 	url = http://github.com/jdg/oauthconsumer.git
+[submodule "ClientAPIBOX/ObjectiveC/External/facebook-ios-sdk"]
+	path = ClientAPIBOX/ObjectiveC/External/facebook-ios-sdk
+	url = http://github.com/facebook/facebook-ios-sdk.git

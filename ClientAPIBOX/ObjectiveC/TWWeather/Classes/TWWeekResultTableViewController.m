@@ -77,17 +77,13 @@
 - (void)shareViaFacebook
 {
 	if ([[TWWeatherAppDelegate sharedDelegate] confirmFacebookLoggedIn]) {
-		FBStreamDialog *dialog = [[[FBStreamDialog alloc] init] autorelease];
-		dialog.delegate = [TWWeatherAppDelegate sharedDelegate];
-		
 		NSString *feedTitle = [NSString stringWithFormat:@"%@ 一周天氣預報", [self title]];
-		NSString *description = [self _feedDescription];
-		
+		NSString *description = [self _feedDescription];	
 		NSString *attachment = [NSString stringWithFormat:@"{\"name\":\"%@\", \"description\":\"%@\"}", feedTitle, description];
-		dialog.attachment = attachment;
-		dialog.userMessagePrompt = feedTitle;
-		[dialog show];
-	}
+		NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys: API_KEY, @"api_key", feedTitle,  @"user_message_prompt", attachment, @"attachment", nil];
+		
+		[[TWWeatherAppDelegate sharedDelegate].facebook dialog:@"stream.publish" andParams:params andDelegate:[TWWeatherAppDelegate sharedDelegate]];
+	}	
 }
 - (void)shareViaSocialComposer
 {

@@ -75,9 +75,9 @@
 		SFXSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:TWSFXPreference];
 	}	
 	if (!loginButton) {
-		loginButton = [[FBLoginButton alloc] init];
-		loginButton.session = [TWWeatherAppDelegate sharedDelegate].facebookSession;
+		loginButton = [[FBLoginButton buttonWithType:UIButtonTypeCustom] retain];
 		loginButton.frame = CGRectMake(200, 3, 80, 40);
+		[loginButton addTarget:self action:@selector(facebookButtonAction:) forControlEvents:UIControlEventTouchUpInside];
 	}
 	
 	self.title = NSLocalizedString(@"Settings", @"");
@@ -85,6 +85,8 @@
 - (void)viewWillAppear:(BOOL)animated 
 {
     [super viewWillAppear:animated];
+	loginButton.isLoggedIn = [[TWWeatherAppDelegate sharedDelegate].facebook isSessionValid];
+	[loginButton updateImage];
 }
 - (void)viewDidAppear:(BOOL)animated 
 {
@@ -114,6 +116,16 @@
 {
 	UISwitch *aSwitch = (UISwitch *)sender;
 	[[NSUserDefaults standardUserDefaults] setBool:aSwitch.on forKey:TWSFXPreference];
+}
+- (IBAction)facebookButtonAction:(id)sender
+{
+	if (![[TWWeatherAppDelegate sharedDelegate].facebook isSessionValid]) {
+		NSArray *permissions = [NSArray arrayWithObjects:@"publish_stream", @"offline_access", @"user_photos", @"user_notes", nil];
+		[[TWWeatherAppDelegate sharedDelegate].facebook authorize:APP_ID permissions:permissions delegate:self];
+	}
+	else {
+		[[TWWeatherAppDelegate sharedDelegate].facebook logout:self];
+	}
 }
 
 #pragma mark -
@@ -171,9 +183,8 @@
 			case 0:
 				cell.imageView.image = [UIImage imageNamed:@"SocialFacebook.png"];
 				cell.textLabel.text = NSLocalizedString(@"Facebook", @"");
-				loginButton.frame = CGRectMake(cell.bounds.size.width - 120 , 3, 80, 40);
-				[cell.contentView addSubview:loginButton];
-//				cell.accessoryView = loginButton;
+				loginButton.frame = CGRectMake(0 , 0, 72, 38);
+				cell.accessoryView = loginButton;
 				break;
 			case 1:
 				cell.imageView.image = [UIImage imageNamed:@"SocialPlurk.png"];
@@ -216,7 +227,7 @@
 		if (indexPath.row == 1) {
 			controller = [[TWPlurkSettingTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
 		}
-		else {
+		else if (indexPath.row == 2) {
 			controller = [[TWTwitterSettingTableViewController alloc] initWithStyle:UITableViewStyleGrouped];			 
 		}
 		if (controller) {
@@ -248,6 +259,39 @@
 	}
 	return nil;
 }
+
+#pragma mark -
+#pragma mark FacebookSession delegate methods
+
+- (void)fbDidLogin
+{
+	Facebook *facebook = [TWWeatherAppDelegate sharedDelegate].facebook;
+	loginButton.isLoggedIn = [facebook isSessionValid];
+	[loginButton updateImage];
+
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Successfully connected on Facebook!", @"") message:@"" delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:nil];
+	[alert show];
+	[alert release];	
+	
+	[[NSUserDefaults standardUserDefaults] setObject:facebook.accessToken forKey:@"FBAccessToken"];
+	[[NSUserDefaults standardUserDefaults] setObject:facebook.expirationDate forKey:@"FBSessionExpires"];
+	[[NSUserDefaults standardUserDefaults] synchronize];	
+}
+- (void)fbDidNotLogin:(BOOL)cancelled
+{
+	loginButton.isLoggedIn = [[TWWeatherAppDelegate sharedDelegate].facebook isSessionValid];
+	[loginButton updateImage];
+}
+- (void)fbDidLogout
+{
+	loginButton.isLoggedIn = [[TWWeatherAppDelegate sharedDelegate].facebook isSessionValid];
+	[loginButton updateImage];
+	
+	[[NSUserDefaults standardUserDefaults] removeObjectForKey:@"FBAccessToken"];
+	[[NSUserDefaults standardUserDefaults] removeObjectForKey:@"FBSessionExpires"];
+	[[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 
 @end
 

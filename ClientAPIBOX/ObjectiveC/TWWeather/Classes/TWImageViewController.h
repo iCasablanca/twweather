@@ -28,7 +28,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import "TWLoadingView.h"
-#import "FBconnect/FBConnect.h"
+#import "FBConnect.h"
 
 @interface TWImageViewController : UIViewController <
 	UIScrollViewDelegate, 

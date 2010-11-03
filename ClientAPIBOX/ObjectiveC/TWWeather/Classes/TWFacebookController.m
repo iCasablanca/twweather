@@ -207,10 +207,10 @@
 {
 	NSLog(@"error:%@", [error description]);
 	
-	FBPermissionDialog* dialog = [[[FBPermissionDialog alloc] init] autorelease];
-	dialog.delegate = self;
-	dialog.permission = @"read_stream";
-	[dialog show];
+//	FBPermissionDialog* dialog = [[[FBPermissionDialog alloc] init] autorelease];
+//	dialog.delegate = self;
+//	dialog.permission = @"read_stream";
+//	[dialog show];
 }
 
 @end

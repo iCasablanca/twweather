@@ -28,7 +28,8 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import <AVFoundation/AVFoundation.h>
-#import "FBconnect/FBConnect.h"
+//#import "FBConnect.h"
+#import "FBConnect.h"
 #import "ObjectivePlurk.h"
 #import "TWTwitterEngine.h"
 #import "TWFacebookAPI.h"
@@ -46,7 +47,7 @@
     UITabBarController *tabBarController;
 	
 	AVAudioPlayer *audioPlayer;
-	FBSession *facebookSession;
+	Facebook *facebook;
 }
 
 + (TWWeatherAppDelegate*)sharedDelegate;
@@ -61,7 +62,7 @@
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet UITabBarController *tabBarController;
 @property (nonatomic, retain) IBOutlet UINavigationController *navigationController;
-@property (readonly) FBSession *facebookSession;
+@property (readonly) Facebook *facebook;
 
 @end
 

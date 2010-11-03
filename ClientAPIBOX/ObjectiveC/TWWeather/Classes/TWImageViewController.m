@@ -136,13 +136,8 @@
 - (void)shareImageViaFacebook
 {
 	if ([[TWWeatherAppDelegate sharedDelegate] confirmFacebookLoggedIn]) {
-		
-		NSMutableDictionary *args = [[[NSMutableDictionary alloc] init] autorelease];
-		[args setObject:self.title forKey:@"caption"];		
-		FBRequest *uploadPhotoRequest = [FBRequest requestWithDelegate:self];
-		NSData *data = UIImagePNGRepresentation(_image);
-		[uploadPhotoRequest call:@"photos.upload" params:args dataParam:data];
-		return;		
+		NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:API_KEY, @"api_key", _image, @"picture", self.title, @"caption", nil];	
+		[[TWWeatherAppDelegate sharedDelegate].facebook requestWithMethodName: @"photos.upload" andParams: params andHttpMethod: @"POST" andDelegate:self];
 	}
 }
 - (void)shareImageViaPlurk
@@ -242,17 +237,12 @@
 {
 	[self hideLoadingView];	
 
-	FBStreamDialog *dialog = [[[FBStreamDialog alloc] init] autorelease];
-	dialog.delegate = [TWWeatherAppDelegate sharedDelegate];
-	dialog.userMessagePrompt = self.title;
-	
+	NSString *feedTitle = self.title;
 	NSString *name = [result objectForKey:@"caption"];
-	NSString *src = [result objectForKey:@"src_big"];
-	NSString *href = [result objectForKey:@"link"];
-	
-	NSString *attachment = [NSString stringWithFormat:@"{\"name\":\"%@\",\"media\":[{\"type\":\"image\", \"src\":\"%@\", \"href\":\"%@\"}]}", name, src, href];
-	dialog.attachment = attachment;
-	[dialog show];	
+	NSString *link = [result objectForKey:@"link"];	
+	NSString *attachment = [NSString stringWithFormat:@"{\"name\":\"%@\", \"href\":\"%@\"}", name, link];
+	NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:API_KEY, @"api_key", feedTitle,  @"user_message_prompt", attachment, @"attachment", nil];
+	[[TWWeatherAppDelegate sharedDelegate].facebook dialog:@"stream.publish" andParams:params andDelegate:[TWWeatherAppDelegate sharedDelegate]];
 }
 - (void)request:(FBRequest*)request didFailWithError:(NSError*)error
 {

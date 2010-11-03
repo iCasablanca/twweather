@@ -51,8 +51,7 @@
 	[navigationController release];
 	[window release];
 	[audioPlayer release];
-	[facebookSession.delegates removeObject:self];
-	[facebookSession release];
+	[facebook release];
 	[super dealloc];
 }
 
@@ -60,7 +59,7 @@
 #pragma mark -
 #pragma mark Application lifecycle
 
-- (void)applicationDidFinishLaunching:(UIApplication *)application 
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {  
 	self.window = [[[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds] autorelease];
 	
@@ -105,8 +104,12 @@
 	[window addSubview:[self.navigationController view]];
     [window makeKeyAndVisible];
 	
-	facebookSession = [[FBSession sessionForApplication:API_KEY secret:SECRET delegate:self] retain];
-	[facebookSession resume];
+	facebook = [[Facebook alloc] init];
+	NSString *accessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"FBAccessToken"];
+	if (accessToken) {
+		facebook.accessToken = accessToken;
+		facebook.expirationDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"FBSessionExpires"];
+	}
 	
 	[ObjectivePlurk sharedInstance].APIKey = PLURK_API_KEY;
 	if (![[ObjectivePlurk sharedInstance] resume]) {
@@ -142,6 +145,8 @@
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:TWBGMPreference]) {
 		[self startPlayingBGM];
 	}
+	
+	return YES;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application 
@@ -192,39 +197,18 @@
 
 - (BOOL)confirmFacebookLoggedIn
 {
-	if (!facebookSession.isConnected) {
+	if (![facebook isSessionValid]) {
 		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"You did not connect to Facebook.", @"") message:NSLocalizedString(@"Do you want to connect now?", @"") delegate:self cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:NSLocalizedString(@"Connect", @""), nil];
 		[alertView show];
 		[alertView release];
 	}
-	return facebookSession.isConnected;
-}
-
-- (void)dialogDidSucceed:(FBDialog*)dialog
-{
-	if ([dialog isKindOfClass:[FBLoginDialog class]]) {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Successfully connected on Facebook!", @"") message:@"" delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:nil];
-		[alert show];
-		[alert release];		
-	}
-}
-- (void)dialogDidCancel:(FBDialog*)dialog
-{
-}
-- (void)dialog:(FBDialog*)dialog didFailWithError:(NSError*)error
-{
-	if ([dialog isKindOfClass:[FBLoginDialog class]]) {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Failed to post on Facebook!", @"") message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:nil];
-		[alert show];
-		[alert release];
-	}
+	return [facebook isSessionValid];	
 }
 
 - (void)_showFacebookLoginViewWithDelay
 {
-	FBLoginDialog* dialog = [[[FBLoginDialog alloc] initWithSession:facebookSession] autorelease];
-	dialog.delegate = self;
-	[dialog show];
+	NSArray *permissions = [NSArray arrayWithObjects:@"publish_stream", @"offline_access", @"user_photos", @"user_notes", nil];
+	[facebook authorize:APP_ID permissions:permissions delegate:self];
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
@@ -237,23 +221,29 @@
 #pragma mark -
 #pragma mark FacebookSession delegate methods
 
-- (void)session:(FBSession*)session didLogin:(FBUID)uid
+- (void)fbDidLogin
 {
-}
-- (void)sessionDidNotLogin:(FBSession*)session
-{
-}
-- (void)session:(FBSession*)session willLogout:(FBUID)uid
-{
-}
-- (void)sessionDidLogout:(FBSession*)session
-{
-}
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Successfully connected on Facebook!", @"") message:@"" delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", @"") otherButtonTitles:nil];
+	[alert show];
+	[alert release];
 
+	[[NSUserDefaults standardUserDefaults] setObject:facebook.accessToken forKey:@"FBAccessToken"];
+	[[NSUserDefaults standardUserDefaults] setObject:facebook.expirationDate forKey:@"FBSessionExpires"];
+	[[NSUserDefaults standardUserDefaults] synchronize];
+}
+- (void)fbDidNotLogin:(BOOL)cancelled
+{
+}
+- (void)fbDidLogout
+{
+	[[NSUserDefaults standardUserDefaults] removeObjectForKey:@"FBAccessToken"];
+	[[NSUserDefaults standardUserDefaults] removeObjectForKey:@"FBSessionExpires"];
+	[[NSUserDefaults standardUserDefaults] synchronize];
+}
 
 @synthesize window;
 @synthesize tabBarController;
 @synthesize navigationController;
-@synthesize facebookSession;
+@synthesize facebook;
 
 @end
